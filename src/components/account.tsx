@@ -25,16 +25,16 @@ const UsernameField = () => {
 }
 
 const NotificationPreferenceField = () => {
-    const [isModified, setIsModified] = useState(false);
+    /* const [isModified, setIsModified] = useState(false);
     const toggleModified = () => {
         setIsModified(true);
-    };
+    }; */
 
     return (
         <select 
             name="notificationPreference" 
             id="notificationPreferenceDropdown"
-            onChange={toggleModified}
+            //onChange={toggleModified}
         >
             <option defaultChecked value="N">No Thanks</option>
             <option value="E">Email</option>
@@ -55,10 +55,36 @@ const PhoneNumberField = () => {
     )
 }
 
+const SaveButton = () => {
+    return (
+        <button
+            className="accountInputField"
+            id="saveAccountFieldButton"
+            type="submit"
+        />
+    )
+}
+
 const AccountInfo = () => {
     return (
         <div>
+            <UsernameField />
 
+            <NotificationPreferenceField />
+            <SaveButton />
+
+            <EmailAddressField />
+            <SaveButton />
+
+            <PhoneNumberField />
+            <SaveButton />
+
+            <button 
+                className="submitButton"
+                id="takeMeToPicksButton"
+                type="submit"
+            />
+            
         </div>
     )
 }

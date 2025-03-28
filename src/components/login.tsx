@@ -29,7 +29,7 @@ const LoginInputs = () => {
                 id="createAccountButton"
                 type="button"
             />
-
+            
         </div>
     )
 }

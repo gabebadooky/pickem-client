@@ -1,44 +1,37 @@
-import { useState } from "react";
-
-
-const LoginTextInput = ({ placeholderText }: { placeholderText : string }) => {
-    return (
-        <input
-            placeholder={placeholderText}
-            type="text"
-        />
-    )
-}
-
-const SubmitButton = () => {
-    return (
-        <button
-            //onClick={}
-        >
-            Continue
-        </button>
-    )
-}
-
-const CreateAccountButton = () => {
-    return (
-        <button
-            //onClick={}
-            type="submit"
-        >
-            Create Account
-        </button>
-    )
-}
-
-
-const Login = () => {
+const LoginInputs = () => {
     return (
         <div>
-            <LoginTextInput placeholderText="Username or Email Address" />
-            <LoginTextInput placeholderText="Password" />
+
+            <h1>Pickem</h1>
+            
+            <input 
+                className="accountInputField"
+                id="usernameInput"
+                placeholder="Username or Email Address"
+                type="text"
+            />
+            
+            <input
+                className="accountInputField"
+                id="passwordInput"
+                placeholder="Password"
+                type="password"
+            />
+            
+            <button
+                className="submitButton"
+                id="loginButton"
+                type="submit"
+            />
+            
+            <button 
+                className="hollowButton"
+                id="createAccountButton"
+                type="button"
+            />
+
         </div>
     )
 }
 
-export default Login;
+export default LoginInputs;

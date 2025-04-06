@@ -81,7 +81,8 @@ const LoginInputs = () => {
                 id="loginButton"
                 onClick={(e) => {
                     if (!e.currentTarget.hidden) {
-                        // Todo: Render Register component 
+                        const loginAttemptResponse = loginRequest();
+                        
                     }
                 }}
                 type="submit"                

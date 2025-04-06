@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const hostURL = 'http://127.0.0.1:5000/login';
 
@@ -10,8 +10,15 @@ interface UserLogin {
 const LoginInputs = () => {
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
+    const [loginButtonVisible, setLoginButtonVisible] = useState(false);
+    let usernameInputValue: string;
+    let passwordInputValue: string;
 
-    const loginRequest = async (user: UserLogin) => {
+    const loginRequest = async () => {
+        const user: UserLogin = {
+            username: usernameInputValue,
+            password: passwordInputValue
+        };
         const response = await fetch(hostURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -33,6 +40,18 @@ const LoginInputs = () => {
             <input 
                 className="accountInputField"
                 id="usernameInput"
+                onChange={(e) => {
+                    usernameInputValue = e.target.value;
+                    if (e.target.value.length > 0) {
+                        setUsernamePopulated(true);
+                    } else {
+                        setUsernamePopulated(false);
+                    }
+
+                    if (usernamePopulated && passwordPopulated) {
+                        setLoginButtonVisible(true);
+                    }
+                }}
                 placeholder="Username or Email Address"
                 type="text"
             />
@@ -40,15 +59,32 @@ const LoginInputs = () => {
             <input
                 className="accountInputField"
                 id="passwordInput"
+                onChange={(e) => {
+                    passwordInputValue = e.target.value;
+                    if (e.target.value.length > 0) {
+                        setPasswordPopulated(true);
+                    } else {
+                        setPasswordPopulated(false);
+                    }
+
+                    if (usernamePopulated && passwordPopulated) {
+                        setLoginButtonVisible(true);
+                    }
+                }}
                 placeholder="Password"
                 type="password"
             />
             
             <button
                 className="submitButton"
+                hidden={loginButtonVisible}
                 id="loginButton"
-                //onClick={loginRequest({usernameInputValue, passwordInputValue})}
-                type="submit"
+                onClick={(e) => {
+                    if (!e.currentTarget.hidden) {
+                        // Todo: Render Register component 
+                    }
+                }}
+                type="submit"                
             />
             
             <button 

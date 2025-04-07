@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const hostURL = 'http://127.0.0.1:5000/login';
+const hostURL = "http://127.0.0.1:5000/login";
 
 interface UserLogin {
     username: string;
@@ -81,8 +81,7 @@ const LoginInputs = () => {
                 id="loginButton"
                 onClick={(e) => {
                     if (!e.currentTarget.hidden) {
-                        const loginAttemptResponse = loginRequest();
-                        
+                        loginRequest();
                     }
                 }}
                 type="submit"                

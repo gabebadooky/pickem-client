@@ -28,14 +28,11 @@ const LoginInputs = () => {
         
         if (!response.ok) {
             console.log(`Request error! ${response.status}`);
-        }
-        
-        const loginResponse = await response.json()
-        if (loginResponse.error) {
-            // render login warning
+            setLoginWarningVisible(true);
         } else {
             // render picks component
         }
+        
     };
 
     return (
@@ -97,7 +94,7 @@ const LoginInputs = () => {
                 id="loginButton"
                 onClick={(e) => {
                     if (!e.currentTarget.hidden) {
-                        
+                        loginRequest();
                     }
                 }}
                 type="submit"                

@@ -11,6 +11,7 @@ const LoginInputs = () => {
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
     const [loginButtonVisible, setLoginButtonVisible] = useState(false);
+    const [loginWarningVisible, setLoginWarningVisible] = useState(false);
     let usernameInputValue: string;
     let passwordInputValue: string;
 
@@ -22,25 +23,39 @@ const LoginInputs = () => {
         const response = await fetch(hostURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({username: user.username, password: user.password})
+            body: JSON.stringify({"username": user.username, "password": user.password})
         });
         
         if (!response.ok) {
             console.log(`Request error! ${response.status}`);
         }
+        
         const loginResponse = await response.json()
-        return loginResponse;
+        if (loginResponse.error) {
+            // render login warning
+        } else {
+            // render picks component
+        }
     };
 
     return (
         <div>
 
             <h1>Pickem</h1>
+
+            <p
+                className="warningMessage"
+                hidden={loginWarningVisible}
+                id="loginWarning"
+            >
+
+            </p>
             
             <input 
                 className="accountInputField"
                 id="usernameInput"
                 onChange={(e) => {
+                    setLoginButtonVisible(false);
                     usernameInputValue = e.target.value;
                     if (e.target.value.length > 0) {
                         setUsernamePopulated(true);
@@ -60,6 +75,7 @@ const LoginInputs = () => {
                 className="accountInputField"
                 id="passwordInput"
                 onChange={(e) => {
+                    setLoginButtonVisible(false);
                     passwordInputValue = e.target.value;
                     if (e.target.value.length > 0) {
                         setPasswordPopulated(true);
@@ -81,7 +97,7 @@ const LoginInputs = () => {
                 id="loginButton"
                 onClick={(e) => {
                     if (!e.currentTarget.hidden) {
-                        loginRequest();
+                        
                     }
                 }}
                 type="submit"                

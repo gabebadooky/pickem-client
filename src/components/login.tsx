@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const hostURL = "http://127.0.0.1:5000/login";
 
@@ -10,8 +10,8 @@ interface UserLogin {
 const LoginInputs = () => {
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
-    const [loginButtonVisible, setLoginButtonVisible] = useState(false);
-    const [loginWarningVisible, setLoginWarningVisible] = useState(false);
+    const [loginButtonHidden, setLoginButtonHidden] = useState(true);
+    const [loginWarningHidden, setLoginWarningHidden] = useState(true);
     let usernameInputValue: string;
     let passwordInputValue: string;
 
@@ -28,7 +28,7 @@ const LoginInputs = () => {
         
         if (!response.ok) {
             console.log(`Request error! ${response.status}`);
-            setLoginWarningVisible(true);
+            setLoginWarningHidden(true);
         } else {
             // render picks component
         }
@@ -42,26 +42,25 @@ const LoginInputs = () => {
 
             <p
                 className="warningMessage"
-                hidden={loginWarningVisible}
+                hidden={loginWarningHidden}
                 id="loginWarning"
             >
-
+                Username or Password is incorrect. Please try again.
             </p>
             
             <input 
                 className="accountInputField"
                 id="usernameInput"
-                onChange={(e) => {
-                    setLoginButtonVisible(false);
-                    usernameInputValue = e.target.value;
-                    if (e.target.value.length > 0) {
-                        setUsernamePopulated(true);
-                    } else {
-                        setUsernamePopulated(false);
-                    }
-
+                onEmptied={() => {
+                    setLoginButtonHidden(true);
+                    setUsernamePopulated(false);
+                    usernameInputValue = "";
+                }}
+                onInput={(e) => {
+                    setUsernamePopulated(true);
+                    usernameInputValue = e.currentTarget.value;
                     if (usernamePopulated && passwordPopulated) {
-                        setLoginButtonVisible(true);
+                        setLoginButtonHidden(false);
                     }
                 }}
                 placeholder="Username or Email Address"
@@ -71,26 +70,26 @@ const LoginInputs = () => {
             <input
                 className="accountInputField"
                 id="passwordInput"
-                onChange={(e) => {
-                    setLoginButtonVisible(false);
-                    passwordInputValue = e.target.value;
-                    if (e.target.value.length > 0) {
-                        setPasswordPopulated(true);
-                    } else {
-                        setPasswordPopulated(false);
-                    }
-
+                onEmptied={() => {
+                    setLoginButtonHidden(true);
+                    setPasswordPopulated(false);
+                    passwordInputValue = "";
+                }}
+                onInput={(e) => {
+                    setPasswordPopulated(true);
+                    passwordInputValue = e.currentTarget.value;
                     if (usernamePopulated && passwordPopulated) {
-                        setLoginButtonVisible(true);
+                        setLoginButtonHidden(false);
                     }
                 }}
+                
                 placeholder="Password"
                 type="password"
             />
             
             <button
                 className="submitButton"
-                hidden={loginButtonVisible}
+                hidden={loginButtonHidden}
                 id="loginButton"
                 onClick={(e) => {
                     if (!e.currentTarget.hidden) {
@@ -98,13 +97,17 @@ const LoginInputs = () => {
                     }
                 }}
                 type="submit"                
-            />
+            >
+                Login
+            </button>
             
             <button 
                 className="hollowButton"
                 id="createAccountButton"
                 type="button"
-            />
+            >
+                Create Account
+            </button>
             
         </div>
     )

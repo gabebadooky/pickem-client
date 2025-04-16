@@ -51,16 +51,16 @@ const LoginInputs = () => {
             <input 
                 className="accountInputField"
                 id="usernameInput"
-                onEmptied={() => {
-                    setLoginButtonHidden(true);
-                    setUsernamePopulated(false);
-                    usernameInputValue = "";
-                }}
-                onInput={(e) => {
-                    setUsernamePopulated(true);
+                onChange={(e) => {
                     usernameInputValue = e.currentTarget.value;
-                    if (usernamePopulated && passwordPopulated) {
-                        setLoginButtonHidden(false);
+                    if (e.currentTarget.value.trim() === '') {
+                        setUsernamePopulated(false);
+                        setLoginButtonHidden(true);
+                    } else{
+                        setUsernamePopulated(true);
+                        if (usernamePopulated && passwordPopulated) {
+                            setLoginButtonHidden(false);
+                        }
                     }
                 }}
                 placeholder="Username or Email Address"
@@ -70,19 +70,18 @@ const LoginInputs = () => {
             <input
                 className="accountInputField"
                 id="passwordInput"
-                onEmptied={() => {
-                    setLoginButtonHidden(true);
-                    setPasswordPopulated(false);
-                    passwordInputValue = "";
-                }}
-                onInput={(e) => {
-                    setPasswordPopulated(true);
+                onChange={(e) => {
                     passwordInputValue = e.currentTarget.value;
-                    if (usernamePopulated && passwordPopulated) {
-                        setLoginButtonHidden(false);
+                    if (e.currentTarget.value.trim() === '') {
+                        setPasswordPopulated(false);
+                        setLoginButtonHidden(true);
+                    } else {
+                        setPasswordPopulated(true);
+                        if (usernamePopulated && passwordPopulated) {
+                            setLoginButtonHidden(false);
+                        }
                     }
-                }}
-                
+                }}                
                 placeholder="Password"
                 type="password"
             />

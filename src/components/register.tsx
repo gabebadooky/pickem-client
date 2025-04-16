@@ -16,16 +16,16 @@ interface NewUser {
 
 
 const RegisterInputs = () => {
-    useEffect(() => {
+    /* useEffect(() => {
         fetch(teamsURL)
         .then(res => res.json())
         .then(data => setTeams(data));
-    }, []);
+    }, []); */
     const [teams, setTeams] = useState([]);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
     const [confirmPasswordPopulated, setConfirmPasswordPopulated] = useState(false);
-    const [registerButtonVisible, setRegisterButtonVisible] = useState(false);    
+    const [registerButtonHidden, setRegisterButtonHidden] = useState(true);    
     const [newUser, setNewUser] = useState<NewUser>({
         username: "",
         password: ""
@@ -56,10 +56,12 @@ const RegisterInputs = () => {
 
     const generateTeamsOptions = () => {
         let options: string;
-        teams.forEach(team => {
+        options = '<option value="0">Favorite Teams</option>'
+        /* teams.forEach(team => {
             let option = `<option value=${team.teamID}>${team.teamName}</option>`;
             options += option;
-        });
+        }); */
+        return options;
     }
 
     return (
@@ -69,18 +71,18 @@ const RegisterInputs = () => {
                 id="usernameInput"
                 onInput={(e) => {
                     setNewUser({ ...newUser, username: e.currentTarget.value});
-                    if (e.currentTarget.value.length > 0) {
-                        setUsernamePopulated(true);
+                    if (e.currentTarget.value.trim() === '') {
+                        setUsernamePopulated(false);
                         // remove red border styling
                     } else {
-                        setUsernamePopulated(false);
+                        setUsernamePopulated(true);
                         // apply red border styling
                     }
 
                     if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonVisible(true);
+                        setRegisterButtonHidden(false);
                     } else {
-                        setRegisterButtonVisible(false);
+                        setRegisterButtonHidden(true);
                     }
                 }}
                 placeholder="Username"
@@ -92,7 +94,7 @@ const RegisterInputs = () => {
                 id="favoriteTeamInput"
                 onChange={(e) => { setNewUser({ ...newUser, favoriteTeam: e.currentTarget.value }) }}
             >
-                
+                {generateTeamsOptions()}
             </select>
 
             <select
@@ -141,18 +143,18 @@ const RegisterInputs = () => {
                 id="passwordInput"
                 onInput={(e) => {
                     setNewUser({ ...newUser, password: e.currentTarget.value });
-                    if (e.currentTarget.value.length > 0) {
-                        setPasswordPopulated(true);
+                    if (e.currentTarget.value.trim() === '') {
+                        setPasswordPopulated(false);
                         // remove red border styling
                     } else {
-                        setPasswordPopulated(false);
+                        setPasswordPopulated(true);
                         // apply red border styling
                     }
 
                     if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonVisible(true);
+                        setRegisterButtonHidden(false);
                     } else {
-                        setRegisterButtonVisible(false);
+                        setRegisterButtonHidden(true);
                     }
                 }}
                 placeholder="Password"
@@ -164,22 +166,22 @@ const RegisterInputs = () => {
                 id="confirmPasswordInput"
                 onInput={(e) => {
                     confirmPasswordInputValue = e.currentTarget.value;
-                    if (e.currentTarget.value.length > 0) {
-                        setConfirmPasswordPopulated(true);
+                    if (e.currentTarget.value.trim() === '') {
+                        setConfirmPasswordPopulated(false);
                         if (newUser.password === e.currentTarget.value) {
                             // remove red border styling
                         } else {
                             // apply red border styling
                         }
                     } else {
-                        setConfirmPasswordPopulated(false);
+                        setConfirmPasswordPopulated(true);
                         // apply red border styling
                     }
 
                     if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonVisible(true);
+                        setRegisterButtonHidden(false);
                     } else {
-                        setRegisterButtonVisible(false);
+                        setRegisterButtonHidden(true);
                     }
                 }}
                 placeholder="Confirm Password"
@@ -188,17 +190,19 @@ const RegisterInputs = () => {
             
             <button 
                 className="submitButton"
-                hidden={registerButtonVisible}
+                hidden={registerButtonHidden}
                 id="registerButton"
                 onClick={() => {
-                    if (registerButtonVisible && (newUser.password === confirmPasswordInputValue)) {
+                    if (!registerButtonHidden && (newUser.password === confirmPasswordInputValue)) {
                         registerRequest();
                     } else {
                         // Display red border around invalid input value
                     }
                 }}
                 type="submit"
-            />
+            >
+                Register
+            </button>
             
         </div>
     )

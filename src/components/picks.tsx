@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 const gamesEndpoint: string = "http://127.0.0.1:5000/games";
 const teamsEndpoint: string = "http://127.0.0.1:5000/teams";
 const picksEndpoint: string = "http://127.0.0.1:5000/picks/gbtest3";
-const submitPickEndpoint: string = "http://127.0.0.1:5000/picks/submit"
+const submitPickEndpoint: string = "http://127.0.0.1:5000/picks/submit";
 
 interface Pick {
     gameID: string;
     teamPicked: string;
     pickWeight: string;
-    username: string;
+    userID: number;
 }
 
 interface Game {

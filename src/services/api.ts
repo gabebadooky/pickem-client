@@ -1,4 +1,4 @@
-import { Pick } from "../components/picks";
+import { Pick } from "../components/pick";
 
 const BASE_URL = "127.0.0.1";
 
@@ -15,7 +15,7 @@ export const getGames = async () => {
     return data;
 };
 
-export const getTeam = async () => {
+export const getTeams = async () => {
     const response = await fetch(`${BASE_URL}/teams`);
     const data = await response.json();
     if (!response.ok) {

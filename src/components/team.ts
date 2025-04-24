@@ -10,7 +10,7 @@ export interface Team {
     teamName: string;
     teamMascot: string;
     powerConference: boolean;
-    team_logo_url: string;
+    teamLogoUrl: string;
     primaryColor: string;
     alternateColor: string;
     overallWins: number;

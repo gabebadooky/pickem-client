@@ -1,10 +1,10 @@
 import { Pick } from "../components/pick";
 
-const BASE_URL = "127.0.0.1";
+const BASE_URL = "http://127.0.0.1:5000";
 
 
 export const getGames = async () => {
-    const response = await fetch(`${BASE_URL}/games}`);
+    const response = await fetch(`${BASE_URL}/games/`);
     const data = await response.json();
     if (!response.ok) {
         console.log(`Error occurred during getGames request! ${response.text}`);
@@ -12,11 +12,10 @@ export const getGames = async () => {
         console.log("Games:")
         console.log(data);
     }
-    return data;
 };
 
 export const getTeams = async () => {
-    const response = await fetch(`${BASE_URL}/teams`);
+    const response = await fetch(`${BASE_URL}/teams/`);
     const data = await response.json();
     if (!response.ok) {
         console.log(`Error occurred during getTeams request! ${response.text}`);
@@ -27,8 +26,8 @@ export const getTeams = async () => {
     return data;
 };
 
-export const getUserPicks = async (userID: number) => {
-    const response = await fetch(`${BASE_URL}/picks/${userID}`);
+export const getUserPicks = async (username: string) => {
+    const response = await fetch(`${BASE_URL}/picks/${username}`);
     const data = await response.json();
     if (!response.ok) {
         console.log(`Error occurred during getUserPicks request! ${response.text}`);
@@ -44,7 +43,7 @@ export const submitPick = async (pick: Pick) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            "username": pick.userID,
+            "username": pick.username,
             "gameID": pick.gameID,
             "teamPicked": pick.teamPicked,
             "pickWeight": pick.pickWeight

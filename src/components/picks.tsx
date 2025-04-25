@@ -4,15 +4,8 @@ import { Game } from "./game";
 import { Team } from "./team";
 import { Pick } from "./pick";
 
-interface teamOptionProps {
-    props: {
-        teams: Array<Team>;
-        teamID: string;
-    }
-}
 
-const awayTeamOption = ({ props }: teamOptionProps) => {
-    const team: Team = props.teams.find(t => t.teamID === props.teamID);
+const AwayTeamOption = ({ team }: { team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
     
     return (
@@ -20,31 +13,34 @@ const awayTeamOption = ({ props }: teamOptionProps) => {
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
-            <img src={team.teamLogoUrl} alt={team.teamName} />
+            <img src={team.teamLogoUrl} alt={team.teamName} className="teamLogo" />
         </td>
-    )
+    );
 }
 
-const homeTeamOption = ({ props }: teamOptionProps) => {
-    const team: Team = props.teams.find(t => t.teamID === props.teamID);
+const HomeTeamOption = ({ team }: { team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
 
     return (
         <td>
-            <img src={team.teamLogoUrl} alt={team.teamName} />
+            <img src={team.teamLogoUrl} alt={team.teamName} className="teamLogo" />
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
         </td>
-    )
+    );
 }
 
-const pickRow = (game: Game) => {
+const PickRow = ({ game, teams }: { game: Game, teams: Array<Team> }) => {
     const infoCellID: string = `info-${game.gameID}`;
-
+    const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID);
+    const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID);
+    
     return (
         <tr>
-            <awayTeamOption props={ teams } />
+            <AwayTeamOption team={ awayTeam } />
+            <td className="infoCell" id={infoCellID}>i</td>
+            <HomeTeamOption team={ homeTeam } />
         </tr>
     )
 }
@@ -56,7 +52,8 @@ const PicksContainer = () => {
     const [allUserPicks, setAllUserPicks] = useState(Array<Pick>);
     const [week, setWeek] = useState(1);
     const [weekGames, setWeekGames] = useState(Array<Game>)
-
+    //const distinctUsers = [...new Set(allUserPicks.map(pick => pick.userID))];
+    const [distinctUsers, setDistinctUsers] = useState(Array<string>);
     const filterWeek = games.filter(game => {
         game.week === week;
     });
@@ -64,13 +61,16 @@ const PicksContainer = () => {
     useEffect(() => {
         getGames();
         getTeams();
-        getUserPicks(38);
+        getUserPicks("gbtest2");
         setWeekGames(filterWeek);
     }, [setGames, setTeams, setAllUserPicks]);
-
+    
     return (
-        <div>
-        </div>
+        <table>
+            {weekGames.map((game: Game) => (
+                <PickRow game={game} teams={teams} />
+            ))}
+        </table>
     )
 }
 

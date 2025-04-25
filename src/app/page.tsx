@@ -4,6 +4,7 @@ import PicksContainer from "../components/picks";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <p>hi</p>
     <PicksContainer />
   </StrictMode>
 );

@@ -55,16 +55,10 @@ const PicksContainer = () => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [allUserPicks, setAllUserPicks] = useState(Array<Pick>);
-    const [week, setWeek] = useState(1);
+    const [week, setWeek] = useState(Number);
     const [filteredGames, setFilteredGames] = useState(Array<Game>)
     //const distinctUsers = [...new Set(allUserPicks.map(pick => pick.userID))];
     const [distinctUsers, setDistinctUsers] = useState(Array<string>);
-
-    /* function filterWeek (z: number) {
-        return games.filter(game => {
-            game.week == z;
-        });
-    }; */
     
 
     useEffect(() => {
@@ -72,20 +66,19 @@ const PicksContainer = () => {
             .then(setTeams);
         getUserPicks("gbtest2")
             .then(setAllUserPicks);
-        getGames()
-            .then(setGames);
+        getGames().then((data) => {
+            setGames(data);
+            setFilteredGames(data.filter(game => game.week === 1));
+        });            
     }, []);
     
     return (
         <div>
             <p>hi</p>
             <table>
-                {games
-                    .filter(game => { console.log(game); game.week  === week })
-                    .map((game: Game) => (
-                        <PickRow game={game} teams={teams} />
-                    ))
-                }
+                {filteredGames.map((game: Game) => (
+                    <PickRow game={game} teams={teams} />
+                ))}
             </table>
         </div>
     )

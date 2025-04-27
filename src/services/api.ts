@@ -1,45 +1,43 @@
+import { Game } from "../components/game";
+import { Team } from "../components/team";
 import { Pick } from "../components/pick";
 
 const BASE_URL = "http://127.0.0.1:5000";
 
 
-export const getGames = async () => {
-    const response = await fetch(`${BASE_URL}/games/`);
-    const data = await response.json();
+export async function getGames(): Promise<Game[]> {
+    const response = await fetch(`${BASE_URL}/games`);
     if (!response.ok) {
         console.log(`Error occurred during getGames request! ${response.text}`);
-    } else {        
-        console.log("Games:")
-        console.log(data);
+        throw new Error(`Error occurred during getGames request! ${response.text}`);
+    } else {
+        return response.json();
     }
-};
+}
 
-export const getTeams = async () => {
-    const response = await fetch(`${BASE_URL}/teams/`);
-    const data = await response.json();
+
+export async function getTeams(): Promise<Team[]> {
+    const response = await fetch(`${BASE_URL}/teams`);
     if (!response.ok) {
         console.log(`Error occurred during getTeams request! ${response.text}`);
+        throw new Error(`Error occurred during getTeams request! ${response.text}`);
     } else {
-        console.log("Teams:");
-        console.log(data);
+        return response.json();
     }
-    return data;
-};
+}
 
-export const getUserPicks = async (username: string) => {
+export async function getUserPicks(username: string): Promise<Pick[]> {
     const response = await fetch(`${BASE_URL}/picks/${username}`);
-    const data = await response.json();
     if (!response.ok) {
-        console.log(`Error occurred during getUserPicks request! ${response.text}`);
+        console.log(`Error occurred during geUserPicks request! ${response.text}`);
+        throw new Error(`Error occurred during geUserPicks request! ${response.text}`);
     } else {
-        console.log("Picks:");
-        console.log(data);
-    }    
-    return data;
-};
+        return response.json();
+    }
+}
 
-export const submitPick = async (pick: Pick) => {
-    const response = await fetch(`${BASE_URL}/picks/submit}`, {
+export async function submitPick(pick: Pick): Promise<JSON> {
+    const response = await fetch(`${BASE_URL}/picks/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,13 +47,12 @@ export const submitPick = async (pick: Pick) => {
             "pickWeight": pick.pickWeight
         })
     });
-    const data = await response.json();
     if (!response.ok) {
-        console.log(`Error occurred during getUserPicks request! ${response.text}`);
+        console.log(`Error occurred during submitPick request! ${response.text}`);
+        throw new Error(`Error occurred during submitPick request! ${response.text}`);
     } else {
-        console.log("Picks:");
-        console.log(data);
-    }    
-    return data;
-};
+        return response.json();
+    }
+}
+
 

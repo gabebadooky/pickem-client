@@ -5,7 +5,7 @@ import { Team } from "./team";
 import { Pick } from "./pick";
 
 
-const AwayTeamOption = ({ team }: { team: Team }) => {
+const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
     
     return (
@@ -13,12 +13,17 @@ const AwayTeamOption = ({ team }: { team: Team }) => {
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
-            <img src={team.teamLogoUrl} alt={team.teamName} className="teamLogo" />
+            <img 
+                src={team.teamLogoUrl}
+                alt={team.teamName}
+                className="teamLogo"
+                // render pickWeight modal
+            />
         </td>
     );
 }
 
-const HomeTeamOption = ({ team }: { team: Team }) => {
+const HomeTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
 
     return (
@@ -38,9 +43,9 @@ const PickRow = ({ game, teams }: { game: Game, teams: Array<Team> }) => {
     
     return (
         <tr>
-            <AwayTeamOption team={ awayTeam } />
+            <AwayTeamOption gameID={ game.gameID } team={ awayTeam } />
             <td className="infoCell" id={infoCellID}>i</td>
-            <HomeTeamOption team={ homeTeam } />
+            <HomeTeamOption gameID={ game.gameID } team={ homeTeam } />
         </tr>
     )
 }
@@ -51,26 +56,38 @@ const PicksContainer = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [allUserPicks, setAllUserPicks] = useState(Array<Pick>);
     const [week, setWeek] = useState(1);
-    const [weekGames, setWeekGames] = useState(Array<Game>)
+    const [filteredGames, setFilteredGames] = useState(Array<Game>)
     //const distinctUsers = [...new Set(allUserPicks.map(pick => pick.userID))];
     const [distinctUsers, setDistinctUsers] = useState(Array<string>);
-    const filterWeek = games.filter(game => {
-        game.week === week;
-    });
+
+    /* function filterWeek (z: number) {
+        return games.filter(game => {
+            game.week == z;
+        });
+    }; */
+    
 
     useEffect(() => {
-        getGames();
-        getTeams();
-        getUserPicks("gbtest2");
-        setWeekGames(filterWeek);
-    }, [setGames, setTeams, setAllUserPicks]);
+        getTeams()
+            .then(setTeams);
+        getUserPicks("gbtest2")
+            .then(setAllUserPicks);
+        getGames()
+            .then(setGames);
+    }, []);
     
     return (
-        <table>
-            {weekGames.map((game: Game) => (
-                <PickRow game={game} teams={teams} />
-            ))}
-        </table>
+        <div>
+            <p>hi</p>
+            <table>
+                {games
+                    .filter(game => { console.log(game); game.week  === week })
+                    .map((game: Game) => (
+                        <PickRow game={game} teams={teams} />
+                    ))
+                }
+            </table>
+        </div>
     )
 }
 

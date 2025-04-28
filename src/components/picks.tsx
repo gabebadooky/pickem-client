@@ -7,6 +7,12 @@ import { Pick } from "./pick";
 
 const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
+    const pick: Pick = {
+        username: "gbtest3",
+        gameID: gameID,
+        teamPicked: team.teamID,
+        pickWeight: "l"
+    }
     
     return (
         <td>
@@ -17,7 +23,7 @@ const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
                 src={team.teamLogoUrl}
                 alt={team.teamName}
                 className="teamLogo"
-                // render pickWeight modal
+                onClick={() => submitPick(pick)}
             />
         </td>
     );
@@ -25,10 +31,21 @@ const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
 
 const HomeTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
     const infoCellID: string = `info-${team.teamID}`;
+    const pick: Pick = {
+        username: "gbtest3",
+        gameID: gameID,
+        teamPicked: team.teamID,
+        pickWeight: "l"
+    }
 
     return (
         <td>
-            <img src={team.teamLogoUrl} alt={team.teamName} className="teamLogo" />
+            <img 
+                src={team.teamLogoUrl} 
+                alt={team.teamName} 
+                className="teamLogo" 
+                onClick={() => submitPick(pick)}
+            />
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
@@ -57,7 +74,6 @@ const PicksContainer = () => {
     const [allUserPicks, setAllUserPicks] = useState(Array<Pick>);
     const [week, setWeek] = useState(Number);
     const [filteredGames, setFilteredGames] = useState(Array<Game>)
-    //const distinctUsers = [...new Set(allUserPicks.map(pick => pick.userID))];
     const [distinctUsers, setDistinctUsers] = useState(Array<string>);
     
 
@@ -76,9 +92,11 @@ const PicksContainer = () => {
         <div>
             <p>hi</p>
             <table>
-                {filteredGames.map((game: Game) => (
-                    <PickRow game={game} teams={teams} />
-                ))}
+                <tbody>
+                    {filteredGames.map((game: Game) => (
+                        <PickRow game={game} teams={teams} />
+                    ))}
+                </tbody>
             </table>
         </div>
     )

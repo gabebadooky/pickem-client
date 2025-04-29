@@ -5,7 +5,7 @@ import { Pick } from "../components/pick";
 const BASE_URL = "http://127.0.0.1:5000";
 
 
-export async function getGames(): Promise<Game[]> {
+export const getGames =  async (): Promise<Game[]> => {
     const response = await fetch(`${BASE_URL}/games`);
     if (!response.ok) {
         console.log(`Error occurred during getGames request! ${response.text}`);
@@ -16,7 +16,7 @@ export async function getGames(): Promise<Game[]> {
 }
 
 
-export async function getTeams(): Promise<Team[]> {
+export const getTeams = async (): Promise<Team[]> => {
     const response = await fetch(`${BASE_URL}/teams`);
     if (!response.ok) {
         console.log(`Error occurred during getTeams request! ${response.text}`);
@@ -26,7 +26,7 @@ export async function getTeams(): Promise<Team[]> {
     }
 }
 
-export async function getUserPicks(username: string): Promise<Pick[]> {
+export const getUserPicks = async (username: string): Promise<Pick[]> => {
     const response = await fetch(`${BASE_URL}/picks/${username}`);
     if (!response.ok) {
         console.log(`Error occurred during geUserPicks request! ${response.text}`);
@@ -36,7 +36,7 @@ export async function getUserPicks(username: string): Promise<Pick[]> {
     }
 }
 
-export async function submitPick(pick: Pick): Promise<JSON> {
+export const submitPick = async (pick: Pick): Promise<JSON> => {
     const response = await fetch(`${BASE_URL}/picks/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -51,6 +51,7 @@ export async function submitPick(pick: Pick): Promise<JSON> {
         console.log(`Error occurred during submitPick request! ${response.text}`);
         throw new Error(`Error occurred during submitPick request! ${response.text}`);
     } else {
+        console.log(response.json());
         return response.json();
     }
 }

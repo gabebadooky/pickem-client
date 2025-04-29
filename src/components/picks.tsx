@@ -3,15 +3,17 @@ import { getGames, getTeams, getUserPicks, submitPick } from "../services/api";
 import { Game } from "./game";
 import { Team } from "./team";
 import { Pick } from "./pick";
+import ConfidenceModal from "./confidence";
 
 
-const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
+const AwayTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, isPickModalRendered: boolean }) => {
+    const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
         username: "gbtest3",
         gameID: gameID,
         teamPicked: team.teamID,
-        pickWeight: "l"
+        pickWeight: ""
     }
     
     return (
@@ -23,19 +25,26 @@ const AwayTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
                 src={team.teamLogoUrl}
                 alt={team.teamName}
                 className="teamLogo"
-                onClick={() => submitPick(pick)}
+                onClick={() => {
+                    if (!isPickModalRendered) {
+                        console.log("Away here");
+                        setShowModal(true);
+                    }
+                }}
             />
+            {showModal && <ConfidenceModal pick={pick} />}
         </td>
     );
 }
 
-const HomeTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
+const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, isPickModalRendered: boolean }) => {
+    const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
         username: "gbtest3",
         gameID: gameID,
         teamPicked: team.teamID,
-        pickWeight: "l"
+        pickWeight: ""
     }
 
     return (
@@ -44,8 +53,14 @@ const HomeTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
                 src={team.teamLogoUrl} 
                 alt={team.teamName} 
                 className="teamLogo" 
-                onClick={() => submitPick(pick)}
+                onClick={() => {
+                    if (!isPickModalRendered) {
+                        console.log("Home here");
+                        setShowModal(true);
+                    }
+                }}
             />
+            {showModal && <ConfidenceModal pick={pick} />}
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
@@ -53,16 +68,16 @@ const HomeTeamOption = ({ gameID, team }: { gameID: string, team: Team }) => {
     );
 }
 
-const PickRow = ({ game, teams }: { game: Game, teams: Array<Team> }) => {
+const PickRow = ({ game, teams, isPickModalRendered }: { game: Game, teams: Array<Team>, isPickModalRendered: boolean }) => {
     const infoCellID: string = `info-${game.gameID}`;
     const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID);
     const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID);
     
     return (
         <tr>
-            <AwayTeamOption gameID={ game.gameID } team={ awayTeam } />
+            <AwayTeamOption gameID={game.gameID} team={ awayTeam} isPickModalRendered={isPickModalRendered} />
             <td className="infoCell" id={infoCellID}>i</td>
-            <HomeTeamOption gameID={ game.gameID } team={ homeTeam } />
+            <HomeTeamOption gameID={game.gameID} team={ homeTeam} isPickModalRendered={isPickModalRendered} />
         </tr>
     )
 }
@@ -75,6 +90,7 @@ const PicksContainer = () => {
     const [week, setWeek] = useState(Number);
     const [filteredGames, setFilteredGames] = useState(Array<Game>)
     const [distinctUsers, setDistinctUsers] = useState(Array<string>);
+    const [isPickModalRendered, setIsPickModalRendered] = useState(false);
     
 
     useEffect(() => {
@@ -85,6 +101,7 @@ const PicksContainer = () => {
         getGames().then((data) => {
             setGames(data);
             setFilteredGames(data.filter(game => game.week === 1));
+        
         });            
     }, []);
     
@@ -94,7 +111,7 @@ const PicksContainer = () => {
             <table>
                 <tbody>
                     {filteredGames.map((game: Game) => (
-                        <PickRow game={game} teams={teams} />
+                        <PickRow game={game} teams={teams} isPickModalRendered={isPickModalRendered} />
                     ))}
                 </tbody>
             </table>

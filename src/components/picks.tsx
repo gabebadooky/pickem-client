@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getGames, getTeams, getUserPicks, submitPick } from "../services/api";
+import { getGames, getTeams, getUserPicks } from "../services/api";
 import { Game } from "./game";
 import { Team } from "./team";
 import { Pick } from "./pick";
@@ -75,9 +75,9 @@ const PickRow = ({ game, teams, isPickModalRendered }: { game: Game, teams: Arra
     
     return (
         <tr>
-            <AwayTeamOption gameID={game.gameID} team={ awayTeam} isPickModalRendered={isPickModalRendered} />
+            <AwayTeamOption gameID={game.gameID} team={awayTeam} isPickModalRendered={isPickModalRendered} />
             <td className="infoCell" id={infoCellID}>i</td>
-            <HomeTeamOption gameID={game.gameID} team={ homeTeam} isPickModalRendered={isPickModalRendered} />
+            <HomeTeamOption gameID={game.gameID} team={homeTeam} isPickModalRendered={isPickModalRendered} />
         </tr>
     )
 }

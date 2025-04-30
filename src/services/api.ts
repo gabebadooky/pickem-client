@@ -37,23 +37,25 @@ export const getUserPicks = async (username: string): Promise<Pick[]> => {
 }
 
 export const submitPick = async (pick: Pick): Promise<JSON> => {
+    console.log(pick.pickWeight);
     const response = await fetch(`${BASE_URL}/picks/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            "username": pick.username,
-            "gameID": pick.gameID,
-            "teamPicked": pick.teamPicked,
-            "pickWeight": pick.pickWeight
+            username: pick.username,
+            gameID: pick.gameID,
+            teamPicked: pick.teamPicked,
+            pickWeight: pick.pickWeight
         })
     });
     if (!response.ok) {
-        console.log(`Error occurred during submitPick request! ${response.text}`);
-        throw new Error(`Error occurred during submitPick request! ${response.text}`);
+        console.log(`Error occurred during submitPick request! ${response.text()}`);
+        throw new Error(`Error occurred during submitPick request! ${response.text()}`);
     } else {
         console.log(response.json());
-        return response.json();
     }
+    
+    return await response.json();
 }
 
 

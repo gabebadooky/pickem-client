@@ -41,7 +41,7 @@ const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
-        username: "gbtest3",
+        username: "gbtest1",
         gameID: gameID,
         teamPicked: team.teamID,
         pickWeight: ""

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getGames, getTeams, getUserPicks } from "../services/api";
 import { Game } from "./game";
-import { Team } from "./team";
+import { Team, NullTeam } from "./team";
 import { Pick } from "./pick";
 import ConfidenceModal from "./confidence";
 
 
-const AwayTeamOption = ({ gameID, team, modal }: { gameID: string, team: Team, modal: [boolean, Function] }) => {
+const AwayTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClose }: { gameID: string, team: Team, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
@@ -26,19 +26,29 @@ const AwayTeamOption = ({ gameID, team, modal }: { gameID: string, team: Team, m
                 alt={team.teamName}
                 className="teamLogo"
                 onClick={() => {
-                    if (!modal[0]) {
+                    if (!isConfidenceModalRendered) {
                         console.log("Away here");
                         setShowModal(true);
-                        setIsPickModalRendered(true);
+                        onShow(true); // setIsConfidenceModalRendered(true)
                     }
                 }}
             />
-            {showModal && <ConfidenceModal pick={pick} onClose={() => setShowModal(false)} />}
+            {
+                showModal 
+                    && 
+                <ConfidenceModal 
+                    pick={pick}
+                    onClose={() => {
+                        onClose(false);
+                        setShowModal(false);
+                    }} //setIsConfidenceModalRendered(false)
+                />
+            }
         </td>
     );
 }
 
-const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, modal: [boolean, Function] }) => {
+const HomeTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClose }: { gameID: string, team: Team, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
@@ -55,13 +65,24 @@ const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
                 alt={team.teamName} 
                 className="teamLogo" 
                 onClick={() => {
-                    if (!isPickModalRendered) {
+                    if (!isConfidenceModalRendered) {
                         console.log("Home here");
                         setShowModal(true);
+                        onShow(true); // setIsConfidenceModalRendered(true)
                     }
                 }}
             />
-            {showModal && <ConfidenceModal pick={pick} onClose={() => setShowModal(false)} />}
+            {
+                showModal 
+                    && 
+                <ConfidenceModal 
+                    pick={pick} 
+                    onClose={() => {
+                        onClose(false);
+                        setShowModal(false);
+                    }} // setIsConfidenceModalRendered(false)
+                />
+            }
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
@@ -69,16 +90,28 @@ const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
     );
 }
 
-const PickRow = ({ game, teams, modal }: { game: Game, teams: Array<Team>, modal: [boolean, Function] }) => {
+const PickRow = ({ game, teams, isConfidenceModalRendered, onShow, onClose }: { game: Game, teams: Array<Team>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
     const infoCellID: string = `info-${game.gameID}`;
-    const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID);
-    const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID);
+    const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID) || NullTeam;
+    const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID) || NullTeam;
     
     return (
         <tr>
-            <AwayTeamOption gameID={game.gameID} team={awayTeam} modal={modal} />
+            <AwayTeamOption 
+                gameID={game.gameID}
+                team={awayTeam}
+                isConfidenceModalRendered={isConfidenceModalRendered}
+                onShow={onShow}
+                onClose={onClose}
+            />
             <td className="infoCell" id={infoCellID}>i</td>
-            <HomeTeamOption gameID={game.gameID} team={homeTeam} modal={modal} />
+            <HomeTeamOption
+                gameID={game.gameID}
+                team={homeTeam}
+                isConfidenceModalRendered={isConfidenceModalRendered}
+                onShow={onShow}
+                onClose={onClose}
+            />
         </tr>
     )
 }
@@ -91,7 +124,7 @@ const PicksContainer = () => {
     const [week, setWeek] = useState(Number);
     const [filteredGames, setFilteredGames] = useState(Array<Game>)
     const [distinctUsers, setDistinctUsers] = useState(Array<string>);
-    const [isPickModalRendered, setIsPickModalRendered] = useState(false);
+    const [isConfidenceModalRendered, setIsConfidenceModalRendered] = useState(false);
     
 
     useEffect(() => {
@@ -112,7 +145,13 @@ const PicksContainer = () => {
             <table>
                 <tbody>
                     {filteredGames.map((game: Game) => (
-                        <PickRow game={game} teams={teams} modal={[isPickModalRendered, setIsPickModalRendered]} />
+                        <PickRow
+                            game={game}
+                            teams={teams}
+                            isConfidenceModalRendered={isConfidenceModalRendered}
+                            onShow={() => setIsConfidenceModalRendered(true)}
+                            onClose={() => setIsConfidenceModalRendered(false)}
+                        />
                     ))}
                 </tbody>
             </table>

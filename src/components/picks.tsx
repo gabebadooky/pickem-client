@@ -6,11 +6,11 @@ import { Pick } from "./pick";
 import ConfidenceModal from "./confidence";
 
 
-const AwayTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, isPickModalRendered: boolean }) => {
+const AwayTeamOption = ({ gameID, team, modal }: { gameID: string, team: Team, modal: [boolean, Function] }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
-        username: "gbtest3",
+        username: "gbtest1",
         gameID: gameID,
         teamPicked: team.teamID,
         pickWeight: ""
@@ -26,18 +26,19 @@ const AwayTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
                 alt={team.teamName}
                 className="teamLogo"
                 onClick={() => {
-                    if (!isPickModalRendered) {
+                    if (!modal[0]) {
                         console.log("Away here");
                         setShowModal(true);
+                        setIsPickModalRendered(true);
                     }
                 }}
             />
-            {showModal && <ConfidenceModal pick={pick} />}
+            {showModal && <ConfidenceModal pick={pick} onClose={() => setShowModal(false)} />}
         </td>
     );
 }
 
-const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, isPickModalRendered: boolean }) => {
+const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string, team: Team, modal: [boolean, Function] }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
     const pick: Pick = {
@@ -60,7 +61,7 @@ const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
                     }
                 }}
             />
-            {showModal && <ConfidenceModal pick={pick} />}
+            {showModal && <ConfidenceModal pick={pick} onClose={() => setShowModal(false)} />}
             <span className="infoCell" id={infoCellID}>
                 i
             </span>
@@ -68,16 +69,16 @@ const HomeTeamOption = ({ gameID, team, isPickModalRendered }: { gameID: string,
     );
 }
 
-const PickRow = ({ game, teams, isPickModalRendered }: { game: Game, teams: Array<Team>, isPickModalRendered: boolean }) => {
+const PickRow = ({ game, teams, modal }: { game: Game, teams: Array<Team>, modal: [boolean, Function] }) => {
     const infoCellID: string = `info-${game.gameID}`;
     const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID);
     const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID);
     
     return (
         <tr>
-            <AwayTeamOption gameID={game.gameID} team={awayTeam} isPickModalRendered={isPickModalRendered} />
+            <AwayTeamOption gameID={game.gameID} team={awayTeam} modal={modal} />
             <td className="infoCell" id={infoCellID}>i</td>
-            <HomeTeamOption gameID={game.gameID} team={homeTeam} isPickModalRendered={isPickModalRendered} />
+            <HomeTeamOption gameID={game.gameID} team={homeTeam} modal={modal} />
         </tr>
     )
 }
@@ -111,7 +112,7 @@ const PicksContainer = () => {
             <table>
                 <tbody>
                     {filteredGames.map((game: Game) => (
-                        <PickRow game={game} teams={teams} isPickModalRendered={isPickModalRendered} />
+                        <PickRow game={game} teams={teams} modal={[isPickModalRendered, setIsPickModalRendered]} />
                     ))}
                 </tbody>
             </table>

@@ -1,9 +1,10 @@
 import { Pick } from "./pick";
 import { submitPick } from "../services/api";
 
-const ConfidenceModal = ({ pick }: {pick: Pick}) => {
+const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => {
     return (
     	<div className="modal" id="">
+			<button onClick={() => onClose()} >x</button>
         	<h1>Confidence Level</h1>
         	<div id="confidenceSelection">
           		<input 
@@ -13,7 +14,8 @@ const ConfidenceModal = ({ pick }: {pick: Pick}) => {
 					id="low"
 					value="l"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value});
+						submitPick({...pick, pickWeight: e.currentTarget.value})
+						.then(onClose());;
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">Low</label>
@@ -25,7 +27,8 @@ const ConfidenceModal = ({ pick }: {pick: Pick}) => {
 					id="medium"
 					value="m"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value});
+						submitPick({...pick, pickWeight: e.currentTarget.value})
+						.then(onClose());;
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">Medium</label>
@@ -37,7 +40,8 @@ const ConfidenceModal = ({ pick }: {pick: Pick}) => {
 					id="high"
 					value="h"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value});
+						submitPick({...pick, pickWeight: e.currentTarget.value})
+						.then(onClose());
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">High</label>

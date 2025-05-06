@@ -1,68 +1,38 @@
 import { useEffect, useState } from "react";
+import { getTeams } from "../services/picksAPI";
+import { Team } from "./team";
 
-const hostURL = "http://127.0.0.1:5000/register";
-const teamsURL = "http://127.0.0.1:5000/teams";
+import { registerNewUser } from "../services/authAPI";
 
-type NotificationPreferenceInputValue = "n" | "e" | "p";
+import { User } from "../types/user";
 
-interface NewUser {
-    username: string;
-    password: string;
-    favoriteTeam?: string;
-    notificationPreference?: NotificationPreferenceInputValue;
-    emailAddress?: string;
-    phone?: string;
+
+const TeamOption = ({ team }: { team: Team}) => {
+    return (
+        <option value={team.teamID}>{team.teamName}</option>
+    );
 }
 
 
 const RegisterInputs = () => {
-    /* useEffect(() => {
-        fetch(teamsURL)
-        .then(res => res.json())
-        .then(data => setTeams(data));
-    }, []); */
-    const [teams, setTeams] = useState([]);
+    const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
     const [confirmPasswordPopulated, setConfirmPasswordPopulated] = useState(false);
-    const [registerButtonHidden, setRegisterButtonHidden] = useState(true);    
-    const [newUser, setNewUser] = useState<NewUser>({
+    const [registerButtonHidden, setRegisterButtonHidden] = useState(true);  
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [newUser, setNewUser] = useState<User>({
         username: "",
         password: ""
     });
     let confirmPasswordInputValue: string;
 
 
-    async function registerRequest() {
-        const response = await fetch(hostURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                "username": newUser.username,
-                "password": newUser.password,
-                "favoriteTeam": newUser.favoriteTeam,
-                "notificationPreference": newUser.notificationPreference,
-                "emailAddress": newUser.emailAddress,
-                "phone": newUser.phone
-            })
-        });
+    useEffect(() => {
+        getTeams()
+            .then(setTeams);
+    }, []);
 
-        if (!response.ok) {
-            console.log(`Request error! ${response.status}`);
-        }
-        const registerResponse = await response.json();
-        return registerResponse;
-    }
-
-    const generateTeamsOptions = () => {
-        let options: string;
-        options = '<option value="0">Favorite Teams</option>'
-        /* teams.forEach(team => {
-            let option = `<option value=${team.teamID}>${team.teamName}</option>`;
-            options += option;
-        }); */
-        return options;
-    }
 
     return (
         <div>
@@ -94,7 +64,10 @@ const RegisterInputs = () => {
                 id="favoriteTeamInput"
                 onChange={(e) => { setNewUser({ ...newUser, favoriteTeam: e.currentTarget.value }) }}
             >
-                {generateTeamsOptions()}
+                <option value={0}>Favorite Team</option>
+                {teams.map((team: Team) => (
+                    <TeamOption team={team} />
+                ))}
             </select>
 
             <select
@@ -194,7 +167,8 @@ const RegisterInputs = () => {
                 id="registerButton"
                 onClick={() => {
                     if (!registerButtonHidden && (newUser.password === confirmPasswordInputValue)) {
-                        registerRequest();
+                        registerNewUser(newUser)
+                            .then(() => (setLoggedIn(true)));
                     } else {
                         // Display red border around invalid input value
                     }

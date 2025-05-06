@@ -1,5 +1,5 @@
 import { Pick } from "./pick";
-import { submitPick } from "../services/api";
+import { submitPick } from "../services/picksAPI";
 
 const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => {
     return (

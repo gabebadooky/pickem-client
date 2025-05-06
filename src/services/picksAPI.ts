@@ -1,8 +1,7 @@
 import { Game } from "../components/game";
 import { Team } from "../components/team";
 import { Pick } from "../components/pick";
-
-const BASE_URL = "http://127.0.0.1:5000";
+import { BASE_URL } from "./baseURL";
 
 
 export const getGames =  async (): Promise<Game[]> => {
@@ -26,6 +25,7 @@ export const getTeams = async (): Promise<Team[]> => {
     }
 }
 
+
 export const getUserPicks = async (username: string): Promise<Pick[]> => {
     const response = await fetch(`${BASE_URL}/picks/${username}`);
     if (!response.ok) {
@@ -35,6 +35,7 @@ export const getUserPicks = async (username: string): Promise<Pick[]> => {
         return response.json();
     }
 }
+
 
 export const submitPick = async (pick: Pick) => {
     console.log(pick.pickWeight);
@@ -56,5 +57,4 @@ export const submitPick = async (pick: Pick) => {
         console.log(`Pick Submitted!\n${await responseMessage.message}`);
     }
 }
-
 

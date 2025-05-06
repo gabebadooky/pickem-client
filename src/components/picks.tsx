@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getGames, getTeams, getUserPicks } from "../services/api";
+import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 import { Game } from "./game";
 import { Team, NullTeam } from "./team";
 import { Pick } from "./pick";

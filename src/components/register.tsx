@@ -7,9 +7,22 @@ import { registerNewUser } from "../services/authAPI";
 import { User } from "../types/user";
 
 
-const TeamOption = ({ team }: { team: Team}) => {
+const TeamOption = ({ team }: { team: Team }) => {
     return (
         <option value={team.teamID}>{team.teamName}</option>
+    );
+}
+
+const RegisterButton = ({ onClick }: { onClick: Function}) => {
+    return (
+        <button 
+            className="submitButton"
+            id="registerButton"
+            onClick={() => onClick}
+            type="submit"
+        >
+            Register
+        </button>
     );
 }
 
@@ -19,13 +32,10 @@ const RegisterInputs = () => {
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
     const [confirmPasswordPopulated, setConfirmPasswordPopulated] = useState(false);
-    const [registerButtonHidden, setRegisterButtonHidden] = useState(true);  
-    const [loggedIn, setLoggedIn] = useState(false);
     const [newUser, setNewUser] = useState<User>({
         username: "",
         password: ""
     });
-    let confirmPasswordInputValue: string;
 
 
     useEffect(() => {
@@ -34,27 +44,41 @@ const RegisterInputs = () => {
     }, []);
 
 
+    const handleTextInputChange = ( e: React.FormEvent<HTMLInputElement> ) => {
+        const field: string = e.currentTarget.id;
+        const value: string = e.currentTarget.value;
+        const inputPopulated: boolean = value.trim().length > 1;
+        setNewUser({ ...newUser, [field]: value });
+
+        switch (field) {
+            case "usernameInput":
+                setUsernamePopulated(inputPopulated);
+                break;
+            case "passwordInput":
+                setPasswordPopulated(inputPopulated);
+                break;
+            case "confirmPasswordInput":
+                setConfirmPasswordPopulated(inputPopulated);
+                break;
+            default:
+                break;
+        }
+    }
+
+    const handleSelectInputChange = ( e: React.ChangeEvent<HTMLSelectElement> ) => {
+        const field: string = e.currentTarget.className;
+        const value: string = e.currentTarget.value;
+        setNewUser({ ...newUser, [field]: value });
+    }
+
+
     return (
         <div>
             <input
                 className="accountInputField"
                 id="usernameInput"
-                onInput={(e) => {
-                    setNewUser({ ...newUser, username: e.currentTarget.value});
-                    if (e.currentTarget.value.trim() === '') {
-                        setUsernamePopulated(false);
-                        // remove red border styling
-                    } else {
-                        setUsernamePopulated(true);
-                        // apply red border styling
-                    }
-
-                    if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonHidden(false);
-                    } else {
-                        setRegisterButtonHidden(true);
-                    }
-                }}
+                name="username"
+                onInput={(e) => {handleTextInputChange(e)}}
                 placeholder="Username"
                 type="text"
             />
@@ -62,9 +86,9 @@ const RegisterInputs = () => {
             <select 
                 className="accountDropdownField"
                 id="favoriteTeamInput"
-                onChange={(e) => { setNewUser({ ...newUser, favoriteTeam: e.currentTarget.value }) }}
+                onChange={(e) => handleSelectInputChange(e)}
             >
-                <option value={0}>Favorite Team</option>
+                <option className="favoriteTeamOption" value={0}>Favorite Team</option>
                 {teams.map((team: Team) => (
                     <TeamOption team={team} />
                 ))}
@@ -73,32 +97,17 @@ const RegisterInputs = () => {
             <select
                 className="accountDropdownField"
                 id="notificationPreferenceInput"
-                onChange={(e) => {
-                    switch (e.currentTarget.value) {
-                        case "n": 
-                            setNewUser({ ...newUser, notificationPreference: "n"});
-                            break;
-                        case "e":
-                            setNewUser({ ...newUser, notificationPreference: "e"});
-                            break;
-                        case "p":
-                            setNewUser({ ...newUser, notificationPreference: "n"});
-                            break;
-                        default:
-                            console.log(`Invalid notification preference provided: ${e.currentTarget.value}`);
-                            break;
-                    }
-                }}
+                onChange={(e) => handleSelectInputChange(e)}
             >
-                <option value="n">None</option>
-                <option value="e">Email</option>
-                <option value="p">Phone</option>
+                <option className="notificationPreferenceOption" value="n">None</option>
+                <option className="notificationPreferenceOption" value="e">Email</option>
+                <option className="notificationPreferenceOption" value="p">Phone</option>
             </select>
 
             <input
                 className="accountInputField"
                 id="emailAddressInputField"
-                onInput={(e) => { setNewUser({ ...newUser, emailAddress: e.currentTarget.value}); }}
+                onInput={(e) => handleTextInputChange(e)}
                 placeholder="Email Address"
                 type="text"
             />
@@ -106,7 +115,7 @@ const RegisterInputs = () => {
             <input 
                 className="accountInputField"
                 id="phoneInputField"
-                onInput={(e) => { setNewUser({ ...newUser, phone: e.currentTarget.value }); }}
+                onInput={(e) => handleTextInputChange(e)}
                 placeholder="Mobile Number"
                 type="text"
             />
@@ -114,22 +123,7 @@ const RegisterInputs = () => {
             <input
                 className="accountInputField"
                 id="passwordInput"
-                onInput={(e) => {
-                    setNewUser({ ...newUser, password: e.currentTarget.value });
-                    if (e.currentTarget.value.trim() === '') {
-                        setPasswordPopulated(false);
-                        // remove red border styling
-                    } else {
-                        setPasswordPopulated(true);
-                        // apply red border styling
-                    }
-
-                    if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonHidden(false);
-                    } else {
-                        setRegisterButtonHidden(true);
-                    }
-                }}
+                onInput={(e) => handleTextInputChange(e)}
                 placeholder="Password"
                 type="password"
             />
@@ -137,46 +131,20 @@ const RegisterInputs = () => {
             <input
                 className="accountInputField"
                 id="confirmPasswordInput"
-                onInput={(e) => {
-                    confirmPasswordInputValue = e.currentTarget.value;
-                    if (e.currentTarget.value.trim() === '') {
-                        setConfirmPasswordPopulated(false);
-                        if (newUser.password === e.currentTarget.value) {
-                            // remove red border styling
-                        } else {
-                            // apply red border styling
-                        }
-                    } else {
-                        setConfirmPasswordPopulated(true);
-                        // apply red border styling
-                    }
-
-                    if (usernamePopulated && passwordPopulated && confirmPasswordPopulated) {
-                        setRegisterButtonHidden(false);
-                    } else {
-                        setRegisterButtonHidden(true);
-                    }
-                }}
+                onInput={(e) => handleTextInputChange(e)}
                 placeholder="Confirm Password"
                 type="text" 
             />
             
-            <button 
-                className="submitButton"
-                hidden={registerButtonHidden}
-                id="registerButton"
-                onClick={() => {
-                    if (!registerButtonHidden && (newUser.password === confirmPasswordInputValue)) {
-                        registerNewUser(newUser)
-                            .then(() => (setLoggedIn(true)));
-                    } else {
-                        // Display red border around invalid input value
-                    }
-                }}
-                type="submit"
-            >
-                Register
-            </button>
+            {
+                usernamePopulated
+                    &&
+                passwordPopulated
+                    &&
+                confirmPasswordPopulated
+                    &&
+                <RegisterButton onClick={registerNewUser} />   
+            }
             
         </div>
     )

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTeams } from "../services/picksAPI";
-import { Team } from "./team";
+import { Team } from "../types/team";
 
 import { registerNewUser } from "../services/authAPI";
 

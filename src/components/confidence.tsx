@@ -1,4 +1,4 @@
-import { Pick } from "./pick";
+import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
 
 const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => {

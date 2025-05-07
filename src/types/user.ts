@@ -1,4 +1,4 @@
-export type NotificationPreferenceInputValue = "n" | "e" | "p";
+type NotificationPreferenceInputValue = "n" | "e" | "p";
 
 export interface User {
     username: string;

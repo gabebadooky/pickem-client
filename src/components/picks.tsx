@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
-import { Game } from "./game";
-import { Team, NullTeam } from "./team";
-import { Pick } from "./pick";
+import { Game } from "../types/game";
+import { Team, NullTeam } from "../types/team";
+import { Pick } from "../types/pick";
 import ConfidenceModal from "./confidence";
 
 

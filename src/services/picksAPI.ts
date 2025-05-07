@@ -1,6 +1,6 @@
-import { Game } from "../components/game";
-import { Team } from "../components/team";
-import { Pick } from "../components/pick";
+import { Game } from "../types/game";
+import { Team } from "../types/team";
+import { Pick } from "../types/pick";
 import { BASE_URL } from "./baseURL";
 
 

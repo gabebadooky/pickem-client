@@ -1,68 +1,66 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { loginRequest } from "../services/authAPI";
+import { LoginBody } from "../types/user";
 
-const hostURL = "http://127.0.0.1:5000/login";
 
-interface UserLogin {
-    username: string;
-    password: string;
+const WarningMessage = () => {
+    return (
+        <p
+            className="warningMessage"
+            id="loginWarning"
+        >
+            Username or Password is incorrect. Please try again.
+        </p>
+    );
 }
+
 
 const LoginInputs = () => {
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
-    const [loginButtonHidden, setLoginButtonHidden] = useState(true);
     const [loginWarningHidden, setLoginWarningHidden] = useState(true);
-    let usernameInputValue: string;
-    let passwordInputValue: string;
+    const [loginBody, setLoginBody] = useState<LoginBody>();
+    
 
-    const loginRequest = async () => {
-        const user: UserLogin = {
-            username: usernameInputValue,
-            password: passwordInputValue
-        };
-        const response = await fetch(hostURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({"username": user.username, "password": user.password})
-        });
+    const handleTextInputChange = ( e: React.FormEvent<HTMLInputElement> ) => {
+        const fieldID: string = e.currentTarget.id;
+        const value: string = e.currentTarget.value;
+        const inputPopulated: boolean = e.currentTarget.value.trim().length > 1;
         
-        if (!response.ok) {
-            console.log(`Request error! ${response.status}`);
-            setLoginWarningHidden(true);
-        } else {
-            // render picks component
+        switch (fieldID) {
+            case "usernameInput":
+                setLoginBody({ ...loginBody, [username]: value });
+                if (inputPopulated) {
+                    setUsernamePopulated(true);
+                } else {
+                    setUsernamePopulated(false);
+                }
+                break;
+            case "passwordInput":
+                setPasswordInputValue(value);
+                if (inputPopulated) {
+                    setPasswordPopulated(true);
+                } else {
+                    setPasswordPopulated(false);
+                }
+                break;
+            default:
+                break;
         }
-        
-    };
+    }
+
 
     return (
         <div>
 
             <h1>Pickem</h1>
 
-            <p
-                className="warningMessage"
-                hidden={loginWarningHidden}
-                id="loginWarning"
-            >
-                Username or Password is incorrect. Please try again.
-            </p>
+            <WarningMessage />
             
             <input 
                 className="accountInputField"
                 id="usernameInput"
-                onChange={(e) => {
-                    usernameInputValue = e.currentTarget.value;
-                    if (e.currentTarget.value.trim() === '') {
-                        setUsernamePopulated(false);
-                        setLoginButtonHidden(true);
-                    } else{
-                        setUsernamePopulated(true);
-                        if (usernamePopulated && passwordPopulated) {
-                            setLoginButtonHidden(false);
-                        }
-                    }
-                }}
+                onInput={handleTextInputChange}
                 placeholder="Username or Email Address"
                 type="text"
             />
@@ -70,35 +68,25 @@ const LoginInputs = () => {
             <input
                 className="accountInputField"
                 id="passwordInput"
-                onChange={(e) => {
-                    passwordInputValue = e.currentTarget.value;
-                    if (e.currentTarget.value.trim() === '') {
-                        setPasswordPopulated(false);
-                        setLoginButtonHidden(true);
-                    } else {
-                        setPasswordPopulated(true);
-                        if (usernamePopulated && passwordPopulated) {
-                            setLoginButtonHidden(false);
-                        }
-                    }
-                }}                
+                onInput={handleTextInputChange}
                 placeholder="Password"
                 type="password"
             />
-            
-            <button
-                className="submitButton"
-                hidden={loginButtonHidden}
-                id="loginButton"
-                onClick={(e) => {
-                    if (!e.currentTarget.hidden) {
-                        loginRequest();
-                    }
-                }}
-                type="submit"                
-            >
-                Login
-            </button>
+
+            {
+                usernamePopulated
+                    &&
+                passwordPopulated
+                    &&
+                <button
+                    className="submitButton"
+                    id="loginButton"
+                    onClick={loginRequest(loginBody)}
+                    type="submit"                
+                >
+                    Login
+                </button>
+            }
             
             <button 
                 className="hollowButton"

@@ -8,3 +8,8 @@ export interface User {
     emailAddress?: string;
     phone?: string;
 }
+
+export interface LoginBody {
+    username: string;
+    password: string;
+}

@@ -1,4 +1,4 @@
-import { User } from "../types/user";
+import { LoginBody, User } from "../types/user";
 import { BASE_URL } from "./baseURL";
 
 
@@ -16,6 +16,7 @@ export const registerNewUser = async (user: User) => {
             phone: user.phone
         })
     });
+
     if (!response.ok) {
         console.log(`Error occurred during registerNewUser request! ${response.text()}`);
         throw new Error(`Error occurred during registerNewUser request! ${response.text()}`);
@@ -35,3 +36,33 @@ export const registerNewUser = async (user: User) => {
         }
     }
 }
+
+
+export const loginRequest = async (loginBody: LoginBody) => {
+    console.log(`Calling login endpoing for user: ${loginBody.username}`);
+    const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({"username": loginBody.username, "password": loginBody.password})
+    });
+
+    if (!response.ok) {
+        console.log(`Error occurred during Login request! ${response.text()}`);
+        throw new Error(`Error occurred during Login request! ${response.text()}`);
+    } else {
+        const responseJSON = await response.json();
+        const responseStatusCode = response.status;
+        const responseMessage = await responseJSON.message;
+        if (responseStatusCode === 200 && responseMessage === "Success") {
+            console.log(`Login attempt successful!\n${responseMessage}`);
+            return responseMessage;
+        } else if (responseStatusCode === 200 && responseMessage === "") {
+            console.log(``);
+            return responseMessage;
+        } else {
+            console.log(`ERror occurred attempting to log in!\n${responseMessage}`);
+            return responseMessage;
+        }
+    }
+    
+};

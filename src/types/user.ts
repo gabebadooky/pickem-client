@@ -13,3 +13,8 @@ export interface LoginBody {
     username: string;
     password: string;
 }
+
+export const NullLoginBody: LoginBody = {
+    username: "",
+    password: ""
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginRequest } from "../services/authAPI";
-import { LoginBody } from "../types/user";
+import { LoginBody, NullLoginBody } from "../types/user";
 
 
 const WarningMessage = () => {
@@ -15,21 +15,36 @@ const WarningMessage = () => {
 }
 
 
-const LoginInputs = () => {
-    const [usernamePopulated, setUsernamePopulated] = useState(false);
-    const [passwordPopulated, setPasswordPopulated] = useState(false);
-    const [loginWarningHidden, setLoginWarningHidden] = useState(true);
-    const [loginBody, setLoginBody] = useState<LoginBody>();
+const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
+    const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
+    const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
+    const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
+    const [warningMessageVisible, setWarningMessageVisible] = useState<boolean>(false);
+
+
+    const TextInput = ({ id, placeholder, value }: { id: string, placeholder: string, value: string }) => {
+        return (
+            <input 
+                className="accountInputField"
+                id={id}
+                onChange={handleTextInputChange}
+                placeholder={placeholder}
+                type="text"
+                value={value}
+            />
+        )
+    }
     
 
-    const handleTextInputChange = ( e: React.FormEvent<HTMLInputElement> ) => {
+    const handleTextInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
         const fieldID: string = e.currentTarget.id;
         const value: string = e.currentTarget.value;
-        const inputPopulated: boolean = e.currentTarget.value.trim().length > 1;
+        const inputPopulated: boolean = e.currentTarget.value.trim() !== "";
         
+        setWarningMessageVisible(false);
         switch (fieldID) {
             case "usernameInput":
-                setLoginBody({ ...loginBody, [username]: value });
+                setLoginBody(loginBody => ({ ...loginBody, username: value }));
                 if (inputPopulated) {
                     setUsernamePopulated(true);
                 } else {
@@ -37,7 +52,7 @@ const LoginInputs = () => {
                 }
                 break;
             case "passwordInput":
-                setPasswordInputValue(value);
+                setLoginBody(loginBody => ({ ...loginBody, password: value }));
                 if (inputPopulated) {
                     setPasswordPopulated(true);
                 } else {
@@ -50,53 +65,37 @@ const LoginInputs = () => {
     }
 
     const attemptLogin = (loginBody: LoginBody) => {
-        
+        loginRequest(loginBody)
+        .then((response) => {
+            if (response !== "") {
+                setAuthenticateUser(response);
+            } else {
+                setWarningMessageVisible(true);
+            }
+        });
     }
 
 
     return (
         <div>
-
             <h1>Pickem</h1>
 
-            <WarningMessage />
-            
-            <input 
-                className="accountInputField"
-                id="usernameInput"
-                onInput={handleTextInputChange}
-                placeholder="Username or Email Address"
-                type="text"
-            />
-            
-            <input
-                className="accountInputField"
-                id="passwordInput"
-                onInput={handleTextInputChange}
-                placeholder="Password"
-                type="password"
-            />
+            {warningMessageVisible && <WarningMessage />}
 
+            <TextInput id="usernameInput" placeholder="Username or Email Address" value={loginBody.username} />
+            <TextInput id="passwordInput" placeholder="Password" value={loginBody.password} />
+            
             {
-                usernamePopulated
+                usernamePopulated && passwordPopulated
                     &&
-                passwordPopulated
-                    &&
-                <button
-                    className="submitButton"
-                    id="loginButton"
-                    onClick={loginRequest(loginBody)}
-                    type="submit"                
+                <button className="submitButton" id="loginButton" type="submit"
+                    onClick={() => attemptLogin(loginBody)}
                 >
                     Login
                 </button>
             }
             
-            <button 
-                className="hollowButton"
-                id="createAccountButton"
-                type="button"
-            >
+            <button className="hollowButton" id="createAccountButton" type="button">
                 Create Account
             </button>
             
@@ -104,4 +103,4 @@ const LoginInputs = () => {
     )
 }
 
-export default LoginInputs;
+export default Login;

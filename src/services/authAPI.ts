@@ -41,26 +41,6 @@ export const registerNewUser = async (user: User) => {
 }
 
 
-export const loginRequest2 = (loginBody: LoginBody) => {
-    console.log(`Calling /auth/login endpoint for username: ${loginBody.username}`);
-    const endpointURL = `${BASE_URL}/auth/login`;
-    const requestBody: string = JSON.stringify({"username": loginBody.username, "password": loginBody.password});
-    let token;
-
-    fetch(endpointURL, {
-        method: "POST",
-        headers: pickemHeaders,
-        body: requestBody
-    })
-    .then((response) => response.json())
-    .then((responseJSON) => {
-        token = responseJSON;
-    })
-    .catch((err) => console.log(`Error occurred during login request! ${err}`));
-    return token;
-}
-
-
 export const loginRequest = async (loginBody: LoginBody) => {
     console.log(`Calling login endpoint for user: ${loginBody.username}`);
     const endpointURL = `${BASE_URL}/auth/login`;
@@ -82,6 +62,6 @@ export const loginRequest = async (loginBody: LoginBody) => {
         }
     } catch (err) {
         console.log(`Error occurred during Login request! ${err}`);
-        throw new Error(`Error occurred during Login request! ${err}`);
+        return JSON.stringify({"access_token" : ""});
     }
 };

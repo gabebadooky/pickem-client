@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import PicksContainer from "../components/picks";
+import { App } from "./main";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <PicksContainer />
+    <App />
   </StrictMode>
 );

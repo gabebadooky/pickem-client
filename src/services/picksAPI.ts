@@ -5,8 +5,7 @@ import { BASE_URL } from "./baseURL";
 
 const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
-pickemHeaders.append("Authorization")
-const token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NjgxNjg1NywianRpIjoiYTA2MDBhMjUtZjc2Zi00YWU4LTk0ZjYtZDI0ZTEwMWI2ODE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNzQ2ODE2ODU3LCJjc3JmIjoiZjk1N2I1OTItMWMxNC00NzdmLTg0YjMtMjM0N2VmN2NlM2UzIiwiZXhwIjoxNzQ2ODE3NzU3fQ.Heoq7McO6nVMmUvsK6FbokvzNYEVahbeURoBKceWn3E";
+
 
 export const getGames =  async (): Promise<Game[]> => {
     const response = await fetch(`${BASE_URL}/games`);
@@ -41,26 +40,32 @@ export const getUserPicks = async (username: string): Promise<Pick[]> => {
 }
 
 
-export const submitPick = async (pick: Pick) => {
+export const submitPick = async (token: string, pick: Pick) => {
     console.log(pick.pickWeight);
-    const response = await fetch(`${BASE_URL}/picks/submit`, {
-        method: "POST",
-        headers: { 
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` },
-        body: JSON.stringify({
-            username: pick.username,
-            gameID: pick.gameID,
-            teamPicked: pick.teamPicked,
-            pickWeight: pick.pickWeight
-        })
+    const endpointURL: string = `${BASE_URL}/picks/submit`;
+    pickemHeaders.append("Authorization", token);
+    const requestBody: string = JSON.stringify({
+        username: pick.username,
+        gameID: pick.gameID,
+        teamPicked: pick.teamPicked,
+        pickWeight: pick.pickWeight
     });
-    if (!response.ok) {
-        console.log(`Error occurred during submitPick request! ${response.text()}`);
-        throw new Error(`Error occurred during submitPick request! ${response.text()}`);
-    } else {
-        const responseMessage = await response.json();
-        console.log(`Pick Submitted!\n${await responseMessage.message}`);
+
+    try {
+        const response = await fetch(endpointURL, {
+            method: "POST",
+            headers: pickemHeaders,
+            body: requestBody
+        });
+        
+        if (!response.ok) {
+            console.log(`Error occurred during submitPick request! ${response.text()}`);
+        } else {
+            const responseMessage = await response.json();
+            console.log(`Pick Submitted!\n${await responseMessage.message}`);
+        }
+    } catch (err) {
+        console.log(`Error occurred during submitPick request! ${err}`);
     }
 }
 

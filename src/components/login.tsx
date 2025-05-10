@@ -19,21 +19,9 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
+    //const [usernameValue, setUsernameValue] = useState<string>("");
+    //const [passwordValue, setPasswordValue] = useState<string>("");
     const [warningMessageVisible, setWarningMessageVisible] = useState<boolean>(false);
-
-
-    const TextInput = ({ id, placeholder, value }: { id: string, placeholder: string, value: string }) => {
-        return (
-            <input 
-                className="accountInputField"
-                id={id}
-                onChange={handleTextInputChange}
-                placeholder={placeholder}
-                type="text"
-                value={value}
-            />
-        )
-    }
     
 
     const handleTextInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
@@ -45,6 +33,7 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
         switch (fieldID) {
             case "usernameInput":
                 setLoginBody(loginBody => ({ ...loginBody, username: value }));
+                //setUsernameValue(value);
                 if (inputPopulated) {
                     setUsernamePopulated(true);
                 } else {
@@ -53,6 +42,7 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
                 break;
             case "passwordInput":
                 setLoginBody(loginBody => ({ ...loginBody, password: value }));
+                //setPasswordValue(value);
                 if (inputPopulated) {
                     setPasswordPopulated(true);
                 } else {
@@ -82,8 +72,23 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
 
             {warningMessageVisible && <WarningMessage />}
 
-            <TextInput id="usernameInput" placeholder="Username or Email Address" value={loginBody.username} />
-            <TextInput id="passwordInput" placeholder="Password" value={loginBody.password} />
+            <input 
+                className="accountInputField"
+                id="usernameInput"
+                onChange={handleTextInputChange}
+                placeholder="Username or Email Address"
+                type="text"
+                value={loginBody.username}
+            />
+
+            <input 
+                className="accountInputField"
+                id="passwordInput"
+                onChange={handleTextInputChange}
+                placeholder="Password"
+                type="password"
+                value={loginBody.password}
+            />
             
             {
                 usernamePopulated && passwordPopulated

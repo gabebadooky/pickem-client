@@ -49,6 +49,10 @@ const LoginInputs = () => {
         }
     }
 
+    const attemptLogin = (loginBody: LoginBody) => {
+        
+    }
+
 
     return (
         <div>

@@ -1,6 +1,9 @@
 import { LoginBody, User } from "../types/user";
 import { BASE_URL } from "./baseURL";
 
+const pickemHeaders: Headers = new Headers();
+pickemHeaders.append("Content-Type", "application/json");
+
 
 export const registerNewUser = async (user: User) => {
     console.log(`Calling register endpoint for user: ${user.username}`);
@@ -38,31 +41,47 @@ export const registerNewUser = async (user: User) => {
 }
 
 
-export const loginRequest = async (loginBody: LoginBody) => {
-    console.log(`Calling login endpoing for user: ${loginBody.username}`);
-    const response = await fetch(`${BASE_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"username": loginBody.username, "password": loginBody.password})
-    });
+export const loginRequest2 = (loginBody: LoginBody) => {
+    console.log(`Calling /auth/login endpoint for username: ${loginBody.username}`);
+    const endpointURL = `${BASE_URL}/auth/login`;
+    const requestBody: string = JSON.stringify({"username": loginBody.username, "password": loginBody.password});
+    let token;
 
-    if (!response.ok) {
-        console.log(`Error occurred during Login request! ${response.text()}`);
-        throw new Error(`Error occurred during Login request! ${response.text()}`);
-    } else {
-        const responseJSON = await response.json();
-        const responseStatusCode = response.status;
-        const responseMessage = await responseJSON.message;
-        if (responseStatusCode === 200 && responseMessage === "Success") {
-            console.log(`Login attempt successful!\n${responseMessage}`);
-            return responseMessage;
-        } else if (responseStatusCode === 200 && responseMessage === "") {
-            console.log(``);
-            return responseMessage;
+    fetch(endpointURL, {
+        method: "POST",
+        headers: pickemHeaders,
+        body: requestBody
+    })
+    .then((response) => response.json())
+    .then((responseJSON) => {
+        token = responseJSON;
+    })
+    .catch((err) => console.log(`Error occurred during login request! ${err}`));
+    return token;
+}
+
+
+export const loginRequest = async (loginBody: LoginBody) => {
+    console.log(`Calling login endpoint for user: ${loginBody.username}`);
+    const endpointURL = `${BASE_URL}/auth/login`;
+    const requestBody: string = JSON.stringify({"username": loginBody.username, "password": loginBody.password});
+
+    try {
+        const response = await fetch(endpointURL, {
+            method: "POST",
+            headers: pickemHeaders,
+            body: requestBody
+        });
+
+        if (!response.ok) {
+            console.log(`Error occurred during Login request! ${response.text()}`);
+            return JSON.stringify({"access_token": ""});
         } else {
-            console.log(`ERror occurred attempting to log in!\n${responseMessage}`);
-            return responseMessage;
+            const responseJSON = await response.json();
+            return responseJSON;
         }
+    } catch (err) {
+        console.log(`Error occurred during Login request! ${err}`);
+        throw new Error(`Error occurred during Login request! ${err}`);
     }
-    
 };

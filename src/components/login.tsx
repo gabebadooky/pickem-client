@@ -57,8 +57,8 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
     const attemptLogin = (loginBody: LoginBody) => {
         loginRequest(loginBody)
         .then((response) => {
-            if (response !== "") {
-                setAuthenticateUser(response);
+            if (response["access_token"] !== "") {
+                setAuthenticateUser(response["access_token"]);
             } else {
                 setWarningMessageVisible(true);
             }

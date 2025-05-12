@@ -43,9 +43,12 @@ export const getUserPicks = async (username: string): Promise<Pick[]> => {
 export const submitPick = async (token: string, pick: Pick) => {
     console.log(pick.pickWeight);
     const endpointURL: string = `${BASE_URL}/picks/submit`;
-    pickemHeaders.append("Authorization", token);
+    if (!pickemHeaders.get("Authorization")) {
+        pickemHeaders.append("Authorization", `Bearer ${token}`);
+    }
+    
     const requestBody: string = JSON.stringify({
-        username: pick.username,
+        userID: pick.userID,
         gameID: pick.gameID,
         teamPicked: pick.teamPicked,
         pickWeight: pick.pickWeight
@@ -65,7 +68,7 @@ export const submitPick = async (token: string, pick: Pick) => {
             console.log(`Pick Submitted!\n${await responseMessage.message}`);
         }
     } catch (err) {
-        console.log(`Error occurred during submitPick request! ${err}`);
+        console.log(`Error occurred during submitPick request! ${err.message}`);
     }
 }
 

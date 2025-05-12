@@ -1,7 +1,7 @@
 import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
 
-const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => {
+const ConfidenceModal = ({ pick, onClose, token }: {pick: Pick, onClose: Function, token: string }) => {
     return (
     	<div className="modal" id="">
 			<button onClick={() => onClose()} >x</button>
@@ -14,7 +14,14 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => 
 					id="low"
 					value="l"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value})
+						//submitPick({...pick, pickWeight: e.currentTarget.value})
+						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						submitPick(token, {
+							userID: pick.userID,
+							gameID: pick.gameID,
+    						teamPicked: pick.teamPicked,
+							pickWeight: e.currentTarget.value
+						})
 						.then(onClose());;
 					}}
 				/>
@@ -27,7 +34,14 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => 
 					id="medium"
 					value="m"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value})
+						//submitPick({...pick, pickWeight: e.currentTarget.value})
+						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						submitPick(token, {
+							userID: pick.userID,
+							gameID: pick.gameID,
+    						teamPicked: pick.teamPicked,
+							pickWeight: e.currentTarget.value
+						})
 						.then(onClose());;
 					}}
 				/>
@@ -40,7 +54,14 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function}) => 
 					id="high"
 					value="h"
 					onClick={(e) => {
-						submitPick({...pick, pickWeight: e.currentTarget.value})
+						//submitPick({...pick, pickWeight: e.currentTarget.value})
+						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						submitPick(token, {
+							userID: pick.userID,
+							gameID: pick.gameID,
+    						teamPicked: pick.teamPicked,
+							pickWeight: e.currentTarget.value
+						})
 						.then(onClose());
 					}}
 				/>

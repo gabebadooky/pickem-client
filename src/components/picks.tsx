@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+
 import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
@@ -6,14 +8,19 @@ import { Pick } from "../types/pick";
 import ConfidenceModal from "./confidence";
 
 
-const AwayTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClose }: { gameID: string, team: Team, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
+const AwayTeamOption = ({ gameID, team, picks, isConfidenceModalRendered, onShow, onClose, token }: { gameID: string, team: Team, picks: Array<Pick>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function, token: string }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
+    const decodedToken = jwtDecode(token);
     const pick: Pick = {
-        username: "gbtest1",
+        userID: decodedToken.sub?.toString() || "0",
         gameID: gameID,
         teamPicked: team.teamID,
         pickWeight: ""
+    }
+
+    if (picks.find(p => p.teamPicked === team.teamID)) {
+        // Apply styling if user has selected this team
     }
     
     return (
@@ -27,7 +34,6 @@ const AwayTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClo
                 className="teamLogo"
                 onClick={() => {
                     if (!isConfidenceModalRendered) {
-                        console.log("Away here");
                         setShowModal(true);
                         onShow(true); // setIsConfidenceModalRendered(true)
                     }
@@ -42,20 +48,26 @@ const AwayTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClo
                         onClose(false);
                         setShowModal(false);
                     }} //setIsConfidenceModalRendered(false)
+                    token={token}
                 />
             }
         </td>
     );
 }
 
-const HomeTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClose }: { gameID: string, team: Team, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
+const HomeTeamOption = ({ gameID, team, picks, isConfidenceModalRendered, onShow, onClose, token }: { gameID: string, team: Team, picks: Array<Pick>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function, token: string }) => {
     const [showModal, setShowModal] = useState(false);
     const infoCellID: string = `info-${team.teamID}`;
+    const decodedToken = jwtDecode(token);
     const pick: Pick = {
-        username: "gbtest1",
+        userID: decodedToken.sub?.toString() || "0",
         gameID: gameID,
         teamPicked: team.teamID,
         pickWeight: ""
+    }
+
+    if (picks.find(p => p.teamPicked === team.teamID)) {
+        // Apply styling if user has selected this team
     }
 
     return (
@@ -66,7 +78,6 @@ const HomeTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClo
                 className="teamLogo" 
                 onClick={() => {
                     if (!isConfidenceModalRendered) {
-                        console.log("Home here");
                         setShowModal(true);
                         onShow(true); // setIsConfidenceModalRendered(true)
                     }
@@ -81,6 +92,7 @@ const HomeTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClo
                         onClose(false);
                         setShowModal(false);
                     }} // setIsConfidenceModalRendered(false)
+                    token={token}
                 />
             }
             <span className="infoCell" id={infoCellID}>
@@ -90,7 +102,7 @@ const HomeTeamOption = ({ gameID, team, isConfidenceModalRendered, onShow, onClo
     );
 }
 
-const PickRow = ({ game, teams, isConfidenceModalRendered, onShow, onClose }: { game: Game, teams: Array<Team>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {
+const PickRow = ({ game, teams, picks, isConfidenceModalRendered, onShow, onClose, token }: { game: Game, teams: Array<Team>, picks: Array<Pick>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function, token: string }) => {
     const infoCellID: string = `info-${game.gameID}`;
     const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID) || NullTeam;
     const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID) || NullTeam;
@@ -100,24 +112,28 @@ const PickRow = ({ game, teams, isConfidenceModalRendered, onShow, onClose }: { 
             <AwayTeamOption 
                 gameID={game.gameID}
                 team={awayTeam}
+                picks={picks}
                 isConfidenceModalRendered={isConfidenceModalRendered}
                 onShow={onShow}
                 onClose={onClose}
+                token={token}
             />
             <td className="infoCell" id={infoCellID}>i</td>
             <HomeTeamOption
                 gameID={game.gameID}
                 team={homeTeam}
+                picks={picks}
                 isConfidenceModalRendered={isConfidenceModalRendered}
                 onShow={onShow}
                 onClose={onClose}
+                token={token}
             />
         </tr>
     )
 }
 
 
-const PicksContainer = () => {
+const PicksContainer = ({ token }: { token: string }) => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [allUserPicks, setAllUserPicks] = useState(Array<Pick>);
@@ -128,9 +144,11 @@ const PicksContainer = () => {
     
 
     useEffect(() => {
+        const decodedToken = jwtDecode(token);
+        const decodedUserID = decodedToken.sub?.toString() || "0";
         getTeams()
             .then(setTeams);
-        getUserPicks("gbtest2")
+        getUserPicks(decodedUserID)
             .then(setAllUserPicks);
         getGames().then((data) => {
             setGames(data);
@@ -148,9 +166,11 @@ const PicksContainer = () => {
                         <PickRow
                             game={game}
                             teams={teams}
+                            picks={allUserPicks}
                             isConfidenceModalRendered={isConfidenceModalRendered}
                             onShow={() => setIsConfidenceModalRendered(true)}
                             onClose={() => setIsConfidenceModalRendered(false)}
+                            token={localStorage.getItem("jwt") || ""}
                         />
                     ))}
                 </tbody>

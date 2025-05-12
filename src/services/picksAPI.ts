@@ -29,8 +29,8 @@ export const getTeams = async (): Promise<Team[]> => {
 }
 
 
-export const getUserPicks = async (username: string): Promise<Pick[]> => {
-    const response = await fetch(`${BASE_URL}/picks/${username}`);
+export const getUserPicks = async (userID: string): Promise<Pick[]> => {
+    const response = await fetch(`${BASE_URL}/picks/${userID}`);
     if (!response.ok) {
         console.log(`Error occurred during geUserPicks request! ${response.text}`);
         throw new Error(`Error occurred during geUserPicks request! ${response.text}`);
@@ -68,7 +68,7 @@ export const submitPick = async (token: string, pick: Pick) => {
             console.log(`Pick Submitted!\n${await responseMessage.message}`);
         }
     } catch (err) {
-        console.log(`Error occurred during submitPick request! ${err.message}`);
+        console.log(`Error occurred during submitPick request! ${err}`);
     }
 }
 

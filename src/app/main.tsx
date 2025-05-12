@@ -9,7 +9,7 @@ export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsAuthenticated(localStorage.getItem("jwt")?.trim() === null);
+        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== null);
     }, []);
 
     const authenticateUser = (token: string) => {

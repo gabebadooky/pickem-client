@@ -1,7 +1,9 @@
 import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
 
-const ConfidenceModal = ({ pick, onClose, token }: {pick: Pick, onClose: Function, token: string }) => {
+const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function }) => {
+	const token: string = localStorage.getItem("jwt") || "";
+
     return (
     	<div className="modal" id="">
 			<button onClick={() => onClose()} >x</button>
@@ -15,7 +17,7 @@ const ConfidenceModal = ({ pick, onClose, token }: {pick: Pick, onClose: Functio
 					value="l"
 					onClick={(e) => {
 						//submitPick({...pick, pickWeight: e.currentTarget.value})
-						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						console.log(`Submitting pick: {${token}\n${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
 						submitPick(token, {
 							userID: pick.userID,
 							gameID: pick.gameID,
@@ -35,7 +37,7 @@ const ConfidenceModal = ({ pick, onClose, token }: {pick: Pick, onClose: Functio
 					value="m"
 					onClick={(e) => {
 						//submitPick({...pick, pickWeight: e.currentTarget.value})
-						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						console.log(`Submitting pick: {${token}\n${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
 						submitPick(token, {
 							userID: pick.userID,
 							gameID: pick.gameID,
@@ -55,7 +57,7 @@ const ConfidenceModal = ({ pick, onClose, token }: {pick: Pick, onClose: Functio
 					value="h"
 					onClick={(e) => {
 						//submitPick({...pick, pickWeight: e.currentTarget.value})
-						console.log(`Submitting pick: {${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
+						console.log(`Submitting pick: {${token}\n${pick.userID}, ${pick.gameID}, ${pick.teamPicked}, ${e.currentTarget.value}}`);
 						submitPick(token, {
 							userID: pick.userID,
 							gameID: pick.gameID,

@@ -9,7 +9,7 @@ export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== null);
+        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined || localStorage.getItem("jwt")?.trim() !== null);
     }, []);
 
     const authenticateUser = (token: string) => {
@@ -23,9 +23,7 @@ export const App = () => {
             setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== null);
         }
         
-        console.log(`decodedToken.sub: ${decodedToken.sub}`);
-        console.log(`decodedToken.sub: ${decodedToken.exp}`);
-        console.log(`localStorage[jwt]: ${localStorage.getItem("jwt")}`);
+        console.log(`localStorage.getItem("jwt"): ${localStorage.getItem("jwt")}`);
         
     }
 
@@ -40,7 +38,7 @@ export const App = () => {
             {
                 isAuthenticated
                     &&
-                <PicksContainer token={localStorage.getItem("jwt") || ""} />
+                <PicksContainer setIsAuthenticated={setIsAuthenticated} />
             }
         </>
     );

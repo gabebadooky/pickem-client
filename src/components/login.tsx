@@ -15,12 +15,10 @@ const WarningMessage = () => {
 }
 
 
-const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
+const Login = ({ authenticateUser, setIsRegistering }: { authenticateUser: Function, setIsRegistering: Function }) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
-    //const [usernameValue, setUsernameValue] = useState<string>("");
-    //const [passwordValue, setPasswordValue] = useState<string>("");
     const [warningMessageVisible, setWarningMessageVisible] = useState<boolean>(false);
     
 
@@ -60,7 +58,7 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                setAuthenticateUser(response["access_token"]);
+                authenticateUser(response["access_token"]);
             }
         });
     }
@@ -100,7 +98,9 @@ const Login = ({ setAuthenticateUser }: { setAuthenticateUser: Function }) => {
                 </button>
             }
             
-            <button className="hollowButton" id="createAccountButton" type="button">
+            <button className="hollowButton" id="createAccountButton" type="button"
+                onClick={() => setIsRegistering(true)}    
+            >
                 Create Account
             </button>
             

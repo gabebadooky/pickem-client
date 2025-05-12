@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Login from "../components/login";
+import RegisterInputs from "../components/register";
 import PicksContainer from "../components/picks";
 
 
 
 export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
     useEffect(() => {
         setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined || localStorage.getItem("jwt")?.trim() !== null);
@@ -32,7 +34,17 @@ export const App = () => {
             {
                 !isAuthenticated
                     &&
-                <Login setAuthenticateUser={authenticateUser} />
+                !isRegistering
+                    &&
+                <Login authenticateUser={authenticateUser} setIsRegistering={setIsRegistering} />
+            }
+
+            {
+                !isAuthenticated
+                    &&
+                isRegistering
+                    &&
+                <RegisterInputs authenticateUser={authenticateUser} />
             }
 
             {

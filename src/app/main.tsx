@@ -1,5 +1,6 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import style from "./style";
 import Login from "../components/login";
 import RegisterInputs from "../components/register";
 import PicksContainer from "../components/picks";
@@ -30,7 +31,7 @@ export const App = () => {
     }
 
     return(
-        <>
+        <div id="main-container" style={style}>
             {
                 !isAuthenticated
                     &&
@@ -52,6 +53,6 @@ export const App = () => {
                     &&
                 <PicksContainer setIsAuthenticated={setIsAuthenticated} />
             }
-        </>
+        </div>
     );
 }

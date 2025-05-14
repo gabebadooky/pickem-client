@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import style from "./style";
+import "tailwindcss";
 import Login from "../components/login";
 import RegisterInputs from "../components/register";
 import PicksContainer from "../components/picks";
@@ -31,7 +31,7 @@ export const App = () => {
     }
 
     return(
-        <div id="main-container" style={style}>
+        <div id="main-container">
             {
                 !isAuthenticated
                     &&

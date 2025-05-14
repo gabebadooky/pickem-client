@@ -66,39 +66,45 @@ const Login = ({ authenticateUser, setIsRegistering }: { authenticateUser: Funct
 
     return (
         <div>
-            <h1>Pickem</h1>
+            <h1 className="mt-35 mb-7 text-xl">Pickem</h1>
 
             {warningMessageVisible && <WarningMessage />}
 
             <input 
-                className="accountInputField"
+                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                 id="usernameInput"
                 onChange={handleTextInputChange}
-                placeholder="Username or Email Address"
+                placeholder="Username"
                 type="text"
                 value={loginBody.username}
             />
 
+            <br />
+
             <input 
-                className="accountInputField"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
                 id="passwordInput"
                 onChange={handleTextInputChange}
                 placeholder="Password"
                 type="password"
                 value={loginBody.password}
             />
+
+            <br />
             
             {
                 usernamePopulated && passwordPopulated
                     &&
-                <button className="submitButton" id="loginButton" type="submit"
+                <button className="mt-2 mb-2 bg-[#17C120] w-48 rounded-xl" id="loginButton" type="submit"
                     onClick={() => attemptLogin(loginBody)}
                 >
                     Login
                 </button>
             }
-            
-            <button className="hollowButton" id="createAccountButton" type="button"
+
+            <br />
+
+            <button className="mb-5 w-48 rounded-lg border-1 border-white" id="createAccountButton" type="button"
                 onClick={() => setIsRegistering(true)}    
             >
                 Create Account

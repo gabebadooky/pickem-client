@@ -5,14 +5,14 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function }) =>
 	const token: string = localStorage.getItem("jwt") || "";
 
     return (
-    	<div className="modal" id="">
-			<button onClick={() => onClose()} >x</button>
+    	<div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[40.2%] text-s" id="">
+			<i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={() => onClose()}></i>
         	<h1>Confidence Level</h1>
-        	<div id="confidenceSelection">
+        	<div className="" id="confidenceSelection">
           		<input 
 					type="radio"
 					name="confidenceLevel"
-					className="radioButton"
+					className="mr-1"
 					id="low"
 					value="l"
 					onClick={(e) => {
@@ -29,10 +29,12 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function }) =>
 				/>
 				<label htmlFor="l" className="radioLabel">Low</label>
 				
+				<br />
+
 				<input 
 					type="radio"
 					name="confidenceLevel"
-					className="radioButton"
+					className="mr-1"
 					id="medium"
 					value="m"
 					onClick={(e) => {
@@ -49,10 +51,12 @@ const ConfidenceModal = ({ pick, onClose }: {pick: Pick, onClose: Function }) =>
 				/>
 				<label htmlFor="l" className="radioLabel">Medium</label>
 				
+				<br />
+
 				<input 
 					type="radio"
 					name="confidenceLevel"
-					className="radioButton"
+					className="mr-1"
 					id="high"
 					value="h"
 					onClick={(e) => {

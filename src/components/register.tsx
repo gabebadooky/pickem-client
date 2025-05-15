@@ -14,7 +14,7 @@ const TeamOption = ({ team }: { team: Team }) => {
 
 const WarningMessage = () => {
     return (
-        <p className="warningMessage" id="loginWarning">
+        <p className="mt-5 text-red-500" id="loginWarning">
             Username already exists!
         </p>
     );
@@ -56,7 +56,10 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
                 setPasswordPopulated(inputPopulated);
                 break;
             case "confirmPasswordInput":
-                setConfirmPasswordPopulated(inputPopulated);
+                if (value === newUser.password) {
+                    setConfirmPasswordPopulated(inputPopulated);
+                }
+                
                 break;
             default:
                 break;
@@ -104,8 +107,12 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
 
     return (
         <div>
+            <h1 className="mt-25 text-xl">Register</h1>
+            
+            <br />
+            
             <input
-                className="accountInputField"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
                 id="usernameInput"
                 name="username"
                 onInput={(e) => {handleTextInputChange(e)}}
@@ -113,8 +120,10 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
                 type="text"
             />
 
+            <br />
+
             <select 
-                className="accountDropdownField"
+                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                 id="favoriteTeamInput"
                 onChange={(e) => handleSelectInputChange(e)}
             >
@@ -124,55 +133,68 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
                 ))}
             </select>
 
+            <br />
+
             <select
-                className="accountDropdownField"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
                 id="notificationPreferenceInput"
                 onChange={(e) => handleSelectInputChange(e)}
             >
-                <option className="notificationPreferenceOption" value="e">Notification Preference</option>
+                <option className="notificationPreferenceOption" value="n">Notification Preference</option>
                 <option className="notificationPreferenceOption" value="e">Email</option>
                 <option className="notificationPreferenceOption" value="p">Phone</option>
             </select>
 
+            <br />
+
             {
                 newUser.notificationPreference === "e"
                     &&
-                <input
-                    className="accountInputField"
-                    id="emailAddressInputField"
-                    onInput={(e) => handleTextInputChange(e)}
-                    placeholder="Email Address"
-                    type="text"
-                />
-
+                <>
+                    <input
+                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        id="emailAddressInputField"
+                        onInput={(e) => handleTextInputChange(e)}
+                        placeholder="Email Address"
+                        type="text"
+                    />
+                    <br />
+                </>
             }
             {
                 newUser.notificationPreference === "p"
                     &&
-                <input 
-                    className="accountInputField"
-                    id="phoneInputField"
-                    onInput={(e) => handleTextInputChange(e)}
-                    placeholder="Mobile Number"
-                    type="text"
-                />
+                <>
+                    <input 
+                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        id="phoneInputField"
+                        onInput={(e) => handleTextInputChange(e)}
+                        placeholder="Mobile Number"
+                        type="text"
+                    />
+                    <br />
+                </>
             }
             
             <input
-                className="accountInputField"
+                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                 id="passwordInput"
                 onInput={(e) => handleTextInputChange(e)}
                 placeholder="Password"
                 type="password"
             />
+
+            <br />
             
             <input
-                className="accountInputField"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
                 id="confirmPasswordInput"
                 onInput={(e) => handleTextInputChange(e)}
                 placeholder="Confirm Password"
                 type="password" 
             />
+
+            <br />
             
             {
                 usernamePopulated
@@ -181,11 +203,20 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
                     &&
                 confirmPasswordPopulated
                     &&
-                <button className="submitButton" id="registerButton" type="submit"
-                        onClick={() => attemptRegistration(newUser)} 
-                >
-                    Register
-                </button>
+                <>
+                    <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
+                            onClick={() => attemptRegistration(newUser)} 
+                    >
+                        Register
+                    </button>
+                    <br />
+                </>
+            }
+
+            {
+                warningMessageVisible
+                    &&
+                <WarningMessage />
             }
             
         </div>

@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.reddit-sans-font {
+    font-family: "Reddit Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}

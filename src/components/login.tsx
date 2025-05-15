@@ -6,7 +6,7 @@ import { LoginBody, NullLoginBody } from "../types/user";
 const WarningMessage = () => {
     return (
         <p
-            className="warningMessage"
+            className="mb-8 text-red-500"
             id="loginWarning"
         >
             Username or Password is incorrect. Please try again.

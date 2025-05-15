@@ -24,33 +24,34 @@ const AwayTeamOption = ({ gameID, team, picks, isConfidenceModalRendered, onShow
     }
     
     return (
-        <td>
-            <span className="infoCell" id={infoCellID}>
-                i
-            </span>
-            <img 
-                src={team.teamLogoUrl}
-                alt={team.teamName}
-                className="teamLogo"
-                onClick={() => {
-                    if (!isConfidenceModalRendered) {
-                        setShowModal(true);
-                        onShow(true); // setIsConfidenceModalRendered(true)
-                    }
-                }}
-            />
-            {
-                showModal 
-                    && 
-                <ConfidenceModal 
-                    pick={pick}
-                    onClose={() => {
-                        onClose(false);
-                        setShowModal(false);
+        <>
+            <td className="size-16 text-right text-white">
+                <i className="fa-solid fa-circle-info"></i>
+            </td>
+            <td className="size-16 justify-center">
+                <img 
+                    src={team.teamLogoUrl}
+                    alt={team.teamName}
+                    onClick={() => {
+                        if (!isConfidenceModalRendered) {
+                            setShowModal(true);
+                            onShow(true); // setIsConfidenceModalRendered(true)
+                        }
                     }}
                 />
-            }
-        </td>
+                {
+                    showModal 
+                        && 
+                    <ConfidenceModal 
+                        pick={pick}
+                        onClose={() => {
+                            onClose(false);
+                            setShowModal(false);
+                        }}
+                    />
+                }
+            </td>
+        </>
     );
 }
 
@@ -70,33 +71,35 @@ const HomeTeamOption = ({ gameID, team, picks, isConfidenceModalRendered, onShow
     }
 
     return (
-        <td>
-            <img 
-                src={team.teamLogoUrl} 
-                alt={team.teamName} 
-                className="teamLogo" 
-                onClick={() => {
-                    if (!isConfidenceModalRendered) {
-                        setShowModal(true);
-                        onShow(true); // setIsConfidenceModalRendered(true)
-                    }
-                }}
-            />
-            {
-                showModal 
-                    && 
-                <ConfidenceModal 
-                    pick={pick} 
-                    onClose={() => {
-                        onClose(false);
-                        setShowModal(false);
+        <>
+            <td className="size-16 justify-center">
+                <img 
+                    src={team.teamLogoUrl} 
+                    alt={team.teamName}
+                    onClick={() => {
+                        if (!isConfidenceModalRendered) {
+                            setShowModal(true);
+                            onShow(true); // setIsConfidenceModalRendered(true)
+                        }
                     }}
                 />
-            }
-            <span className="infoCell" id={infoCellID}>
-                i
-            </span>
-        </td>
+                {
+                    showModal 
+                        && 
+                    <ConfidenceModal 
+                        pick={pick} 
+                        onClose={() => {
+                            onClose(false);
+                            setShowModal(false);
+                        }}
+                    />
+                }
+            </td>
+
+            <td className="size-16 text-left">
+                <i className="fa-solid fa-circle-info"></i>
+            </td>
+        </>
     );
 }
 
@@ -106,7 +109,7 @@ const PickRow = ({ game, teams, picks, isConfidenceModalRendered, onShow, onClos
     const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID) || NullTeam;
     
     return (
-        <tr>
+        <tr className="">
             <AwayTeamOption 
                 gameID={game.gameID}
                 team={awayTeam}
@@ -115,7 +118,11 @@ const PickRow = ({ game, teams, picks, isConfidenceModalRendered, onShow, onClos
                 onShow={onShow}
                 onClose={onClose}
             />
-            <td className="infoCell" id={infoCellID}>i</td>
+
+            <td className="px-5" id={infoCellID}>
+                <i className="fa-solid fa-circle-info"></i>
+            </td>
+            
             <HomeTeamOption
                 gameID={game.gameID}
                 team={homeTeam}
@@ -160,10 +167,11 @@ const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }
     
     return (
         <div>
-            <table>
+            <table className="m-auto border-separate border-spacing-y-3">
                 <tbody>
                     {filteredGames.map((game: Game) => (
                         <PickRow
+                            key={game.gameID}
                             game={game}
                             teams={teams}
                             picks={allUserPicks}

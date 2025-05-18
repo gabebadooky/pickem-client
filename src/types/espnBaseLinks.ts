@@ -1,0 +1,1 @@
+export const gameBaseURL: string = "https://www.espn.com/college-football/game/_/gameId";

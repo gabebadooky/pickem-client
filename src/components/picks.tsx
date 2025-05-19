@@ -5,6 +5,8 @@ import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick } from "../types/pick";
+
+import GameInfoModal from "./gameInfoModal";
 import ConfidenceModal from "./confidence";
 
 
@@ -107,7 +109,8 @@ const PickRow = ({ game, teams, picks, isConfidenceModalRendered, onShow, onClos
     const infoCellID: string = `info-${game.gameID}`;
     const awayTeam: Team = teams.find(t => t.teamID === game.awayTeamID) || NullTeam;
     const homeTeam: Team = teams.find(t => t.teamID === game.homeTeamID) || NullTeam;
-    
+    //const awayAtHomeString: string = `${awayTeam.teamName} ${awayTeam.teamMascot} @ ${homeTeam.teamName} ${homeTeam.teamMascot}`;
+
     return (
         <tr className="">
             <AwayTeamOption 

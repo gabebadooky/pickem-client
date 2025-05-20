@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
+import { GameInfoProps } from "../types/gameInfoProps";
 
 import GameInfoModal from "./gameInfoModal";
-import { GameInfoProp } from "../types/gameInfoProp";
 
-const InfoIcon = ({ gameInfo }: {gameInfo: GameInfoProp}) => {
+
+const GameInfoIcon = ({ gameInfo }: {gameInfo: GameInfoProps}) => {
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
     const [showModal, setShowModal] = useState(false);
 
@@ -33,4 +34,4 @@ const InfoIcon = ({ gameInfo }: {gameInfo: GameInfoProp}) => {
     )
 }
 
-export default InfoIcon;
+export default GameInfoIcon;

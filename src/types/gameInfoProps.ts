@@ -1,7 +1,7 @@
 import { Game } from "./game";
 import { Team } from "./team";
 
-export interface GameInfoProp {
+export interface GameInfoProps {
     game: Game;
     awayTeam: Team;
     homeTeam: Team;

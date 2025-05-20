@@ -1,4 +1,4 @@
-import { GameInfoProp } from "../types/gameInfoProp";
+import { GameInfoProp } from "../types/gameInfoProps";
 import { gameBaseURL } from "../types/espnBaseLinks";
 
 

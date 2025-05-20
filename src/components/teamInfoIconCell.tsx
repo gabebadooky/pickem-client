@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import TeamInfoModal from "./teamInfoModal";
 import { Team } from "../types/team";
 
-const teamInfoIconCell = (team: Team) => {
+const TeamInfoIconCell = ({ team }: { team: Team }) => {
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
     const [showModal, setShowModal] = useState(false);
 
@@ -32,4 +32,4 @@ const teamInfoIconCell = (team: Team) => {
     )
 }
 
-export default teamInfoIconCell;
+export default TeamInfoIconCell;

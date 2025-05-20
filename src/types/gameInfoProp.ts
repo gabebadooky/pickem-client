@@ -5,5 +5,4 @@ export interface GameInfoProp {
     game: Game;
     awayTeam: Team;
     homeTeam: Team;
-    onClose: Function;
 }

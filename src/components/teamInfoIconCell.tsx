@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
+import TeamInfoModal from "./teamInfoModal";
+import { Team } from "../types/team";
 
-import GameInfoModal from "./gameInfoModal";
-import { GameInfoProp } from "../types/gameInfoProp";
-
-const InfoIcon = ({ gameInfo }: {gameInfo: GameInfoProp}) => {
+const teamInfoIconCell = (team: Team) => {
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
     const [showModal, setShowModal] = useState(false);
 
@@ -21,8 +20,8 @@ const InfoIcon = ({ gameInfo }: {gameInfo: GameInfoProp}) => {
             {
                 showModal
                     &&
-                <GameInfoModal 
-                    gameInfo={gameInfo}
+                <TeamInfoModal 
+                    team={team}
                     onClose={() => {
                         setShowModal(false);
                         setIsModalCurrentlyRendered(false);
@@ -33,4 +32,4 @@ const InfoIcon = ({ gameInfo }: {gameInfo: GameInfoProp}) => {
     )
 }
 
-export default InfoIcon;
+export default teamInfoIconCell;

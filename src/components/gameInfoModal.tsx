@@ -2,13 +2,13 @@ import { GameInfoProp } from "../types/gameInfoProp";
 import { gameBaseURL } from "../types/espnBaseLinks";
 
 
-const GameInfoModal = ({ gameInfo }: { gameInfo: GameInfoProp }) => {
+const GameInfoModal = ({ gameInfo, onClose }: { gameInfo: GameInfoProp, onClose: Function }) => {
     const espnURL: string = `${gameBaseURL}/${gameInfo.game.espnCode}`;
     const modalID: string = `${gameInfo.game.gameID}-info`;
 
     return (
         <div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[40.2%] text-s" id={modalID}>
-            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={gameInfo.onClose()}></i>
+            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={onClose()}></i>
             <h1>{gameInfo.awayTeam.teamName} {gameInfo.awayTeam.teamMascot} @ {gameInfo.homeTeam.teamName} {gameInfo.homeTeam.teamMascot}</h1>
             
             <br />

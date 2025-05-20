@@ -1,15 +1,16 @@
 import { useContext, useState } from "react";
-import { teamCellProp } from "../types/teamCell";
 import ConfidenceModal from "./confidenceModal";
+import { Team } from "../types/team";
+import { Pick } from "../types/pick";
 
-const teamCell = (prop: teamCellProp) => {
+const teamCell = ({ team, pick }: { team: Team, pick: Pick }) => {
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
     const [showModal, setShowModal] = useState(false);
 
     <td className="size-16 justify-center">
         <img 
-            src={prop.team.teamLogoUrl}
-            alt={prop.team.teamName}
+            src={team.teamLogoUrl}
+            alt={team.teamName}
             onClick={() => {
                 if (!isModalCurrentlyRendered) {
                     setIsModalCurrentlyRendered(true);
@@ -21,7 +22,7 @@ const teamCell = (prop: teamCellProp) => {
             showModal 
                 && 
             <ConfidenceModal 
-                pick={prop.pick}
+                pick={pick}
                 onClose={() => {
                     setIsModalCurrentlyRendered(false);
                     setShowModal(false);

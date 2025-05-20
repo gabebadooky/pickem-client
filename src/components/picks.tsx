@@ -7,7 +7,7 @@ import { Team, NullTeam } from "../types/team";
 import { Pick } from "../types/pick";
 
 import GameInfoModal from "./gameInfoModal";
-import ConfidenceModal from "./confidence";
+import ConfidenceModal from "./confidenceModal";
 
 
 const AwayTeamOption = ({ gameID, team, picks, isConfidenceModalRendered, onShow, onClose }: { gameID: string, team: Team, picks: Array<Pick>, isConfidenceModalRendered: boolean, onShow: Function, onClose: Function }) => {

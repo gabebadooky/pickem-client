@@ -5,7 +5,7 @@ import GameInfoModal from "./gameInfoModal";
 
 
 const GameInfoIcon = ({ gameInfo }: {gameInfo: GameInfoProps}) => {
-    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
+    const {isModalCurrentlyRendered, setIsModalCurrentlyRendered} = useContext(ModalContext);
     const [showModal, setShowModal] = useState(false);
 
     return (

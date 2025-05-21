@@ -1,3 +1,4 @@
+import PicksContainer from "./picksOld";
 import GameInfoIcon from "./gameInfoIcon";
 import TeamInfoIconCell from "./teamInfoIconCell";
 import TeamCell from "./teamCell";
@@ -6,9 +7,10 @@ import { Team, NullTeam } from "../types/team";
 import { Pick } from "../types/pick";
 import { pickRowProps } from "../types/pickRowProps";
 import { GameInfoProps } from "../types/gameInfoProps";
+import { useContext } from "react";
 
 
-const PickRow = (pickRowProps: pickRowProps) => {
+const PickRow = ({ pickRowProps }: { pickRowProps: pickRowProps }) => {
     const infoCellID: string = `${pickRowProps.game.gameID}-row`;
     const nullTeam: Pick = {
         gameID: pickRowProps.game.gameID,

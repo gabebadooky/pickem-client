@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ConfidenceModal from "./confidenceModal";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 
-const TeamCell = ({ team, pick }: { team: Team, pick: Pick }) => {
-    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
+const TeamCell = ({ team, pick, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, pick: Pick, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (

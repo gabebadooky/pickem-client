@@ -1,4 +1,3 @@
-import PicksContainer from "./picksOld";
 import GameInfoIcon from "./gameInfoIcon";
 import TeamInfoIconCell from "./teamInfoIconCell";
 import TeamCell from "./teamCell";
@@ -7,10 +6,9 @@ import { Team, NullTeam } from "../types/team";
 import { Pick } from "../types/pick";
 import { pickRowProps } from "../types/pickRowProps";
 import { GameInfoProps } from "../types/gameInfoProps";
-import { useContext } from "react";
 
 
-const PickRow = ({ pickRowProps }: { pickRowProps: pickRowProps }) => {
+const PickRow = ({ pickRowProps, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { pickRowProps: pickRowProps, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const infoCellID: string = `${pickRowProps.game.gameID}-row`;
     const nullTeam: Pick = {
         gameID: pickRowProps.game.gameID,
@@ -29,11 +27,11 @@ const PickRow = ({ pickRowProps }: { pickRowProps: pickRowProps }) => {
 
     return (
         <tr className="" id={infoCellID}>
-            <TeamInfoIconCell team={awayTeam} />
-            <TeamCell team={awayTeam} pick={gamePick} />
-            <GameInfoIcon gameInfo={gameInfoProps} />
-            <TeamCell team={homeTeam} pick={gamePick} />
-            <TeamInfoIconCell team={homeTeam} />
+            <TeamInfoIconCell team={awayTeam} isModalCurrentlyRendered={isModalCurrentlyRendered} setIsModalCurrentlyRendered={setIsModalCurrentlyRendered} />
+            <TeamCell team={awayTeam} pick={gamePick} isModalCurrentlyRendered={isModalCurrentlyRendered} setIsModalCurrentlyRendered={setIsModalCurrentlyRendered} />
+            <GameInfoIcon gameInfo={gameInfoProps} isModalCurrentlyRendered={isModalCurrentlyRendered} setIsModalCurrentlyRendered={setIsModalCurrentlyRendered} />
+            <TeamCell team={homeTeam} pick={gamePick} isModalCurrentlyRendered={isModalCurrentlyRendered} setIsModalCurrentlyRendered={setIsModalCurrentlyRendered} />
+            <TeamInfoIconCell team={homeTeam} isModalCurrentlyRendered={isModalCurrentlyRendered} setIsModalCurrentlyRendered={setIsModalCurrentlyRendered} />
         </tr>
     )
 }

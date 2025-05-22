@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import TeamInfoModal from "./teamInfoModal";
 import { Team } from "../types/team";
 
-const TeamInfoIconCell = ({ team }: { team: Team }) => {
-    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useContext(ModalContext);
+const TeamInfoIconCell = ({ team, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (

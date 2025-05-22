@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -12,7 +12,7 @@ export const PicksContainer = ({setIsAuthenticated}: {setIsAuthenticated: Functi
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
     const [week, setWeek] = useState(Number);
-    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState(false);
+    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -27,25 +27,24 @@ export const PicksContainer = ({setIsAuthenticated}: {setIsAuthenticated: Functi
         }
     });
 
-    const ModalContext = createContext({ isModalCurrentlyRendered, setIsModalCurrentlyRendered });
 
     return (
-        <ModalContext.Provider value={{ isModalCurrentlyRendered, setIsModalCurrentlyRendered }}>
-            <table className="m-auto border-separate border-spacing-y-3">
-                <tbody>
-                    {games.filter(game => game.week === week).map((game: Game) => (
-                        <PickRow
-                            pickRowProps={{
-                                game: game,
-                                teams: teams,
-                                picks: picks
-                            }}
-                        />
-                    ))
-                    }
-                </tbody>
-            </table>
-        </ModalContext.Provider>
+        <table className="m-auto border-separate border-spacing-y-3">
+            <tbody>
+                {games.filter(game => game.week === week).map((game: Game) => (
+                    <PickRow
+                        pickRowProps={{
+                            game: game,
+                            teams: teams,
+                            picks: picks
+                        }}
+                        isModalCurrentlyRendered={isModalCurrentlyRendered}
+                        setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                    />
+                ))
+                }
+            </tbody>
+        </table>
     )
 }
 

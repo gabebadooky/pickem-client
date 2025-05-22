@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { GameInfoProps } from "../types/gameInfoProps";
 
 import GameInfoModal from "./gameInfoModal";
 
 
-const GameInfoIcon = ({ gameInfo }: {gameInfo: GameInfoProps}) => {
-    const {isModalCurrentlyRendered, setIsModalCurrentlyRendered} = useContext(ModalContext);
+const GameInfoIcon = ({ gameInfo, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { gameInfo: GameInfoProps, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (

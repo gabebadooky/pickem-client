@@ -1,7 +1,9 @@
 import { useState } from "react";
-import ConfidenceModal from "./confidenceModal";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
+
+import ConfidenceModal from "./confidenceModal";
+
 
 const TeamCell = ({ team, pick, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, pick: Pick, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [showModal, setShowModal] = useState(false);

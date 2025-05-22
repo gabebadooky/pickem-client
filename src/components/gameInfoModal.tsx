@@ -1,8 +1,8 @@
-import { GameInfoProp } from "../types/gameInfoProps";
+import { GameInfoProps } from "../types/gameInfoProps";
 import { gameBaseURL } from "../types/espnBaseLinks";
 
 
-const GameInfoModal = ({ gameInfo, onClose }: { gameInfo: GameInfoProp, onClose: Function }) => {
+const GameInfoModal = ({ gameInfo, onClose }: { gameInfo: GameInfoProps, onClose: Function }) => {
     const espnURL: string = `${gameBaseURL}/${gameInfo.game.espnCode}`;
     const modalID: string = `${gameInfo.game.gameID}-info`;
 

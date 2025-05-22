@@ -1,11 +1,11 @@
-import GameInfoIcon from "./gameInfoIcon";
-import TeamInfoIconCell from "./teamInfoIconCell";
-import TeamCell from "./teamCell";
-
 import { Team, NullTeam } from "../types/team";
 import { Pick } from "../types/pick";
 import { pickRowProps } from "../types/pickRowProps";
 import { GameInfoProps } from "../types/gameInfoProps";
+
+import GameInfoIcon from "./GameInfoCell";
+import TeamInfoIconCell from "./TeamInfoCell";
+import TeamCell from "./teamCell";
 
 
 const PickRow = ({ pickRowProps, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { pickRowProps: pickRowProps, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {

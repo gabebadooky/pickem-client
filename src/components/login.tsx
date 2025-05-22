@@ -15,7 +15,7 @@ const WarningMessage = () => {
 }
 
 
-const Login = ({ authenticateUser, setIsRegistering }: { authenticateUser: Function, setIsRegistering: Function }) => {
+const Login = ({ setIsAuthenticated, setIsRegistering }: { setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>, setIsRegistering: Function }) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -58,7 +58,9 @@ const Login = ({ authenticateUser, setIsRegistering }: { authenticateUser: Funct
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                authenticateUser(response["access_token"]);
+                //authenticateUser(response["access_token"]);
+                localStorage.setItem("jwt", response["access_token"]);
+                setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
             }
         });
     }

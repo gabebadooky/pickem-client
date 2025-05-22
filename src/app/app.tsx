@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+
 import "tailwindcss";
+
 import Login from "../components/login";
-import RegisterInputs from "../components/register";
+import Register from "../components/register";
 import PicksContainer from "../components/PicksContainer";
 
 
@@ -12,18 +13,8 @@ export const App = () => {
 
 
     useEffect(() => {
-        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined || localStorage.getItem("jwt")?.trim() !== null);
+        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
     }, []);
-
-    const authenticateUser = (token: string) => {
-        //const decodedToken = jwtDecode(token);
-        const decodedUserID = jwtDecode(token).sub?.toString();
-        localStorage.setItem("jwt", token);
-        
-        if (decodedUserID) {
-            setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== null);
-        }
-    }
 
     return(
         <div id="main-container">
@@ -32,7 +23,7 @@ export const App = () => {
                     &&
                 !isRegistering
                     &&
-                <Login authenticateUser={authenticateUser} setIsRegistering={setIsRegistering} />
+                <Login setIsAuthenticated={setIsAuthenticated} setIsRegistering={setIsRegistering} />
             }
 
             {
@@ -40,7 +31,7 @@ export const App = () => {
                     &&
                 isRegistering
                     &&
-                <RegisterInputs authenticateUser={authenticateUser} />
+                <Register setIsAuthenticated={setIsAuthenticated} />
             }
 
             {

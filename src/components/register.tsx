@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getTeams } from "../services/picksAPI";
 import { Team } from "../types/team";
+import { User } from "../types/user";
 
 import { registerNewUser } from "../services/authAPI";
-import { User } from "../types/user";
+import { getTeams } from "../services/picksAPI";
 
 
 const TeamOption = ({ team }: { team: Team }) => {
@@ -21,7 +21,7 @@ const WarningMessage = () => {
 }
 
 
-const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => {
+const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
@@ -99,7 +99,9 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                authenticateUser(response["access_token"]);
+                //authenticateUser(response["access_token"]);
+                localStorage.setItem("jwt", response["access_token"])
+                setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
             }
         });
     }
@@ -223,4 +225,4 @@ const RegisterInputs = ({ authenticateUser }: { authenticateUser: Function}) => 
     )
 }
 
-export default RegisterInputs;
+export default Register;

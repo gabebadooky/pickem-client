@@ -1,10 +1,19 @@
 import { useState } from "react";
-import { GameInfoProps } from "../types/gameInfoProps";
+import { Game } from "../types/game";
+import { Team } from "../types/team";
 
 import GameInfoModal from "./gameInfoModal";
 
 
-const GameInfoIcon = ({ gameInfo, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { gameInfo: GameInfoProps, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
+type Props = {
+    game: Game;
+    awayTeam: Team;
+    homeTeam: Team;
+    isModalCurrentlyRendered: boolean;
+    setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const GameInfoIcon = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -12,8 +21,8 @@ const GameInfoIcon = ({ gameInfo, isModalCurrentlyRendered, setIsModalCurrentlyR
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {
-                    if (!isModalCurrentlyRendered) {
-                        setIsModalCurrentlyRendered(true);
+                    if (!props.isModalCurrentlyRendered) {
+                        props.setIsModalCurrentlyRendered(true);
                         setShowModal(true)
                     }
                 }}
@@ -22,10 +31,12 @@ const GameInfoIcon = ({ gameInfo, isModalCurrentlyRendered, setIsModalCurrentlyR
                 showModal
                     &&
                 <GameInfoModal 
-                    gameInfo={gameInfo}
+                    game={props.game}
+                    awayTeam={props.awayTeam}
+                    homeTeam={props.homeTeam}
                     onClose={() => {
                         setShowModal(false);
-                        setIsModalCurrentlyRendered(false);
+                        props.setIsModalCurrentlyRendered(false);
                     }}
                 />
             }

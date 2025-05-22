@@ -1,33 +1,42 @@
-import { GameInfoProps } from "../types/gameInfoProps";
+import { Game } from "../types/game";
+import { Team } from "../types/team";
 import { gameBaseURL } from "../types/espnBaseLinks";
 
 
-const GameInfoModal = ({ gameInfo, onClose }: { gameInfo: GameInfoProps, onClose: Function }) => {
-    const espnURL: string = `${gameBaseURL}/${gameInfo.game.espnCode}`;
-    const modalID: string = `${gameInfo.game.gameID}-info`;
+type Props = {
+    game: Game;
+    awayTeam: Team;
+    homeTeam: Team;
+    onClose: Function;
+};
+
+
+const GameInfoModal = (props: Props) => {
+    const espnURL: string = `${gameBaseURL}/${props.game.espnCode}`;
+    const modalID: string = `${props.game.gameID}-info`;
 
     return (
         <div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[40.2%] text-s" id={modalID}>
-            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={onClose()}></i>
-            <h1>{gameInfo.awayTeam.teamName} {gameInfo.awayTeam.teamMascot} @ {gameInfo.homeTeam.teamName} {gameInfo.homeTeam.teamMascot}</h1>
+            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={props.onClose()}></i>
+            <h1>{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
             
             <br />
             <br />
 
             <span>
-                {gameInfo.game.date.toDateString()}<br />
-                {gameInfo.game.time}<br />
-                {gameInfo.game.tvCoverage}<br />
+                {props.game.date.toDateString()}<br />
+                {props.game.time}<br />
+                {props.game.tvCoverage}<br />
                 <br />
                 {
-                    Number(gameInfo.game.espnAwayWinPercentage) > Number(gameInfo.game.espnHomeWinPercentage)
+                    Number(props.game.espnAwayWinPercentage) > Number(props.game.espnHomeWinPercentage)
                         &&
-                    <p>{gameInfo.game.espnAwayWinPercentage} {gameInfo.awayTeam.teamName}</p>
+                    <p>{props.game.espnAwayWinPercentage} {props.awayTeam.teamName}</p>
                 }
                 {
-                    Number(gameInfo.game.espnHomeWinPercentage) > Number(gameInfo.game.espnAwayWinPercentage)
+                    Number(props.game.espnHomeWinPercentage) > Number(props.game.espnAwayWinPercentage)
                         &&
-                    <p>{gameInfo.game.espnHomeWinPercentage} {gameInfo.homeTeam.teamName}</p>
+                    <p>{props.game.espnHomeWinPercentage} {props.homeTeam.teamName}</p>
                 }
                 <br />
                 <a href={espnURL}>More Info (ESPN)</a>

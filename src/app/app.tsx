@@ -13,6 +13,7 @@ export const App = () => {
 
 
     useEffect(() => {
+        // Verify  if an active access token exists
         setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
     }, []);
 

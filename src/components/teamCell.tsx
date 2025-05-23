@@ -5,17 +5,24 @@ import { Pick } from "../types/pick";
 import ConfidenceModal from "./ConfidenceModal";
 
 
-const TeamCell = ({ team, pick, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, pick: Pick, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
+type Props = {
+    team: Team;
+    pick: Pick;
+    isModalCurrentlyRendered: boolean;
+    setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const TeamCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
         <td className="size-16 justify-center">
             <img 
-                src={team.teamLogoUrl}
-                alt={team.teamName}
+                src={props.team.teamLogoUrl}
+                alt={props.team.teamName}
                 onClick={() => {
-                    if (!isModalCurrentlyRendered) {
-                        setIsModalCurrentlyRendered(true);
+                    if (!props.isModalCurrentlyRendered) {
+                        props.setIsModalCurrentlyRendered(true);
                         setShowModal(true)
                     }
                 }}
@@ -24,9 +31,9 @@ const TeamCell = ({ team, pick, isModalCurrentlyRendered, setIsModalCurrentlyRen
                 showModal 
                     && 
                 <ConfidenceModal 
-                    pick={pick}
+                    pick={props.pick}
                     onClose={() => {
-                        setIsModalCurrentlyRendered(false);
+                        props.setIsModalCurrentlyRendered(false);
                         setShowModal(false);
                     }}
                 />

@@ -5,7 +5,7 @@ import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 
-import PickRow from "./PickRow";
+import PickRow from "./pickRow";
 
 
 export const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }) => {

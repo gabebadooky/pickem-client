@@ -15,15 +15,15 @@ const GameInfoModal = (props: Props) => {
     const modalID: string = `${props.game.gameID}-info`;
 
     return (
-        <div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[40.2%] text-s" id={modalID}>
-            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={props.onClose()}></i>
+        <div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[36.25%] text-s" id={modalID}>
+            <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={() => props.onClose()}></i>
             <h1>{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
             
             <br />
             <br />
 
             <span>
-                {props.game.date.toDateString()}<br />
+                {props.game.date.toString()}<br />
                 {props.game.time}<br />
                 {props.game.tvCoverage}<br />
                 <br />

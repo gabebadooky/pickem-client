@@ -26,7 +26,8 @@ const GameInfoCell = (props: Props) => {
                         setShowModal(true)
                     }
                 }}
-            ></i>
+            >
+            </i>
             {
                 showModal
                     &&

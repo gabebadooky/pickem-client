@@ -4,7 +4,7 @@ import { Pick, NullPick } from "../types/pick";
 
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
-import TeamCell from "./TeamCell";
+import TeamCell from "./teamCell";
 
 
 type Props = {

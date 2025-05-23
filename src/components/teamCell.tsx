@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 
-import ConfidenceModal from "./confidenceModal";
+import ConfidenceModal from "./ConfidenceModal";
 
 
 const TeamCell = ({ team, pick, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, pick: Pick, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {

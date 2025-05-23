@@ -10,7 +10,6 @@ type Props = {
     onClose: Function;
 };
 
-
 const GameInfoModal = (props: Props) => {
     const espnURL: string = `${gameBaseURL}/${props.game.espnCode}`;
     const modalID: string = `${props.game.gameID}-info`;

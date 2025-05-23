@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
 
-import GameInfoModal from "./gameInfoModal";
+import GameInfoModal from "./GameInfoModal";
 
 
 type Props = {
@@ -13,11 +13,11 @@ type Props = {
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const GameInfoIcon = (props: Props) => {
+const GameInfoCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div>
+        <td>
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {
@@ -40,8 +40,8 @@ const GameInfoIcon = (props: Props) => {
                     }}
                 />
             }
-        </div>
+        </td>
     )
 }
 
-export default GameInfoIcon;
+export default GameInfoCell;

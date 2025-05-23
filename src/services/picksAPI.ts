@@ -7,7 +7,7 @@ const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
 
-export const getGames =  async (): Promise<Game[]> => {
+export const getGames =  async (): Promise<Array<Game>> => {
     const response = await fetch(`${BASE_URL}/games`);
     if (!response.ok) {
         console.log(`Error occurred during getGames request! ${response.text}`);
@@ -18,7 +18,7 @@ export const getGames =  async (): Promise<Game[]> => {
 }
 
 
-export const getTeams = async (): Promise<Team[]> => {
+export const getTeams = async (): Promise<Array<Team>> => {
     const response = await fetch(`${BASE_URL}/teams`);
     if (!response.ok) {
         console.log(`Error occurred during getTeams request! ${response.text}`);
@@ -29,7 +29,7 @@ export const getTeams = async (): Promise<Team[]> => {
 }
 
 
-export const getUserPicks = async (userID: string): Promise<Pick[]> => {
+export const getUserPicks = async (userID: string): Promise<Array<Pick>> => {
     const response = await fetch(`${BASE_URL}/picks/${userID}`);
     if (!response.ok) {
         console.log(`Error occurred during geUserPicks request! ${response.text}`);

@@ -109,118 +109,122 @@ const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<R
 
     return (
         <div>
-            <h1 className="mt-25 text-xl">Register</h1>
+            <form action="">
+                <h1 className="mt-25 text-xl">Register</h1>
             
-            <br />
-            
-            <input
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                id="usernameInput"
-                name="username"
-                onInput={(e) => {handleTextInputChange(e)}}
-                placeholder="Username"
-                type="text"
-            />
+                <br />
+                
+                <input
+                    autoComplete="username"
+                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                    id="usernameInput"
+                    name="username"
+                    onInput={(e) => {handleTextInputChange(e)}}
+                    placeholder="Username"
+                    type="text"
+                />
 
-            <br />
+                <br />
 
-            <select 
-                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                id="favoriteTeamInput"
-                onChange={(e) => handleSelectInputChange(e)}
-            >
-                <option className="favoriteTeamOption" value={0}>Favorite Team</option>
-                {teams.map((team: Team) => (
-                    <TeamOption team={team} />
-                ))}
-            </select>
+                <select 
+                    className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                    id="favoriteTeamInput"
+                    onChange={(e) => handleSelectInputChange(e)}
+                >
+                    <option className="favoriteTeamOption" value={0}>Favorite Team</option>
+                    {teams.map((team: Team) => (
+                        <TeamOption key={team.teamID} team={team} />
+                    ))}
+                </select>
 
-            <br />
+                <br />
 
-            <select
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                id="notificationPreferenceInput"
-                onChange={(e) => handleSelectInputChange(e)}
-            >
-                <option className="notificationPreferenceOption" value="n">Notification Preference</option>
-                <option className="notificationPreferenceOption" value="e">Email</option>
-                <option className="notificationPreferenceOption" value="p">Phone</option>
-            </select>
+                <select
+                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                    id="notificationPreferenceInput"
+                    onChange={(e) => handleSelectInputChange(e)}
+                >
+                    <option className="notificationPreferenceOption" value="n">Notification Preference</option>
+                    <option className="notificationPreferenceOption" value="e">Email</option>
+                    <option className="notificationPreferenceOption" value="p">Phone</option>
+                </select>
 
-            <br />
+                <br />
 
-            {
-                newUser.notificationPreference === "e"
-                    &&
-                <>
-                    <input
-                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                        id="emailAddressInputField"
-                        onInput={(e) => handleTextInputChange(e)}
-                        placeholder="Email Address"
-                        type="text"
-                    />
-                    <br />
-                </>
-            }
-            {
-                newUser.notificationPreference === "p"
-                    &&
-                <>
-                    <input 
-                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                        id="phoneInputField"
-                        onInput={(e) => handleTextInputChange(e)}
-                        placeholder="Mobile Number"
-                        type="text"
-                    />
-                    <br />
-                </>
-            }
-            
-            <input
-                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                id="passwordInput"
-                onInput={(e) => handleTextInputChange(e)}
-                placeholder="Password"
-                type="password"
-            />
+                {
+                    newUser.notificationPreference === "e"
+                        &&
+                    <>
+                        <input
+                            className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                            id="emailAddressInputField"
+                            onInput={(e) => handleTextInputChange(e)}
+                            placeholder="Email Address"
+                            type="text"
+                        />
+                        <br />
+                    </>
+                }
+                {
+                    newUser.notificationPreference === "p"
+                        &&
+                    <>
+                        <input 
+                            className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                            id="phoneInputField"
+                            onInput={(e) => handleTextInputChange(e)}
+                            placeholder="Mobile Number"
+                            type="text"
+                        />
+                        <br />
+                    </>
+                }
+                
+                <input
+                    autoComplete="new-password"
+                    className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                    id="passwordInput"
+                    onInput={(e) => handleTextInputChange(e)}
+                    placeholder="Password"
+                    type="password"
+                />
 
-            <br />
-            
-            <input
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                id="confirmPasswordInput"
-                onInput={(e) => handleTextInputChange(e)}
-                placeholder="Confirm Password"
-                type="password" 
-            />
+                <br />
+                
+                <input
+                    autoComplete="new-password"
+                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                    id="confirmPasswordInput"
+                    onInput={(e) => handleTextInputChange(e)}
+                    placeholder="Confirm Password"
+                    type="password" 
+                />
 
-            <br />
-            
-            {
-                usernamePopulated
-                    &&
-                passwordPopulated
-                    &&
-                confirmPasswordPopulated
-                    &&
-                <>
-                    <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
-                            onClick={() => attemptRegistration(newUser)} 
-                    >
-                        Register
-                    </button>
-                    <br />
-                </>
-            }
+                <br />
+                
+                {
+                    usernamePopulated
+                        &&
+                    passwordPopulated
+                        &&
+                    confirmPasswordPopulated
+                        &&
+                    <>
+                        <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
+                                onClick={() => attemptRegistration(newUser)} 
+                        >
+                            Register
+                        </button>
+                        <br />
+                    </>
+                }
 
-            {
-                warningMessageVisible
-                    &&
-                <WarningMessage />
-            }
-            
+                {
+                    warningMessageVisible
+                        &&
+                    <WarningMessage />
+                }
+            </form>    
         </div>
     )
 }

@@ -5,10 +5,10 @@ import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 
-import PickRow from "./pickRow";
+import PickRow from "./PickRow";
 
 
-export const PicksContainer = ({setIsAuthenticated}: {setIsAuthenticated: Function}) => {
+export const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }) => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -26,7 +26,7 @@ export const PicksContainer = ({setIsAuthenticated}: {setIsAuthenticated: Functi
             getUserPicks(userID).then(setPicks);
             setWeek(1);
         }
-    });
+    }, []);
 
 
     return (
@@ -34,11 +34,10 @@ export const PicksContainer = ({setIsAuthenticated}: {setIsAuthenticated: Functi
             <tbody>
                 {games.filter(game => game.week === week).map((game: Game) => (
                     <PickRow
-                        pickRowProps={{
-                            game: game,
-                            teams: teams,
-                            picks: picks
-                        }}
+                        key={game.gameID}
+                        game={game}
+                        teams={teams}
+                        picks={picks}
                         isModalCurrentlyRendered={isModalCurrentlyRendered}
                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                     />

@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { Team } from "../types/team";
 
-import TeamInfoModal from "./teamInfoModal";
+import TeamInfoModal from "./TeamInfoModal";
 
 
-const TeamInfoIconCell = ({ team, isModalCurrentlyRendered, setIsModalCurrentlyRendered }: { team: Team, isModalCurrentlyRendered: boolean, setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>> }) => {
+type Props = {
+    team: Team;
+    isModalCurrentlyRendered: boolean;
+    setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const TeamInfoIconCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div>
+        <td>
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {
-                    if (!isModalCurrentlyRendered) {
-                        setIsModalCurrentlyRendered(true);
+                    if (!props.isModalCurrentlyRendered) {
+                        props.setIsModalCurrentlyRendered(true);
                         setShowModal(true)
                     }
                 }}
@@ -22,14 +28,14 @@ const TeamInfoIconCell = ({ team, isModalCurrentlyRendered, setIsModalCurrentlyR
                 showModal
                     &&
                 <TeamInfoModal 
-                    team={team}
+                    team={props.team}
                     onClose={() => {
                         setShowModal(false);
-                        setIsModalCurrentlyRendered(false);
+                        props.setIsModalCurrentlyRendered(false);
                     }}
                 />
             }
-        </div>
+        </td>
     )
 }
 

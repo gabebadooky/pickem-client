@@ -1,26 +1,39 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
-import { getTeams } from "../services/picksAPI";
-import { updateFavoriteTeam, updateNotificationPreference, updateEmailAddress, updatePhone } from "../services/accountAPI";
 import { Team } from "../types/team";
-import { User } from "../types/user";
+import { CurrentUser } from "../types/account";
+import { getTeams } from "../services/picksAPI";
+import {
+    updateFavoriteTeam,
+    updateNotificationPreference,
+    updateEmailAddress,
+    updatePhone,
+    getUser
+} from "../services/accountAPI";
 
 const MyAccount = () => {
     const [teams, setTeams] = useState(Array<Team>);
-    const [myUserProps, setMyUserProps] = useState<User>();
-    const [newEmailAddress, setNewEmailAddress] = useState(String);
-    const [newPhone, setNewPhone] = useState(String);
+    const [myUserProps, setMyUserProps] = useState<CurrentUser>();
+    const [newEmailAddress, setNewEmailAddress] = useState(String || undefined);
+    const [newPhone, setNewPhone] = useState(String || undefined);
 
     const currentToken: string = localStorage.getItem("jwt") || "";
     const currentUserID: string = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
 
     useEffect(() => {
         getTeams().then(setTeams);
-        /*getUsers
-            .then((response) => {
-                setMyUserProps(response.find(u => u.userID === currentUserID));
-            })*/
+        getUser(currentUserID)
+            .then(setMyUserProps)
+            .then(() => {
+                if (myUserProps?.emailAddress) {
+                    setNewEmailAddress(myUserProps?.emailAddress);
+                }
+
+                if (myUserProps?.phone) {
+                    setNewPhone(myUserProps.phone);
+                }
+            });
     }, []);
 
     return (
@@ -84,19 +97,23 @@ const MyAccount = () => {
                     type="text"
                 />
 
-                <button 
-                    id="submitEmailChangeButton"
-                    type="submit"
-                    onClick={() => {
-                        updateEmailAddress({
-                            token: currentToken,
-                            userID: currentUserID,
-                            emailAddress: newEmailAddress
-                        });
-                    }}
-                >
-                    Update
-                </button>
+                {
+                    myUserProps?.emailAddress !== newEmailAddress
+                        &&
+                    <button 
+                        id="submitEmailChangeButton"
+                        type="submit"
+                        onClick={() => {
+                            updateEmailAddress({
+                                token: currentToken,
+                                userID: currentUserID,
+                                emailAddress: newEmailAddress
+                            });
+                        }}
+                    >
+                        Update
+                    </button>
+                }
 
                 <br />
 
@@ -108,19 +125,23 @@ const MyAccount = () => {
                     type="text"
                 />
 
-                <button 
-                    id="submitPhoneChangeButton"
-                    type="submit"
-                    onClick={() => {
-                        updatePhone({
-                            token: currentToken,
-                            userID: currentUserID,
-                            phone: newPhone
-                        });
-                    }}
-                >
-                    Update
-                </button>
+                {
+                    myUserProps?.phone !== newPhone
+                        &&
+                    <button 
+                        id="submitPhoneChangeButton"
+                        type="submit"
+                        onClick={() => {
+                            updatePhone({
+                                token: currentToken,
+                                userID: currentUserID,
+                                phone: newPhone
+                            });
+                        }}
+                    >
+                        Update
+                    </button>
+                }
 
             </form>
         </div>

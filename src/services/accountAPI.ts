@@ -1,30 +1,24 @@
 import { BASE_URL } from "./baseURL";
+import {
+    CurrentUser, 
+    UpdateFavoriteTeamProps, 
+    UpdateNotificationPreferenceProps, 
+    UpdateEmailAddressProps, 
+    UpdatePhoneProps
+} from "../types/account";
 
 const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
-type UpdateFavoriteTeamProps = {
-    token: string;
-    userID: string;
-    favoriteTeam: string;
-}
 
-type UpdateNotificationPreferenceProps = {
-    token: string;
-    userID: string;
-    notificationPreference: string;
-}
-
-type UpdateEmailAddressProps = {
-    token: string;
-    userID: string;
-    emailAddress: string;
-}
-
-type UpdatePhoneProps = {
-    token: string;
-    userID: string;
-    phone: string;
+export const getUser =  async (userID: string): Promise<CurrentUser> => {
+    const response = await fetch(`${BASE_URL}/user/${userID}`);
+    if (!response.ok) {
+        console.log(`Error occurred during getUser request! ${response.text}`);
+        throw new Error(`Error occurred during getUser request! ${response.text}`);
+    } else {
+        return response.json();
+    }
 }
 
 

@@ -32,11 +32,13 @@ const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }
 
     return (
         <div>
-            <span>
-                { week === 1 && <i className="fa-solid fa-arrow-left" onClick={() => setWeek(week - 1)}></i> }
-                <WeekDropdown weeks={18} setWeek={setWeek} />
-                { week === 18 && <i className="fa-solid fa-arrow-right" onClick={() => setWeek(week + 1)}></i> }
-            </span>            
+            <div className="mt-5">
+                <span>
+                    { week === 1 && <i className="fa-solid fa-arrow-left" onClick={() => setWeek(week - 1)}></i> }
+                    <WeekDropdown weeks={18} setWeek={setWeek} />
+                    { week === 18 && <i className="fa-solid fa-arrow-right" onClick={() => setWeek(week + 1)}></i> }
+                </span>
+            </div>
 
             <table className="m-auto border-separate border-spacing-y-3">
                 <tbody>

@@ -5,7 +5,7 @@ import { LoginBody, NullLoginBody } from "../types/user";
 
 
 
-const Login = ({ setIsAuthenticated, setIsRegistering }: { setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>, setIsRegistering: Function }) => {
+const Login = () => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -52,7 +52,8 @@ const Login = ({ setIsAuthenticated, setIsRegistering }: { setIsAuthenticated: R
             } else {
                 //authenticateUser(response["access_token"]);
                 localStorage.setItem("jwt", response["access_token"]);
-                setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
+                //setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
+                // Route to PicksContainer
             }
         });
     }
@@ -106,7 +107,9 @@ const Login = ({ setIsAuthenticated, setIsRegistering }: { setIsAuthenticated: R
                 <br />
 
                 <button className="mb-5 w-48 rounded-lg border-1 border-white" id="createAccountButton" type="button"
-                    onClick={() => setIsRegistering(true)}    
+                    onClick={() => {
+                        // Route to Register
+                    }}    
                 >
                     Create Account
                 </button>

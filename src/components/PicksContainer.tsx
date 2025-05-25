@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -9,7 +9,7 @@ import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 
 
-const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }) => {
+const PicksContainer = ({ setIsAuthenticated, setIsUpdatingAccount }: { setIsAuthenticated: Function, setIsUpdatingAccount: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -33,6 +33,7 @@ const PicksContainer = ({ setIsAuthenticated }: { setIsAuthenticated: Function }
     return (
         <div>
             <div className="mt-5">
+                <span>Account</span>
                 <span>
                     { week === 1 && <i className="fa-solid fa-arrow-left" onClick={() => setWeek(week - 1)}></i> }
                     <WeekDropdown weeks={18} setWeek={setWeek} />

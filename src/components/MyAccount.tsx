@@ -28,10 +28,14 @@ const MyAccount = () => {
             .then(() => {
                 if (myUserProps?.emailAddress) {
                     setNewEmailAddress(myUserProps?.emailAddress);
+                    console.log(`myUserProps?.emailAddress: ${myUserProps?.emailAddress}`);
+                    console.log(`newEmailAddress: ${newEmailAddress}`);
                 }
 
                 if (myUserProps?.phone) {
                     setNewPhone(myUserProps.phone);
+                    console.log(`myUserProps?.phone: ${myUserProps?.phone}`);
+                    console.log(`newPhone: ${newPhone}`);
                 }
             });
     }, []);
@@ -42,6 +46,8 @@ const MyAccount = () => {
                 <h1>Update My Account</h1>
 
                 <br />
+
+                <h2>{myUserProps?.userID}</h2>
 
                 <input
                     disabled={true}
@@ -55,6 +61,7 @@ const MyAccount = () => {
                 <select 
                     className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                     id="favoriteTeamInput"
+                    value={myUserProps?.favoriteTeam || "0"}
                     onChange={(e) => {
                         updateFavoriteTeam({
                             token: currentToken,
@@ -74,6 +81,7 @@ const MyAccount = () => {
                 <select
                     className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
                     id="notificationPreferenceInput"
+                    value={myUserProps?.notificationPreference || "n"}
                     onChange={(e) => {
                         updateNotificationPreference({
                             token: currentToken,
@@ -93,12 +101,12 @@ const MyAccount = () => {
                     className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                     id="emailAddressInputField"
                     onInput={(e) => setNewEmailAddress(e.currentTarget.value)}
-                    placeholder="Email Address"
+                    placeholder={myUserProps?.emailAddress || ""}
                     type="text"
                 />
 
                 {
-                    myUserProps?.emailAddress !== newEmailAddress
+                    newEmailAddress
                         &&
                     <button 
                         id="submitEmailChangeButton"
@@ -121,17 +129,19 @@ const MyAccount = () => {
                     className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
                     id="phoneInputField"
                     onInput={(e) => setNewPhone(e.currentTarget.value)}
-                    placeholder="Mobile Number"
+                    placeholder={myUserProps?.phone || ""}
                     type="text"
                 />
 
                 {
-                    myUserProps?.phone !== newPhone
+                    newPhone
                         &&
                     <button 
                         id="submitPhoneChangeButton"
                         type="submit"
                         onClick={() => {
+                            console.log(`myUserProps.phone: ${myUserProps?.phone}`);
+                            console.log(`newPhone: ${newPhone}`);
                             updatePhone({
                                 token: currentToken,
                                 userID: currentUserID,

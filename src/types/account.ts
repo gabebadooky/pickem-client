@@ -1,9 +1,9 @@
 export type CurrentUser = {
     userID: string;
-    favoriteTeam: string;
-    notificationPreference: string;
-    emailAddress: string;
-    phone: string;
+    favoriteTeam?: string;
+    notificationPreference?: string;
+    emailAddress?: string;
+    phone?: string;
 }
 
 export type UpdateFavoriteTeamProps = {

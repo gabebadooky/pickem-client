@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 
 import "tailwindcss";
 
-import Login from "../components/Login";
-import Register from "../components/Register";
-import PicksContainer from "../components/PicksContainer";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import PicksContainer from "./components/PicksContainer";
+import MyAccount from "./components/MyAccount";
 
 
 export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
+    const [isUpdatingAccount, setIsUpdatingAccount] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -38,7 +40,17 @@ export const App = () => {
             {
                 isAuthenticated
                     &&
-                <PicksContainer setIsAuthenticated={setIsAuthenticated} />
+                !isUpdatingAccount
+                    &&
+                <PicksContainer setIsAuthenticated={setIsAuthenticated} setIsUpdatingAccount={setIsUpdatingAccount} />
+            }
+
+            {
+                isAuthenticated
+                    &&
+                isUpdatingAccount
+                    &&
+                <MyAccount  />
             }
         </div>
     );

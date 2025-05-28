@@ -1,56 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState,useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import "tailwindcss";
 
 import Login from "./components/Login";
-import Register from "./components/Register";
 import PicksContainer from "./components/PicksContainer";
-import MyAccount from "./components/MyAccount";
+
+
+const validateToken: () => boolean = () => {
+    if (!localStorage.getItem("jwt")) {
+        return false;
+    } else if (!jwtDecode(localStorage.getItem("jwt") || "").exp) {
+        return false;
+    } else {
+        const tokenExp: number = jwtDecode(localStorage.getItem("jwt") || "").exp || 0;
+        return tokenExp > Date.now();
+    }
+}
 
 
 export const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [isRegistering, setIsRegistering] = useState<boolean>(false);
-    const [isUpdatingAccount, setIsUpdatingAccount] = useState<boolean>(false);
-
+    const [activeTokenExists, setActiveTokenExists] = useState<boolean>(false);
 
     useEffect(() => {
-        // Verify  if an active access token exists
-        setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
+        setActiveTokenExists(validateToken());
     }, []);
 
     return(
         <div id="main-container">
             {
-                !isAuthenticated
+                !activeTokenExists
                     &&
-                !isRegistering
-                    &&
-                <Login setIsAuthenticated={setIsAuthenticated} setIsRegistering={setIsRegistering} />
+                <Login setActiveTokenExists={setActiveTokenExists} />
             }
-
             {
-                !isAuthenticated
+                activeTokenExists
                     &&
-                isRegistering
-                    &&
-                <Register setIsAuthenticated={setIsAuthenticated} />
-            }
-
-            {
-                isAuthenticated
-                    &&
-                !isUpdatingAccount
-                    &&
-                <PicksContainer setIsAuthenticated={setIsAuthenticated} setIsUpdatingAccount={setIsUpdatingAccount} />
-            }
-
-            {
-                isAuthenticated
-                    &&
-                isUpdatingAccount
-                    &&
-                <MyAccount  />
+                <PicksContainer />
             }
         </div>
     );

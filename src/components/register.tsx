@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router";
 import { Team } from "../types/team";
 import { User } from "../types/user";
 
@@ -21,7 +22,7 @@ const WarningMessage = () => {
 }
 
 
-const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const Register = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
@@ -99,9 +100,10 @@ const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<R
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                //authenticateUser(response["access_token"]);
-                localStorage.setItem("jwt", response["access_token"])
-                setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
+                console.log("Here!123");
+                let navigate: NavigateFunction = useNavigate();
+                localStorage.setItem("jwt", response["access_token"]);
+                navigate("/picks");
             }
         });
     }
@@ -109,7 +111,11 @@ const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<R
 
     return (
         <div>
-            <form action="">
+            <form
+                onSubmit={() => {
+                    attemptRegistration(newUser);
+                }}
+            >
                 <h1 className="mt-25 text-xl">Register</h1>
             
                 <br />
@@ -211,7 +217,7 @@ const Register = ({ setIsAuthenticated }: { setIsAuthenticated: React.Dispatch<R
                         &&
                     <>
                         <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
-                                onClick={() => attemptRegistration(newUser)} 
+                                //onClick={() => attemptRegistration(newUser)} 
                         >
                             Register
                         </button>

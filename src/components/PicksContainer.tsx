@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -9,7 +9,7 @@ import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 
 
-const PicksContainer = ({ setIsAuthenticated, setIsUpdatingAccount }: { setIsAuthenticated: Function, setIsUpdatingAccount: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const PicksContainer = () => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -18,14 +18,14 @@ const PicksContainer = ({ setIsAuthenticated, setIsUpdatingAccount }: { setIsAut
 
 
     useEffect(() => {
-        if (!localStorage.getItem("jwt")) {
-            setIsAuthenticated(false);
-        } else {
+        if (localStorage.getItem("jwt")) {
             const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
             getGames().then(setGames);
             getTeams().then(setTeams);
             getUserPicks(userID).then(setPicks);
             setWeek(1);
+        } else {
+            // route to Login
         }
     }, []);
 
@@ -35,9 +35,12 @@ const PicksContainer = ({ setIsAuthenticated, setIsUpdatingAccount }: { setIsAut
             <div className="mt-5">
                 <span>Account</span>
                 <span>
-                    { week === 1 && <i className="fa-solid fa-arrow-left" onClick={() => setWeek(week - 1)}></i> }
-                    <WeekDropdown weeks={18} setWeek={setWeek} />
-                    { week === 18 && <i className="fa-solid fa-arrow-right" onClick={() => setWeek(week + 1)}></i> }
+                    { week > 1 && <i className="fa-solid fa-arrow-left" onClick={() => {
+                        setWeek(week - 1);
+                        
+                    }}></i> }
+                    <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
+                    { week < 18 && <i className="fa-solid fa-arrow-right" onClick={() => setWeek(week + 1)}></i> }
                 </span>
             </div>
 

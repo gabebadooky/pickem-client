@@ -1,11 +1,15 @@
 import { FormEvent, useState } from "react";
+import { Link } from "react-router";
 import { loginRequest } from "../services/authAPI";
 import { LoginBody, NullLoginBody } from "../types/user";
 
 
+//type Props = {
+    //setActiveTokenExists: React.Dispatch<React.SetStateAction<boolean>>;
+//}
 
 
-const Login = () => {
+const Login = ({ setActiveTokenExists }: { setActiveTokenExists: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -50,10 +54,8 @@ const Login = () => {
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                //authenticateUser(response["access_token"]);
                 localStorage.setItem("jwt", response["access_token"]);
-                //setIsAuthenticated(localStorage.getItem("jwt")?.trim() !== undefined && localStorage.getItem("jwt")?.trim() !== null);
-                // Route to PicksContainer
+                navigate
             }
         });
     }
@@ -61,7 +63,7 @@ const Login = () => {
 
     return (
         <div>
-            <form onSubmit={attemptLogin}>
+            <form onSubmit={(e) => attemptLogin(e)}>
                 <h1 className="mt-35 mb-7 text-xl">Pickem</h1>
 
                 {
@@ -106,13 +108,11 @@ const Login = () => {
 
                 <br />
 
-                <button className="mb-5 w-48 rounded-lg border-1 border-white" id="createAccountButton" type="button"
-                    onClick={() => {
-                        // Route to Register
-                    }}    
-                >
-                    Create Account
-                </button>
+                {
+                    <Link to="/register" className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white">
+                        Create Account
+                    </Link>
+                }
             </form>
         </div>
     )

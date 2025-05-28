@@ -1,5 +1,6 @@
 type Props = {
     weeks: number;
+    selectedWeek: number;
     setWeek: Function;
 }
 
@@ -17,6 +18,7 @@ const WeekDropdown = (props: Props) => {
     return (
         <span>
             <select name="week-dropdown" id="week-dropdown-input" className="ml-8 mr-8"
+                value={props.selectedWeek}
                 onChange={(e) => props.setWeek(Number(e.currentTarget.value))}
             >
                 {renderWeekOptions(props.weeks)}

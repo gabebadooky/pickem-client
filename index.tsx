@@ -11,7 +11,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route index path="picks" element={<PicksContainer />} />
+        <Route index path="/" element={<App />} />
+        <Route path="picks" element={<PicksContainer />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="my-account" element={<MyAccount />} />

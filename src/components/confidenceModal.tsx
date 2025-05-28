@@ -5,7 +5,7 @@ const ConfidenceModal = ({pick, onClose }: { pick: Pick, onClose: Function }) =>
 	const token: string = localStorage.getItem("jwt") || "";
 
     return (
-    	<div className="bg-[#D9D9D9] px-15 max-w-xs absolute left-[40.2%] text-s" id="">
+    	<div className="bg-[#D9D9D9] text-black px-15 max-w-xs absolute left-[40.2%] text-s opacity-100">
 			<i 
 				className="fa-solid fa-rectangle-xmark absolute top-1 right-1" 
 				onClick={() => onClose()}

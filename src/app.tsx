@@ -3,38 +3,58 @@ import { jwtDecode } from "jwt-decode";
 
 import "tailwindcss";
 
-import Login from "./components/Login";
+import Login from "./components/login";
 import PicksContainer from "./components/PicksContainer";
+import Register from "./components/register";
 
 
-const validateToken: () => boolean = () => {
-    if (!localStorage.getItem("jwt")) {
-        return false;
-    } else if (!jwtDecode(localStorage.getItem("jwt") || "").exp) {
-        return false;
-    } else {
-        const tokenExp: number = jwtDecode(localStorage.getItem("jwt") || "").exp || 0;
-        return tokenExp > Date.now();
-    }
-}
+
 
 
 export const App = () => {
-    const [activeTokenExists, setActiveTokenExists] = useState<boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [renderRegister, setRenderRegister] = useState<boolean>(false);
+
+    const validateToken = () => {
+        if (!localStorage.getItem("jwt")) {
+            console.log("Nothing found in local storage");
+            setIsAuthenticated(false);
+        } else if (!jwtDecode(localStorage.getItem("jwt") || "").exp) {
+            console.log("No JWT expiration property found in local storing")
+            localStorage.clear();
+            setIsAuthenticated(false);
+        } else {
+            //const tokenExp: number = jwtDecode(localStorage.getItem("jwt") || "").exp || 0;
+            //console.log(`tokenExp: ${tokenExp}`);
+            //console.log(`Date.now(): ${Date.now() / 1000}`);
+            //console.log(`Checking if token is still active: ${tokenExp > Date.now() / 1000}`);
+            //setIsAuthenticated(tokenExp > (Date.now() / 1000));
+            setIsAuthenticated(true);
+        }
+    }
 
     useEffect(() => {
-        setActiveTokenExists(validateToken());
+        validateToken();
     }, []);
 
     return(
         <div id="main-container">
             {
-                !activeTokenExists
+                !isAuthenticated
                     &&
-                <Login setActiveTokenExists={setActiveTokenExists} />
+                !renderRegister
+                    &&
+                <Login validateToken={validateToken} setRenderRegister={setRenderRegister} />
             }
             {
-                activeTokenExists
+                !isAuthenticated
+                    &&
+                renderRegister
+                    &&
+                <Register validateToken={validateToken} />
+            }
+            {
+                isAuthenticated
                     &&
                 <PicksContainer />
             }

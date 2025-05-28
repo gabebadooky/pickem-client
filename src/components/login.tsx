@@ -1,15 +1,15 @@
-import { FormEvent, useState } from "react";
-import { Link } from "react-router";
+import React, { FormEvent, useState } from "react";
 import { loginRequest } from "../services/authAPI";
 import { LoginBody, NullLoginBody } from "../types/user";
 
 
-//type Props = {
-    //setActiveTokenExists: React.Dispatch<React.SetStateAction<boolean>>;
-//}
+type Props = {
+    validateToken: Function;
+    setRenderRegister: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 
-const Login = ({ setActiveTokenExists }: { setActiveTokenExists: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Login = (props: Props) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -34,7 +34,6 @@ const Login = ({ setActiveTokenExists }: { setActiveTokenExists: React.Dispatch<
                 break;
             case "passwordInput":
                 setLoginBody(loginBody => ({ ...loginBody, password: value }));
-                //setPasswordValue(value);
                 if (inputPopulated) {
                     setPasswordPopulated(true);
                 } else {
@@ -55,9 +54,9 @@ const Login = ({ setActiveTokenExists }: { setActiveTokenExists: React.Dispatch<
                 setWarningMessageVisible(true);
             } else {
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate
             }
-        });
+        })
+        .then(props.validateToken());
     }
 
 
@@ -109,9 +108,11 @@ const Login = ({ setActiveTokenExists }: { setActiveTokenExists: React.Dispatch<
                 <br />
 
                 {
-                    <Link to="/register" className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white">
+                    <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
+                        onClick={() => props.setRenderRegister(true)}
+                    >
                         Create Account
-                    </Link>
+                    </button>
                 }
             </form>
         </div>

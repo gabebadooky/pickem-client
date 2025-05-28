@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { NavigateFunction, useNavigate } from "react-router";
 import { Team } from "../types/team";
 import { User } from "../types/user";
 
@@ -22,7 +21,12 @@ const WarningMessage = () => {
 }
 
 
-const Register = () => {
+type Props = {
+    validateToken: Function;
+}
+
+
+const Register = (props: Props) => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
@@ -100,12 +104,10 @@ const Register = () => {
             if (response["access_token"] === "" || response["access_token"] === undefined) {
                 setWarningMessageVisible(true);
             } else {
-                console.log("Here!123");
-                let navigate: NavigateFunction = useNavigate();
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/picks");
             }
-        });
+        })
+        .then(() => props.validateToken);
     }
 
 

@@ -3,9 +3,9 @@ import { jwtDecode } from "jwt-decode";
 
 import "tailwindcss";
 
-import Login from "./components/login";
+import Login from "./components/Login";
 import PicksContainer from "./components/PicksContainer";
-import Register from "./components/register";
+import Register from "./components/Register";
 
 
 

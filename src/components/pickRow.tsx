@@ -4,7 +4,7 @@ import { Pick, NullPick } from "../types/pick";
 
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
-import TeamCell from "./TeamCell";
+import TeamCell from "./TeamCell"
 
 
 type Props = {
@@ -20,7 +20,7 @@ const PickRow = (props: Props) => {
     const awayTeam: Team = props.teams.find(t => t.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
     const gamePick: Pick = props.picks.find(p => p.gameID === props.game.gameID) || NullPick;
-
+    
     return (
         <tr className="" id={infoCellID}>
             <TeamInfoIconCell 

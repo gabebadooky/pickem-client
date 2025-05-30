@@ -14,26 +14,29 @@ type Props = {
 
 const TeamCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
+    const [backgroundColor, setBackgroundColor] = useState<string>();
     const [opacity, setOpacity] = useState<string>();
 
     useEffect(() => {
         if (props.team.teamID === props.pick.teamPicked) {
+            setBackgroundColor(`size-16 justify-center border-2 rounded-2xl border-[#${props.team.alternateColor}]`);
             setOpacity("opacity-100");
+            console.log(`bg: ${props.team.alternateColor}`);
         } else {
+            setBackgroundColor(`bg-[#1E1E1E]`);
             setOpacity("opacity-35");
         }
     }, []);
     
 
     return (
-        <td className="size-16 justify-center">
+        <td className={backgroundColor}>
             <img 
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
                 className={opacity}
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
-                        setOpacity("opacity-100");
                         props.setIsModalCurrentlyRendered(true);
                         setShowModal(true);
                     }
@@ -44,14 +47,12 @@ const TeamCell = (props: Props) => {
                     && 
                 <ConfidenceModal 
                     pick={props.pick}
+                    teamID={props.team.teamID}
                     onClose={() => {
                         props.setIsModalCurrentlyRendered(false);
                         setShowModal(false);
-                        if (props.team.teamID === props.pick.teamPicked) {
-                            setOpacity("opacity-100");
-                        } else {
-                            setOpacity("opacity-35");
-                        }
+                        setOpacity("opacity-100");
+                        setBackgroundColor(props.team.alternateColor);
                     }}
                 />
             }

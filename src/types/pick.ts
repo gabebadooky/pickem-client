@@ -1,6 +1,6 @@
 export interface Pick {
     gameID: string;
-    userID: string;
+    userID: number;
     teamPicked: string;
     pickWeight: string;
 }
@@ -8,7 +8,7 @@ export interface Pick {
 
 export const NullPick: Pick  ={
     gameID: "",
-    userID: "",
+    userID: 0,
     teamPicked: "",
     pickWeight: ""
 }

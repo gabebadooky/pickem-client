@@ -12,7 +12,7 @@ import {
     getUser
 } from "../services/accountAPI";
 
-const MyAccount = () => {
+const Account = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [myUserProps, setMyUserProps] = useState<CurrentUser>();
     const [newEmailAddress, setNewEmailAddress] = useState(String || undefined);
@@ -158,4 +158,4 @@ const MyAccount = () => {
     )
 }
 
-export default MyAccount;
+export default Account;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -9,7 +10,7 @@ import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 
 
-const PicksContainer = () => {
+const Picks = () => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -25,24 +26,45 @@ const PicksContainer = () => {
             getUserPicks(userID).then(setPicks);
             setWeek(1);
         } else {
-            // route to Login
+            //navigate("/login");
         }
     }, []);
 
 
     return (
         <div>
-            <div className="mt-5">
-                <span>Account</span>
-                <span>
-                    { week > 1 && <i className="fa-solid fa-arrow-left" onClick={() => {
-                        setWeek(week - 1);
+            <table className="m-auto mt-5">
+                <tbody>
+                    <tr>
+                        <td className="pr-2"><i className="fa-solid fa-user"></i></td>
+                        <td className="w-5">
+                            { 
+                                week > 1 
+                                    && 
+                                <i className="fa-solid fa-arrow-left" 
+                                    onClick={() => setWeek(week - 1) }>
+                                </i>
+                            }
+                        </td>
                         
-                    }}></i> }
-                    <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
-                    { week < 18 && <i className="fa-solid fa-arrow-right" onClick={() => setWeek(week + 1)}></i> }
-                </span>
-            </div>
+                        <td>
+                            <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
+                        </td>
+                        
+                        <td className="w-5">
+                            { 
+                                week < 18 
+                                    && 
+                                <i className="fa-solid fa-arrow-right" 
+                                    onClick={() => setWeek(week + 1)}>
+                                </i>
+                            }
+                        </td>
+
+                        <td className="pl-2"><i className="fa-solid fa-bars"></i></td>
+                    </tr>
+                </tbody>
+            </table>
 
             <table className="m-auto border-separate border-spacing-y-3">
                 <tbody>
@@ -52,6 +74,7 @@ const PicksContainer = () => {
                             game={game}
                             teams={teams}
                             picks={picks}
+                            setPicks={setPicks}
                             isModalCurrentlyRendered={isModalCurrentlyRendered}
                             setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                         />
@@ -63,4 +86,4 @@ const PicksContainer = () => {
     )
 }
 
-export default PicksContainer;
+export default Picks;

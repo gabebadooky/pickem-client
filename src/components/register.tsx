@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Team } from "../types/team";
 import { User } from "../types/user";
-
 import { registerNewUser } from "../services/authAPI";
 import { getTeams } from "../services/picksAPI";
 
@@ -26,7 +26,7 @@ type Props = {
 }
 
 
-const Register = (props: Props) => {
+const Register = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
@@ -36,6 +36,7 @@ const Register = (props: Props) => {
         username: "",
         password: ""
     });
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -107,7 +108,7 @@ const Register = (props: Props) => {
                 localStorage.setItem("jwt", response["access_token"]);
             }
         })
-        .then(() => props.validateToken);
+        .then(() => navigate("/picks"));
     }
 
 
@@ -219,7 +220,7 @@ const Register = (props: Props) => {
                         &&
                     <>
                         <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
-                                //onClick={() => attemptRegistration(newUser)} 
+                                onClick={() => attemptRegistration(newUser)} 
                         >
                             Register
                         </button>
@@ -232,7 +233,15 @@ const Register = (props: Props) => {
                         &&
                     <WarningMessage />
                 }
-            </form>    
+            </form>
+
+            <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
+                onClick={() => {
+                    navigate("/login");
+                }}
+            >
+                Login
+            </button>
         </div>
     )
 }

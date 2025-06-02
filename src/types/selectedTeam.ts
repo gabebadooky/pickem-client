@@ -1,0 +1,1 @@
+export type SelectedTeam = "away" | "home" | "none";

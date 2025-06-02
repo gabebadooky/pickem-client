@@ -53,6 +53,7 @@ export const loginRequest = async (loginBody: LoginBody) => {
             return JSON.stringify({"access_token": ""});
         } else {
             const responseJSON = await response.json();
+            console.log("Login request successful");
             return responseJSON;
         }
     } catch (err) {

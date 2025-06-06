@@ -1,6 +1,7 @@
 import { Game } from "../types/game";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
+import { UserIDs } from "../types/userIDs";
 import { BASE_URL } from "./baseURL";
 
 const pickemHeaders: Headers = new Headers();
@@ -34,6 +35,17 @@ export const getUserPicks = async (userID: string): Promise<Array<Pick>> => {
     if (!response.ok) {
         console.log(`Error occurred during geUserPicks request! ${response.text}`);
         throw new Error(`Error occurred during geUserPicks request! ${response.text}`);
+    } else {
+        return response.json();
+    }
+}
+
+
+export const getUserIDs = async (): Promise<Array<UserIDs>> => {
+    const response = await fetch(`${BASE_URL}/user/ids`);
+    if (!response.ok) {
+        console.log(`Error occurred during getUserIDs request! ${response.text}`);
+        throw new Error(`Error occurred during getUserIDs request! ${response.text}`);
     } else {
         return response.json();
     }

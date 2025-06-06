@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
-import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
+import { UserIDs } from "../types/userIDs";
+import { getGames, getTeams, getUserPicks, getUserIDs } from "../services/picksAPI";
 
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
-import Account from "./Account";
 
 
 const Picks = () => {
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [picks, setPicks] = useState(Array<Pick>);
+    const [userIDs, setUserIDs] = useState(Array<UserIDs>);
     const [week, setWeek] = useState<number>(1);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -25,6 +27,7 @@ const Picks = () => {
             getGames().then(setGames);
             getTeams().then(setTeams);
             getUserPicks(userID).then(setPicks);
+            getUserIDs().then(setUserIDs);
             setWeek(1);
         } else {
             //navigate("/login");
@@ -34,12 +37,34 @@ const Picks = () => {
 
     return (
         <div>
-            <table className="m-auto mt-5">
+            <table className="m-auto mt-3">
                 <tbody>
                     <tr>
-                        <td className="pr-2">
+                        <td>
                             <Link to="/account"><i className="fa-solid fa-user"></i></Link>
                         </td>
+
+                        <td>
+                            <select name="usersDropdown" id="usersDropdownInput">
+                                {userIDs.map((user: UserIDs) => (
+                                    <option key={user.userID} value={user.userID}>{user.username}</option>
+                                ))}
+                            </select>
+                        </td>
+
+                        <td>
+                            <button 
+                                onClick={() => {
+                                    localStorage.clear();
+                                    navigate("/login");
+                                }}
+                            >
+                                Logout
+                            </button>
+                        </td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                    <tr>
                         <td className="w-5">
                             { 
                                 week > 1 
@@ -50,7 +75,7 @@ const Picks = () => {
                             }
                         </td>
                         
-                        <td>
+                        <td className="">
                             <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
                         </td>
                         
@@ -63,14 +88,13 @@ const Picks = () => {
                                 </i>
                             }
                         </td>
-
-                        <td className="pl-2"><i className="fa-solid fa-bars"></i></td>
                     </tr>
                 </tbody>
             </table>
 
             <table className="m-auto border-separate border-spacing-y-3">
                 <tbody>
+
                     {games.filter(game => game.week === week).map((game: Game) => (
                         <PickRow
                             key={game.gameID}

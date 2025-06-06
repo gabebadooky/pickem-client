@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";

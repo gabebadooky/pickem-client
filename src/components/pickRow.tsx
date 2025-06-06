@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick, NullPick } from "../types/pick";
-import { SelectedTeam } from "../types/selectedTeam";
 
+import TeamCell from "./TeamCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
-import TeamCell from "./TeamCell";
 
 
 type Props = {
@@ -19,34 +18,26 @@ type Props = {
 };
 
 const PickRow = (props: Props) => {
-    const [selectedTeam, setSelectedTeam] = useState<SelectedTeam>("none");
-    const infoCellID: string = `${props.game.gameID}-row`;
     const awayTeam: Team = props.teams.find(t => t.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
     const gamePick: Pick = props.picks.find(p => p.gameID === props.game.gameID) || NullPick;
+    const infoCellID: string = `${gamePick.gameID}-row`;
+    const awayTeaminfoCellID: string = `${awayTeam.teamID}-cell`;
+    const homeTeaminfoCellID: string = `${homeTeam.teamID}-cell`;
+    const [selectedTeam, setSelectedTeam] = useState<string | null>(gamePick.teamPicked);
     
-    useEffect(() => {
-        switch (gamePick.teamPicked) {
-            case awayTeam.teamID:
-                setSelectedTeam("away");
-                break;
-            case homeTeam.teamID:
-                setSelectedTeam("home");
-                break
-            default:
-                setSelectedTeam("none");
-        }
-    }, []);
 
     return (
         <tr className="" id={infoCellID}>
-            <TeamInfoIconCell 
+            <TeamInfoIconCell
+                key={awayTeaminfoCellID}
                 team={awayTeam}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
             />
 
-            <TeamCell 
+            <TeamCell
+                key={awayTeam.teamID}
                 team={awayTeam}
                 pick={gamePick}
                 picks={props.picks}
@@ -58,6 +49,7 @@ const PickRow = (props: Props) => {
             />
             
             <GameInfoCell
+                key={props.game.gameID}
                 game={props.game}
                 awayTeam={awayTeam}
                 homeTeam={homeTeam}
@@ -66,6 +58,7 @@ const PickRow = (props: Props) => {
             />
             
             <TeamCell
+                key={homeTeam.teamID}
                 team={homeTeam}
                 pick={gamePick}
                 picks={props.picks}
@@ -77,6 +70,7 @@ const PickRow = (props: Props) => {
             />
             
             <TeamInfoIconCell
+                key={homeTeaminfoCellID}
                 team={homeTeam}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}

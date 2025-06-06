@@ -4,11 +4,6 @@ import { LoginBody, NullLoginBody } from "../types/user";
 import { useNavigate } from "react-router";
 
 
-type Props = {
-    
-}
-
-
 const Login = () => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);

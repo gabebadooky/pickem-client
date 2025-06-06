@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
-import { SelectedTeam } from "../types/selectedTeam";
 
 import ConfidenceModal from "./ConfidenceModal";
 
@@ -10,29 +9,30 @@ type Props = {
     pick: Pick;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-    selectedTeam: SelectedTeam;
-    setSelectedTeam: React.Dispatch<React.SetStateAction<SelectedTeam>>;
+    selectedTeam: string | null;
+    setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
     isModalCurrentlyRendered: boolean;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TeamCell = (props: Props) => {
-    const [showModal, setShowModal] = useState(false);
-    const [style, setStyle] = useState<string>();
+    const teamImage: string = `${props.team.teamID}-img`;
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [style, setStyle] = useState<string>("justify-center");
 
     useEffect(() => {
-        if (props.team.teamID === props.pick.teamPicked) {
+        if (props.team.teamID === props.selectedTeam) {
             setStyle(`justify-center border-2 rounded-2xl border-[#${props.team.alternateColor}]`);
-            console.log(`bg: ${props.team.alternateColor}`);
         } else {
             setStyle("justify-center");
         }
-    }, []);
+    }, [props.selectedTeam]);
     
 
     return (
         <td className="size-16">
-            <img 
+            <img
+                key={teamImage}
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
                 className={style}
@@ -51,7 +51,6 @@ const TeamCell = (props: Props) => {
                     teamID={props.team.teamID}
                     picks={props.picks}
                     setPicks={props.setPicks}
-                    selectedTeam={props.selectedTeam}
                     setSelectedTeam={props.setSelectedTeam}
                     onClose={() => {
                         props.setIsModalCurrentlyRendered(false);

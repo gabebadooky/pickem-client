@@ -1,22 +1,30 @@
 import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
-import { SelectedTeam } from "../types/selectedTeam";
 
 type Props = {
 	pick: Pick;
 	teamID: string;
 	picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-	selectedTeam: SelectedTeam;
-    setSelectedTeam: React.Dispatch<React.SetStateAction<SelectedTeam>>;
+    setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
 	onClose: Function;
 }
 
 const ConfidenceModal = (props: Props) => {
 	const token: string = localStorage.getItem("jwt") || "";
 
-	const updatePicksData = (pick: Pick) => {
-
+	const resetPicks = (pickWeightInputvalue: string) => {
+		props.setPicks(props.picks.map(pick =>
+			pick.gameID === props.pick.gameID
+				&&
+			pick.userID === props.pick.userID
+				?
+			{ ...pick, 
+				teamPicked: props.teamID, 
+				pickWeight: pickWeightInputvalue 
+			} : pick
+		));
+		console.log(`Updated Pick: ${props.teamID}, "${pickWeightInputvalue}"`);
 	}
 
     return (
@@ -36,7 +44,7 @@ const ConfidenceModal = (props: Props) => {
 					id="low"
 					value="l"
 					onClick={(e) => {
-						console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.teamID}, ${e.currentTarget.value}}`);
+						const pickWeightInputvalue: string = e.currentTarget.value;
 						submitPick(token, {
 							userID: props.pick.userID,
 							gameID: props.pick.gameID,
@@ -44,31 +52,10 @@ const ConfidenceModal = (props: Props) => {
 							pickWeight: e.currentTarget.value
 						})
 						.then(() => {
-							props.setPicks(prevPicks =>
-								prevPicks.map(prevPick =>
-									prevPick.gameID === props.pick.gameID
-										&&
-									prevPick.userID === props.pick.userID
-										?
-									{
-										...prevPick, 
-										teamPicked: props.teamID, 
-										pickWeight: props.pick.pickWeight
-									}: prevPick
-								)
-							);
-							/*props.picks.map((prevPick: Pick) => {
-								prevPick.gameID === props.pick.gameID 
-									&&
-								prevPick.userID === props.pick.userID
-									?
-								{ ...prevPick, 
-									teamPicked: props.teamID, 
-									pickWeight: "l"
-								}: prevPick
-							})*/
-						})
-						.then(props.onClose());
+							resetPicks(pickWeightInputvalue);
+							props.setSelectedTeam(props.teamID);
+							props.onClose();
+						});
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">Low</label>
@@ -82,6 +69,7 @@ const ConfidenceModal = (props: Props) => {
 					id="medium"
 					value="m"
 					onClick={(e) => {
+						const pickWeightInputvalue: string = e.currentTarget.value;
 						console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
 						submitPick(token, {
 							userID: props.pick.userID,
@@ -89,7 +77,11 @@ const ConfidenceModal = (props: Props) => {
     						teamPicked: props.teamID,
 							pickWeight: e.currentTarget.value
 						})
-						.then(props.onClose());
+						.then(() => {
+							resetPicks(pickWeightInputvalue);
+							props.setSelectedTeam(props.teamID);
+							props.onClose();
+						});
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">Medium</label>
@@ -103,6 +95,7 @@ const ConfidenceModal = (props: Props) => {
 					id="high"
 					value="h"
 					onClick={(e) => {
+						const pickWeightInputvalue: string = e.currentTarget.value;
 						console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
 						submitPick(token, {
 							userID: props.pick.userID,
@@ -110,7 +103,11 @@ const ConfidenceModal = (props: Props) => {
     						teamPicked: props.teamID,
 							pickWeight: e.currentTarget.value
 						})
-						.then(props.onClose());
+						.then(() => {
+							resetPicks(pickWeightInputvalue);
+							props.setSelectedTeam(props.teamID);
+							props.onClose();
+						});
 					}}
 				/>
 				<label htmlFor="l" className="radioLabel">High</label>

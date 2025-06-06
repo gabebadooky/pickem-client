@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -7,6 +8,7 @@ import { getGames, getTeams, getUserPicks } from "../services/picksAPI";
 
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
+import Account from "./Account";
 
 
 const Picks = () => {
@@ -35,7 +37,9 @@ const Picks = () => {
             <table className="m-auto mt-5">
                 <tbody>
                     <tr>
-                        <td className="pr-2"><i className="fa-solid fa-user"></i></td>
+                        <td className="pr-2">
+                            <Link to="/account"><i className="fa-solid fa-user"></i></Link>
+                        </td>
                         <td className="w-5">
                             { 
                                 week > 1 

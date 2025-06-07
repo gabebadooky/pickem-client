@@ -39,6 +39,8 @@ const PickRow = (props: Props) => {
             <TeamCell
                 key={awayTeam.teamID}
                 team={awayTeam}
+                away={true}
+                home={false}
                 pick={gamePick}
                 picks={props.picks}
                 setPicks={props.setPicks}
@@ -60,6 +62,8 @@ const PickRow = (props: Props) => {
             <TeamCell
                 key={homeTeam.teamID}
                 team={homeTeam}
+                away={false}
+                home={true}
                 pick={gamePick}
                 picks={props.picks}
                 setPicks={props.setPicks}

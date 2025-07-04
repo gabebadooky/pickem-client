@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, JwtHeader } from "jwt-decode";
 import "tailwindcss";
 
 import Login from "./components/Login";
@@ -11,13 +11,21 @@ export const App = () => {
 
     const validateToken = () => {
         if (!localStorage.getItem("jwt")) {
-            console.log("Nothing found in local storage");
-            setIsAuthenticated(false);
-        } else if (!jwtDecode(localStorage.getItem("jwt") || "").exp) {
-            console.log("No JWT expiration property found in local storing");
+            // JWT not 
+            console.log("JWT not found in local storage!");
             setIsAuthenticated(false);
         } else {
-            setIsAuthenticated(true);
+            const decodedToken: JwtHeader = jwtDecode(localStorage.getItem("jwt") || "");
+            const now: number = Date.now() / 1000;
+            if (decodedToken.exp <= now) {
+                // JWT is expired
+                console.log("JWT token is expired!");
+                localStorage.clear("jwt");
+                setIsAuthenticated(false);
+            } else {
+                // JWT is active
+                setIsAuthenticated(true);
+            }
         }
     }
 

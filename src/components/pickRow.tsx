@@ -3,7 +3,7 @@ import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick, NullPick } from "../types/pick";
 
-import TeamCell from "./TeamCell";
+import TeamCell from "./TeamInfoCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
 

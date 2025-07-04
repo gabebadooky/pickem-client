@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { Team } from "../types/team";
 import { User } from "../types/user";
@@ -99,141 +99,141 @@ const Register = () => {
     }
 
 
-    const attemptRegistration = (newUser: User) => {
+    const attemptRegistration = (e: FormEvent) => {
+        e.preventDefault;
+
         registerNewUser(newUser)
         .then((response) => {
-            if (response["access_token"] === "" || response["access_token"] === undefined) {
-                setWarningMessageVisible(true);
-            } else {
+            if (response?.access_token) {
                 localStorage.setItem("jwt", response["access_token"]);
+                navigate("/picks");
+            } else {
+                setWarningMessageVisible(true);
             }
         })
-        .then(() => navigate("/picks"));
+        .catch((err) => {
+            console.log(err);
+            setWarningMessageVisible(true);
+        });
     }
 
 
     return (
         <div>
-            <form
-                onSubmit={() => {
-                    attemptRegistration(newUser);
-                }}
-            >
-                <h1 className="mt-25 text-xl">Register</h1>
+            <h1 className="mt-25 text-xl">Register</h1>
             
-                <br />
-                
-                <input
-                    autoComplete="username"
-                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                    id="usernameInput"
-                    name="username"
-                    onInput={(e) => {handleTextInputChange(e)}}
-                    placeholder="Username"
-                    type="text"
-                />
+            <br />
+            
+            <input
+                autoComplete="username"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                id="usernameInput"
+                name="username"
+                onInput={(e) => {handleTextInputChange(e)}}
+                placeholder="Username"
+                type="text"
+            />
 
-                <br />
+            <br />
 
-                <select 
-                    className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                    id="favoriteTeamInput"
-                    onChange={(e) => handleSelectInputChange(e)}
-                >
-                    <option className="favoriteTeamOption" value={0}>Favorite Team</option>
-                    {teams.map((team: Team) => (
-                        <TeamOption key={team.teamID} team={team} />
-                    ))}
-                </select>
+            <select 
+                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                id="favoriteTeamInput"
+                onChange={(e) => handleSelectInputChange(e)}
+            >
+                <option className="favoriteTeamOption" value={0}>Favorite Team</option>
+                {teams.map((team: Team) => (
+                    <TeamOption key={team.teamID} team={team} />
+                ))}
+            </select>
 
-                <br />
+            <br />
 
-                <select
-                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                    id="notificationPreferenceInput"
-                    onChange={(e) => handleSelectInputChange(e)}
-                >
-                    <option className="notificationPreferenceOption" value="n">Notification Preference</option>
-                    <option className="notificationPreferenceOption" value="e">Email</option>
-                    <option className="notificationPreferenceOption" value="p">Phone</option>
-                </select>
+            <select
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                id="notificationPreferenceInput"
+                onChange={(e) => handleSelectInputChange(e)}
+            >
+                <option className="notificationPreferenceOption" value="n">Notification Preference</option>
+                <option className="notificationPreferenceOption" value="e">Email</option>
+                <option className="notificationPreferenceOption" value="p">Phone</option>
+            </select>
 
-                <br />
+            <br />
 
-                {
-                    newUser.notificationPreference === "e"
-                        &&
-                    <>
-                        <input
-                            className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                            id="emailAddressInputField"
-                            onInput={(e) => handleTextInputChange(e)}
-                            placeholder="Email Address"
-                            type="text"
-                        />
-                        <br />
-                    </>
-                }
-                {
-                    newUser.notificationPreference === "p"
-                        &&
-                    <>
-                        <input 
-                            className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                            id="phoneInputField"
-                            onInput={(e) => handleTextInputChange(e)}
-                            placeholder="Mobile Number"
-                            type="text"
-                        />
-                        <br />
-                    </>
-                }
-                
-                <input
-                    autoComplete="new-password"
-                    className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
-                    id="passwordInput"
-                    onInput={(e) => handleTextInputChange(e)}
-                    placeholder="Password"
-                    type="password"
-                />
+            {
+                newUser.notificationPreference === "e"
+                    &&
+                <>
+                    <input
+                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        id="emailAddressInputField"
+                        onInput={(e) => handleTextInputChange(e)}
+                        placeholder="Email Address"
+                        type="text"
+                    />
+                    <br />
+                </>
+            }
+            {
+                newUser.notificationPreference === "p"
+                    &&
+                <>
+                    <input 
+                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        id="phoneInputField"
+                        onInput={(e) => handleTextInputChange(e)}
+                        placeholder="Mobile Number"
+                        type="text"
+                    />
+                    <br />
+                </>
+            }
+            
+            <input
+                autoComplete="new-password"
+                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                id="passwordInput"
+                onInput={(e) => handleTextInputChange(e)}
+                placeholder="Password"
+                type="password"
+            />
 
-                <br />
-                
-                <input
-                    autoComplete="new-password"
-                    className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
-                    id="confirmPasswordInput"
-                    onInput={(e) => handleTextInputChange(e)}
-                    placeholder="Confirm Password"
-                    type="password" 
-                />
+            <br />
+            
+            <input
+                autoComplete="new-password"
+                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                id="confirmPasswordInput"
+                onInput={(e) => handleTextInputChange(e)}
+                placeholder="Confirm Password"
+                type="password" 
+            />
 
-                <br />
-                
-                {
-                    usernamePopulated
-                        &&
-                    passwordPopulated
-                        &&
-                    confirmPasswordPopulated
-                        &&
-                    <>
-                        <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
-                                onClick={() => attemptRegistration(newUser)} 
-                        >
-                            Register
-                        </button>
-                        <br />
-                    </>
-                }
+            <br />
+            
+            {
+                usernamePopulated
+                    &&
+                passwordPopulated
+                    &&
+                confirmPasswordPopulated
+                    &&
+                <>
+                    <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
+                            onClick={(e) => attemptRegistration(e)} 
+                    >
+                        Register
+                    </button>
+                    <br />
+                </>
+            }
 
-                {
-                    warningMessageVisible
-                        &&
-                    <WarningMessage />
-                }
-            </form>
+            {
+                warningMessageVisible
+                    &&
+                <WarningMessage />
+            }
 
             <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
                 onClick={() => {

@@ -25,7 +25,7 @@ const TeamCell = (props: Props) => {
 
     useEffect(() => {
         if (props.away) {
-            setModalPositioning("absolute top-5");
+            setModalPositioning("absolute");
         } else {
             setModalPositioning("absolute")
         }

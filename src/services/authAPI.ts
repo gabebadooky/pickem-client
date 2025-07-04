@@ -8,19 +8,20 @@ pickemHeaders.append("Content-Type", "application/json");
 export const registerNewUser = async (user: User) => {
     console.log(`Calling register endpoint for user: ${user.username}`);
     const endpointURL = `${BASE_URL}/auth/register`;
+    const requestBody: string = JSON.stringify({
+        "username": user.username,
+        "password": user.password,
+        "favoriteTeam": user.favoriteTeam,
+        "notificationPreference": user.notificationPreference,
+        "emailAddress": user.emailAddress,
+        "phone": user.phone
+    });
 
     try {
         const response = await fetch(endpointURL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: user.username,
-                password: user.password,
-                favoriteTeam: user.favoriteTeam,
-                notificationPreference: user.notificationPreference,
-                emailAddress: user.emailAddress,
-                phone: user.phone
-            })
+            body: requestBody
         });
 
         if (!response.ok) {

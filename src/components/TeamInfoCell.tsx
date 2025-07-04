@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Team } from "../types/team";
 
 import TeamInfoModal from "./TeamInfoModal";
@@ -24,6 +25,22 @@ const TeamInfoIconCell = (props: Props) => {
                     }
                 }}
             ></i>
+            {
+                showModal
+                    &&
+                (createPortal(
+                    <TeamInfoModal 
+                        team={props.team}
+                        onClose={() => {
+                            setShowModal(false);
+                            props.setIsModalCurrentlyRendered(false);
+                        }}
+                    />,
+                    document.body
+                ))
+            }
+
+
             {
                 showModal
                     &&

@@ -6,8 +6,8 @@ import ConfidenceModal from "./ConfidenceModal";
 
 type Props = {
     team: Team;
-    away: boolean
-    home: boolean;
+    away: Boolean;
+    home: Boolean;
     pick: Pick;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
@@ -22,6 +22,7 @@ const TeamCell = (props: Props) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [style, setStyle] = useState<string>("justify-center");
     const [modalPositioning, setModalPositioning] = useState<string>();
+    console.log(`Team Logo URL: ${props.team.teamLogoUrl}\nAway: ${props.away}\nHome: ${props.home}`);
 
     useEffect(() => {
         if (props.away) {

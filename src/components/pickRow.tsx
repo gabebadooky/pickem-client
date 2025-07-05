@@ -22,22 +22,26 @@ const PickRow = (props: Props) => {
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
     const gamePick: Pick = props.picks.find(p => p.gameID === props.game.gameID) || NullPick;
     const infoCellID: string = `${gamePick.gameID}-row`;
-    const awayTeaminfoCellID: string = `${awayTeam.teamID}-cell`;
-    const homeTeaminfoCellID: string = `${homeTeam.teamID}-cell`;
+    const awayTeamInfoCellID: string = `${awayTeam.teamID}-info`;
+    const homeTeamInfoCellID: string = `${homeTeam.teamID}-info`;
+    const awayTeamCellID: string = `${awayTeam.teamID}-cell`;
+    const homeTeamCellID: string = `${homeTeam.teamID}-cell`;
     const [selectedTeam, setSelectedTeam] = useState<string | null>(gamePick.teamPicked);
-    
+    if (awayTeam === NullTeam || homeTeam === NullTeam) {
+        console.log(`Game ${props.game.gameID}\nAway Team: ${props.game.awayTeamID}\nHome Team: ${props.game.homeTeamID}`);
+    }
 
     return (
         <tr className="" id={infoCellID}>
             <TeamInfoIconCell
-                key={awayTeaminfoCellID}
+                key={awayTeamInfoCellID}
                 team={awayTeam}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
             />
 
             <TeamCell
-                key={awayTeam.teamID}
+                key={awayTeamCellID}
                 team={awayTeam}
                 away={true}
                 home={false}
@@ -60,7 +64,7 @@ const PickRow = (props: Props) => {
             />
             
             <TeamCell
-                key={homeTeam.teamID}
+                key={homeTeamCellID}
                 team={homeTeam}
                 away={false}
                 home={true}
@@ -74,7 +78,7 @@ const PickRow = (props: Props) => {
             />
             
             <TeamInfoIconCell
-                key={homeTeaminfoCellID}
+                key={homeTeamInfoCellID}
                 team={homeTeam}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}

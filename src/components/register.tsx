@@ -21,11 +21,6 @@ const WarningMessage = () => {
 }
 
 
-type Props = {
-    validateToken: Function;
-}
-
-
 const Register = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);

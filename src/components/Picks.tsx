@@ -30,10 +30,12 @@ const Picks = () => {
             getUserIDs().then(setUserIDs);
             setWeek(1);
         } else {
-            //navigate("/login");
+            navigate("/login");
         }
     }, []);
 
+    console.log(`Games: ${games}`);
+    console.log(`Teams: ${teams}`);
 
     return (
         <div>

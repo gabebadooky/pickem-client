@@ -8,14 +8,19 @@ export const tokenStillValid = (): boolean => {
     } else {
         const decodedToken: JwtHeader = jwtDecode(localStorage.getItem("jwt") || "");
         const now: number = Date.now() / 1000;
-        if (decodedToken.exp <= now) {
-            // JWT is expired
-            console.log("JWT token is expired!");
-            localStorage.clear();
-            return false;
+        if ("exp" in decodedToken) {
+            const tokenExpiration = decodedToken.exp;
+            if (Number(tokenExpiration) <= now) {
+                // JWT is expired
+                console.log("JWT token is expired!");
+                localStorage.clear();
+                return false;
+            } else {
+                // JWT is active
+                return true;
+            }
         } else {
-            // JWT is active
-            return true;
+            return false;
         }
     }
 }

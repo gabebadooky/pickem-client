@@ -26,8 +26,6 @@ const PickRow = (props: Props) => {
     const homeTeamInfoCellID: string = `${homeTeam.teamID}-info`;
     const awayTeamCellID: string = `${awayTeam.teamID}-cell`;
     const homeTeamCellID: string = `${homeTeam.teamID}-cell`;
-    const boolTrue: boolean = true;
-    const boolFalse: boolean = false
     const [selectedTeam, setSelectedTeam] = useState<string | null>(gamePick.teamPicked);
     if (awayTeamInfoCellID === "teamID-info" || homeTeamInfoCellID === "teamID-info") {
         //console.log(`Game ${props.game.gameID}\nAway Team: ${props.game.awayTeamID}\nHome Team: ${props.game.homeTeamID}`);
@@ -46,8 +44,8 @@ const PickRow = (props: Props) => {
             <TeamCell
                 key={awayTeamCellID}
                 team={awayTeam}
-                isAwayTeam={boolTrue}
-                isHomeTeam={boolFalse}
+                isAwayTeam={true}
+                isHomeTeam={false}
                 pick={gamePick}
                 picks={props.picks}
                 setPicks={props.setPicks}
@@ -69,8 +67,8 @@ const PickRow = (props: Props) => {
             <TeamCell
                 key={homeTeamCellID}
                 team={homeTeam}
-                away={false}
-                home={true}
+                isAwayTeam={false}
+                isHomeTeam={true}
                 pick={gamePick}
                 picks={props.picks}
                 setPicks={props.setPicks}

@@ -90,7 +90,7 @@ const Picks = () => {
                 </tbody>
             </table>
 
-            <table className="m-auto border-separate border-spacing-y-3">
+            <table className="m-auto border-separate border-spacing-3">
                 <tbody>
 
                     {games.filter(game => game.week === week).map((game: Game) => (

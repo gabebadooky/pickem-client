@@ -25,7 +25,7 @@ const TeamCell = (props: Props) => {
     console.log(`TeamID: ${props.team.teamID} | Selected TeamID: ${props.selectedTeam}`);
     useEffect(() => {
         if (props.team.teamID === props.selectedTeam) {
-            setImageBorder(`border-2 rounded-2xl border-[#${props.team.alternateColor}]`);
+            setImageBorder(`border-2 border-[#${props.team.alternateColor}] rounded-2xl`);
         } else {
             setImageBorder("");
         }

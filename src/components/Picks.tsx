@@ -21,8 +21,7 @@ const Picks = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        tokenStillValid();
-        if (localStorage.getItem("jwt")) {
+        if (tokenStillValid()) {
             const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
             getGames().then(setGames);
             getTeams().then(setTeams);
@@ -54,7 +53,7 @@ const Picks = () => {
                         <td>
                             <button 
                                 onClick={() => {
-                                    localStorage.clear("jwt");
+                                    localStorage.clear();
                                     navigate("/login");
                                 }}
                             >

@@ -17,12 +17,12 @@ export const App = () => {
             { 
                 !isAuthenticated 
                     && 
-                <Login validateToken={validateToken} /> 
+                <Login /> 
             }
             { 
                 isAuthenticated 
                     && 
-                <Picks validateToken={validateToken} /> 
+                <Picks /> 
             }
         </div>
     )

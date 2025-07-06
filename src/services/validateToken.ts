@@ -1,8 +1,8 @@
 import { jwtDecode, JwtHeader } from "jwt-decode";
 
-export const tokenStillValid = () => {
+export const tokenStillValid = (): boolean => {
     if (!localStorage.getItem("jwt")) {
-        // JWT not 
+        // JWT not present
         console.log("JWT not found in local storage!");
         return false;
     } else {
@@ -11,7 +11,7 @@ export const tokenStillValid = () => {
         if (decodedToken.exp <= now) {
             // JWT is expired
             console.log("JWT token is expired!");
-            localStorage.clear("jwt");
+            localStorage.clear();
             return false;
         } else {
             // JWT is active

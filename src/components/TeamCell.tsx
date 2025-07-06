@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
@@ -20,7 +20,16 @@ type Props = {
 
 const TeamCell = (props: Props) => {
     const teamImage: string = `${props.team.teamID}-img`;
+    const [imageBorder, setImageBorder] = useState<string>("");
     const [showModal, setShowModal] = useState<boolean>(false);
+    console.log(`TeamID: ${props.team.teamID} | Selected TeamID: ${props.selectedTeam}`);
+    useEffect(() => {
+        if (props.team.teamID === props.selectedTeam) {
+            setImageBorder(`border-2 rounded-2xl border-[#${props.team.alternateColor}]`);
+        } else {
+            setImageBorder("");
+        }
+    }, [props.selectedTeam]);
 
     return (
         <td className="size-16">
@@ -28,6 +37,7 @@ const TeamCell = (props: Props) => {
                 key={teamImage}
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
+                className={imageBorder}
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);

@@ -4,7 +4,7 @@ import { LoginBody, NullLoginBody } from "../types/user";
 import { useNavigate } from "react-router";
 
 
-const Login = () => {
+export const Login = () => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -120,5 +120,3 @@ const Login = () => {
         </div>
     )
 }
-
-export default Login;

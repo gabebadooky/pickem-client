@@ -2,11 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import { App } from "./src/app";
-import Login from "./src/components/Login";
-import Register from "./src/components/Register";
-import Picks from "./src/components/Picks";
-import Account from "./src/components/Account";
+import { App } from "./app";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Picks from "./components/Picks";
+import Account from "./components/Account";
 
 
 createRoot(document.getElementById("root")!).render(

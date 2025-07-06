@@ -4,7 +4,12 @@ import { LoginBody, NullLoginBody } from "../types/user";
 import { useNavigate } from "react-router";
 
 
-const Login = () => {
+type Props = {
+    validateToken: Function;
+}
+
+
+const Login = (props: Props) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -49,7 +54,7 @@ const Login = () => {
                 console.log(`response.access_token: ${response.access_token}`);
                 console.log(`response["access_token"]: ${response["access_token"]}`);
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/picks");
+                navigate("/picks", { state: {props} });
             } else {
                 setWarningMessageVisible(true);
             }

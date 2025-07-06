@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 
@@ -6,8 +7,8 @@ import ConfidenceModal from "./ConfidenceModal";
 
 type Props = {
     team: Team;
-    away: Boolean;
-    home: Boolean;
+    isAwayTeam: boolean;
+    isHomeTeam: boolean;
     pick: Pick;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
@@ -20,23 +21,6 @@ type Props = {
 const TeamCell = (props: Props) => {
     const teamImage: string = `${props.team.teamID}-img`;
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [style, setStyle] = useState<string>("justify-center");
-    const [modalPositioning, setModalPositioning] = useState<string>();
-    console.log(`Team Logo URL: ${props.team.teamLogoUrl}\nAway: ${props.away}\nHome: ${props.home}`);
-
-    useEffect(() => {
-        if (props.away) {
-            setModalPositioning("absolute");
-        } else {
-            setModalPositioning("absolute")
-        }
-        if (props.team.teamID === props.selectedTeam) {
-            setStyle(`justify-center border-2 rounded-2xl border-[#${props.team.alternateColor}]`);
-        } else {
-            setStyle("justify-center");
-        }
-    }, [props.selectedTeam]);
-    
 
     return (
         <td className="size-16">
@@ -44,7 +28,6 @@ const TeamCell = (props: Props) => {
                 key={teamImage}
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
-                className={style}
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);
@@ -55,7 +38,7 @@ const TeamCell = (props: Props) => {
             {
                 showModal 
                     && 
-                <div className={modalPositioning}>
+                (createPortal(
                     <ConfidenceModal 
                         pick={props.pick}
                         teamID={props.team.teamID}
@@ -66,8 +49,9 @@ const TeamCell = (props: Props) => {
                             props.setIsModalCurrentlyRendered(false);
                             setShowModal(false);
                         }}
-                    />
-                </div>
+                    />,
+                    document.body
+                ))
             }
         </td>
     )

@@ -25,7 +25,6 @@ export const getTeams = async (): Promise<Array<Team>> => {
         console.log(`Error occurred during getTeams request! ${response.text}`);
         throw new Error(`Error occurred during getTeams request! ${response.text}`);
     } else {
-        console.log(response.json());
         return response.json();
     }
 }

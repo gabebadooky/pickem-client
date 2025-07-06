@@ -39,19 +39,6 @@ const TeamInfoIconCell = (props: Props) => {
                     document.body
                 ))
             }
-
-
-            {
-                showModal
-                    &&
-                <TeamInfoModal 
-                    team={props.team}
-                    onClose={() => {
-                        setShowModal(false);
-                        props.setIsModalCurrentlyRendered(false);
-                    }}
-                />
-            }
         </td>
     )
 }

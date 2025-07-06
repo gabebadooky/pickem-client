@@ -28,91 +28,96 @@ const ConfidenceModal = (props: Props) => {
 	}
 
     return (
-    	<div className="bg-[#D9D9D9] text-black max-w-xs text-s opacity-100">
-			<i 
-				className="fa-solid fa-rectangle-xmark" 
-				onClick={() => props.onClose()}
-			>
-			</i>
+    	<div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
+			<div className="bg-[#D9D9D9] p-10 relative text-black text-center">
+				<i 
+					className="fa-solid fa-rectangle-xmark absolute top-1 right-1" 
+					onClick={() => props.onClose()}
+				>
+				</i>
 
-        	<h1>Confidence Level</h1>
-        	<div className="" id="confidenceSelection">
-          		<input 
-					type="radio"
-					name="confidenceLevel"
-					className="mr-1"
-					id="low"
-					value="l"
-					onClick={(e) => {
-						const pickWeightInputvalue: string = e.currentTarget.value;
-						submitPick(token, {
-							userID: props.pick.userID,
-							gameID: props.pick.gameID,
-    						teamPicked: props.teamID,
-							pickWeight: e.currentTarget.value
-						})
-						.then(() => {
-							resetPicks(pickWeightInputvalue);
-							props.setSelectedTeam(props.teamID);
-							props.onClose();
-						});
-					}}
-				/>
-				<label htmlFor="l" className="radioLabel">Low</label>
-				
+				<h1>Confidence Level</h1>
+
 				<br />
 
-				<input 
-					type="radio"
-					name="confidenceLevel"
-					className="mr-1"
-					id="medium"
-					value="m"
-					onClick={(e) => {
-						const pickWeightInputvalue: string = e.currentTarget.value;
-						console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
-						submitPick(token, {
-							userID: props.pick.userID,
-							gameID: props.pick.gameID,
-    						teamPicked: props.teamID,
-							pickWeight: e.currentTarget.value
-						})
-						.then(() => {
-							resetPicks(pickWeightInputvalue);
-							props.setSelectedTeam(props.teamID);
-							props.onClose();
-						});
-					}}
-				/>
-				<label htmlFor="l" className="radioLabel">Medium</label>
-				
-				<br />
+				<div className="" id="confidenceSelection">
+					<input 
+						type="radio"
+						name="confidenceLevel"
+						className="mr-1"
+						id="low"
+						value="l"
+						onClick={(e) => {
+							const pickWeightInputvalue: string = e.currentTarget.value;
+							submitPick(token, {
+								userID: props.pick.userID,
+								gameID: props.pick.gameID,
+								teamPicked: props.teamID,
+								pickWeight: e.currentTarget.value
+							})
+							.then(() => {
+								resetPicks(pickWeightInputvalue);
+								props.setSelectedTeam(props.teamID);
+								props.onClose();
+							});
+						}}
+					/>
+					<label htmlFor="l" className="radioLabel">Low</label>
+					
+					<br />
 
-				<input 
-					type="radio"
-					name="confidenceLevel"
-					className="mr-1"
-					id="high"
-					value="h"
-					onClick={(e) => {
-						const pickWeightInputvalue: string = e.currentTarget.value;
-						console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
-						submitPick(token, {
-							userID: props.pick.userID,
-							gameID: props.pick.gameID,
-    						teamPicked: props.teamID,
-							pickWeight: e.currentTarget.value
-						})
-						.then(() => {
-							resetPicks(pickWeightInputvalue);
-							props.setSelectedTeam(props.teamID);
-							props.onClose();
-						});
-					}}
-				/>
-				<label htmlFor="l" className="radioLabel">High</label>
-        	</div>
-      	</div>
+					<input 
+						type="radio"
+						name="confidenceLevel"
+						className="mr-1"
+						id="medium"
+						value="m"
+						onClick={(e) => {
+							const pickWeightInputvalue: string = e.currentTarget.value;
+							console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
+							submitPick(token, {
+								userID: props.pick.userID,
+								gameID: props.pick.gameID,
+								teamPicked: props.teamID,
+								pickWeight: e.currentTarget.value
+							})
+							.then(() => {
+								resetPicks(pickWeightInputvalue);
+								props.setSelectedTeam(props.teamID);
+								props.onClose();
+							});
+						}}
+					/>
+					<label htmlFor="l" className="radioLabel">Medium</label>
+					
+					<br />
+
+					<input 
+						type="radio"
+						name="confidenceLevel"
+						className="mr-1"
+						id="high"
+						value="h"
+						onClick={(e) => {
+							const pickWeightInputvalue: string = e.currentTarget.value;
+							console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
+							submitPick(token, {
+								userID: props.pick.userID,
+								gameID: props.pick.gameID,
+								teamPicked: props.teamID,
+								pickWeight: e.currentTarget.value
+							})
+							.then(() => {
+								resetPicks(pickWeightInputvalue);
+								props.setSelectedTeam(props.teamID);
+								props.onClose();
+							});
+						}}
+					/>
+					<label htmlFor="l" className="radioLabel">High</label>
+				</div>
+			</div>
+		</div>
     );
 }
 

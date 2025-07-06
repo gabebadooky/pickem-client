@@ -1,9 +1,17 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Game } from "../types/game";
 import { Team } from "../types/team";
 import { User } from "../types/user";
 import { registerNewUser } from "../services/authAPI";
 import { getTeams } from "../services/picksAPI";
+
+
+type Props = {
+    validateToken: Function;
+    games: Game[];
+    teams: Team[];
+}
 
 
 const TeamOption = ({ team }: { team: Team }) => {
@@ -21,7 +29,7 @@ const WarningMessage = () => {
 }
 
 
-const Register = () => {
+const Register = (props: Props) => {
     const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
@@ -101,7 +109,7 @@ const Register = () => {
         .then((response) => {
             if (response?.access_token) {
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/picks");
+                navigate("/picks", { state: {props} });
             } else {
                 setWarningMessageVisible(true);
             }
@@ -232,7 +240,7 @@ const Register = () => {
 
             <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
                 onClick={() => {
-                    navigate("/login");
+                    navigate("/login", { state: {props} });
                 }}
             >
                 Login

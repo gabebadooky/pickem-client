@@ -6,22 +6,22 @@ import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 import { getGames, getTeams, getUserPicks, getUserIDs } from "../services/picksAPI";
-
+import { tokenStillValid } from "../services/validateToken";
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 
 
 const Picks = () => {
     const [games, setGames] = useState(Array<Game>);
-    const [teams, setTeams] = useState(Array<Team>);
+    const [teams, setTeams] = useState(Array<Team>)
     const [picks, setPicks] = useState(Array<Pick>);
     const [userIDs, setUserIDs] = useState(Array<UserIDs>);
     const [week, setWeek] = useState<number>(1);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const navigate = useNavigate();
 
-
     useEffect(() => {
+        tokenStillValid();
         if (localStorage.getItem("jwt")) {
             const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
             getGames().then(setGames);
@@ -33,9 +33,6 @@ const Picks = () => {
             navigate("/login");
         }
     }, []);
-
-    console.log(`Games: ${games}`);
-    console.log(`Teams: ${teams}`);
 
     return (
         <div>
@@ -57,7 +54,7 @@ const Picks = () => {
                         <td>
                             <button 
                                 onClick={() => {
-                                    localStorage.clear();
+                                    localStorage.clear("jwt");
                                     navigate("/login");
                                 }}
                             >

@@ -3,7 +3,7 @@ import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick, NullPick } from "../types/pick";
 
-import TeamCell from "./TeamInfoCell";
+import TeamCell from "./TeamCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
 
@@ -26,13 +26,16 @@ const PickRow = (props: Props) => {
     const homeTeamInfoCellID: string = `${homeTeam.teamID}-info`;
     const awayTeamCellID: string = `${awayTeam.teamID}-cell`;
     const homeTeamCellID: string = `${homeTeam.teamID}-cell`;
+    const boolTrue: boolean = true;
+    const boolFalse: boolean = false
     const [selectedTeam, setSelectedTeam] = useState<string | null>(gamePick.teamPicked);
-    if (awayTeam === NullTeam || homeTeam === NullTeam) {
-        console.log(`Game ${props.game.gameID}\nAway Team: ${props.game.awayTeamID}\nHome Team: ${props.game.homeTeamID}`);
+    if (awayTeamInfoCellID === "teamID-info" || homeTeamInfoCellID === "teamID-info") {
+        //console.log(`Game ${props.game.gameID}\nAway Team: ${props.game.awayTeamID}\nHome Team: ${props.game.homeTeamID}`);
+        console.log(`Game Away Team: ${props.game.awayTeamID}\nAway Team: ${awayTeam.teamID}\nGame Home Team: ${props.game.homeTeamID}\nHome Team: ${homeTeam.teamID}`);
     }
 
     return (
-        <tr className="" id={infoCellID}>
+        <tr id={infoCellID}>
             <TeamInfoIconCell
                 key={awayTeamInfoCellID}
                 team={awayTeam}
@@ -43,8 +46,8 @@ const PickRow = (props: Props) => {
             <TeamCell
                 key={awayTeamCellID}
                 team={awayTeam}
-                away={true}
-                home={false}
+                isAwayTeam={boolTrue}
+                isHomeTeam={boolFalse}
                 pick={gamePick}
                 picks={props.picks}
                 setPicks={props.setPicks}

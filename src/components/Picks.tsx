@@ -9,9 +9,11 @@ import { getGames, getTeams, getUserPicks, getUserIDs } from "../services/picksA
 import { tokenStillValid } from "../services/validateToken";
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 const Picks = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>)
     const [picks, setPicks] = useState(Array<Pick>);
@@ -25,16 +27,24 @@ const Picks = () => {
             const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
             getGames().then(setGames);
             getTeams().then(setTeams);
-            getUserPicks(userID).then(setPicks);
+            getUserPicks(userID).then(setPicks).finally(() => setIsLoading(false));
             getUserIDs().then(setUserIDs);
             setWeek(1);
         } else {
             navigate("/login");
         }
+        console.log(`setting isLoading to True`);
+        setIsLoading(true);
     }, []);
 
     return (
         <div>
+            {
+                isLoading
+                    &&
+                <LoadingSpinner />
+            }
+
             <table className="m-auto mt-3">
                 <tbody>
                     <tr>

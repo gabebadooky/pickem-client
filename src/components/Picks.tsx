@@ -31,7 +31,8 @@ const Picks = () => {
             getUserIDs().then(setUserIDs);
             setWeek(1);
         } else {
-            navigate("/login");
+            localStorage.clear();
+            navigate("/");
         }
         console.log(`setting isLoading to True`);
         setIsLoading(true);

@@ -49,7 +49,7 @@ const Login = () => {
                 console.log(`response.access_token: ${response.access_token}`);
                 console.log(`response["access_token"]: ${response["access_token"]}`);
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/");
+                navigate("/picks");
             } else {
                 setWarningMessageVisible(true);
             }
@@ -75,7 +75,7 @@ const Login = () => {
 
             <input
                 autoComplete="username"
-                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
                 id="usernameInput"
                 onChange={handleTextInputChange}
                 placeholder="Username"
@@ -87,7 +87,7 @@ const Login = () => {
 
             <input
                 autoComplete="current-password"
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-7 rounded-xl text-black text-center w-[75%]"
                 id="passwordInput"
                 onChange={handleTextInputChange}
                 placeholder="Password"
@@ -100,7 +100,7 @@ const Login = () => {
             {
                 usernamePopulated && passwordPopulated
                     &&
-                <button className="mt-2 mb-2 bg-[#17C120] w-48 rounded-xl" id="loginButton" type="submit"
+                <button className="bg-[#17C120] h-8 mt-2 mb-2 rounded-xl w-48" id="loginButton" type="submit"
                         onClick={(e) => attemptLogin(e)}
                 >
                     Login

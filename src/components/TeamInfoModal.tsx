@@ -26,6 +26,7 @@ const TeamInfoModal = (props: Props) => {
                     <br />
                     <p>More Details:</p>
                     <a href={espnURL}>ESPN</a>
+                    <br />
                     <a href={cbsURL}>CBS</a>
                 </span>
             </div>

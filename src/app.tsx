@@ -10,7 +10,7 @@ export const App = () => {
 
     useEffect(() => {
         setIsAuthenticated(tokenStillValid());
-    }, []);
+    }, [isAuthenticated]);
 
     return(
         <div id="containter">

@@ -49,7 +49,7 @@ const Login = () => {
                 console.log(`response.access_token: ${response.access_token}`);
                 console.log(`response["access_token"]: ${response["access_token"]}`);
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/picks");
+                navigate("/");
             } else {
                 setWarningMessageVisible(true);
             }

@@ -33,7 +33,7 @@ const PickRow = (props: Props) => {
     }
 
     return (
-        <tr id={infoCellID}>
+        <tr className="flex m-auto w-full" id={infoCellID}>
             <TeamInfoIconCell
                 key={awayTeamInfoCellID}
                 team={awayTeam}

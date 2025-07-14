@@ -32,7 +32,7 @@ const TeamCell = (props: Props) => {
     }, [props.selectedTeam]);
 
     return (
-        <td className="size-16">
+        <td className="size-16 w-1/5">
             <img
                 key={teamImage}
                 src={props.team.teamLogoUrl}

@@ -17,7 +17,7 @@ const GameInfoCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <td>
+        <td className="w-1/5">
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {

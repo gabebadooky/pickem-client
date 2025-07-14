@@ -7,8 +7,7 @@ type Props = {
 const renderWeekOptions = (weeks: number) => {
     let optionElements = [];
     for (let i = 0; i < weeks; i++) {
-        const weekNum: number = i + 1;
-        optionElements.push(<option key={weekNum} value={weekNum}>Week {weekNum}</option>);
+        optionElements.push(<option key={i} value={i}>Week {i}</option>);
     }
     return optionElements;
 }

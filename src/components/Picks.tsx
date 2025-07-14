@@ -18,9 +18,11 @@ const Picks = () => {
     const [teams, setTeams] = useState(Array<Team>)
     const [picks, setPicks] = useState(Array<Pick>);
     const [userIDs, setUserIDs] = useState(Array<UserIDs>);
-    const [week, setWeek] = useState<number>(1);
+    const [week, setWeek] = useState<number>(0);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const navigate = useNavigate();
+
+    let priorGameDate: Date | undefined;
 
     useEffect(() => {
         if (tokenStillValid()) {
@@ -29,12 +31,12 @@ const Picks = () => {
             getTeams().then(setTeams);
             getUserPicks(userID).then(setPicks).finally(() => setIsLoading(false));
             getUserIDs().then(setUserIDs);
-            setWeek(1);
+            setWeek(0);
         } else {
             localStorage.clear();
             navigate("/");
         }
-        console.log(`setting isLoading to True`);
+        console.log(`games: ${games}`);
         setIsLoading(true);
     }, []);
 
@@ -46,7 +48,7 @@ const Picks = () => {
                 <LoadingSpinner />
             }
 
-            <table className="m-auto mt-3">
+            <table className="m-auto mt-3 w-[75%]">
                 <tbody>
                     <tr>
                         <td>
@@ -76,7 +78,7 @@ const Picks = () => {
                     <tr>
                         <td className="w-5">
                             { 
-                                week > 1 
+                                week > 0 
                                     && 
                                 <i className="fa-solid fa-arrow-left" 
                                     onClick={() => setWeek(week - 1) }>
@@ -101,21 +103,52 @@ const Picks = () => {
                 </tbody>
             </table>
 
-            <table className="m-auto border-separate border-spacing-3">
+            <table className="border-separate border-spacing-3 m-auto w-[75%]">
                 <tbody>
 
-                    {games.filter(game => game.week === week).map((game: Game) => (
-                        <PickRow
-                            key={game.gameID}
-                            game={game}
-                            teams={teams}
-                            picks={picks}
-                            setPicks={setPicks}
-                            isModalCurrentlyRendered={isModalCurrentlyRendered}
-                            setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                        />
-                    ))
+                    {games.filter(game => game.week === week).map((game: Game) => {
+                       
+                        if (game.date !== priorGameDate) {
+                            priorGameDate = game.date;
+                            let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
+                                weekday: "long",
+                                month: "long",
+                                day: "numeric"
+                            });
+
+                            return (
+                                <>
+                                    <tr className="m-auto w-full">
+                                        <td className="mx-auto w-full">{formattedGamedate}</td>
+                                    </tr>
+                                    <PickRow
+                                        key={game.gameID}
+                                        game={game}
+                                        teams={teams}
+                                        picks={picks}
+                                        setPicks={setPicks}
+                                        isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                        setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                    />
+                                </>
+                            );
+                        } else {
+                            return (
+                                <PickRow
+                                    key={game.gameID}
+                                    game={game}
+                                    teams={teams}
+                                    picks={picks}
+                                    setPicks={setPicks}
+                                    isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                    setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                />
+                            );
+                        }
+
+                    })
                     }
+
                 </tbody>
             </table>
         </div>

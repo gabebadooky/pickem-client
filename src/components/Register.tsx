@@ -101,7 +101,7 @@ const Register = () => {
         .then((response) => {
             if (response?.access_token) {
                 localStorage.setItem("jwt", response["access_token"]);
-                navigate("/picks");
+                navigate("/");
             } else {
                 setWarningMessageVisible(true);
             }
@@ -233,7 +233,7 @@ const Register = () => {
 
             <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[75%]"
                 onClick={() => {
-                    navigate("/login");
+                    navigate("/");
                 }}
             >
                 Login

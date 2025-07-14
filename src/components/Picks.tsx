@@ -69,7 +69,7 @@ const Picks = (props: Props) => {
                             <button 
                                 onClick={() => {
                                     localStorage.clear();
-                                    navigate("/login");
+                                    navigate("/");
                                 }}
                             >
                                 Logout

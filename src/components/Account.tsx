@@ -44,7 +44,7 @@ const Account = () => {
     return (
         <div>
             <span>
-                <Link to="/picks">
+                <Link to="/">
                     <i className="fa-solid fa-arrow-left mt-5 pr-3"></i>
                 </Link>
                 Update My Account

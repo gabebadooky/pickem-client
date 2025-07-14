@@ -25,14 +25,14 @@ const TeamCell = (props: Props) => {
     
     useEffect(() => {
         if (props.team.teamID === props.selectedTeam) {
-            setImageBorder(`border-2 border-[#${props.team.alternateColor}] rounded-2xl`);
+            setImageBorder(`border-2 border-[#${props.team.alternateColor}] h-[100%] rounded-2xl`);
         } else {
-            setImageBorder("");
+            setImageBorder("h-[100%]");
         }
     }, [props.selectedTeam]);
 
     return (
-        <td className="size-16 w-1/5">
+        <td className="m-auto w-1/5">
             <img
                 key={teamImage}
                 src={props.team.teamLogoUrl}

@@ -120,8 +120,11 @@ const Picks = (props: Props) => {
 
                             return (
                                 <>
+                                    <br />
                                     <tr className="m-auto w-full">
-                                        <td className="mx-auto w-full">{formattedGamedate}</td>
+                                        <td className="mx-auto w-full">
+                                            <p>{formattedGamedate}</p>
+                                        </td>
                                     </tr>
                                     <PickRow
                                         key={game.gameID}

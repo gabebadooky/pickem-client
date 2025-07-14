@@ -31,7 +31,6 @@ const TeamCell = (props: Props) => {
         }
     }, [props.team.teamID, props.pick.teamPicked, props.selectedTeam, props.team.alternateColor]);
     
-    console.log(`teamID: ${props.team.teamID}\nalternateColor: ${props.team.alternateColor}`);
 
     return (
         <td className="m-auto w-1/5">

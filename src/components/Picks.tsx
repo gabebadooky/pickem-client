@@ -10,6 +10,7 @@ import { tokenStillValid } from "../services/validateToken";
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 import LoadingSpinner from "./LoadingSpinner";
+import { createPortal } from "react-dom";
 
 
 type Props = {
@@ -31,10 +32,10 @@ const Picks = (props: Props) => {
     useEffect(() => {
         setIsLoading(true);
         if (tokenStillValid()) {
-            const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
+            const loggedInUserID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
             //getGames().then(setGames);
             //getTeams().then(setTeams);
-            getUserPicks(userID).then(setPicks).finally(() => setIsLoading(false));
+            getUserPicks(loggedInUserID).then(setPicks).finally(() => setIsLoading(false));
             setWeek(0);
         } else {
             localStorage.clear();
@@ -47,113 +48,131 @@ const Picks = (props: Props) => {
             {
                 isLoading
                     &&
-                <LoadingSpinner />
+                (createPortal(
+                    <LoadingSpinner />,
+                    document.body
+                ))
             }
 
-            <table className="m-auto mt-3 w-[90%]">
-                <tbody>
-                    <tr>
-                        <td>
-                            <Link to="/account"><i className="fa-solid fa-user"></i></Link>
-                        </td>
+            {
+                !isLoading
+                    &&
+                <div>
+                    <table className="m-auto mt-3 w-[90%]">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <Link to="/account"><i className="fa-solid fa-user"></i></Link>
+                                </td>
 
-                        <td>
-                            <select name="usersDropdown" id="usersDropdownInput">
-                                {props.userIDs.map((user: UserIDs) => (
-                                    <option key={user.userID} value={user.userID}>{user.username}</option>
-                                ))}
-                            </select>
-                        </td>
+                                <td>
+                                    <select 
+                                        name="usersDropdown" 
+                                        id="usersDropdownInput"
+                                        value={picks[0].userID}
+                                        onChange={(e) => {
+                                            console.log(`e.target.value: ${e.target.value}`);
+                                            setIsLoading(true);
+                                            getUserPicks(e.target.value).then(setPicks).finally(() => setIsLoading(false));
+                                        }}
+                                    >
+                                        {props.userIDs.map((user: UserIDs) => (
+                                            <option key={user.userID} value={user.userID}>{user.username}</option>
+                                        ))}
+                                    </select>
+                                </td>
 
-                        <td>
-                            <button 
-                                onClick={() => {
-                                    localStorage.clear();
-                                    navigate("/");
-                                    window.location.reload();
-                                }}
-                            >
-                                Logout
-                            </button>
-                        </td>
-                    </tr>
-                    <tr><td><br /></td></tr>
-                    <tr>
-                        <td className="w-5">
-                            { 
-                                week > 0 
-                                    && 
-                                <i className="fa-solid fa-arrow-left" 
-                                    onClick={() => setWeek(week - 1) }>
-                                </i>
+                                <td>
+                                    <button 
+                                        onClick={() => {
+                                            localStorage.clear();
+                                            navigate("/");
+                                            window.location.reload();
+                                        }}
+                                    >
+                                        Logout
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr><td><br /></td></tr>
+                            <tr>
+                                <td className="w-5">
+                                    { 
+                                        week > 0 
+                                            && 
+                                        <i className="fa-solid fa-arrow-left" 
+                                            onClick={() => setWeek(week - 1) }>
+                                        </i>
+                                    }
+                                </td>
+                                
+                                <td className="">
+                                    <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
+                                </td>
+                                
+                                <td className="w-5">
+                                    { 
+                                        week < 18 
+                                            && 
+                                        <i className="fa-solid fa-arrow-right" 
+                                            onClick={() => setWeek(week + 1)}>
+                                        </i>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table className="border-separate border-spacing-3 m-auto mt-[5%] w-[90%]">
+                        <tbody>
+
+                            {props.games.filter(game => game.week === week).map((game: Game) => {
+                            
+                                if (game.date !== priorGameDate) {
+                                    priorGameDate = game.date;
+                                    let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
+                                        weekday: "long",
+                                        month: "long",
+                                        day: "numeric"
+                                    });
+
+                                    return (
+                                        <>
+                                            <tr className="m-auto mt-[10%] w-full">
+                                                <th className="mx-auto w-full">{formattedGamedate}</th>
+                                            </tr>
+                                            <PickRow
+                                                key={game.gameID}
+                                                game={game}
+                                                teams={props.teams}
+                                                picks={picks}
+                                                setPicks={setPicks}
+                                                isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                                setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                            />
+                                        </>
+                                    );
+                                } else {
+                                    return (
+                                        <PickRow
+                                            key={game.gameID}
+                                            game={game}
+                                            teams={props.teams}
+                                            picks={picks}
+                                            setPicks={setPicks}
+                                            isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                            setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                        />
+                                    );
+                                }
+
+                            })
                             }
-                        </td>
-                        
-                        <td className="">
-                            <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
-                        </td>
-                        
-                        <td className="w-5">
-                            { 
-                                week < 18 
-                                    && 
-                                <i className="fa-solid fa-arrow-right" 
-                                    onClick={() => setWeek(week + 1)}>
-                                </i>
-                            }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <table className="border-separate border-spacing-3 m-auto w-[90%]">
-                <tbody>
-
-                    {props.games.filter(game => game.week === week).map((game: Game) => {
-                       
-                        if (game.date !== priorGameDate) {
-                            priorGameDate = game.date;
-                            let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
-                                weekday: "long",
-                                month: "long",
-                                day: "numeric"
-                            });
-
-                            return (
-                                <>
-                                    <tr className="m-auto mt-[10%] w-full">
-                                        <th className="mx-auto w-full">{formattedGamedate}</th>
-                                    </tr>
-                                    <PickRow
-                                        key={game.gameID}
-                                        game={game}
-                                        teams={props.teams}
-                                        picks={picks}
-                                        setPicks={setPicks}
-                                        isModalCurrentlyRendered={isModalCurrentlyRendered}
-                                        setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                                    />
-                                </>
-                            );
-                        } else {
-                            return (
-                                <PickRow
-                                    key={game.gameID}
-                                    game={game}
-                                    teams={props.teams}
-                                    picks={picks}
-                                    setPicks={setPicks}
-                                    isModalCurrentlyRendered={isModalCurrentlyRendered}
-                                    setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                                />
-                            );
-                        }
-
-                    })
-                    }
-
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     )
 }

@@ -12,12 +12,16 @@ import PickRow from "./PickRow";
 import LoadingSpinner from "./LoadingSpinner";
 
 
-const Picks = () => {
+type Props = {
+    games: Game[];
+    teams: Team[];
+    userIDs: UserIDs[];
+};
+
+
+const Picks = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [games, setGames] = useState(Array<Game>);
-    const [teams, setTeams] = useState(Array<Team>)
     const [picks, setPicks] = useState(Array<Pick>);
-    const [userIDs, setUserIDs] = useState(Array<UserIDs>);
     const [week, setWeek] = useState<number>(0);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -25,19 +29,17 @@ const Picks = () => {
     let priorGameDate: Date | undefined;
 
     useEffect(() => {
+        setIsLoading(true);
         if (tokenStillValid()) {
             const userID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
-            getGames().then(setGames);
-            getTeams().then(setTeams);
+            //getGames().then(setGames);
+            //getTeams().then(setTeams);
             getUserPicks(userID).then(setPicks).finally(() => setIsLoading(false));
-            getUserIDs().then(setUserIDs);
             setWeek(0);
         } else {
             localStorage.clear();
             navigate("/");
         }
-        console.log(`games: ${games}`);
-        setIsLoading(true);
     }, []);
 
     return (
@@ -57,7 +59,7 @@ const Picks = () => {
 
                         <td>
                             <select name="usersDropdown" id="usersDropdownInput">
-                                {userIDs.map((user: UserIDs) => (
+                                {props.userIDs.map((user: UserIDs) => (
                                     <option key={user.userID} value={user.userID}>{user.username}</option>
                                 ))}
                             </select>
@@ -106,7 +108,7 @@ const Picks = () => {
             <table className="border-separate border-spacing-3 m-auto w-[75%]">
                 <tbody>
 
-                    {games.filter(game => game.week === week).map((game: Game) => {
+                    {props.games.filter(game => game.week === week).map((game: Game) => {
                        
                         if (game.date !== priorGameDate) {
                             priorGameDate = game.date;
@@ -124,7 +126,7 @@ const Picks = () => {
                                     <PickRow
                                         key={game.gameID}
                                         game={game}
-                                        teams={teams}
+                                        teams={props.teams}
                                         picks={picks}
                                         setPicks={setPicks}
                                         isModalCurrentlyRendered={isModalCurrentlyRendered}
@@ -137,7 +139,7 @@ const Picks = () => {
                                 <PickRow
                                     key={game.gameID}
                                     game={game}
-                                    teams={teams}
+                                    teams={props.teams}
                                     picks={picks}
                                     setPicks={setPicks}
                                     isModalCurrentlyRendered={isModalCurrentlyRendered}

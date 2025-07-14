@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/" element={<App />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route index path="picks" element={<Picks />} />
+            <Route index path="picks" element={<Picks games={[]} teams={[]} userIDs={[]} />} />
             <Route path="account" element={<Account />} />
         </Routes>
     </BrowserRouter>

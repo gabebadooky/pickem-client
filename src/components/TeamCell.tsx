@@ -22,15 +22,16 @@ const TeamCell = (props: Props) => {
     const teamImage: string = `${props.team.teamID}-img`;
     const [imageBorder, setImageBorder] = useState<string>("h-[100%]");
     const [showModal, setShowModal] = useState<boolean>(false);
-    
+
     useEffect(() => {
         if (props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked) {
-            setImageBorder(`border-2 border-[#${props.team.alternateColor}] h-[100%] rounded-2xl`);
+            setImageBorder(`border-3 h-[100%] rounded-2xl`);
         } else {
             setImageBorder("h-[100%]");
         }
-    }, [props.pick.teamPicked, props.selectedTeam]);
-
+    }, [props.team.teamID, props.pick.teamPicked, props.selectedTeam, props.team.alternateColor]);
+    
+    console.log(`teamID: ${props.team.teamID}\nalternateColor: ${props.team.alternateColor}`);
 
     return (
         <td className="m-auto w-1/5">
@@ -39,6 +40,7 @@ const TeamCell = (props: Props) => {
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
                 className={imageBorder}
+                style={props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked ? {borderColor: `#${props.team.alternateColor}`} : undefined}
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);

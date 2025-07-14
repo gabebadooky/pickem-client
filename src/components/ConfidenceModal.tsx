@@ -12,6 +12,11 @@ type Props = {
 
 const ConfidenceModal = (props: Props) => {
 	const token: string = localStorage.getItem("jwt") || "";
+	const formattedGameID: string = props.pick.gameID
+										.replace(/-/g, " ")
+										.split(" ")
+										.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
+										.join(" ");
 
 	const resetPicks = (pickWeightInputvalue: string) => {
 		props.setPicks(props.picks.map(pick =>
@@ -29,9 +34,9 @@ const ConfidenceModal = (props: Props) => {
 
     return (
     	<div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
-			<div className="bg-[#D9D9D9] p-10 relative text-black text-center">
+			<div className="bg-[#D9D9D9] p-10 relative rounded-lg text-black text-center">
 				<i 
-					className="fa-solid fa-rectangle-xmark absolute top-1 right-1" 
+					className="absolute fa-solid fa-rectangle-xmark right-1 top-1"
 					onClick={() => props.onClose()}
 				>
 				</i>
@@ -40,13 +45,18 @@ const ConfidenceModal = (props: Props) => {
 
 				<br />
 
+				<p>{formattedGameID}</p>
+
+				<br />
+
 				<div className="" id="confidenceSelection">
 					<input 
 						type="radio"
 						name="confidenceLevel"
-						className="mr-1"
+						className="ml-1"
 						id="low"
 						value="l"
+						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "l"}
 						onClick={(e) => {
 							const pickWeightInputvalue: string = e.currentTarget.value;
 							submitPick(token, {
@@ -62,16 +72,17 @@ const ConfidenceModal = (props: Props) => {
 							});
 						}}
 					/>
-					<label htmlFor="l" className="radioLabel">Low</label>
+					<label htmlFor="low" className="radioLabel">Low</label>
 					
 					<br />
 
 					<input 
 						type="radio"
 						name="confidenceLevel"
-						className="mr-1"
+						className="ml-1"
 						id="medium"
 						value="m"
+						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "m"}
 						onClick={(e) => {
 							const pickWeightInputvalue: string = e.currentTarget.value;
 							console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);
@@ -95,9 +106,10 @@ const ConfidenceModal = (props: Props) => {
 					<input 
 						type="radio"
 						name="confidenceLevel"
-						className="mr-1"
+						className="ml-1"
 						id="high"
 						value="h"
+						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "h"}
 						onClick={(e) => {
 							const pickWeightInputvalue: string = e.currentTarget.value;
 							console.log(`Submitting pick: {${token}\n${props.pick.userID}, ${props.pick.gameID}, ${props.pick.teamPicked}, ${e.currentTarget.value}}`);

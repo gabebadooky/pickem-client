@@ -42,7 +42,7 @@ const Account = () => {
     }, []);
 
     return (
-        <div className="m-auto mt-5 w-[75%]">
+        <div className="m-auto mt-5 w-[90%]">
             <div className="grid grid-cols-3 grid-rows-1">
                 <div>
                     <Link to="/">
@@ -65,7 +65,7 @@ const Account = () => {
 
             <h3>Notification Preference</h3>
             <select
-                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[90%]"
                 id="notificationPreferenceInput"
                 value={myUserProps?.notificationPreference || "n"}
                 onChange={(e) => {
@@ -85,7 +85,7 @@ const Account = () => {
 
             <h3>Email Address</h3>
             <input
-                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[90%]"
                 id="emailAddressInputField"
                 onInput={(e) => setNewEmailAddress(e.currentTarget.value)}
                 placeholder={myUserProps?.emailAddress || ""}
@@ -96,7 +96,7 @@ const Account = () => {
                 newEmailAddress
                     &&
                 <button
-                    className="bg-[#17C120] h-6 ml-2 rounded-xl px-3 w-[75%]"
+                    className="bg-[#17C120] h-6 ml-2 rounded-xl px-3 w-[90%]"
                     id="submitEmailChangeButton"
                     type="submit"
                     onClick={() => {
@@ -116,7 +116,7 @@ const Account = () => {
 
             <h3>Phone</h3>
             <input 
-                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-6 rounded-xl text-black text-center w-[90%]"
                 id="phoneInputField"
                 onInput={(e) => setNewPhone(e.currentTarget.value)}
                 placeholder={myUserProps?.phone || ""}
@@ -127,7 +127,7 @@ const Account = () => {
                 newPhone
                     &&
                 <button
-                    className="bg-[#17C120] h-6 ml-2 px-3 rounded-xl w-[75%]"
+                    className="bg-[#17C120] h-6 ml-2 px-3 rounded-xl w-[90%]"
                     id="submitPhoneChangeButton"
                     type="submit"
                     onClick={() => {
@@ -148,7 +148,7 @@ const Account = () => {
 
             <h3>Favorite Team</h3>
             <select
-                className="bg-[#D9D9D9] h-6 mb-8 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-8 rounded-xl text-black text-center w-[90%]"
                 id="favoriteTeamInput"
                 value={myUserProps?.favoriteTeam || "0"}
                 onChange={(e) => {

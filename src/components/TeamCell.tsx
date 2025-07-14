@@ -20,7 +20,7 @@ type Props = {
 
 const TeamCell = (props: Props) => {
     const teamImage: string = `${props.team.teamID}-img`;
-    const [imageBorder, setImageBorder] = useState<string>("");
+    const [imageBorder, setImageBorder] = useState<string>("h-[100%]");
     const [showModal, setShowModal] = useState<boolean>(false);
     
     useEffect(() => {
@@ -30,6 +30,8 @@ const TeamCell = (props: Props) => {
             setImageBorder("h-[100%]");
         }
     }, [props.selectedTeam]);
+
+    console.log(`teamID: ${props.team.teamID}\nselectedTeam: ${props.selectedTeam}`);
 
     return (
         <td className="m-auto w-1/5">

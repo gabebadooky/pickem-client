@@ -50,7 +50,7 @@ const Picks = (props: Props) => {
                 <LoadingSpinner />
             }
 
-            <table className="m-auto mt-3 w-[75%]">
+            <table className="m-auto mt-3 w-[90%]">
                 <tbody>
                     <tr>
                         <td>
@@ -105,7 +105,7 @@ const Picks = (props: Props) => {
                 </tbody>
             </table>
 
-            <table className="border-separate border-spacing-3 m-auto w-[75%]">
+            <table className="border-separate border-spacing-3 m-auto w-[90%]">
                 <tbody>
 
                     {props.games.filter(game => game.week === week).map((game: Game) => {

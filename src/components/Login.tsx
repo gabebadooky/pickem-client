@@ -81,7 +81,7 @@ const Login = (props: Props) => {
 
             <input
                 autoComplete="username"
-                className="bg-[#D9D9D9] h-6 mb-3 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-3 rounded-xl text-black text-center w-[90%]"
                 id="usernameInput"
                 onChange={handleTextInputChange}
                 placeholder="Username"
@@ -93,7 +93,7 @@ const Login = (props: Props) => {
 
             <input
                 autoComplete="current-password"
-                className="bg-[#D9D9D9] h-6 mb-7 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-7 rounded-xl text-black text-center w-[90%]"
                 id="passwordInput"
                 onChange={handleTextInputChange}
                 placeholder="Password"
@@ -106,7 +106,7 @@ const Login = (props: Props) => {
             {
                 usernamePopulated && passwordPopulated
                     &&
-                <button className="bg-[#17C120] h-6 mt-2 mb-2 rounded-xl w-[75%]" id="loginButton" type="submit"
+                <button className="bg-[#17C120] h-6 mt-2 mb-2 rounded-xl w-[90%]" id="loginButton" type="submit"
                         onClick={(e) => attemptLogin(e)}
                 >
                     Login
@@ -115,7 +115,7 @@ const Login = (props: Props) => {
 
             <br />
 
-            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[75%]"
+            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[90%]"
                 onClick={() => {
                     navigate("/register");
                 }}

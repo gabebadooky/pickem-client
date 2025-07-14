@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick, NullPick } from "../types/pick";
@@ -21,7 +21,11 @@ const PickRow = (props: Props) => {
     const awayTeam: Team = props.teams.find(t => t.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
     const gamePick: Pick = props.picks.find(p => p.gameID === props.game.gameID) || NullPick;
-    const [selectedTeam, setSelectedTeam] = useState<string | null>(gamePick.teamPicked);
+    const [selectedTeam, setSelectedTeam] = useState<string | null>("");
+
+    useEffect(() => {
+        setSelectedTeam(gamePick.teamPicked);
+    }, []);
 
     return (
         <tr className="flex h-[20%] m-auto w-full" id={`${gamePick.gameID}-row`}>

@@ -100,7 +100,7 @@ const Login = () => {
             {
                 usernamePopulated && passwordPopulated
                     &&
-                <button className="bg-[#17C120] h-8 mt-2 mb-2 rounded-xl w-48" id="loginButton" type="submit"
+                <button className="bg-[#17C120] h-8 mt-2 mb-2 rounded-xl w-[75%]" id="loginButton" type="submit"
                         onClick={(e) => attemptLogin(e)}
                 >
                     Login
@@ -109,7 +109,7 @@ const Login = () => {
 
             <br />
 
-            <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
+            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[75%]"
                 onClick={() => {
                     navigate("/register");
                 }}

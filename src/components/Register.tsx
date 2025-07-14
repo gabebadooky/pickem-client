@@ -121,7 +121,7 @@ const Register = () => {
             
             <input
                 autoComplete="username"
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-7 rounded-xl text-black text-center w-[75%]"
                 id="usernameInput"
                 name="username"
                 onInput={(e) => {handleTextInputChange(e)}}
@@ -132,7 +132,7 @@ const Register = () => {
             <br />
 
             <select 
-                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
                 id="favoriteTeamInput"
                 onChange={(e) => handleSelectInputChange(e)}
             >
@@ -145,7 +145,7 @@ const Register = () => {
             <br />
 
             <select
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-7 rounded-xl text-black text-center w-[75%]"
                 id="notificationPreferenceInput"
                 onChange={(e) => handleSelectInputChange(e)}
             >
@@ -161,7 +161,7 @@ const Register = () => {
                     &&
                 <>
                     <input
-                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
                         id="emailAddressInputField"
                         onInput={(e) => handleTextInputChange(e)}
                         placeholder="Email Address"
@@ -175,7 +175,7 @@ const Register = () => {
                     &&
                 <>
                     <input 
-                        className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                        className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
                         id="phoneInputField"
                         onInput={(e) => handleTextInputChange(e)}
                         placeholder="Mobile Number"
@@ -187,7 +187,7 @@ const Register = () => {
             
             <input
                 autoComplete="new-password"
-                className="bg-[#D9D9D9] text-black mb-3 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
                 id="passwordInput"
                 onInput={(e) => handleTextInputChange(e)}
                 placeholder="Password"
@@ -198,7 +198,7 @@ const Register = () => {
             
             <input
                 autoComplete="new-password"
-                className="bg-[#D9D9D9] text-black mb-7 w-48 rounded-xl text-center"
+                className="bg-[#D9D9D9] h-8 mb-7 text-black rounded-xl text-center w-[75%]"
                 id="confirmPasswordInput"
                 onInput={(e) => handleTextInputChange(e)}
                 placeholder="Confirm Password"
@@ -215,7 +215,7 @@ const Register = () => {
                 confirmPasswordPopulated
                     &&
                 <>
-                    <button className="bg-[#17C120] w-48 rounded-xl" id="registerButton" type="submit"
+                    <button className="bg-[#17C120] h-8 rounded-xl w-[75%]" id="registerButton" type="submit"
                             onClick={(e) => attemptRegistration(e)} 
                     >
                         Register
@@ -231,7 +231,7 @@ const Register = () => {
                 <WarningMessage />
             }
 
-            <button className="mb-5 w-48 px-2 py-1 rounded-lg border-1 border-white"
+            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[75%]"
                 onClick={() => {
                     navigate("/login");
                 }}

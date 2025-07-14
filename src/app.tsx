@@ -21,14 +21,14 @@ export const App = () => {
         getGames().then(setGames);
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
-    }, [isAuthenticated]);
+    }, [isAuthenticated, localStorage.getItem("jwt")]);
 
     return(
         <div id="containter">
             { 
                 !isAuthenticated 
                     && 
-                <Login /> 
+                <Login setIsAuthenticated={setIsAuthenticated} /> 
             }
             { 
                 isAuthenticated 

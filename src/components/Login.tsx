@@ -4,7 +4,12 @@ import { LoginBody, NullLoginBody } from "../types/user";
 import { useNavigate } from "react-router";
 
 
-const Login = () => {
+type Props = {
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const Login = (props: Props) => {
     const [usernamePopulated, setUsernamePopulated] = useState<boolean>(false);
     const [passwordPopulated, setPasswordPopulated] = useState<boolean>(false);
     const [loginBody, setLoginBody] = useState<LoginBody>(NullLoginBody);
@@ -49,6 +54,7 @@ const Login = () => {
                 console.log(`response.access_token: ${response.access_token}`);
                 console.log(`response["access_token"]: ${response["access_token"]}`);
                 localStorage.setItem("jwt", response["access_token"]);
+                props.setIsAuthenticated(true);
                 navigate("/");
             } else {
                 setWarningMessageVisible(true);
@@ -75,7 +81,7 @@ const Login = () => {
 
             <input
                 autoComplete="username"
-                className="bg-[#D9D9D9] h-8 mb-3 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-3 rounded-xl text-black text-center w-[75%]"
                 id="usernameInput"
                 onChange={handleTextInputChange}
                 placeholder="Username"
@@ -87,7 +93,7 @@ const Login = () => {
 
             <input
                 autoComplete="current-password"
-                className="bg-[#D9D9D9] h-8 mb-7 rounded-xl text-black text-center w-[75%]"
+                className="bg-[#D9D9D9] h-6 mb-7 rounded-xl text-black text-center w-[75%]"
                 id="passwordInput"
                 onChange={handleTextInputChange}
                 placeholder="Password"
@@ -100,7 +106,7 @@ const Login = () => {
             {
                 usernamePopulated && passwordPopulated
                     &&
-                <button className="bg-[#17C120] h-8 mt-2 mb-2 rounded-xl w-[75%]" id="loginButton" type="submit"
+                <button className="bg-[#17C120] h-6 mt-2 mb-2 rounded-xl w-[75%]" id="loginButton" type="submit"
                         onClick={(e) => attemptLogin(e)}
                 >
                     Login

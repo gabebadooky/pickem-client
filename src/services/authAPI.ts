@@ -39,11 +39,11 @@ export const registerNewUser = async (user: User) => {
 
 export const loginRequest = async (loginBody: LoginBody) => {
     console.log(`Calling login endpoint for user: ${loginBody.username}`);
-    const endpointURL = `${BASE_URL}/auth/login`;
+    const endpointURL: string = `${BASE_URL}/auth/login`;
     const requestBody: string = JSON.stringify({"username": loginBody.username, "password": loginBody.password});
 
     try {
-        const response = await fetch(endpointURL, {
+        const response: Response = await fetch(endpointURL, {
             method: "POST",
             headers: pickemHeaders,
             body: requestBody

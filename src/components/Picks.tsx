@@ -5,7 +5,7 @@ import { Game } from "../types/game";
 import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
-import { getGames, getTeams, getUserPicks, getUserIDs } from "../services/picksAPI";
+import { getUserPicks } from "../services/picksAPI";
 import { tokenStillValid } from "../services/validateToken";
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";

@@ -24,14 +24,13 @@ const TeamCell = (props: Props) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     
     useEffect(() => {
-        if (props.team.teamID === props.selectedTeam) {
+        if (props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked) {
             setImageBorder(`border-2 border-[#${props.team.alternateColor}] h-[100%] rounded-2xl`);
         } else {
             setImageBorder("h-[100%]");
         }
-    }, [props.selectedTeam]);
+    }, [props.pick.teamPicked, props.selectedTeam]);
 
-    console.log(`teamID: ${props.team.teamID}\nselectedTeam: ${props.selectedTeam}`);
 
     return (
         <td className="m-auto w-1/5">

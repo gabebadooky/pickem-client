@@ -56,6 +56,7 @@ const Login = (props: Props) => {
                 localStorage.setItem("jwt", response["access_token"]);
                 props.setIsAuthenticated(true);
                 navigate("/");
+                window.location.reload();
             } else {
                 setWarningMessageVisible(true);
             }

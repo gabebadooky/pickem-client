@@ -70,6 +70,7 @@ const Picks = (props: Props) => {
                                 onClick={() => {
                                     localStorage.clear();
                                     navigate("/");
+                                    window.location.reload();
                                 }}
                             >
                                 Logout

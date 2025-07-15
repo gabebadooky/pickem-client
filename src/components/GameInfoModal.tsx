@@ -14,6 +14,13 @@ const GameInfoModal = (props: Props) => {
     const espnURL: string = `${espnGameURL}/${props.game.espnCode}`;
     const cbsURL: string = `${cbsGameURL}/${props.game.cbsCode}`;
     const modalID: string = `${props.game.gameID}-info`;
+    const gameDate: Date = new Date(props.game.date);
+    const gameYear = new Date(gameDate).getFullYear();
+    const gameMonth = new Date(gameDate).getMonth();
+    const gameDay = new Date(gameDate).getDate() + 1;
+    const [zuluHours, zuluMinutes] = props.game.time.split(":");
+    const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
+    const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
@@ -26,8 +33,8 @@ const GameInfoModal = (props: Props) => {
 
                 <span>
                     {/*{props.game.date.getMonth().toString()}/{props.game.date.getDay().toString()}/{props.game.date.getFullYear().toString()}<br /> */}
-                    {props.game.date.toString()}
-                    {props.game.time}<br />
+                    {localDate.toLocaleString().split(", ")[1]}
+                    <br />
                     {props.game.tvCoverage}<br />
                     <br />
                     {
@@ -42,8 +49,8 @@ const GameInfoModal = (props: Props) => {
                     }
                     <br />
                     <p>More Details:</p>
-                    <a href={espnURL}>ESPN</a>
-                    <a href={cbsURL}>CBS</a>
+                    <p className="text-[#34a8f8]"><a href={espnURL}>ESPN</a></p>
+                    <p className="text-[#34a8f8]"><a href={cbsURL}>CBS</a></p>
                 </span>
             </div>
         </div>

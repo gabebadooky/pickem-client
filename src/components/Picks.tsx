@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { data, Link, useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -71,7 +71,6 @@ const Picks = (props: Props) => {
                                         id="usersDropdownInput"
                                         value={picks[0].userID}
                                         onChange={(e) => {
-                                            console.log(`e.target.value: ${e.target.value}`);
                                             setIsLoading(true);
                                             getUserPicks(e.target.value).then(setPicks).finally(() => setIsLoading(false));
                                         }}
@@ -127,14 +126,28 @@ const Picks = (props: Props) => {
                         <tbody>
 
                             {props.games.filter(game => game.week === week).map((game: Game) => {
-                            
+
+                                const gameDate: Date = new Date(game.date);
+                                const gameYear = new Date(gameDate).getFullYear();
+                                const gameMonth = new Date(gameDate).getMonth();
+                                const gameDay = new Date(gameDate).getDate() + 1;
+                                const [zuluHours, zuluMinutes] = game.time.split(":");
+                                console.log(zuluHours, zuluMinutes);
+                                const zuluDatetimeStamp: Date = new Date(gameYear, gameMonth, gameDay);
+
                                 if (game.date !== priorGameDate) {
                                     priorGameDate = game.date;
-                                    let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
+                                    
+                                    //zuluDatetimeStamp.setUTCHours(Number(zuluHours), Number(zuluMinutes));
+                                    console.log(`game.date: ${game.date.toString()}\ngame.time: ${game.time}\nzuluDateTimeStamp: ${zuluDatetimeStamp}`);
+                                    
+                                    //let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
+                                    let formattedGamedate: string = zuluDatetimeStamp.toLocaleDateString("en-us", {
                                         weekday: "long",
                                         month: "long",
                                         day: "numeric"
                                     });
+                                    console.log(formattedGamedate);
 
                                     return (
                                         <>

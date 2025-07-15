@@ -5,18 +5,21 @@ type Props = {
 	pick: Pick;
 	teamID: string;
 	picks: Pick[];
+	localKickoffTimestamp: Date;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
 	onClose: Function;
 }
 
 const ConfidenceModal = (props: Props) => {
+	const now = new Date();
 	const token: string = localStorage.getItem("jwt") || "";
 	const formattedGameID: string = props.pick.gameID
 										.replace(/-/g, " ")
 										.split(" ")
 										.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
 										.join(" ");
+	
 
 	const resetPicks = (pickWeightInputvalue: string) => {
 		props.setPicks(props.picks.map(pick =>
@@ -55,7 +58,11 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={token.sub?.toString() !== props.pick.userID.toString()}
+						disabled={
+							token.sub?.toString() !== props.pick.userID.toString()
+								&&
+							now < props.localKickoffTimestamp
+						}
 						id="low"
 						value="l"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "l"}
@@ -82,7 +89,11 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={token.sub?.toString() !== props.pick.userID.toString()}
+						disabled={
+							token.sub?.toString() !== props.pick.userID.toString()
+								&&
+							now < props.localKickoffTimestamp
+						}
 						id="medium"
 						value="m"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "m"}
@@ -110,7 +121,11 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={token.sub?.toString() !== props.pick.userID.toString()}
+						disabled={
+							token.sub?.toString() !== props.pick.userID.toString()
+								&&
+							now < props.localKickoffTimestamp
+						}
 						id="high"
 						value="h"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "h"}

@@ -22,6 +22,13 @@ const PickRow = (props: Props) => {
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
     const gamePick: Pick = props.picks.find(p => p.gameID === props.game.gameID) || NullPick;
     const [selectedTeam, setSelectedTeam] = useState<string | null>("");
+    const gameDate: Date = new Date(props.game.date);
+    const gameYear = new Date(gameDate).getFullYear();
+    const gameMonth = new Date(gameDate).getMonth();
+    const gameDay = new Date(gameDate).getDate() + 1;
+    const [zuluHours, zuluMinutes] = props.game.time.split(":");
+    const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
+    const localKickoffTimestamp = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
 
     useEffect(() => {
         setSelectedTeam(gamePick.teamPicked);
@@ -41,6 +48,7 @@ const PickRow = (props: Props) => {
                 isHomeTeam={false}
                 pick={gamePick}
                 picks={props.picks}
+                localKickoffTimestamp={localKickoffTimestamp}
                 setPicks={props.setPicks}
                 selectedTeam={selectedTeam}
                 setSelectedTeam={setSelectedTeam}
@@ -62,6 +70,7 @@ const PickRow = (props: Props) => {
                 isHomeTeam={true}
                 pick={gamePick}
                 picks={props.picks}
+                localKickoffTimestamp={localKickoffTimestamp}
                 setPicks={props.setPicks}
                 selectedTeam={selectedTeam}
                 setSelectedTeam={setSelectedTeam}

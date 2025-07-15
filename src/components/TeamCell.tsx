@@ -11,6 +11,7 @@ type Props = {
     isHomeTeam: boolean;
     pick: Pick;
     picks: Pick[];
+    localKickoffTimestamp: Date;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     selectedTeam: string | null;
     setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
@@ -55,6 +56,7 @@ const TeamCell = (props: Props) => {
                         pick={props.pick}
                         teamID={props.team.teamID}
                         picks={props.picks}
+                        localKickoffTimestamp={props.localKickoffTimestamp}
                         setPicks={props.setPicks}
                         setSelectedTeam={props.setSelectedTeam}
                         onClose={() => {

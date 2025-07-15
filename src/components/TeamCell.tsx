@@ -28,7 +28,7 @@ const TeamCell = (props: Props) => {
         if (props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked) {
             setImageBorder(`border-3 h-[100%] rounded-2xl`);
         } else {
-            setImageBorder("h-[100%]");
+            setImageBorder("h-[100%] opacity-25");
         }
     }, [props.team.teamID, props.pick.teamPicked, props.selectedTeam, props.team.alternateColor]);
     

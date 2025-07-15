@@ -1,3 +1,4 @@
+import { jwtDecode, JwtHeader } from "jwt-decode";
 import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
 
@@ -14,13 +15,18 @@ type Props = {
 const ConfidenceModal = (props: Props) => {
 	const now = new Date();
 	const token: string = localStorage.getItem("jwt") || "";
+	const decodedToken: JwtHeader = jwtDecode(token);
+	let identity = decodedToken.sub || decodedToken.id;
+	
 	const formattedGameID: string = props.pick.gameID
 										.replace(/-/g, " ")
 										.split(" ")
 										.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
 										.join(" ");
 	
-
+	const disableRadioAttribute: boolean = identity !== props.pick.userID.toString() || now > props.localKickoffTimestamp;
+	console.log(`disableRadioAttribute: ${disableRadioAttribute}`);
+	
 	const resetPicks = (pickWeightInputvalue: string) => {
 		props.setPicks(props.picks.map(pick =>
 			pick.gameID === props.pick.gameID
@@ -58,11 +64,7 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={
-							token.sub?.toString() !== props.pick.userID.toString()
-								&&
-							now < props.localKickoffTimestamp
-						}
+						disabled={disableRadioAttribute}
 						id="low"
 						value="l"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "l"}
@@ -89,11 +91,7 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={
-							token.sub?.toString() !== props.pick.userID.toString()
-								&&
-							now < props.localKickoffTimestamp
-						}
+						disabled={disableRadioAttribute}
 						id="medium"
 						value="m"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "m"}
@@ -121,11 +119,7 @@ const ConfidenceModal = (props: Props) => {
 						type="radio"
 						name="confidenceLevel"
 						className="ml-1"
-						disabled={
-							token.sub?.toString() !== props.pick.userID.toString()
-								&&
-							now < props.localKickoffTimestamp
-						}
+						disabled={disableRadioAttribute}
 						id="high"
 						value="h"
 						checked={props.pick.teamPicked === props.teamID && props.pick.pickWeight == "h"}

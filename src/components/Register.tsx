@@ -1,9 +1,13 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { FormEvent, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { Team } from "../types/team";
 import { User } from "../types/user";
 import { registerNewUser } from "../services/authAPI";
-import { getTeams } from "../services/picksAPI";
+
+
+type Props = {
+    teams: Team[];
+}
 
 
 const TeamOption = ({ team }: { team: Team }) => {
@@ -21,8 +25,8 @@ const WarningMessage = () => {
 }
 
 
-const Register = () => {
-    const [teams, setTeams] = useState(Array<Team>);
+const Register = (props: Props) => {
+    //const [teams, setTeams] = useState(Array<Team>);
     const [usernamePopulated, setUsernamePopulated] = useState(false);
     const [passwordPopulated, setPasswordPopulated] = useState(false);
     const [confirmPasswordPopulated, setConfirmPasswordPopulated] = useState(false);
@@ -31,13 +35,10 @@ const Register = () => {
         username: "",
         password: ""
     });
+    const location = useLocation();
     const navigate = useNavigate();
-
-
-    useEffect(() => {
-        getTeams()
-            .then(setTeams);
-    }, []);
+    location.state;
+    console.log(`teams: ${location.state.teams}`);
 
 
     const handleTextInputChange = ( e: React.FormEvent<HTMLInputElement> ) => {
@@ -137,7 +138,7 @@ const Register = () => {
                 onChange={(e) => handleSelectInputChange(e)}
             >
                 <option className="favoriteTeamOption" value={0}>Favorite Team</option>
-                {teams.map((team: Team) => (
+                {location.state.teams.map((team: Team) => (
                     <TeamOption key={team.teamID} team={team} />
                 ))}
             </select>

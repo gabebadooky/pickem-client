@@ -28,7 +28,7 @@ export const App = () => {
             { 
                 !isAuthenticated 
                     && 
-                <Login setIsAuthenticated={setIsAuthenticated} /> 
+                <Login setIsAuthenticated={setIsAuthenticated} teams={teams} /> 
             }
             { 
                 isAuthenticated 

@@ -1,11 +1,13 @@
 import React, { FormEvent, useState } from "react";
 import { loginRequest } from "../services/authAPI";
 import { LoginBody, NullLoginBody } from "../types/user";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { Team } from "../types/team";
 
 
 type Props = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    teams: Team[];
 }
 
 
@@ -116,13 +118,11 @@ const Login = (props: Props) => {
 
             <br />
 
-            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[90%]"
-                onClick={() => {
-                    navigate("/register");
-                }}
-            >
+            <Link to="/register" state={{teams: props.teams}}>
+            <button className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[90%]">
                 Create Account
             </button>
+            </Link>
 
         </div>
     )

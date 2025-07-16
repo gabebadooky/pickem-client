@@ -127,32 +127,36 @@ const Picks = (props: Props) => {
 
                             {props.games.filter(game => game.week === week).map((game: Game) => {
 
-                                const gameDate: Date = new Date(game.date);
-                                const gameYear = new Date(gameDate).getFullYear();
-                                const gameMonth = new Date(gameDate).getMonth();
-                                const gameDay = new Date(gameDate).getDate() + 1;
-                                const [zuluHours, zuluMinutes] = game.time.split(":");
-                                console.log(zuluHours, zuluMinutes);
-                                const zuluDatetimeStamp: Date = new Date(gameYear, gameMonth, gameDay);
-
                                 if (game.date !== priorGameDate) {
                                     priorGameDate = game.date;
-                                    
-                                    //zuluDatetimeStamp.setUTCHours(Number(zuluHours), Number(zuluMinutes));
-                                    console.log(`game.date: ${game.date.toString()}\ngame.time: ${game.time}\nzuluDateTimeStamp: ${zuluDatetimeStamp}`);
-                                    
-                                    //let formattedGamedate: string = new Date(String(game.date).substring(0, 16)).toLocaleDateString("en-us", {
-                                    let formattedGamedate: string = zuluDatetimeStamp.toLocaleDateString("en-us", {
-                                        weekday: "long",
-                                        month: "long",
-                                        day: "numeric"
-                                    });
-                                    console.log(formattedGamedate);
+
+                                    const dateStringElements: string[] = game.date.toString().replace(",", "").split(" ");
+                                    const timeStringElements: string[] = game.time.split(":");
+                                    const gameYear: string = dateStringElements[3];
+                                    /*const gameMonth = {"Jan": "January", "Feb": "February", "Mar": "March", 
+                                                        "Apr": "April", "May": "May", "Jun": "June", "Jul": "July", 
+                                                        "Aug": "August", "Sep": "September", "Oct": "October",
+                                                        "Nov": "November", "Dec": "December"}[dateStringElements[2]];*/
+                                    const gameMonth: string = {"Jan": "1", "Feb": "2", "Mar": "3", "Apr": "4", "May": "5", 
+                                                        "Jun": "6", "Jul": "7", "Aug": "8", "Sep": "9", "Oct": "10", 
+                                                        "Nov": "11", "Dec": "12"}[dateStringElements[2]]?.padStart(2, "0") || "00";
+                                    const gameDay: string = dateStringElements[1].padStart(2, "0");
+                                    /*const gameDay: number = {"Mon": "Monday", "Tue": "Tuesday", 
+                                                        "Wed": "Wednesday", "Thu": "Thursday", 
+                                                        "Fri": "Friday", "Sat": "Saturday", 
+                                                        "Sun": "Sunday"}[dateStringElements[0]];*/
+                                    let [gameHour, gameMinute]: [string, string] = [timeStringElements[0].padStart(2, "0"), timeStringElements[1].padStart(2, "0")];
+                                    if (gameHour == "04" && gameMinute == "00") {
+                                        gameHour = "23";
+                                    }
+                                    const zuluDatetime = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);
+                                    console.log(`game.date: ${game.date}\ngameDay: ${gameDay}\ngameHour: ${gameHour}\ngameMinute: ${gameMinute}\nzuluDatetime: ${zuluDatetime}`);
+                                    const formattedDate = zuluDatetime.toLocaleDateString("en-us", {weekday: "long", month: "long", day: "numeric"});
 
                                     return (
                                         <>
                                             <tr className="m-auto mt-[10%] w-full">
-                                                <th className="mx-auto w-full">{formattedGamedate}</th>
+                                                <th className="mx-auto w-full">{formattedDate}</th>
                                             </tr>
                                             <PickRow
                                                 key={game.gameID}

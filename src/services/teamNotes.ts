@@ -1,0 +1,35 @@
+import { BASE_URL } from "./baseURL";
+import { TeamNotes } from "../types/teamNotes";
+
+const pickemHeaders: Headers = new Headers();
+pickemHeaders.append("Content-Type", "application/json");
+
+export const updateTeamNotes = async (token: string, teamNotes: TeamNotes) => {
+    const endpointURL: string = `${BASE_URL}/teams/update-notes`;
+    if (!pickemHeaders.get("Authorization")) {
+        pickemHeaders.append("Authorization", `Bearer ${token}`);
+    }
+    
+    const requestBody: string = JSON.stringify({
+        userID: teamNotes.userID,
+        gameID: teamNotes.gameID,
+        notes: teamNotes.notes
+    });
+
+    try {
+        const response = await fetch(endpointURL, {
+            method: "POST",
+            headers: pickemHeaders,
+            body: requestBody
+        });
+        
+        if (!response.ok) {
+            console.log(`Error occurred during updateTeamNotes request! ${response.text()}`);
+        } else {
+            const responseMessage = await response.json();
+            console.log(`Team Notes Updated!\n${await responseMessage.message}`);
+        }
+    } catch (err) {
+        console.log(`Error occurred during updateTeamNotes request! ${err}`);
+    }
+}

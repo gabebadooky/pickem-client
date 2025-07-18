@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { jwtDecode } from "jwt-decode";
 
 import { Team } from "../types/team";
 import { CurrentUser } from "../types/account";
 import { getTeams } from "../services/picksAPI";
+
 import {
     updateFavoriteTeam,
     updateNotificationPreference,
@@ -11,7 +13,6 @@ import {
     updatePhone,
     getUser
 } from "../services/accountAPI";
-import { Link } from "react-router";
 
 const Account = () => {
     const [teams, setTeams] = useState(Array<Team>);

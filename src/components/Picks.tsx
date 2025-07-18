@@ -32,10 +32,12 @@ const Picks = (props: Props) => {
     useEffect(() => {
         setIsLoading(true);
         if (tokenStillValid()) {
-            const loggedInUserID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
-            //getGames().then(setGames);
-            //getTeams().then(setTeams);
-            getUserPicks(loggedInUserID).then(setPicks).finally(() => setIsLoading(false));
+            if (localStorage.getItem("jwt") == "guest") {
+                getUserPicks(props.userIDs[0].userID.toString()).then(setPicks).finally(() => setIsLoading(false));
+            } else {
+                const loggedInUserID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
+                getUserPicks(loggedInUserID).then(setPicks).finally(() => setIsLoading(false));
+            }
             setWeek(0);
         } else {
             localStorage.clear();

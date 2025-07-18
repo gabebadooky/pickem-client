@@ -5,6 +5,9 @@ export const tokenStillValid = (): boolean => {
         // JWT not present
         console.log("JWT not found in local storage!");
         return false;
+    } else if (localStorage.getItem("jwt") === "guest") {
+        console.log("guest sign in");
+        return true;
     } else {
         const decodedToken: JwtHeader = jwtDecode(localStorage.getItem("jwt") || "");
         const now: number = Date.now() / 1000;

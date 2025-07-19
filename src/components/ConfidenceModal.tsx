@@ -3,16 +3,23 @@ import { Pick } from "../types/pick";
 import { submitPick } from "../services/picksAPI";
 
 type Props = {
+	localKickoffTimestamp: Date;
+	onClose: Function;
 	pick: Pick;
 	teamID: string;
 	picks: Pick[];
-	localKickoffTimestamp: Date;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
-	onClose: Function;
 }
 
+
 const ConfidenceModal = (props: Props) => {
+	const now: Date = new Date();
+
+} 
+
+
+const originalConfidenceModal = (props: Props) => {
 	const now = new Date();
 	const token: string = localStorage.getItem("jwt") || "";
 	const decodedToken: JwtHeader = jwtDecode(token);

@@ -72,8 +72,7 @@ const Account = (props: Props) => {
                     value={props.currentUser.emailAddress}
                 />
                 {
-                    newEmailAddress !== props.currentUser.emailAddress
-                        &&
+                    newEmailAddress !== props.currentUser.emailAddress &&
                     <button
                         className="bg-[#17C120] h-15 ml-2 pl-[2%] rounded-xl w-[13%]"
                         id="submitEmailChangeButton"
@@ -101,8 +100,7 @@ const Account = (props: Props) => {
                     type="text"
                 />
                 {
-                    newPhone !== props.currentUser.phone
-                        &&
+                    newPhone !== props.currentUser.phone &&
                     <button
                         className="bg-[#17C120] h-15 ml-2 pl-[2%] rounded-xl w-[90%]"
                         id="submitPhoneChangeButton"

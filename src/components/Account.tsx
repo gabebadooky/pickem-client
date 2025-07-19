@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
-import { jwtDecode } from "jwt-decode";
 
 import { Team } from "../types/team";
 import { CurrentUser } from "../types/account";
-import { getTeams } from "../services/picksAPI";
 
 import { userLogout } from "../services/logout";
 import {
     updateFavoriteTeam,
     updateNotificationPreference,
     updateEmailAddress,
-    updatePhone,
-    getUser
+    updatePhone
 } from "../services/accountAPI";
 
 
@@ -152,7 +149,7 @@ export default Account;
 
 
 
-
+/*
 const originalAccount = () => {
     const [teams, setTeams] = useState(Array<Team>);
     const [myUserProps, setMyUserProps] = useState<CurrentUser>();
@@ -308,3 +305,4 @@ const originalAccount = () => {
         </div>
     )
 }
+*/

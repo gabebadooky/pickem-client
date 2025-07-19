@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { loginRequest } from "../services/authAPI";
 import { Link } from "react-router";
-import { Team } from "../types/team";
+
+import { loginRequest } from "../services/authAPI";
 import LoadingSpinner from "./LoadingSpinner";
+
+import { Team } from "../types/team";
 
 
 type Props = {
@@ -15,8 +17,8 @@ const Login = (props: Props) => {
     const [fetchingData, setFetchingData] = useState<boolean>(false);
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
 
-    let username: string = "";
-    let password: string = "";
+    let usernameInput: string = "";
+    let passwordInput: string = "";
 
     return (
         <div className="h-dvh m-auto w-dvw">
@@ -42,9 +44,9 @@ const Login = (props: Props) => {
                         autoComplete="username"
                         className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[90%]"
                         id="usernameInput"
-                        onChange={(e) => {
+                        onInput={(e) => {
                             setIncorrectLoginAttempt(false);
-                            username = e.target.value
+                            usernameInput = e.currentTarget.value
                         }}
                         placeholder="Username"
                         type="text"
@@ -56,9 +58,9 @@ const Login = (props: Props) => {
                         autoComplete="current-password"
                         className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[90%]"
                         id="passwordInput"
-                        onChange={(e) => {
+                        onInput={(e) => {
                             setIncorrectLoginAttempt(false);
-                            password = e.target.value;
+                            passwordInput = e.currentTarget.value;
                         }}
                         placeholder="Password"
                         type="password"
@@ -67,13 +69,16 @@ const Login = (props: Props) => {
 
                 <div id="submit-form-div">
                     {
-                        username.length > 0 && password.length > 0 &&
-                        <button className="bg-[#17C120] h-15 rounded-xl w-[90%]" id="loginButton" type="submit"
+                        usernameInput.length > 0 && passwordInput.length > 0 &&
+                        <button 
+                            className="bg-[#17C120] h-15 rounded-xl w-[90%]" 
+                            id="loginButton" 
+                            type="submit"
                                 onClick={() => {
                                     setFetchingData(true);
                                     loginRequest({
-                                        username: username,
-                                        password: password
+                                        username: usernameInput,
+                                        password: passwordInput
                                     })
                                     .then((response) => {
                                         if (response.access_token) {
@@ -83,6 +88,7 @@ const Login = (props: Props) => {
                                             setIncorrectLoginAttempt(true);
                                         }
                                     })
+                                    .finally(() => setFetchingData(false));
                                 }}
                         >
                             Login
@@ -94,7 +100,7 @@ const Login = (props: Props) => {
 
             <div className="mt-20" id="continue-as-guest-div">
                 {
-                    username.length === 0 || password.length === 0 &&
+                    usernameInput.length === 0 || passwordInput.length === 0 &&
                     <Link
                         className="bg-[#3c58ef] h-15 rounded-xl w-[90%]"
                         to="/"

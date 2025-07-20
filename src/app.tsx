@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import "tailwindcss";
-import { tokenStillValid } from "./services/validateToken";
+import { tokenStillValid } from "./services/token";
 import { Game } from "./types/game";
 import { Team } from "./types/team";
 import { UserIDs } from "./types/userIDs";

@@ -6,7 +6,7 @@ import { Team } from "../types/team";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 import { getUserPicks } from "../services/picksAPI";
-import { tokenStillValid } from "../services/validateToken";
+import { tokenStillValid } from "../services/token";
 import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 import LoadingSpinner from "./LoadingSpinner";

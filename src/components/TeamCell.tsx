@@ -1,25 +1,106 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Team } from "../types/team";
-import { Pick } from "../types/pick";
-
 import ConfidenceModal from "./ConfidenceModal";
+import { CurrentUser } from "../types/account";
+import { Pick } from "../types/pick";
+import { Team } from "../types/team";
+
 
 type Props = {
-    team: Team;
-    isAwayTeam: boolean;
-    isHomeTeam: boolean;
+	currentUser: CurrentUser;
+	jwtToken: string;
+    isModalCurrentlyRendered: boolean;
+    localKickoffTimestamp: Date;
     pick: Pick;
     picks: Pick[];
-    localKickoffTimestamp: Date;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     selectedTeam: string | null;
     setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
-    isModalCurrentlyRendered: boolean;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    team: Team;
 }
 
+
 const TeamCell = (props: Props) => {
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [imageStyling, setImageStyling] = useState<string>("h-[100%] opacity-25");
+    const teamImageID: string = `${props.team.teamID}-img`;
+
+    useEffect(() => {
+        if (props.team.teamID === props.selectedTeam) {
+            setImageStyling(`border-3 h-[100%] rounded-2xl border-[#${props.team.alternateColor}]`);
+        } else {
+            setImageStyling("h-[100%] opacity-25");
+        }
+    }, [props.selectedTeam]);
+
+
+    return (
+        <td className="m-auto w-1/5">
+            <img
+                key={teamImageID}
+                src={props.team.teamLogoUrl}
+                alt={props.team.teamName}
+                className={imageStyling}
+                onClick={() => {
+                    if (!props.isModalCurrentlyRendered) {
+                        props.setIsModalCurrentlyRendered(true);
+                        setShowModal(true);
+                    }
+                }}
+            />
+            {
+                showModal 
+                    && 
+                (createPortal(
+                    <ConfidenceModal
+                        currentUser={props.currentUser}
+                        jwtToken={props.jwtToken}
+                        pick={props.pick}
+                        teamID={props.team.teamID}
+                        picks={props.picks}
+                        localKickoffTimestamp={props.localKickoffTimestamp}
+                        setPicks={props.setPicks}
+                        setSelectedTeam={props.setSelectedTeam}
+                        onClose={() => {
+                            props.setIsModalCurrentlyRendered(false);
+                            setShowModal(false);
+                        }}
+                    />,
+                    document.body
+                ))
+            }
+        </td>
+    );
+
+}
+
+
+export default TeamCell;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const originalTeamCell = (props: Props) => {
     const teamImage: string = `${props.team.teamID}-img`;
     const [imageBorder, setImageBorder] = useState<string>("h-[100%]");
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -70,5 +151,4 @@ const TeamCell = (props: Props) => {
         </td>
     )
 }
-
-export default TeamCell;
+*/

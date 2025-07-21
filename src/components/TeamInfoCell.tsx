@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import TeamInfoModal from "./TeamInfoModal";
 import { Team } from "../types/team";
 
-import TeamInfoModal from "./TeamInfoModal";
 
 
 type Props = {

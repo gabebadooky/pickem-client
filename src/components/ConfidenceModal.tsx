@@ -11,10 +11,10 @@ type Props = {
 	localKickoffTimestamp: Date;
 	onClose: Function;
 	pick: Pick;
-	teamID: string;
 	picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
+	teamID: string;
 }
 
 

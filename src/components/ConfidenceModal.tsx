@@ -28,7 +28,7 @@ const ConfidenceModal = (props: Props) => {
 											.join(" ");
 	const radioElementDisabledAttribute: boolean = token.active || now > props.localKickoffTimestamp;
 
- 
+
 	const selectConfidenceLevel = (confidenceWeight: string) => {
 		submitPick(props.jwtToken, {
 			userID: props.pick.userID,
@@ -84,7 +84,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "l"
 							}
-							onClick={ (e) => selectConfidenceLevel(e.currentTarget.value) }
+							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
 						<label htmlFor="low" className="radioLabel">Low</label>
 					</div>
@@ -100,7 +100,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "m"
 							}
-							onClick={ (e) => selectConfidenceLevel(e.currentTarget.value) }
+							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
 						<label htmlFor="low" className="radioLabel">Medium</label>
 					</div>
@@ -116,7 +116,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "h"
 							}
-							onClick={ (e) => selectConfidenceLevel(e.currentTarget.value) }
+							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
 						<label htmlFor="low" className="radioLabel">High</label>
 					</div>

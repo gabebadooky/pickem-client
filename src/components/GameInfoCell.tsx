@@ -1,8 +1,7 @@
 import { useState } from "react";
+import GameInfoModal from "./GameInfoModal";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
-
-import GameInfoModal from "./GameInfoModal";
 
 
 type Props = {
@@ -13,17 +12,19 @@ type Props = {
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+
 const GameInfoCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
+    const gameInfoCellID: string = `${props.game.gameID}-info-cell`;
 
     return (
-        <td className="m-auto w-1/5">
+        <div id={gameInfoCellID}>
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);
-                        setShowModal(true)
+                        setShowModal(true);
                     }
                 }}
             >
@@ -41,7 +42,7 @@ const GameInfoCell = (props: Props) => {
                     }}
                 />
             }
-        </td>
+        </div>
     )
 }
 

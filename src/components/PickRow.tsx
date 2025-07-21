@@ -37,6 +37,7 @@ const PickRow = (props: Props) => {
     return (
         <tr className="flex h-[20%] m-auto w-full" id={`${gamePick.gameID}-row`}>
             <TeamInfoIconCell
+                className="m-auto w-1/5"
                 team={awayTeam}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}

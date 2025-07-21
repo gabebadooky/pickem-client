@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, NavigateFunction, useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
@@ -11,15 +11,51 @@ import WeekDropdown from "./WeekDropdown";
 import PickRow from "./PickRow";
 import LoadingSpinner from "./LoadingSpinner";
 import { createPortal } from "react-dom";
+import { CurrentUser } from "../types/account";
+import UserDropdown from "./UserDropdown";
+import { userLogout } from "../services/logout";
 
 
 type Props = {
+    currentUser: CurrentUser;
+    jwtToken: string;
     games: Game[];
     teams: Team[];
     userIDs: UserIDs[];
 };
 
 
+const Picks = (props: Props) => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
+    const [viewPicksOfUser, setViewPicksOfUser] = useState<number>(0);
+    const navigate: NavigateFunction = useNavigate();
+    let viewPicksUser: number = props.currentUser.userID;
+
+    return (
+        <div className="h-dvh m-auto w-dvw">
+
+            {
+                isLoading &&
+                (createPortal( <LoadingSpinner />, document.body))
+            }
+
+            <div className="grid grid-cols-3 grid-rows-2 mb-3 mt-6">
+                <Link to="/account"><i className="fa-solid fa-user"></i></Link>
+                <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUser} userIDs={props.userIDs} />
+                <button onClick={userLogout} >Logout</button>
+            </div>
+
+        </div>
+    );
+
+}
+
+
+export default Picks;
+
+
+/*
 const Picks = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -138,7 +174,7 @@ const Picks = (props: Props) => {
                                     /*const gameMonth = {"Jan": "January", "Feb": "February", "Mar": "March", 
                                                         "Apr": "April", "May": "May", "Jun": "June", "Jul": "July", 
                                                         "Aug": "August", "Sep": "September", "Oct": "October",
-                                                        "Nov": "November", "Dec": "December"}[dateStringElements[2]];*/
+                                                        "Nov": "November", "Dec": "December"}[dateStringElements[2]]; ***
                                     const gameMonth: string = {"Jan": "1", "Feb": "2", "Mar": "3", "Apr": "4", "May": "5", 
                                                         "Jun": "6", "Jul": "7", "Aug": "8", "Sep": "9", "Oct": "10", 
                                                         "Nov": "11", "Dec": "12"}[dateStringElements[2]]?.padStart(2, "0") || "00";
@@ -146,7 +182,7 @@ const Picks = (props: Props) => {
                                     /*const gameDay: number = {"Mon": "Monday", "Tue": "Tuesday", 
                                                         "Wed": "Wednesday", "Thu": "Thursday", 
                                                         "Fri": "Friday", "Sat": "Saturday", 
-                                                        "Sun": "Sunday"}[dateStringElements[0]];*/
+                                                        "Sun": "Sunday"}[dateStringElements[0]]; ***
                                     let [gameHour, gameMinute]: [string, string] = [timeStringElements[0].padStart(2, "0"), timeStringElements[1].padStart(2, "0")];
                                     if (gameHour == "04" && gameMinute == "00") {
                                         gameHour = "23";
@@ -196,4 +232,4 @@ const Picks = (props: Props) => {
     )
 }
 
-export default Picks;
+*/

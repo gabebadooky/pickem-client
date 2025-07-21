@@ -15,7 +15,7 @@ const TeamInfoIconCell = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <td className="m-auto w-1/5">
+        <div className="m-auto w-1/5">
             <i 
                 className="fa-solid fa-circle-info"
                 onClick={() => {
@@ -39,7 +39,7 @@ const TeamInfoIconCell = (props: Props) => {
                     document.body
                 ))
             }
-        </td>
+        </div>
     )
 }
 

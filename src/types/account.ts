@@ -1,5 +1,5 @@
 export type CurrentUser = {
-    userID: string;
+    userID: number;
     favoriteTeam?: string;
     notificationPreference?: string;
     emailAddress?: string;

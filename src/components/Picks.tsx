@@ -29,7 +29,9 @@ const Picks = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [viewPicksOfUser, setViewPicksOfUser] = useState<number>(0);
+    const [selectedWeek, setSelectedWeek] = useState<number>(0);
     const navigate: NavigateFunction = useNavigate();
+    let priorGameDate: Date | undefined;
     let viewPicksUser: number = props.currentUser.userID;
 
     return (
@@ -40,11 +42,44 @@ const Picks = (props: Props) => {
                 (createPortal( <LoadingSpinner />, document.body))
             }
 
-            <div className="grid grid-cols-3 grid-rows-2 mb-3 mt-6">
+            <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-6 w-[90%]">
                 <Link to="/account"><i className="fa-solid fa-user"></i></Link>
+
                 <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUser} userIDs={props.userIDs} />
+                
                 <button onClick={userLogout} >Logout</button>
             </div>
+
+            <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-2 w-[90%]">
+                <div id="previous-week-arrow">
+                    { 
+                        selectedWeek > 0 && 
+                        <i className="fa-solid fa-arrow-left" 
+                            onClick={() => setSelectedWeek(selectedWeek - 1) }>
+                        </i>
+                    }
+                </div>
+                <WeekDropdown weeks={18} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+                <div id="next-week-arrow">
+                    { 
+                        selectedWeek < 18 && 
+                        <i className="fa-solid fa-arrow-right" 
+                            onClick={() => setSelectedWeek(selectedWeek + 1)}>
+                        </i>
+                    }
+                </div>
+            </div>
+
+
+            <table className="border-separate border-spacing-3 m-auto mt-[5%] w-[90%]">
+                <tbody>
+
+                    {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
+
+                    })}
+
+                </tbody>
+            </table>
 
         </div>
     );

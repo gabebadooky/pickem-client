@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, NavigateFunction, useNavigate } from "react-router";
-import { jwtDecode } from "jwt-decode";
-import { Game } from "../types/game";
-import { NullTeam, Team } from "../types/team";
-import { NullPick, Pick } from "../types/pick";
-import { UserIDs } from "../types/userIDs";
-import { getUserPicks } from "../services/picksAPI";
-import { tokenStillValid } from "../services/token";
-import WeekDropdown from "./WeekDropdown";
-import PickRow from "./PickRow";
-import LoadingSpinner from "./LoadingSpinner";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import { CurrentUser } from "../types/account";
-import UserDropdown from "./UserDropdown";
+import { Link } from "react-router";
+
 import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
-import TeamInfoIconCell from "./TeamInfoCell";
-import TeamCell from "./TeamCell";
-import GameInfoCell from "./GameInfoCell";
+
+import { CurrentUser } from "../types/account";
+import { Game } from "../types/game";
+import { Team } from "../types/team";
+import { Pick } from "../types/pick";
+import { UserIDs } from "../types/userIDs";
+
+import LoadingSpinner from "./LoadingSpinner";
+import PickRow from "./PickRow";
+import UserDropdown from "./UserDropdown";
+import WeekDropdown from "./WeekDropdown";
 
 
 type Props = {
@@ -39,10 +36,6 @@ const Picks = (props: Props) => {
     const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
     const [viewPicksOfUserID, setViewPicksOfUserID] = useState<number>(0);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
-    
-    const navigate: NavigateFunction = useNavigate();
-    let currentUsersID: number = props.currentUser.userID;
-    let userPicks: Pick[];
 
 
     return (
@@ -58,7 +51,7 @@ const Picks = (props: Props) => {
 
                 <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUserID} userIDs={props.userIDs} />
                 
-                <button onClick={userLogout} >Logout</button>
+                <button onClick={userLogout}>Logout</button>
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-2 w-[90%]">
@@ -95,6 +88,15 @@ const Picks = (props: Props) => {
 
                         return(
                             <PickRow
+                                currentUser={props.currentUser}
+                                game={game}
+                                isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                jwtToken={props.jwtToken}
+                                picks={props.picks}
+                                setPicks={props.setPicks}
+                                setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                teams={props.teams}
+                                viewPicksOfUserID={viewPicksOfUserID}
                             />
                         );
                     })}

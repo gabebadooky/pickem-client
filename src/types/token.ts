@@ -1,4 +1,5 @@
-export type Token {
+export type Token = {
     active: boolean;
     userID: number;
+    value: string;
 }

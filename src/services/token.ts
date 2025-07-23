@@ -8,13 +8,15 @@ export const validateToken = (): Token => {
         console.log("JWT not found in local storage!");
         return {
             active: false,
-            userID: 0
+            userID: -1,
+            value: ""
         };
     } else if (localStorage.getItem("jwt") === "guest") {
         console.log("guest sign in");
         return {
             active: false,
-            userID: 0
+            userID: -1,
+            value: ""
         };
     } else {
         const decodedToken: JwtHeader = jwtDecode(localStorage.getItem("jwt") || "");
@@ -27,7 +29,8 @@ export const validateToken = (): Token => {
                 localStorage.clear();
                 return {
                     active: false,
-                    userID: 0
+                    userID: -1,
+                    value: ""
                 };
             } else {
                 // JWT is active
@@ -35,13 +38,21 @@ export const validateToken = (): Token => {
                     return {
                         active: true,
                         userID: decodedToken.sub || decodedToken.id;
+                        value: localStorage.getItem("jwt");
                     };
+                } else {
+                    return {
+                        active: false,
+                        userID: -1,
+                        value: ""
+                    }
                 }
             }
         } else {
             return {
                 active: false,
-                userID: 0
+                userID: -1,
+                value: ""
             };
         }
     }

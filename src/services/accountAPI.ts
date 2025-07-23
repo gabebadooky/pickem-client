@@ -11,7 +11,7 @@ const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
 
-export const getUser =  async (userID: string): Promise<CurrentUser> => {
+export const getUser =  async (userID: number): Promise<CurrentUser> => {
     const response = await fetch(`${BASE_URL}/user/${userID}`);
     if (!response.ok) {
         console.log(`Error occurred during getUser request! ${response.text}`);

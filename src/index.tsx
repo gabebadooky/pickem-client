@@ -13,11 +13,11 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="login" element={<Login setIsAuthenticated={(() => {})} />} />
-            <Route path="register" element={<Register />} />
-            <Route index path="picks" element={<Picks games={[]} teams={[]} userIDs={[]} />} />
-            <Route path="account" element={<Account />} />
+            <Route index path="/" element={<App />} />
+            <Route path="login" element={<Login teams={[]} />} />
+            <Route path="register" element={<Register teams={[]} />} />
+            <Route path="picks" element={<Picks currentUser={{userID: -1}} isModalCurrentlyRendered={false} jwtToken="" games={[]} picks={[]} setPicks={() => {}} setIsModalCurrentlyRendered={() => {}} teams={[]} userIDs={[]} />} />
+            <Route path="account" element={<Account currentUser={{userID: -1}} jwtToken="" teams={[]} />} />
         </Routes>
     </BrowserRouter>
   </StrictMode>

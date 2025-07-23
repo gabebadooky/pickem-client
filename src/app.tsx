@@ -1,40 +1,61 @@
 import { useState,useEffect } from "react";
 import "tailwindcss";
-import { tokenStillValid } from "./services/token";
+
+import { getUser } from "./services/accountAPI";
+import { getGames, getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
+import { validateToken } from "./services/token";
+
 import { Game } from "./types/game";
+import { Pick } from "./types/pick";
 import { Team } from "./types/team";
+import { Token } from "./types/token";
 import { UserIDs } from "./types/userIDs";
-import { getGames, getTeams, getUserIDs } from "./services/picksAPI";
+
+import { CurrentUser } from "./types/account";
 import Login from "./components/Login";
 import Picks from "./components/Picks";
 
 
 export const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
+    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1});
     const [games, setGames] = useState(Array<Game>);
+    const [picks, setPicks] = useState(Array<Pick>);
     const [teams, setTeams] = useState(Array<Team>);
     const [userIDs, setUserIDs] = useState(Array<UserIDs>);
+    const [tokenStatus, setTokenStatus] = useState<Token>({userID: -1, active: false, value: ""});
     
 
     useEffect(() => {
-        setIsAuthenticated(tokenStillValid());
+        setTokenStatus(validateToken());
+        getUser(validateToken().userID).then(setCurrentUser);
         getGames().then(setGames);
+        getUserPicks("1").then(setPicks);
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
-    }, [isAuthenticated, localStorage.getItem("jwt")]);
+    }, [tokenStatus]);
 
     return(
         <div id="containter">
             { 
-                !isAuthenticated 
+                !tokenStatus.active 
                     && 
-                <Login setIsAuthenticated={setIsAuthenticated} teams={teams} /> 
+                <Login teams={teams} /> 
             }
             { 
-                isAuthenticated 
+                tokenStatus.active 
                     && 
-                <Picks games={games} teams={teams} userIDs={userIDs} /> 
+                <Picks
+                    currentUser={currentUser}
+                    isModalCurrentlyRendered={isModalCurrentlyRendered}
+                    jwtToken={tokenStatus.value}
+                    games={games}
+                    picks={picks}
+                    setPicks={setPicks}
+                    setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                    teams={teams}
+                    userIDs={userIDs}
+                /> 
             }
         </div>
     )

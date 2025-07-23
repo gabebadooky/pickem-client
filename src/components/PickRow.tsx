@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+
+import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
+
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
 import { Pick, NullPick } from "../types/pick";
@@ -6,17 +9,113 @@ import { Pick, NullPick } from "../types/pick";
 import TeamCell from "./TeamCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
+import { CurrentUser } from "../types/account";
 
 
 type Props = {
+    currentUser: CurrentUser;
     game: Game;
-    teams: Team[];
+    isModalCurrentlyRendered: boolean;
+    jwtToken: string;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-    isModalCurrentlyRendered: boolean;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    teams: Team[];
+    viewPicksOfUserID: number;
 };
 
+
+const PickRow = (props: Props) => {
+    const [userGamePick, setUserGamePick] = useState<Pick>(props.picks.find(pick => pick.gameID === props.game.gameID && pick.userID === props.viewPicksOfUserID) || NullPick);
+    const awayTeam: Team = props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam;
+    const homeTeam: Team = props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam;
+    const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
+    const localKickoffDateTimestamp: Date = new Date(localKickoffTimestampString);
+
+    useEffect(() => {
+        setUserGamePick(props.picks.find(pick => pick.gameID === props.game.gameID && pick.userID === props.viewPicksOfUserID) || NullPick);
+    }, [props.picks]);
+
+    return(
+        <tr className="flex h-[20%] m-auto w-full" id={`${props.game.gameID}-row`}>
+                                
+            <TeamInfoIconCell
+                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                team={awayTeam}
+            />
+
+            <TeamCell
+                currentUser={props.currentUser}
+                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                jwtToken={props.jwtToken}
+                localKickoffTimestamp={localKickoffDateTimestamp}
+                pick={userGamePick}
+                picks={props.picks}
+                setPicks={props.setPicks}
+                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                team={awayTeam}
+            />
+
+            <GameInfoCell
+                awayTeam={awayTeam}
+                game={props.game}
+                homeTeam={homeTeam}
+                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+            />
+
+            <TeamCell
+                currentUser={props.currentUser}
+                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                jwtToken={props.jwtToken}
+                localKickoffTimestamp={localKickoffDateTimestamp}
+                pick={userGamePick}
+                picks={props.picks}
+                setPicks={props.setPicks}
+                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                team={homeTeam}
+            />
+
+            <TeamInfoIconCell
+                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                team={homeTeam}
+            />
+
+        </tr>
+    );
+
+}
+
+
+export default PickRow;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const PickRow = (props: Props) => {
     const awayTeam: Team = props.teams.find(t => t.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(t => t.teamID === props.game.homeTeamID) || NullTeam;
@@ -87,5 +186,4 @@ const PickRow = (props: Props) => {
         </tr>
     )
 }
-
-export default PickRow;
+*/

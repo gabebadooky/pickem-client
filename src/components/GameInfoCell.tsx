@@ -5,8 +5,8 @@ import { Team } from "../types/team";
 
 
 type Props = {
-    game: Game;
     awayTeam: Team;
+    game: Game;
     homeTeam: Team;
     isModalCurrentlyRendered: boolean;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;

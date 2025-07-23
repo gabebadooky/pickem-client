@@ -13,7 +13,6 @@ type Props = {
 	pick: Pick;
 	picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-    setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
 	teamID: string;
 }
 
@@ -48,7 +47,7 @@ const ConfidenceModal = (props: Props) => {
 				} : pick
 			));
 		})
-		props.setSelectedTeam(props.teamID);
+		//props.setSelectedTeam(props.teamID);
 		props.onClose();
 	}
 

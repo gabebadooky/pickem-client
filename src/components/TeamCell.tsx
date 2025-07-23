@@ -8,14 +8,12 @@ import { Team } from "../types/team";
 
 type Props = {
 	currentUser: CurrentUser;
-	jwtToken: string;
     isModalCurrentlyRendered: boolean;
+	jwtToken: string;
     localKickoffTimestamp: Date;
     pick: Pick;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-    selectedTeam: string | null;
-    setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     team: Team;
 }
@@ -27,12 +25,12 @@ const TeamCell = (props: Props) => {
     const teamImageID: string = `${props.team.teamID}-img`;
 
     useEffect(() => {
-        if (props.team.teamID === props.selectedTeam) {
+        if (props.team.teamID === props.pick.teamPicked) {
             setImageStyling(`border-3 h-[100%] rounded-2xl border-[#${props.team.alternateColor}]`);
         } else {
             setImageStyling("h-[100%] opacity-25");
         }
-    }, [props.selectedTeam]);
+    }, [props.picks]);
 
 
     return (
@@ -61,7 +59,6 @@ const TeamCell = (props: Props) => {
                         picks={props.picks}
                         localKickoffTimestamp={props.localKickoffTimestamp}
                         setPicks={props.setPicks}
-                        setSelectedTeam={props.setSelectedTeam}
                         onClose={() => {
                             props.setIsModalCurrentlyRendered(false);
                             setShowModal(false);

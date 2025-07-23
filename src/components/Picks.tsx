@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import { Game } from "../types/game";
-import { Team } from "../types/team";
-import { Pick } from "../types/pick";
+import { NullTeam, Team } from "../types/team";
+import { NullPick, Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 import { getUserPicks } from "../services/picksAPI";
 import { tokenStillValid } from "../services/token";
@@ -14,12 +14,20 @@ import { createPortal } from "react-dom";
 import { CurrentUser } from "../types/account";
 import UserDropdown from "./UserDropdown";
 import { userLogout } from "../services/logout";
+import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
+import TeamInfoIconCell from "./TeamInfoCell";
+import TeamCell from "./TeamCell";
+import GameInfoCell from "./GameInfoCell";
 
 
 type Props = {
     currentUser: CurrentUser;
+    isModalCurrentlyRendered: boolean;
     jwtToken: string;
     games: Game[];
+    picks: Pick[];
+    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>
+    setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     teams: Team[];
     userIDs: UserIDs[];
 };
@@ -28,11 +36,14 @@ type Props = {
 const Picks = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const [viewPicksOfUser, setViewPicksOfUser] = useState<number>(0);
+    const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
+    const [viewPicksOfUserID, setViewPicksOfUserID] = useState<number>(0);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
+    
     const navigate: NavigateFunction = useNavigate();
-    let priorGameDate: Date | undefined;
-    let viewPicksUser: number = props.currentUser.userID;
+    let currentUsersID: number = props.currentUser.userID;
+    let userPicks: Pick[];
+
 
     return (
         <div className="h-dvh m-auto w-dvw">
@@ -45,7 +56,7 @@ const Picks = (props: Props) => {
             <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-6 w-[90%]">
                 <Link to="/account"><i className="fa-solid fa-user"></i></Link>
 
-                <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUser} userIDs={props.userIDs} />
+                <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUserID} userIDs={props.userIDs} />
                 
                 <button onClick={userLogout} >Logout</button>
             </div>
@@ -75,7 +86,17 @@ const Picks = (props: Props) => {
                 <tbody>
 
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
+                        const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(game.date, game.time);
 
+                        if (game.date !== priorGameDate) {
+                            <th><tr>{localKickoffTimestampString}</tr></th>
+                            setPriorGameDate(game.date);
+                        }
+
+                        return(
+                            <PickRow
+                            />
+                        );
                     })}
 
                 </tbody>

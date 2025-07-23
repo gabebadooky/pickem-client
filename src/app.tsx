@@ -11,6 +11,7 @@ import Picks from "./components/Picks";
 
 export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [games, setGames] = useState(Array<Game>);
     const [teams, setTeams] = useState(Array<Team>);
     const [userIDs, setUserIDs] = useState(Array<UserIDs>);

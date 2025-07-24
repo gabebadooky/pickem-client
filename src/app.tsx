@@ -14,9 +14,11 @@ import { UserIDs } from "./types/userIDs";
 import { CurrentUser } from "./types/account";
 import Login from "./components/Login";
 import Picks from "./components/Picks";
+import Register from "./components/Register";
 
 
 export const App = () => {
+    const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1});
     const [games, setGames] = useState(Array<Game>);
@@ -25,7 +27,6 @@ export const App = () => {
     const [userIDs, setUserIDs] = useState(Array<UserIDs>);
     const [tokenStatus, setTokenStatus] = useState<Token>({userID: -1, active: false, value: ""});
     
-
     useEffect(() => {
         setTokenStatus(validateToken());
         getUser(validateToken().userID).then(setCurrentUser);
@@ -34,14 +35,13 @@ export const App = () => {
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
     }, []);
-
+    
     return(
         <div id="containter">
-            { 
-                !tokenStatus.active 
-                    && 
-                <Login teams={teams} /> 
-            }
+            { (!tokenStatus.active && !isRegistering) &&  <Login setIsRegistering={setIsRegistering} /> }
+
+            { (!tokenStatus.active && isRegistering) && <Register setIsRegistering={setIsRegistering} teams={teams} /> }
+
             { 
                 tokenStatus.active 
                     && 

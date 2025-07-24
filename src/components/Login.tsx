@@ -5,11 +5,9 @@ import { Link } from "react-router";
 import { loginRequest } from "../services/authAPI";
 import LoadingSpinner from "./LoadingSpinner";
 
-import { Team } from "../types/team";
-
 
 type Props = {
-    teams: Team[];
+    setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -18,8 +16,6 @@ const Login = (props: Props) => {
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
     const [usernameInputString, setUsernameInputString] = useState<string>("");
     const [passwordInputString, setpasswordInputString] = useState<string>("");
-    //let usernameInputString: string = "";
-    //let passwordInputString: string = "";
 
     return (
         <div className="h-dvh m-auto w-dvw">
@@ -119,13 +115,13 @@ const Login = (props: Props) => {
             }
 
             <div className="h-12 m-auto mt-5 w-[90%]" id="create-account-button-div">
-                <Link
+                <button 
                     className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
-                    to="/register"
-                    state={{teams: props.teams}}
+                    id="create-account-button"
+                    onClick={() => props.setIsRegistering(true)}
                 >
                     Create Account
-                </Link>
+                </button>
             </div>
 
         </div>

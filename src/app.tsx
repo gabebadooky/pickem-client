@@ -33,7 +33,7 @@ export const App = () => {
         getUserPicks("1").then(setPicks);
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
-    }, [tokenStatus]);
+    }, []);
 
     return(
         <div id="containter">

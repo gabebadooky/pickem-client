@@ -37,8 +37,8 @@ export const validateToken = (): Token => {
                 if ("sub" in decodedToken || "id" in decodedToken) {
                     return {
                         active: true,
-                        userID: decodedToken.sub || decodedToken.id;
-                        value: localStorage.getItem("jwt");
+                        userID: decodedToken.sub || decodedToken.id,
+                        value: localStorage.getItem("jwt") || ""
                     };
                 } else {
                     return {

@@ -16,9 +16,10 @@ type Props = {
 const Login = (props: Props) => {
     const [fetchingData, setFetchingData] = useState<boolean>(false);
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
-
-    let usernameInput: string = "";
-    let passwordInput: string = "";
+    const [usernameInputString, setUsernameInputString] = useState<string>("");
+    const [passwordInputString, setpasswordInputString] = useState<string>("");
+    //let usernameInputString: string = "";
+    //let passwordInputString: string = "";
 
     return (
         <div className="h-dvh m-auto w-dvw">
@@ -27,14 +28,14 @@ const Login = (props: Props) => {
 
             {
                 incorrectLoginAttempt &&
-                <div className="h-[35%]" id="incorrect-login-warning-div">
+                <div className="" id="incorrect-login-warning-div">
                     <p className="text-red-500">
                         Username or Password is incorrect. Please try again.
                     </p>
                 </div>
             }
 
-            <div className="align-top mb-10" id="login-header">
+            <div className="align-top mb-10 mt-25" id="login-header">
                 <h1 className="text-xl">Pickem</h1>
             </div>
                     
@@ -42,11 +43,11 @@ const Login = (props: Props) => {
                 <div className="mb-5" id="username-div">
                     <input
                         autoComplete="username"
-                        className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[90%]"
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                         id="usernameInput"
                         onInput={(e) => {
                             setIncorrectLoginAttempt(false);
-                            usernameInput = e.currentTarget.value
+                            setUsernameInputString(e.currentTarget.value);
                         }}
                         placeholder="Username"
                         type="text"
@@ -56,53 +57,56 @@ const Login = (props: Props) => {
                 <div className="mb-10" id="password-div">
                     <input
                         autoComplete="current-password"
-                        className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[90%]"
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                         id="passwordInput"
                         onInput={(e) => {
                             setIncorrectLoginAttempt(false);
-                            passwordInput = e.currentTarget.value;
+                            setpasswordInputString(e.currentTarget.value);
                         }}
                         placeholder="Password"
                         type="password"
                     />
                 </div>
 
-                <div id="submit-form-div">
+                
                     {
-                        usernameInput.length > 0 && passwordInput.length > 0 &&
-                        <button 
-                            className="bg-[#17C120] h-15 rounded-xl w-[90%]" 
-                            id="loginButton" 
-                            type="submit"
-                                onClick={() => {
-                                    setFetchingData(true);
-                                    loginRequest({
-                                        username: usernameInput,
-                                        password: passwordInput
-                                    })
-                                    .then((response) => {
-                                        if (response.access_token) {
-                                            // set JWT Token
-                                            window.location.reload();
-                                        } else {
-                                            setIncorrectLoginAttempt(true);
-                                        }
-                                    })
-                                    .finally(() => setFetchingData(false));
-                                }}
-                        >
-                            Login
-                        </button>
+                        (usernameInputString.length > 0 && passwordInputString.length > 0) 
+                            &&
+                        <div className="mt-20" id="submit-form-div">
+                            <button 
+                                className="bg-[#17C120] h-12 rounded-xl w-[90%]" 
+                                id="loginButton" 
+                                type="submit"
+                                    onClick={() => {
+                                        setFetchingData(true);
+                                        loginRequest({
+                                            username: usernameInputString,
+                                            password: passwordInputString
+                                        })
+                                        .then((response) => {
+                                            if (response.access_token) {
+                                                // set JWT Token
+                                                window.location.reload();
+                                            } else {
+                                                setIncorrectLoginAttempt(true);
+                                            }
+                                        })
+                                        .finally(() => setFetchingData(false));
+                                    }}
+                            >
+                                Login
+                            </button>
+                        </div>
                     }
-                </div>
                 
             </form>
 
-            <div className="mt-20" id="continue-as-guest-div">
-                {
-                    usernameInput.length === 0 || passwordInput.length === 0 &&
+            {
+                (usernameInputString.length === 0 || passwordInputString.length === 0) 
+                    &&
+                <div className="h-12 m-auto mt-20 w-[90%]" id="continue-as-guest-div">
                     <Link
-                        className="bg-[#3c58ef] h-15 rounded-xl w-[90%]"
+                        className="bg-[#3c58ef] h-12 items-center flex justify-center rounded-xl"
                         to="/"
                         onClick={() => {
                             // set JWT token to "guest"
@@ -111,16 +115,18 @@ const Login = (props: Props) => {
                     >
                         Continue as Guest
                     </Link>
-                }
-            </div>
+                </div>
+            }
 
-            <Link
-                className="border-1 border-white mb-5 px-2 py-1 rounded-lg w-[90%]"
-                to="/register"
-                state={{teams: props.teams}}
-            >
-                Create Account
-            </Link>
+            <div className="h-12 m-auto mt-5 w-[90%]" id="create-account-button-div">
+                <Link
+                    className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    to="/register"
+                    state={{teams: props.teams}}
+                >
+                    Create Account
+                </Link>
+            </div>
 
         </div>
     );

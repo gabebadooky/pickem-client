@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router";
 
 import { loginRequest } from "../services/authAPI";
 import LoadingSpinner from "./LoadingSpinner";
 
+import { Token } from "../types/token";
+import { validateToken } from "../services/token";
+
 
 type Props = {
     setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>;
+    setTokenStatus: React.Dispatch<React.SetStateAction<Token>>;
 }
 
 
@@ -81,11 +84,13 @@ const Login = (props: Props) => {
                                         })
                                         .then((response) => {
                                             if (response.access_token) {
-                                                // set JWT Token
-                                                window.location.reload();
+                                                localStorage.setItem("jwt", response.access_token);
                                             } else {
                                                 setIncorrectLoginAttempt(true);
                                             }
+                                        })
+                                        .then(() => {
+                                            props.setTokenStatus(validateToken);
                                         })
                                         .finally(() => setFetchingData(false));
                                     }}
@@ -101,16 +106,18 @@ const Login = (props: Props) => {
                 (usernameInputString.length === 0 || passwordInputString.length === 0) 
                     &&
                 <div className="h-12 m-auto mt-20 w-[90%]" id="continue-as-guest-div">
-                    <Link
-                        className="bg-[#3c58ef] h-12 items-center flex justify-center rounded-xl"
-                        to="/"
+                    <button
+                        className="bg-[#3c58ef] h-12 items-center flex justify-center rounded-xl w-full"
+                        id="continue-as-guest-button"
                         onClick={() => {
-                            // set JWT token to "guest"
-                            window.location.reload();
+                            props.setTokenStatus(prev => ({
+                                ...prev,
+                                active: true
+                            }));
                         }}
                     >
                         Continue as Guest
-                    </Link>
+                    </button>
                 </div>
             }
 

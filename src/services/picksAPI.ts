@@ -30,7 +30,7 @@ export const getTeams = async (): Promise<Array<Team>> => {
 }
 
 
-export const getUserPicks = async (userID: string): Promise<Array<Pick>> => {
+export const getUserPicks = async (userID: number): Promise<Array<Pick>> => {
     const response = await fetch(`${BASE_URL}/picks/${userID}`);
     if (!response.ok) {
         console.log(`Error occurred during geUserPicks request! ${response.text}`);

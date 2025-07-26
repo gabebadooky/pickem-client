@@ -18,32 +18,28 @@ import Register from "./components/Register";
 
 
 export const App = () => {
+    const [currentUser, setCurrentUser] = useState<CurrentUser>();
+    const [games, setGames] = useState(getGames());
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1});
-    const [games, setGames] = useState(Array<Game>);
     const [picks, setPicks] = useState(Array<Pick>);
-    const [teams, setTeams] = useState(Array<Team>);
-    const [userIDs, setUserIDs] = useState(Array<UserIDs>);
-    const [tokenStatus, setTokenStatus] = useState<Token>({userID: -1, active: false, value: ""});
+    const [teams, setTeams] = useState(getTeams());
+    const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
+    const [userIDs, setUserIDs] = useState(getUserIDs());
     
     useEffect(() => {
-        setTokenStatus(validateToken());
-        getUser(validateToken().userID).then(setCurrentUser);
-        getGames().then(setGames);
-        getUserPicks("1").then(setPicks);
-        getTeams().then(setTeams);
-        getUserIDs().then(setUserIDs);
-    }, []);
+        getUser(tokenStatus.userID).then(setCurrentUser);
+        getUserPicks(tokenStatus.userID).then(setPicks);
+    }, [tokenStatus]);
     
     return(
         <div id="containter">
-            { (!tokenStatus.active && !isRegistering) &&  <Login setIsRegistering={setIsRegistering} /> }
+            { (!tokenStatus.active && !isRegistering) &&  <Login setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
 
-            { (!tokenStatus.active && isRegistering) && <Register setIsRegistering={setIsRegistering} teams={teams} /> }
+            { (!tokenStatus.active && isRegistering) && <Register setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
 
             { 
-                tokenStatus.active 
+                tokenStatus.active
                     && 
                 <Picks
                     currentUser={currentUser}

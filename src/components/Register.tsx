@@ -1,29 +1,30 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import { createPortal } from "react-dom";
 
 import { registerNewUser } from "../services/authAPI";
+import { validateToken } from "../services/token";
 
 import { Team } from "../types/team";
-import { NotificationPreferenceInputValue } from "../types/user";
+import { Token } from "../types/token";
+import { User } from "../types/user";
 import LoadingSpinner from "./LoadingSpinner";
 
 
 type Props = {
     setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>;
+    setTokenStatus: React.Dispatch<React.SetStateAction<Token>>;
     teams: Team[];
 }
 
 const Register = (props: Props) => {
     const [attemptingRegistration, setAttemptingRegistration] = useState<boolean>(false);
     const [usernameTaken, setUsernameTaken] = useState<boolean>(false);
-    let usernameInput: string = "";
-    let passwordInput: string = "";
-    let confirmPasswordInput: string = "";
-    let notificationPreferenceInput: NotificationPreferenceInputValue = "n";
-    let emailAddressInput: string = "";
-    let phoneNumberInput: string = "";
-    let favoriteTeamInput: string = "0";
+    const [confirmPasswordString, setConfirmPasswordString] = useState<string>("");
+    const [newUser, setNewUser] = useState<User>({
+        username: "",
+        password: ""
+    });
+    
 
     return (
         <div className="h-dvh m-auto mb-20 w-dvw">
@@ -47,9 +48,12 @@ const Register = (props: Props) => {
                     className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                     id="usernameInput"
                     name="username"
-                    onInput={(e) => {
+                    onChange={(e) => {
                         setUsernameTaken(false);
-                        usernameInput = e.currentTarget.value;
+                        setNewUser(prev => ({
+                            ...prev,
+                            username: e.target.value
+                        }));
                     }}
                     placeholder="Username"
                     type="text"
@@ -61,7 +65,12 @@ const Register = (props: Props) => {
                     autoComplete="new-password"
                     className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                     id="passwordInput"
-                    onInput={(e) => passwordInput = e.currentTarget.value}
+                    onChange={(e) => {
+                        setNewUser(prev => ({
+                            ...prev,
+                            password: e.target.value
+                        }));
+                    }}
                     placeholder="Password"
                     type="password"
                 />
@@ -72,7 +81,9 @@ const Register = (props: Props) => {
                     autoComplete="new-password"
                     className="bg-[#D9D9D9] h-12 text-black rounded-xl text-center w-[90%]"
                     id="confirmPasswordInput"
-                    onInput={(e) => confirmPasswordInput = e.currentTarget.value}
+                    onChange={(e) => {
+                        setConfirmPasswordString(e.target.value);
+                    }}
                     placeholder="Confirm Password"
                     type="password" 
                 />
@@ -84,15 +95,24 @@ const Register = (props: Props) => {
                     className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
                     id="notificationPreferenceInput"
                     onChange={(e) => {
-                        switch (e.currentTarget.value) {
+                        switch (e.target.value) {
                             case "e":
-                                notificationPreferenceInput = "e";
+                                setNewUser(prev => ({
+                                    ...prev,
+                                    notificationPreference: "e"
+                                }));
                                 break;
                             case "p":
-                                notificationPreferenceInput = "p";
+                                setNewUser(prev => ({
+                                    ...prev,
+                                    notificationPreference: "p"
+                                }));
                                 break;
                             default:
-                                notificationPreferenceInput = "n";
+                                setNewUser(prev => ({
+                                    ...prev,
+                                    notificationPreference: "n"
+                                }));
                                 break;
                         }
                     }}
@@ -104,24 +124,34 @@ const Register = (props: Props) => {
             </div>
 
             {
-                String(notificationPreferenceInput) === "e" &&
+                String(newUser.notificationPreference) === "e" &&
                 <div className="h-12 mt-5" id="email-div">
                     <input
-                        className="bg-[#D9D9D9] rounded-xl text-black text-center w-[90%]"
+                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
                         id="emailAddressInputField"
-                        onInput={(e) => emailAddressInput = e.currentTarget.value}
+                        onChange={(e) => {
+                            setNewUser(prev => ({
+                                ...prev,
+                                emailAddress: e.target.value
+                            }));
+                        }}
                         placeholder="Email Address"
                         type="text"
                     />
                 </div>
             }
             {
-                String(notificationPreferenceInput) === "p" &&
+                String(newUser.notificationPreference) === "p" &&
                 <div className="h-12 mt-5" id="phone-div">
                     <input 
-                        className="bg-[#D9D9D9] rounded-xl text-black text-center w-[90%]"
+                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
                         id="phoneInputField"
-                        onInput={(e) => phoneNumberInput = e.currentTarget.value}
+                        onChange={(e) => {
+                            setNewUser(prev => ({
+                                ...prev,
+                                phone: e.target.value
+                            }));
+                        }}
                         placeholder="Mobile Number"
                         type="text"
                     />
@@ -132,7 +162,12 @@ const Register = (props: Props) => {
                 <select 
                     className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
                     id="favoriteTeamInput"
-                    onChange={(e) => favoriteTeamInput = e.target.value }
+                    onChange={(e) => {
+                        setNewUser(prev => ({
+                            ...prev,
+                            favoriteTeam: e.target.value
+                        }));
+                    }}
                 >
                     <option className="favoriteTeamOption" value="0">Favorite Team</option>
                     {props.teams.map((team: Team) => (
@@ -143,31 +178,26 @@ const Register = (props: Props) => {
 
 
             {
-                usernameInput.length > 0 && 
-                passwordInput.length > 0 && 
-                confirmPasswordInput.length > 0 && 
-                passwordInput === confirmPasswordInput &&
+                newUser.username.length > 0 && 
+                newUser.password.length > 0 && 
+                confirmPasswordString.length > 0 && 
+                newUser.password === confirmPasswordString &&
                 <button 
-                    className="bg-[#17C120] h-12 rounded-xl w-[90%]"
+                    className="bg-[#17C120] h-12 mb-5 rounded-xl w-[90%]"
                     id="registerButton"
                     type="submit"
                     onClick={() => {
                         setAttemptingRegistration(true);
-                        registerNewUser({
-                            username: usernameInput,
-                            password: passwordInput,
-                            favoriteTeam: favoriteTeamInput,
-                            notificationPreference: notificationPreferenceInput,
-                            emailAddress: emailAddressInput,
-                            phone: phoneNumberInput
-                        })
+                        registerNewUser(newUser)
                         .then((response) => {
                             if (response.access_token) {
-                                // set JWT Token
-                                props.setIsRegistering(false);
+                                localStorage.setItem("jwt", response.access_token);
                             } else {
                                 setUsernameTaken(true);
                             }
+                        })
+                        .then(() => {
+                            props.setTokenStatus(validateToken());
                         })
                         .finally(() => setAttemptingRegistration(false));
                     }} 
@@ -176,7 +206,7 @@ const Register = (props: Props) => {
                 </button>
             }
 
-            <div className="h-12 m-auto mb-10 w-[90%]" id="register-button-div">
+            <div className="h-12 m-auto mb-15 w-[90%]" id="register-button-div">
                 <button 
                     className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
                     id="register-button"

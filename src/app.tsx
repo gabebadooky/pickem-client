@@ -18,14 +18,20 @@ import Register from "./components/Register";
 
 
 export const App = () => {
-    const [currentUser, setCurrentUser] = useState<CurrentUser>();
-    const [games, setGames] = useState(getGames());
+    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1});
+    const [games, setGames] = useState<Game[]>([]);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [picks, setPicks] = useState(Array<Pick>);
-    const [teams, setTeams] = useState(getTeams());
+    const [teams, setTeams] = useState<Team[]>([]);
     const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
-    const [userIDs, setUserIDs] = useState(getUserIDs());
+    const [userIDs, setUserIDs] = useState<UserIDs[]>([]);
+
+    useEffect(() => {
+        getGames().then(setGames);
+        getTeams().then(setTeams);
+        getUserIDs().then(setUserIDs);
+    }, [])
     
     useEffect(() => {
         getUser(tokenStatus.userID).then(setCurrentUser);

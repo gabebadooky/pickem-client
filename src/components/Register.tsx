@@ -42,169 +42,173 @@ const Register = (props: Props) => {
                 </p>
             }
 
-            <div className="mb-5" id="username-div">
-                <input
-                    autoComplete="username"
-                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
-                    id="usernameInput"
-                    name="username"
-                    onChange={(e) => {
-                        setUsernameTaken(false);
-                        setNewUser(prev => ({
-                            ...prev,
-                            username: e.target.value
-                        }));
-                    }}
-                    placeholder="Username"
-                    type="text"
-                />
-            </div>
+            <form>
 
-            <div className="mb-5" id="password-div">
-                <input
-                    autoComplete="new-password"
-                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
-                    id="passwordInput"
-                    onChange={(e) => {
-                        setNewUser(prev => ({
-                            ...prev,
-                            password: e.target.value
-                        }));
-                    }}
-                    placeholder="Password"
-                    type="password"
-                />
-            </div>
-
-            <div className="mb-15" id="confirm-password-div">
-                <input
-                    autoComplete="new-password"
-                    className="bg-[#D9D9D9] h-12 text-black rounded-xl text-center w-[90%]"
-                    id="confirmPasswordInput"
-                    onChange={(e) => {
-                        setConfirmPasswordString(e.target.value);
-                    }}
-                    placeholder="Confirm Password"
-                    type="password" 
-                />
-            </div>
-
-
-            <div className="h-12" id="notification-preference-div">
-                <select
-                    className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
-                    id="notificationPreferenceInput"
-                    onChange={(e) => {
-                        switch (e.target.value) {
-                            case "e":
-                                setNewUser(prev => ({
-                                    ...prev,
-                                    notificationPreference: "e"
-                                }));
-                                break;
-                            case "p":
-                                setNewUser(prev => ({
-                                    ...prev,
-                                    notificationPreference: "p"
-                                }));
-                                break;
-                            default:
-                                setNewUser(prev => ({
-                                    ...prev,
-                                    notificationPreference: "n"
-                                }));
-                                break;
-                        }
-                    }}
-                >
-                    <option key="notificationPreferenceOption-none" value="n">Notification Preference</option>
-                    <option key="notificationPreferenceOption-email" value="e">Email</option>
-                    <option key="notificationPreferenceOption-phone" value="p">Phone</option>
-                </select>
-            </div>
-
-            {
-                String(newUser.notificationPreference) === "e" &&
-                <div className="h-12 mt-5" id="email-div">
+                <div className="mb-5" id="username-div">
                     <input
-                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
-                        id="emailAddressInputField"
+                        autoComplete="username"
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
+                        id="usernameInput"
+                        name="username"
                         onChange={(e) => {
+                            setUsernameTaken(false);
                             setNewUser(prev => ({
                                 ...prev,
-                                emailAddress: e.target.value
+                                username: e.target.value
                             }));
                         }}
-                        placeholder="Email Address"
+                        placeholder="Username"
                         type="text"
                     />
                 </div>
-            }
-            {
-                String(newUser.notificationPreference) === "p" &&
-                <div className="h-12 mt-5" id="phone-div">
-                    <input 
-                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
-                        id="phoneInputField"
+
+                <div className="mb-5" id="password-div">
+                    <input
+                        autoComplete="new-password"
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
+                        id="passwordInput"
                         onChange={(e) => {
                             setNewUser(prev => ({
                                 ...prev,
-                                phone: e.target.value
+                                password: e.target.value
                             }));
                         }}
-                        placeholder="Mobile Number"
-                        type="text"
+                        placeholder="Password"
+                        type="password"
                     />
                 </div>
-            }
 
-            <div className="h-12 mb-20 mt-15" id="favorite-team-div">
-                <select 
-                    className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
-                    id="favoriteTeamInput"
-                    onChange={(e) => {
-                        setNewUser(prev => ({
-                            ...prev,
-                            favoriteTeam: e.target.value
-                        }));
-                    }}
-                >
-                    <option className="favoriteTeamOption" value="0">Favorite Team</option>
-                    {props.teams.map((team: Team) => (
-                        <option value={team.teamID}>{team.teamName}</option>
-                    ))}
-                </select>
-            </div>
+                <div className="mb-15" id="confirm-password-div">
+                    <input
+                        autoComplete="new-password"
+                        className="bg-[#D9D9D9] h-12 text-black rounded-xl text-center w-[90%]"
+                        id="confirmPasswordInput"
+                        onChange={(e) => {
+                            setConfirmPasswordString(e.target.value);
+                        }}
+                        placeholder="Confirm Password"
+                        type="password" 
+                    />
+                </div>
 
 
-            {
-                newUser.username.length > 0 && 
-                newUser.password.length > 0 && 
-                confirmPasswordString.length > 0 && 
-                newUser.password === confirmPasswordString &&
-                <button 
-                    className="bg-[#17C120] h-12 mb-5 rounded-xl w-[90%]"
-                    id="registerButton"
-                    type="submit"
-                    onClick={() => {
-                        setAttemptingRegistration(true);
-                        registerNewUser(newUser)
-                        .then((response) => {
-                            if (response.access_token) {
-                                localStorage.setItem("jwt", response.access_token);
-                            } else {
-                                setUsernameTaken(true);
+                <div className="h-12" id="notification-preference-div">
+                    <select
+                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
+                        id="notificationPreferenceInput"
+                        onChange={(e) => {
+                            switch (e.target.value) {
+                                case "e":
+                                    setNewUser(prev => ({
+                                        ...prev,
+                                        notificationPreference: "e"
+                                    }));
+                                    break;
+                                case "p":
+                                    setNewUser(prev => ({
+                                        ...prev,
+                                        notificationPreference: "p"
+                                    }));
+                                    break;
+                                default:
+                                    setNewUser(prev => ({
+                                        ...prev,
+                                        notificationPreference: "n"
+                                    }));
+                                    break;
                             }
-                        })
-                        .then(() => {
-                            props.setTokenStatus(validateToken());
-                        })
-                        .finally(() => setAttemptingRegistration(false));
-                    }} 
-                >
-                    Register
-                </button>
-            }
+                        }}
+                    >
+                        <option key="notificationPreferenceOption-none" value="n">Notification Preference</option>
+                        <option key="notificationPreferenceOption-email" value="e">Email</option>
+                        <option key="notificationPreferenceOption-phone" value="p">Phone</option>
+                    </select>
+                </div>
+
+                {
+                    String(newUser.notificationPreference) === "e" &&
+                    <div className="h-12 mt-5" id="email-div">
+                        <input
+                            className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
+                            id="emailAddressInputField"
+                            onChange={(e) => {
+                                setNewUser(prev => ({
+                                    ...prev,
+                                    emailAddress: e.target.value
+                                }));
+                            }}
+                            placeholder="Email Address"
+                            type="text"
+                        />
+                    </div>
+                }
+                {
+                    String(newUser.notificationPreference) === "p" &&
+                    <div className="h-12 mt-5" id="phone-div">
+                        <input 
+                            className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
+                            id="phoneInputField"
+                            onChange={(e) => {
+                                setNewUser(prev => ({
+                                    ...prev,
+                                    phone: e.target.value
+                                }));
+                            }}
+                            placeholder="Mobile Number"
+                            type="text"
+                        />
+                    </div>
+                }
+
+                <div className="h-12 mb-20 mt-15" id="favorite-team-div">
+                    <select 
+                        className="bg-[#D9D9D9] h-full rounded-xl text-black text-center w-[90%]"
+                        id="favoriteTeamInput"
+                        onChange={(e) => {
+                            setNewUser(prev => ({
+                                ...prev,
+                                favoriteTeam: e.target.value
+                            }));
+                        }}
+                    >
+                        <option className="favoriteTeamOption" value="0">Favorite Team</option>
+                        {props.teams.map((team: Team) => (
+                            <option value={team.teamID}>{team.teamName}</option>
+                        ))}
+                    </select>
+                </div>
+
+
+                {
+                    newUser.username.length > 0 && 
+                    newUser.password.length > 0 && 
+                    confirmPasswordString.length > 0 && 
+                    newUser.password === confirmPasswordString &&
+                    <button 
+                        className="bg-[#17C120] h-12 mb-5 rounded-xl w-[90%]"
+                        id="registerButton"
+                        type="submit"
+                        onClick={() => {
+                            setAttemptingRegistration(true);
+                            registerNewUser(newUser)
+                            .then((response) => {
+                                if (response.access_token) {
+                                    localStorage.setItem("jwt", response.access_token);
+                                } else {
+                                    setUsernameTaken(true);
+                                }
+                            })
+                            .then(() => {
+                                props.setTokenStatus(validateToken());
+                            })
+                            .finally(() => setAttemptingRegistration(false));
+                        }} 
+                    >
+                        Register
+                    </button>
+                }
+
+            </form>
 
             <div className="h-12 m-auto mb-15 w-[90%]" id="register-button-div">
                 <button 

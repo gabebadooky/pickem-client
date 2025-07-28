@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { Team } from "../types/team";
 import { CurrentUser } from "../types/account";
@@ -14,24 +14,25 @@ import {
 
 type Props = {
     currentUser: CurrentUser;
-    teams: Team[];
+    setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     jwtToken: string;
+    teams: Team[];
 }
 
 
 const Account = (props: Props) => {
     const [newEmailAddress, setNewEmailAddress] = useState<string>("");
     const [newPhone, setNewPhone] = useState<string>("");
-    console.log(newEmailAddress);
-    console.log(props.currentUser.emailAddress);
-    console.log(newEmailAddress != props.currentUser.emailAddress);
+    
+    
     return (
         <div className="h-dvh m-auto w-dvw">
 
             <div id="navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
-                <button id="return-to-picks">
-                    <i className="fa-solid fa-arrow-left"></i>
-                </button>
+                <button
+                    id="back-to-picks-button"
+                    onClick={() => props.setIsAccountComponentOpen(false)}
+                ><i className="fa-solid fa-arrow-left"></i></button>
                 
                 <h1 id="update-my-account-header">Update My Account</h1>
 

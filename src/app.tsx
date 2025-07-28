@@ -15,11 +15,13 @@ import { CurrentUser } from "./types/account";
 import Login from "./components/Login";
 import Picks from "./components/Picks";
 import Register from "./components/Register";
+import Account from "./components/Account";
 
 
 export const App = () => {
-    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1});
+    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: "guest"});
     const [games, setGames] = useState<Game[]>([]);
+    const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -46,19 +48,24 @@ export const App = () => {
 
             { 
                 tokenStatus.active
-                    && 
+                    &&
+                !isAccountComponentOpen
+                    &&
                 <Picks
                     currentUser={currentUser}
                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                     jwtToken={tokenStatus.value}
                     games={games}
                     picks={picks}
-                    setPicks={setPicks}
+                    setIsAccountComponentOpen={setIsAccountComponentOpen}
                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                    setPicks={setPicks}
                     teams={teams}
                     userIDs={userIDs}
                 /> 
             }
+
+            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus.value} teams={teams} /> }
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router";
 
 import { Team } from "../types/team";
 import { CurrentUser } from "../types/account";
@@ -23,14 +22,16 @@ type Props = {
 const Account = (props: Props) => {
     const [newEmailAddress, setNewEmailAddress] = useState<string>("");
     const [newPhone, setNewPhone] = useState<string>("");
-
+    console.log(newEmailAddress);
+    console.log(props.currentUser.emailAddress);
+    console.log(newEmailAddress != props.currentUser.emailAddress);
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            <div id="navbar" className="grid grid-cols-3 grid-rows-1 mb-3 mt-6">
-                <Link id="return-to-picks" to="/">
+            <div id="navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
+                <button id="return-to-picks">
                     <i className="fa-solid fa-arrow-left"></i>
-                </Link>
+                </button>
                 
                 <h1 id="update-my-account-header">Update My Account</h1>
 
@@ -39,10 +40,12 @@ const Account = (props: Props) => {
                 </button>
             </div>
 
-            <div className="mb-3 mt-3" id="notification-preference-div">
+            <div className="mt-10 mb-10"><h2>{props.currentUser.username}</h2></div>
+
+            <div className="my-8" id="notification-preference-div">
                 <h2>Notification Preference</h2>
                 <select
-                    className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[90%]"
+                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                     id="notificationPreferenceInput"
                     value={props.currentUser.notificationPreference || "n"}
                     onChange={(e) => {
@@ -59,19 +62,20 @@ const Account = (props: Props) => {
                 </select>
             </div>
 
-            <div className="mb-3 mt-3" id="email-address-div">
+            <div className="my-3" id="email-address-div">
                 <h2>Email Address</h2>
                 <input
-                    className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[75%]"
+                    className="bg-[#D9D9D9] h-12 m-auto rounded-xl text-black text-center w-[75%]"
                     id="emailAddressInputField"
                     onInput={(e) => setNewEmailAddress(e.currentTarget.value)}
                     type="text"
-                    value={props.currentUser.emailAddress}
+                    placeholder={props.currentUser.emailAddress}
                 />
                 {
                     newEmailAddress !== props.currentUser.emailAddress &&
+                    newEmailAddress.length > 0 &&
                     <button
-                        className="bg-[#17C120] h-15 ml-2 pl-[2%] rounded-xl w-[13%]"
+                        className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitEmailChangeButton"
                         onClick={() => {
                             updateEmailAddress({
@@ -81,25 +85,26 @@ const Account = (props: Props) => {
                             });
                         }}
                     >
-                        <i className="fa-solid fa-check"></i>
+                        <i className="fa-solid fa-check m-auto"></i>
                     </button>
                     
                 }
             </div>
 
-            <div className="mb-3 mt-3" id="phone-div">
+            <div className="" id="phone-div">
                 <h2>Phone</h2>
                 <input 
-                    className="bg-[#D9D9D9] h-15 rounded-xl text-black text-center w-[75%]"
+                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[75%]"
                     id="phoneInputField"
                     onInput={(e) => setNewPhone(e.currentTarget.value)}
-                    value={props.currentUser.phone || ""}
                     type="text"
+                    placeholder={props.currentUser.phone || ""}
                 />
                 {
                     newPhone !== props.currentUser.phone &&
+                    newPhone.length > 0 &&
                     <button
-                        className="bg-[#17C120] h-15 ml-2 pl-[2%] rounded-xl w-[90%]"
+                        className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitPhoneChangeButton"
                         onClick={() => {
                             updatePhone({
@@ -114,10 +119,10 @@ const Account = (props: Props) => {
                 }
             </div>
 
-            <div className="mb-3 mt-3">
+            <div className="my-10">
                 <h2>Favorite Team</h2>
                 <select
-                    className="bg-[#D9D9D9] h-65 rounded-xl text-black text-center w-[90%]"
+                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
                     id="favoriteTeamInput"
                     value={props.currentUser?.favoriteTeam || "0"}
                     onChange={(e) => {

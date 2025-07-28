@@ -1,5 +1,6 @@
 export type CurrentUser = {
     userID: number;
+    username: string;
     favoriteTeam?: string;
     notificationPreference?: string;
     emailAddress?: string;
@@ -8,24 +9,24 @@ export type CurrentUser = {
 
 export type UpdateFavoriteTeamProps = {
     token: string;
-    userID: string;
+    userID: number;
     favoriteTeam: string;
 }
 
 export type UpdateNotificationPreferenceProps = {
     token: string;
-    userID: string;
+    userID: number;
     notificationPreference: string;
 }
 
 export type UpdateEmailAddressProps = {
     token: string;
-    userID: string;
+    userID: number;
     emailAddress: string;
 }
 
 export type UpdatePhoneProps = {
     token: string;
-    userID: string;
+    userID: number;
     phone: string;
 }

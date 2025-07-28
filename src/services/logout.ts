@@ -1,9 +1,7 @@
-import { NavigateFunction, useNavigate } from "react-router";
-
+import { validateToken } from "./validateToken";
 
 export const userLogout = () => {
-    const navigate: NavigateFunction = useNavigate();
     localStorage.clear();
-    navigate("/")
+    validateToken();
     window.location.reload();
 }

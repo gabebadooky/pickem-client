@@ -65,7 +65,7 @@ export const App = () => {
                 /> 
             }
 
-            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus.value} teams={teams} /> }
+            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus.value} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
         </div>
     )
 }

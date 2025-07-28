@@ -14,6 +14,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
+import { validateToken } from "../services/validateToken";
 
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
     games: Game[];
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>
+    setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     teams: Team[];
     userIDs: UserIDs[];
@@ -30,7 +32,7 @@ type Props = {
 
 
 const Picks = (props: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    //const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
     const [viewPicksOfUserID, setViewPicksOfUserID] = useState<number>(0);
@@ -40,14 +42,25 @@ const Picks = (props: Props) => {
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            {
+            {/*
                 isLoading &&
                 (createPortal( <LoadingSpinner />, document.body))
-            }
+            */}
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-3 mt-6 w-[90%]">
-                {/*<Link to="/account"><i className="fa-solid fa-user"></i></Link>*/}
-                <span>hi</span>
+                <i 
+                    className="fa-solid fa-user"
+                    id="account-info-button"
+                    onClick={() => {
+                        if (props.currentUser.userID === -1) {
+                            validateToken();
+                            window.location.reload();
+                        } else {
+                            props.setIsAccountComponentOpen(true);
+                        }
+                    }}
+                >
+                </i>
 
                 <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUserID} userIDs={props.userIDs} />
                 

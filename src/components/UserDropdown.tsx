@@ -10,16 +10,18 @@ type Props = {
 
 const UserDropdown = (props: Props) => {
     return (
-        <select 
-            name="usersDropdown" 
-            id="usersDropdownInput"
-            value={props.currentUser.userID !== 0 ? props.currentUser.userID : props.userIDs[0].userID}
-            onChange={(e) => props.setViewPicksOfUser(Number(e.target.value))}
-        >
-            {props.userIDs.map((user: UserIDs) => (
-                <option key={user.userID} value={user.userID}>{user.username}</option>
-            ))}
-        </select>
+        <div className="m-auto">
+            <select 
+                name="usersDropdown" 
+                id="usersDropdownInput"
+                value={props.currentUser.userID !== 0 ? props.currentUser.userID : props.userIDs[0].userID}
+                onChange={(e) => props.setViewPicksOfUser(Number(e.target.value))}
+            >
+                {props.userIDs.map((user: UserIDs) => (
+                    <option key={user.userID} value={user.userID}>{user.username}</option>
+                ))}
+            </select>
+        </div>
     );
 }
 

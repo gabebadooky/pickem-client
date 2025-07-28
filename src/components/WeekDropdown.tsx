@@ -15,12 +15,14 @@ const renderWeekOptions = (weeks: number) => {
 
 const WeekDropdown = (props: Props) => {
     return (
-        <select name="week-dropdown" id="week-dropdown-input" className="ml-6 mr-6"
-            value={props.selectedWeek}
-            onChange={(e) => props.setSelectedWeek(Number(e.currentTarget.value))}
-        >
-            {renderWeekOptions(props.weeks)}
-        </select>
+        <div className="m-auto">
+            <select name="week-dropdown" id="week-dropdown-input" className="ml-6 mr-6"
+                value={props.selectedWeek}
+                onChange={(e) => props.setSelectedWeek(Number(e.currentTarget.value))}
+            >
+                {renderWeekOptions(props.weeks)}
+            </select>
+        </div>
     );
 }
 

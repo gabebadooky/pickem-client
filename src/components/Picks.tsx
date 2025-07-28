@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router";
 
 import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
@@ -46,15 +45,16 @@ const Picks = (props: Props) => {
                 (createPortal( <LoadingSpinner />, document.body))
             }
 
-            <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-6 w-[90%]">
-                <Link to="/account"><i className="fa-solid fa-user"></i></Link>
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-3 mt-6 w-[90%]">
+                {/*<Link to="/account"><i className="fa-solid fa-user"></i></Link>*/}
+                <span>hi</span>
 
                 <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUserID} userIDs={props.userIDs} />
                 
                 <button onClick={userLogout}>Logout</button>
             </div>
 
-            <div className="grid grid-cols-3 grid-rows-1 mb-3 mt-2 w-[90%]">
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-3 mt-2 w-[90%]">
                 <div id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
@@ -79,6 +79,7 @@ const Picks = (props: Props) => {
                 <tbody>
 
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
+                        const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(game.date, game.time);
 
                         if (game.date !== priorGameDate) {
@@ -88,6 +89,7 @@ const Picks = (props: Props) => {
 
                         return(
                             <PickRow
+                                key={key}
                                 currentUser={props.currentUser}
                                 game={game}
                                 isModalCurrentlyRendered={isModalCurrentlyRendered}

@@ -1,7 +1,4 @@
-import { validateToken } from "./validateToken";
-
 export const userLogout = () => {
-    localStorage.clear();
-    validateToken();
+    localStorage.removeItem("jwt");
     window.location.reload();
 }

@@ -1,6 +1,6 @@
 import { Game } from "../types/game";
 import { Team } from "../types/team";
-import { Pick } from "../types/pick";
+import { NullPick, Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 import { BASE_URL } from "./baseURL";
 
@@ -31,12 +31,16 @@ export const getTeams = async (): Promise<Array<Team>> => {
 
 
 export const getUserPicks = async (userID: number): Promise<Array<Pick>> => {
-    const response = await fetch(`${BASE_URL}/picks/${userID}`);
-    if (!response.ok) {
-        console.log(`Error occurred during geUserPicks request! ${response.text}`);
-        throw new Error(`Error occurred during geUserPicks request! ${response.text}`);
+    if (userID === -1) {
+        return [NullPick];
     } else {
-        return response.json();
+        const response = await fetch(`${BASE_URL}/picks/${userID}`);
+        if (!response.ok) {
+            console.log(`Error occurred during geUserPicks request! ${response.text}`);
+            throw new Error(`Error occurred during geUserPicks request! ${response.text}`);
+        } else {
+            return response.json();
+        }
     }
 }
 

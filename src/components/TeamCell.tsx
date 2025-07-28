@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
 import ConfidenceModal from "./ConfidenceModal";
 import { CurrentUser } from "../types/account";
 import { Pick } from "../types/pick";
 import { Team } from "../types/team";
+import { Token } from "../types/token";
 
 
 type Props = {
 	currentUser: CurrentUser;
     isModalCurrentlyRendered: boolean;
-	jwtToken: string;
+	jwtToken: Token;
     localKickoffTimestamp: Date;
     pick: Pick;
     picks: Pick[];

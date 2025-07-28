@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-import { Team } from "../types/team";
 import { CurrentUser } from "../types/account";
+import { Team } from "../types/team";
+import { Token } from "../types/token";
 
 import { userLogout } from "../services/logout";
 import {
@@ -15,7 +16,7 @@ import {
 type Props = {
     currentUser: CurrentUser;
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    jwtToken: string;
+    jwtToken: Token;
     teams: Team[];
 }
 
@@ -51,7 +52,7 @@ const Account = (props: Props) => {
                     value={props.currentUser.notificationPreference || "n"}
                     onChange={(e) => {
                         updateNotificationPreference({
-                            token: props.jwtToken,
+                            token: props.jwtToken.value,
                             userID: props.currentUser.userID,
                             notificationPreference: e.currentTarget.value
                         });
@@ -80,7 +81,7 @@ const Account = (props: Props) => {
                         id="submitEmailChangeButton"
                         onClick={() => {
                             updateEmailAddress({
-                                token: props.jwtToken,
+                                token: props.jwtToken.value,
                                 userID: props.currentUser.userID,
                                 emailAddress: newEmailAddress
                             });
@@ -109,7 +110,7 @@ const Account = (props: Props) => {
                         id="submitPhoneChangeButton"
                         onClick={() => {
                             updatePhone({
-                                token: props.jwtToken,
+                                token: props.jwtToken.value,
                                 userID: props.currentUser.userID,
                                 phone: newPhone
                             });
@@ -128,7 +129,7 @@ const Account = (props: Props) => {
                     value={props.currentUser?.favoriteTeam || "0"}
                     onChange={(e) => {
                         updateFavoriteTeam({
-                            token: props.jwtToken,
+                            token: props.jwtToken.value,
                             userID: props.currentUser.userID,
                             favoriteTeam: e.currentTarget.value
                         });

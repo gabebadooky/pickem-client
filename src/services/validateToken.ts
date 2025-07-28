@@ -14,7 +14,7 @@ export const validateToken = (): Token => {
     } else if (localStorage.getItem("jwt") === "guest") {
         console.log("guest sign in");
         return {
-            active: false,
+            active: true,
             userID: -1,
             value: ""
         };
@@ -33,14 +33,24 @@ export const validateToken = (): Token => {
                     value: ""
                 };
             } else {
+                console.log("JWT is active");
                 // JWT is active
-                if ("sub" in decodedToken || "id" in decodedToken) {
+                if ("sub" in decodedToken) {
+                    console.log("SUB property located");
                     return {
                         active: true,
-                        userID: decodedToken.sub || decodedToken.id,
+                        userID: Number(decodedToken.sub),
+                        value: localStorage.getItem("jwt") || ""
+                    };
+                } else if ("id" in decodedToken) {
+                    console.log("ID property located");
+                    return {
+                        active: true,
+                        userID: Number(decodedToken.id),
                         value: localStorage.getItem("jwt") || ""
                     };
                 } else {
+                    console.log("Sub or ID property not located in JWT token");
                     return {
                         active: false,
                         userID: -1,

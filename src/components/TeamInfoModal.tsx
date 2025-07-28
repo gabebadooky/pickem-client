@@ -31,12 +31,17 @@ const TeamInfoModal = (props: Props) => {
                 </div>
 
                 <div>
-                    <input 
-                        type="text" 
-                        name="team-notes" 
-                        id={teamNotesInputId} 
-                        placeholder="Team Notes" 
-                    />
+                    <textarea
+                        className="bg-[#ffffff]"
+                        id={teamNotesInputId}
+                        name="team-notes"
+                        placeholder="Team Notes"
+                        onInput={(e) => {
+                            e.preventDefault();
+                            team
+                        }}
+                    >
+                    </textarea>
                 </div>
             </div>
         </div>

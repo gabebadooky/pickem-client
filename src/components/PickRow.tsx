@@ -4,38 +4,36 @@ import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
 
 import { Game } from "../types/game";
 import { Team, NullTeam } from "../types/team";
+import { CurrentUser } from "../types/account";
+import { TeamNotes } from "../types/teamNotes";
+import { Token } from "../types/token";
 import { Pick, NullPick } from "../types/pick";
 
 import TeamCell from "./TeamCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
-import { CurrentUser } from "../types/account";
 
 
 type Props = {
     currentUser: CurrentUser;
     game: Game;
     isModalCurrentlyRendered: boolean;
-    jwtToken: string;
+    jwtToken: Token;
     picks: Pick[];
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     teams: Team[];
-    viewPicksOfUserID: number;
+    teamNotes: TeamNotes[];
 };
 
 
 const PickRow = (props: Props) => {
-    const [userGamePick, setUserGamePick] = useState<Pick>(props.picks.find(pick => pick.gameID === props.game.gameID && pick.userID === props.viewPicksOfUserID) || NullPick);
+    const userGamePick: Pick = props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick
     const awayTeam: Team = props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam;
-    const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
-    const localKickoffDateTimestamp: Date = new Date(localKickoffTimestampString);
+    const localKickoffDateTimestamp: Date = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
 
-    useEffect(() => {
-        setUserGamePick(props.picks.find(pick => pick.gameID === props.game.gameID && pick.userID === props.viewPicksOfUserID) || NullPick);
-    }, [props.picks]);
-
+    
     return(
         <tr className="flex h-[20%] m-auto w-full" id={`${props.game.gameID}-row`}>
                                 

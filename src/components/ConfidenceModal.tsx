@@ -1,5 +1,4 @@
 import { submitPick } from "../services/picksAPI";
-import { validateToken } from "../services/validateToken";
 
 import { CurrentUser } from "../types/account";
 import { Pick } from "../types/pick";
@@ -7,7 +6,7 @@ import { Token } from "../types/token";
 
 type Props = {
 	currentUser: CurrentUser;
-	jwtToken: string;
+	jwtToken: Token;
 	localKickoffTimestamp: Date;
 	onClose: Function;
 	pick: Pick;
@@ -19,17 +18,21 @@ type Props = {
 
 const ConfidenceModal = (props: Props) => {
 	const now: Date = new Date();
-	const token: Token = validateToken();
 	const formattedGameTitle: string = props.pick.gameID
 											.replace(/-/g, " ")
 											.split(" ")
 											.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
 											.join(" ");
-	const radioElementDisabledAttribute: boolean = token.active || now > props.localKickoffTimestamp;
-
+	const modifyPickAllowed: boolean = props.jwtToken.active && props.currentUser.userID === props.pick.userID && now < props.localKickoffTimestamp;
+	console.log(`modifyPickAllowed: ${modifyPickAllowed}`);
+	console.log(`token.active: ${props.jwtToken.active}`);
+	console.log(`props.currentUser.userID === props.pick.userID: ${props.currentUser.userID === props.pick.userID}`);
+	console.log(`currentUserID: ${props.currentUser.userID}`);
+	console.log(`pick.userID: ${props.pick.userID}`);
+	console.log(`now < props.localKickoffTimestamp: ${now < props.localKickoffTimestamp}`);
 
 	const selectConfidenceLevel = (confidenceWeight: string) => {
-		submitPick(props.jwtToken, {
+		submitPick(props.jwtToken.value, {
 			userID: props.pick.userID,
 			gameID: props.pick.gameID,
 			teamPicked: props.teamID,
@@ -46,8 +49,7 @@ const ConfidenceModal = (props: Props) => {
 					pickWeight: confidenceWeight 
 				} : pick
 			));
-		})
-		//props.setSelectedTeam(props.teamID);
+		});
 		props.onClose();
 	}
 
@@ -76,10 +78,10 @@ const ConfidenceModal = (props: Props) => {
 						<input 
 							type="radio"
 							name="confidence-level"
-							disabled={radioElementDisabledAttribute}
+							disabled={!modifyPickAllowed}
 							id="low"
 							value="l"
-							checked={
+							defaultChecked={
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "l"
 							}
@@ -92,10 +94,10 @@ const ConfidenceModal = (props: Props) => {
 						<input 
 							type="radio"
 							name="confidence-level"
-							disabled={radioElementDisabledAttribute}
+							disabled={!modifyPickAllowed}
 							id="medium"
 							value="m"
-							checked={
+							defaultChecked={
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "m"
 							}
@@ -108,10 +110,10 @@ const ConfidenceModal = (props: Props) => {
 						<input 
 							type="radio"
 							name="confidence-level"
-							disabled={radioElementDisabledAttribute}
+							disabled={!modifyPickAllowed}
 							id="high"
 							value="h"
-							checked={
+							defaultChecked={
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "h"
 							}

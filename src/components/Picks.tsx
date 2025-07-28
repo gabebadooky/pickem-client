@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { userLogout } from "../services/logout";
-import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
+import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
+import { getUserPicks } from "../services/picksAPI";
 
 import { CurrentUser } from "../types/account";
 import { Game } from "../types/game";
 import { Team } from "../types/team";
+import { Token } from "../types/token";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 
@@ -14,16 +16,16 @@ import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
-import { validateToken } from "../services/validateToken";
+import { getTeamNotes } from "../services/teamNotes";
+import { TeamNotes } from "../types/teamNotes";
+
 
 
 type Props = {
     currentUser: CurrentUser;
     isModalCurrentlyRendered: boolean;
-    jwtToken: string;
+    jwtToken: Token;
     games: Game[];
-    picks: Pick[];
-    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     teams: Team[];
@@ -34,11 +36,15 @@ type Props = {
 const Picks = (props: Props) => {
     //const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    //const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
-    const [viewPicksOfUserID, setViewPicksOfUserID] = useState<number>(0);
+    const [picks, setPicks] = useState(Array<Pick>);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
-    
+    const [teamNotes, setTeamNotes] = useState(Array<TeamNotes>);
     let priorGameDate: string | undefined;
+
+    useEffect(() => {
+        getUserPicks(props.currentUser.userID).then(setPicks);
+        getTeamNotes(props.currentUser.userID).then(setTeamNotes);
+    }, [props.currentUser]);
 
 
     return (
@@ -55,8 +61,7 @@ const Picks = (props: Props) => {
                     id="account-info-button"
                     onClick={() => {
                         if (props.currentUser.userID === -1) {
-                            validateToken();
-                            window.location.reload();
+                            userLogout();
                         } else {
                             props.setIsAccountComponentOpen(true);
                         }
@@ -64,7 +69,7 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <UserDropdown currentUser={props.currentUser} setViewPicksOfUser={setViewPicksOfUserID} userIDs={props.userIDs} />
+                <UserDropdown currentUser={props.currentUser} setPicks={setPicks} userIDs={props.userIDs} />
                 
                 <button onClick={userLogout}>Logout</button>
             </div>
@@ -95,24 +100,29 @@ const Picks = (props: Props) => {
 
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
-                        const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(game.date, game.time);
+                        const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
                         
                         if (localKickoffTimestampString !== priorGameDate) {
                             priorGameDate = localKickoffTimestampString;
                             return (
                                 <>
-                                    <tr id={`${localKickoffTimestampString.replace(" ", "-")}-header`}><td>{localKickoffTimestampString}</td></tr>
+                                    <tr
+                                        id={`${localKickoffTimestampString.replace(" ", "-")}-header-row`}
+                                        key={`${localKickoffTimestampString.replace(" ", "-")}-header-row`}
+                                    >
+                                        <td key={`${localKickoffTimestampString.replace(" ", "-")}-header-cell`}>{localKickoffTimestampString}</td>
+                                    </tr>
                                     <PickRow
                                         key={key}
                                         currentUser={props.currentUser}
                                         game={game}
                                         isModalCurrentlyRendered={isModalCurrentlyRendered}
                                         jwtToken={props.jwtToken}
-                                        picks={props.picks}
-                                        setPicks={props.setPicks}
+                                        picks={picks}
+                                        setPicks={setPicks}
                                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                         teams={props.teams}
-                                        viewPicksOfUserID={viewPicksOfUserID}
+                                        teamNotes={teamNotes}
                                     />
                                 </>
                             );
@@ -124,11 +134,11 @@ const Picks = (props: Props) => {
                                     game={game}
                                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                                     jwtToken={props.jwtToken}
-                                    picks={props.picks}
-                                    setPicks={props.setPicks}
+                                    picks={picks}
+                                    setPicks={setPicks}
                                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                     teams={props.teams}
-                                    viewPicksOfUserID={viewPicksOfUserID}
+                                    teamNotes={teamNotes}
                                 />
                             );
                         }

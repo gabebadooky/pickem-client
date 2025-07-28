@@ -20,7 +20,10 @@ export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) 
     }
 
     const zuluDateTime: Date = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);
-    const formattedDate: string = zuluDateTime.toLocaleDateString("en", {weekday: "long", month: "long", day: "numeric"});
 
-    return formattedDate;
+    return zuluDateTime;
+}
+
+export const zuluTimeToLocaleFormattedDateString = (gameDate: Date, gameTime: string) => {
+    return zuluTimeToLocaleFormattedDate(gameDate, gameTime).toLocaleDateString("en", {weekday: "long", month: "long", day: "numeric"});
 }

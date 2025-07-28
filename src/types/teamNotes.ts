@@ -1,5 +1,5 @@
 export interface TeamNotes {
     userID: number;
-    gameID: string;
+    teamID: string;
     notes: string;
 }

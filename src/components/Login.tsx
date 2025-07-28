@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { loginRequest } from "../services/authAPI";
@@ -115,7 +115,8 @@ const Login = (props: Props) => {
                         onClick={() => {
                             props.setTokenStatus(prev => ({
                                 ...prev,
-                                active: true
+                                active: true,
+                                value: "guest"
                             }));
                         }}
                     >

@@ -1,5 +1,5 @@
 import { submitPick } from "../services/picksAPI";
-import { validateToken } from "../services/token";
+import { validateToken } from "../services/validateToken";
 
 import { CurrentUser } from "../types/account";
 import { Pick } from "../types/pick";

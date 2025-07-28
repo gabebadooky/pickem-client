@@ -5,7 +5,7 @@ import { loginRequest } from "../services/authAPI";
 import LoadingSpinner from "./LoadingSpinner";
 
 import { Token } from "../types/token";
-import { validateToken } from "../services/token";
+import { validateToken } from "../services/validateToken";
 
 
 type Props = {
@@ -76,21 +76,24 @@ const Login = (props: Props) => {
                                 className="bg-[#17C120] h-12 rounded-xl w-[90%]" 
                                 id="loginButton" 
                                 type="submit"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault();
                                         setFetchingData(true);
                                         loginRequest({
                                             username: usernameInputString,
                                             password: passwordInputString
                                         })
                                         .then((response) => {
-                                            if (response.access_token) {
+                                            if (response?.access_token) {
                                                 localStorage.setItem("jwt", response.access_token);
+                                                props.setTokenStatus(validateToken());
                                             } else {
                                                 setIncorrectLoginAttempt(true);
                                             }
                                         })
-                                        .then(() => {
-                                            props.setTokenStatus(validateToken);
+                                        .catch((err) => {
+                                            console.log(err);
+                                            setIncorrectLoginAttempt(true);
                                         })
                                         .finally(() => setFetchingData(false));
                                     }}

@@ -3,7 +3,7 @@ import "tailwindcss";
 
 import { getUser } from "./services/accountAPI";
 import { getGames, getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
-import { validateToken } from "./services/token";
+import { validateToken } from "./services/validateToken";
 
 import { Game } from "./types/game";
 import { Pick } from "./types/pick";
@@ -34,7 +34,7 @@ export const App = () => {
     
     return(
         <div id="containter">
-            { (!tokenStatus.active && !isRegistering) &&  <Login setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
+            { (!tokenStatus.active && !isRegistering) && <Login setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
 
             { (!tokenStatus.active && isRegistering) && <Register setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
 

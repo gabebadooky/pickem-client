@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { registerNewUser } from "../services/authAPI";
-import { validateToken } from "../services/token";
+import { validateToken } from "../services/validateToken";
 
 import { Team } from "../types/team";
 import { Token } from "../types/token";

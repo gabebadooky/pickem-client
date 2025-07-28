@@ -34,7 +34,7 @@ const TeamCell = (props: Props) => {
 
 
     return (
-        <div className="m-auto w-1/5">
+        <td className="m-auto w-1/5">
             <img
                 key={teamImageID}
                 src={props.team.teamLogoUrl}
@@ -67,7 +67,7 @@ const TeamCell = (props: Props) => {
                     document.body
                 ))
             }
-        </div>
+        </td>
     );
 
 }

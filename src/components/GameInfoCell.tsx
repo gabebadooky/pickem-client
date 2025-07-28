@@ -18,9 +18,9 @@ const GameInfoCell = (props: Props) => {
     const gameInfoCellID: string = `${props.game.gameID}-info-cell`;
 
     return (
-        <div className="m-auto" id={gameInfoCellID}>
+        <td className="m-auto w-1/5" id={gameInfoCellID}>
             <i 
-                className="fa-solid fa-circle-info"
+                className="fa-solid fa-circle-info fa-lg"
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);
@@ -42,7 +42,7 @@ const GameInfoCell = (props: Props) => {
                     }}
                 />
             }
-        </div>
+        </td>
     )
 }
 

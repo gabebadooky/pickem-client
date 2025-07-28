@@ -34,9 +34,11 @@ type Props = {
 const Picks = (props: Props) => {
     //const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
+    //const [priorGameDate, setPriorGameDate] = useState<Date | undefined>(undefined);
     const [viewPicksOfUserID, setViewPicksOfUserID] = useState<number>(0);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
+    
+    let priorGameDate: string | undefined;
 
 
     return (
@@ -47,9 +49,9 @@ const Picks = (props: Props) => {
                 (createPortal( <LoadingSpinner />, document.body))
             */}
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-3 mt-6 w-[90%]">
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-5 w-[90%]">
                 <i 
-                    className="fa-solid fa-user"
+                    className="fa-solid fa-user m-auto"
                     id="account-info-button"
                     onClick={() => {
                         if (props.currentUser.userID === -1) {
@@ -67,7 +69,7 @@ const Picks = (props: Props) => {
                 <button onClick={userLogout}>Logout</button>
             </div>
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-3 mt-2 w-[90%]">
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-5 w-[90%]">
                 <div id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
@@ -88,32 +90,50 @@ const Picks = (props: Props) => {
             </div>
 
 
-            <table className="border-separate border-spacing-3 m-auto mt-[5%] w-[90%]">
+            <table className="border-separate border-spacing-3 m-auto mt-[5%] mb-20 w-[90%]">
                 <tbody>
 
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDate(game.date, game.time);
-
-                        if (game.date !== priorGameDate) {
-                            <th><tr>{localKickoffTimestampString}</tr></th>
-                            setPriorGameDate(game.date);
+                        
+                        if (localKickoffTimestampString !== priorGameDate) {
+                            priorGameDate = localKickoffTimestampString;
+                            return (
+                                <>
+                                    <tr id={`${localKickoffTimestampString.replace(" ", "-")}-header`}><td>{localKickoffTimestampString}</td></tr>
+                                    <PickRow
+                                        key={key}
+                                        currentUser={props.currentUser}
+                                        game={game}
+                                        isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                        jwtToken={props.jwtToken}
+                                        picks={props.picks}
+                                        setPicks={props.setPicks}
+                                        setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                        teams={props.teams}
+                                        viewPicksOfUserID={viewPicksOfUserID}
+                                    />
+                                </>
+                            );
+                        } else {
+                            return(
+                                <PickRow
+                                    key={key}
+                                    currentUser={props.currentUser}
+                                    game={game}
+                                    isModalCurrentlyRendered={isModalCurrentlyRendered}
+                                    jwtToken={props.jwtToken}
+                                    picks={props.picks}
+                                    setPicks={props.setPicks}
+                                    setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                    teams={props.teams}
+                                    viewPicksOfUserID={viewPicksOfUserID}
+                                />
+                            );
                         }
 
-                        return(
-                            <PickRow
-                                key={key}
-                                currentUser={props.currentUser}
-                                game={game}
-                                isModalCurrentlyRendered={isModalCurrentlyRendered}
-                                jwtToken={props.jwtToken}
-                                picks={props.picks}
-                                setPicks={props.setPicks}
-                                setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                                teams={props.teams}
-                                viewPicksOfUserID={viewPicksOfUserID}
-                            />
-                        );
+                        
                     })}
 
                 </tbody>

@@ -16,7 +16,7 @@ export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) 
     let gameHour: string = timeStringElements[0].padStart(2, "0");
     let gameMinute: string = timeStringElements[1].padStart(2, "0");
     if (gameHour == "04" && gameMinute == "00") {
-        gameHour = "23";
+        gameHour = "20";
     }
 
     const zuluDateTime: Date = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);

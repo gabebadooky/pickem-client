@@ -188,18 +188,21 @@ const Register = (props: Props) => {
                         className="bg-[#17C120] h-12 mb-5 rounded-xl w-[90%]"
                         id="registerButton"
                         type="submit"
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.preventDefault();
                             setAttemptingRegistration(true);
                             registerNewUser(newUser)
                             .then((response) => {
                                 if (response.access_token) {
                                     localStorage.setItem("jwt", response.access_token);
+                                    props.setTokenStatus(validateToken());
+                                    props.setIsRegistering(false);
                                 } else {
                                     setUsernameTaken(true);
                                 }
                             })
-                            .then(() => {
-                                props.setTokenStatus(validateToken());
+                            .catch((err) => {
+                                console.log(err);
                             })
                             .finally(() => setAttemptingRegistration(false));
                         }} 

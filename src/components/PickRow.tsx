@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { zuluTimeToLocaleFormattedDate } from "../services/formatDate";
 
 import { Game } from "../types/game";
@@ -39,8 +37,10 @@ const PickRow = (props: Props) => {
                                 
             <TeamInfoIconCell
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                jwtToken={props.jwtToken}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
                 team={awayTeam}
+                teamNotes={props.teamNotes}
             />
 
             <TeamCell
@@ -77,8 +77,10 @@ const PickRow = (props: Props) => {
 
             <TeamInfoIconCell
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                jwtToken={props.jwtToken}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
                 team={homeTeam}
+                teamNotes={props.teamNotes}
             />
 
         </tr>

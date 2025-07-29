@@ -5,14 +5,17 @@ const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
 
-export const getTeamNotes = async (userID: number) => {
-    const response = await fetch(`${BASE_URL}/teams/notes/${userID}`);
-
-    if (!response.ok) {
-        console.log(`Error occurred during updateTeamNotes request! ${response.text}`);
-        throw new Error(`Error occurred during updateTeamNotes request! ${response.text}`);
+export const getTeamNotes = async (userID: number): Promise<Array<TeamNotes>> => {
+    if (userID === -1) {
+        return [{userID: -1, teamID: "teamID", notes: ""}];
     } else {
-        return response.json();
+        const response = await fetch(`${BASE_URL}/teams/notes/${userID}`);
+        if (!response.ok) {
+            console.log(`Error occurred during getTeamNotes request! ${response.text}`);
+            throw new Error(`Error occurred during getTeamNotes request! ${response.text}`);
+        } else {
+            return response.json();
+        }
     }
 }
 

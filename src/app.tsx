@@ -26,7 +26,6 @@ export const App = () => {
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [teams, setTeams] = useState<Team[]>([]);
-    const [teamNotes, setTeamNotes] = useState<TeamNotes>(Array<TeamNotes>);
     const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
     const [userIDs, setUserIDs] = useState<UserIDs[]>([]);
 
@@ -39,7 +38,6 @@ export const App = () => {
     
     useEffect(() => {
         getUser(tokenStatus.userID).then(setCurrentUser);
-        getTeamNotes(tokenStatus.value, )
     }, [tokenStatus]);
     
     return(

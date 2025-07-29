@@ -101,7 +101,7 @@ const Picks = (props: Props) => {
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
-                        
+                        console.log(`Rendering gameID: ${game.gameID}`);
                         if (localKickoffTimestampString !== priorGameDate) {
                             priorGameDate = localKickoffTimestampString;
                             return (

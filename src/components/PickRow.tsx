@@ -26,7 +26,7 @@ type Props = {
 
 
 const PickRow = (props: Props) => {
-    const userGamePick: Pick = props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick
+    const userGamePick: Pick = props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick;
     const awayTeam: Team = props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam;
     const localKickoffDateTimestamp: Date = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
@@ -36,6 +36,7 @@ const PickRow = (props: Props) => {
         <tr className="flex h-[20%] m-auto w-full" id={`${props.game.gameID}-row`}>
                                 
             <TeamInfoIconCell
+                key={`${awayTeam.teamID}-team-info-icon-cell`}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 jwtToken={props.jwtToken}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
@@ -44,6 +45,7 @@ const PickRow = (props: Props) => {
             />
 
             <TeamCell
+                key={`${awayTeam.teamID}-team-cell`}
                 currentUser={props.currentUser}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 jwtToken={props.jwtToken}
@@ -56,6 +58,7 @@ const PickRow = (props: Props) => {
             />
 
             <GameInfoCell
+                key={`${userGamePick.gameID}-game-info-cell`}
                 awayTeam={awayTeam}
                 game={props.game}
                 homeTeam={homeTeam}
@@ -64,6 +67,7 @@ const PickRow = (props: Props) => {
             />
 
             <TeamCell
+                key={`${homeTeam.teamID}-team-cell`}
                 currentUser={props.currentUser}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 jwtToken={props.jwtToken}
@@ -76,6 +80,7 @@ const PickRow = (props: Props) => {
             />
 
             <TeamInfoIconCell
+                key={`${homeTeam.teamID}-team-info-icon-cell`}
                 isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                 jwtToken={props.jwtToken}
                 setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}

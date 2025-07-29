@@ -15,7 +15,7 @@ type Props = {
 
 
 const Login = (props: Props) => {
-    const [fetchingData, setFetchingData] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
     const [usernameInputString, setUsernameInputString] = useState<string>("");
     const [passwordInputString, setpasswordInputString] = useState<string>("");
@@ -23,16 +23,8 @@ const Login = (props: Props) => {
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            { fetchingData && (createPortal(<LoadingSpinner />, document.body)) }
+            {/* isLoading && (createPortal(<LoadingSpinner />, document.body)) */}
 
-            {
-                incorrectLoginAttempt &&
-                <div className="" id="incorrect-login-warning-div">
-                    <p className="text-red-500">
-                        Username or Password is incorrect. Please try again.
-                    </p>
-                </div>
-            }
 
             <div className="align-top mb-10 mt-25" id="login-header">
                 <h1 className="text-xl">Pickem</h1>
@@ -67,41 +59,53 @@ const Login = (props: Props) => {
                     />
                 </div>
 
-                
+                <div className="" id="incorrect-login-warning-div">
                     {
-                        (usernameInputString.length > 0 && passwordInputString.length > 0) 
-                            &&
-                        <div className="mt-20" id="submit-form-div">
-                            <button 
-                                className="bg-[#17C120] h-12 rounded-xl w-[90%]" 
-                                id="loginButton" 
-                                type="submit"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setFetchingData(true);
-                                        loginRequest({
-                                            username: usernameInputString,
-                                            password: passwordInputString
-                                        })
-                                        .then((response) => {
-                                            if (response?.access_token) {
-                                                localStorage.setItem("jwt", response.access_token);
-                                                props.setTokenStatus(validateToken());
-                                            } else {
-                                                setIncorrectLoginAttempt(true);
-                                            }
-                                        })
-                                        .catch((err) => {
-                                            console.log(err);
-                                            setIncorrectLoginAttempt(true);
-                                        })
-                                        .finally(() => setFetchingData(false));
-                                    }}
-                            >
-                                Login
-                            </button>
-                        </div>
+                        incorrectLoginAttempt &&
+                        <p className="text-red-500">
+                            Username or Password is incorrect. Please try again.
+                        </p>
                     }
+                </div>
+
+                { isLoading && <LoadingSpinner /> }
+                
+                {
+                    (usernameInputString.length > 0 && passwordInputString.length > 0) 
+                        &&
+                    <div className="mt-15" id="submit-form-div">
+                        <button 
+                            className="bg-[#17C120] h-12 rounded-xl w-[90%]" 
+                            id="loginButton" 
+                            type="submit"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setIsLoading(true);
+                                    loginRequest({
+                                        username: usernameInputString,
+                                        password: passwordInputString
+                                    })
+                                    .then((response) => {
+                                        if (response?.access_token) {
+                                            localStorage.setItem("jwt", response.access_token);
+                                            props.setTokenStatus(validateToken());
+                                        } else {
+                                            setIncorrectLoginAttempt(true);
+                                        }
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                        setIncorrectLoginAttempt(true);
+                                    })
+                                    .finally(() => {
+                                        setIsLoading(false);
+                                    });
+                                }}
+                        >
+                            Login
+                        </button>
+                    </div>
+                }
                 
             </form>
 

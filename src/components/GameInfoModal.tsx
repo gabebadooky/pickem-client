@@ -24,20 +24,20 @@ const GameInfoModal = (props: Props) => {
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
-            <div className="bg-[#D9D9D9] p-10 relative text-black text-center" id={modalID}>
+            <div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]" id={modalID}>
                 
-                <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={() => props.onClose()}></i>
-                <h1>{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
+                <i className="fa-solid fa-xl fa-rectangle-xmark absolute top-4 right-2" onClick={() => props.onClose()}></i>
+                <h1 className="font-extrabold text-lg">{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
                 
-                <div>{localDate.toLocaleString().split(", ")[1]}</div>
+                <div className="text-xs">{localDate.toLocaleString().split(", ")[1]}</div>
 
-                <div>
+                <div className="mb-4 text-xs">
                     {props.game.tvCoverage.length > 1 && `Broadcast: ${props.game.tvCoverage}`}
                 </div>
 
-                <div>
-                    <p>More Details:</p>
-                    <p className="text-[#34a8f8]"><a href={espnCfbURL}>ESPN</a></p>
+                <div className="text-base">
+                    <p className="">More Details:</p>
+                    <p className="pb-1 text-[#34a8f8]"><a href={espnCfbURL}>ESPN</a></p>
                     <p className="text-[#34a8f8]"><a href={cbsCfbURL}>CBS</a></p>
                 </div>
 

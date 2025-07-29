@@ -26,24 +26,24 @@ const TeamInfoModal = (props: Props) => {
     console.log(`props.teamNotes.notes: ${String(props.teamNotes.notes)}`);
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 rounded-sm top-0 w-[100vw] z-1000">
-            <div className="bg-[#D9D9D9] p-10 relative text-black text-center" id={props.team.teamID}>
+            <div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]" id={props.team.teamID}>
                 
-                <i className="fa-solid fa-rectangle-xmark absolute top-1 right-1" onClick={() => props.onClose()}></i>
-                <h1>{props.team.teamName} {props.team.teamMascot}</h1>
+                <i className="fa-solid fa-xl fa-rectangle-xmark absolute top-4 right-2" onClick={() => props.onClose()}></i>
+                <h1 className="font-extrabold text-lg">{props.team.teamName} {props.team.teamMascot}</h1>
 
-                <div>
+                <div className="mb-4 text-xs">
                     {props.team.overallWins}-{props.team.overallLosses} ({props.team.conferenceWins}-{props.team.conferenceLosses})
                 </div>
 
-                <div>
+                <div className="pb-2 text-base">
                     <p>More Details:</p>
-                    <p><a className="text-[#1a8cff]" href={espnURL}>ESPN</a></p>
+                    <p><a className="pb-1 text-[#1a8cff]" href={espnURL}>ESPN</a></p>
                     <p><a className="text-[#1a8cff]" href={cbsURL}>CBS</a></p>
                 </div>
 
-                <div>
+                <div className="">
                     <textarea
-                        className="bg-[#ffffff]"
+                        className="bg-[#ffffff] h-25 rounded-sm text-xs w-full"
                         id={teamNotesInputId}
                         name="team-notes"
                         onChange={(e) => {
@@ -51,6 +51,7 @@ const TeamInfoModal = (props: Props) => {
                             setNewNotes(e.currentTarget.value);
                             console.log(`newNotes: ${newNotes}`);
                         }}
+                        placeholder="Keep your own notes on this team..."
                         defaultValue={String(props.teamNotes.notes)}
                     />
                     {

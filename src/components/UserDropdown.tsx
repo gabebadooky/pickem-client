@@ -1,16 +1,14 @@
-import React from "react";
-
 import { getUserPicks } from "../services/picksAPI";
 
-import { CurrentUser } from "../types/account";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 
 
 type Props = {
-    currentUser: CurrentUser;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     userIDs: UserIDs[];
+    userIdValue: number;
 }
 
 const UserDropdown = (props: Props) => {
@@ -18,9 +16,12 @@ const UserDropdown = (props: Props) => {
         <div className="m-auto">
             <select 
                 name="usersDropdown"
-                defaultValue={props.currentUser.userID}
                 id="usersDropdownInput"
-                onChange={(e) => getUserPicks(Number(e.target.value)).then(props.setPicks)}
+                onChange={(e) => {
+                    props.setIsLoading(true);
+                    getUserPicks(Number(e.target.value)).then(props.setPicks).then(() => props.setIsLoading(false));
+                }}
+                defaultValue={props.userIdValue}
             >
                 {props.userIDs.map((user: UserIDs) => (
                     <option key={user.userID} value={user.userID}>{user.username}</option>

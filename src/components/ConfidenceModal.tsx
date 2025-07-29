@@ -18,19 +18,37 @@ type Props = {
 
 const ConfidenceModal = (props: Props) => {
 	const now: Date = new Date();
-	const formattedGameTitle: string = props.pick.gameID
-											.replace(/-/g, " ")
-											.split(" ")
-											.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
-											.join(" ");
+	const [awayTeamID, homeTeamID] = props.pick.gameID.split("-at-");
+	const formattedAwayTeamID: string = awayTeamID
+										.replace(/-/g, " ")
+										.split(" ")
+										.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
+										.join(" ");
+	const formattedHomeTeamID: string = homeTeamID
+										.replace(/-/g, " ")
+										.split(" ")
+										.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
+										.join(" ");
 	const modifyPickAllowed: boolean = props.jwtToken.active && props.currentUser.userID === props.pick.userID && now < props.localKickoffTimestamp;
-	console.log(`modifyPickAllowed: ${modifyPickAllowed}`);
-	console.log(`token.active: ${props.jwtToken.active}`);
-	console.log(`props.currentUser.userID === props.pick.userID: ${props.currentUser.userID === props.pick.userID}`);
-	console.log(`currentUserID: ${props.currentUser.userID}`);
-	console.log(`pick.userID: ${props.pick.userID}`);
-	console.log(`now < props.localKickoffTimestamp: ${now < props.localKickoffTimestamp}`);
 
+
+	const formattedGameTitle = () => {
+		if (awayTeamID === props.teamID) {
+			return (
+				<p className="font-light">
+					<span className="font-[1000]">{formattedAwayTeamID}</span> over {formattedHomeTeamID}
+				</p>
+			);
+		} else {
+			return (
+				<p>
+					<span className="font-[1000]">{formattedHomeTeamID}</span> over {formattedAwayTeamID}
+				</p>
+			);
+		}
+	}
+	
+	
 	const selectConfidenceLevel = (confidenceWeight: string) => {
 		submitPick(props.jwtToken.value, {
 			userID: props.pick.userID,
@@ -56,25 +74,25 @@ const ConfidenceModal = (props: Props) => {
 
 	return (
 		<div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
-			<div className="bg-[#D9D9D9] p-10 relative rounded-lg text-black text-center">
+			<div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]">
 
 				<i
-					className="absolute fa-solid fa-rectangle-xmark right-1 top-1"
+					className="absolute fa-solid fa-rectangle-xmark fa-xl right-2 top-4"
 					onClick={() => props.onClose()}
 				>
 				</i>
 
 				<div id="confidence-modal-div">
-					<h1>Confidence Level</h1>
+					<h1 className="font-extrabold text-lg">Confidence Level</h1>
 				</div>
 
-				<div id="game-title-div">
-					<p>{formattedGameTitle}</p>
+				<div className="mt-5" id="game-title-div">
+					{formattedGameTitle()}
 				</div>
 
-				<div className="" id="radio-buttons">
+				<div className=" text-center" id="radio-buttons">
 
-					<div id="low-confidence-pick-div">
+					<div className="mb-4 mt-4" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"
@@ -87,10 +105,15 @@ const ConfidenceModal = (props: Props) => {
 							}
 							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
-						<label htmlFor="low" className="radioLabel">Low</label>
+						<label htmlFor="low" className="radioLabel">
+							Low Confidence
+							<br/>
+							<span className="text-green-600">Reward: +2 </span> 
+							<span className="text-red-600"> Penalty: 0</span>
+						</label>
 					</div>
 
-					<div id="low-confidence-pick-div">
+					<div className="mb-4 mt-4" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"
@@ -103,10 +126,15 @@ const ConfidenceModal = (props: Props) => {
 							}
 							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
-						<label htmlFor="low" className="radioLabel">Medium</label>
+						<label htmlFor="low" className="radioLabel">
+							Medium Confidence
+							<br/>
+							<span className="text-green-600">Reward: +5 </span> 
+							<span className="text-red-600"> Penalty: -2</span>
+						</label>
 					</div>
 
-					<div id="low-confidence-pick-div">
+					<div className="mb-4 mt-4" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"
@@ -119,7 +147,12 @@ const ConfidenceModal = (props: Props) => {
 							}
 							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
 						/>
-						<label htmlFor="low" className="radioLabel">High</label>
+						<label htmlFor="low" className="radioLabel">
+							High Confidence 
+							<br/>
+							<span className="text-green-600">Reward: +10 </span> 
+							<span className="text-red-600"> Penalty: -10</span>
+						</label>
 					</div>
 
 				</div>

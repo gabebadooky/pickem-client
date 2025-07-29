@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
-import { getUserPicks } from "../services/picksAPI";
 
 import { CurrentUser } from "../types/account";
 import { Game } from "../types/game";
-import { Team } from "../types/team";
-import { Token } from "../types/token";
 import { Pick } from "../types/pick";
+import { Team } from "../types/team";
+import { TeamNotes } from "../types/teamNotes";
+import { Token } from "../types/token";
 import { UserIDs } from "../types/userIDs";
 
 import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
-import { getTeamNotes } from "../services/teamNotes";
-import { TeamNotes } from "../types/teamNotes";
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -26,38 +25,34 @@ type Props = {
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
     games: Game[];
+    picks: Pick[];
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     teams: Team[];
+    teamNotes: TeamNotes[];
     userIDs: UserIDs[];
 };
 
 
 const Picks = (props: Props) => {
-    //const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const [picks, setPicks] = useState(Array<Pick>);
     const [selectedWeek, setSelectedWeek] = useState<number>(0);
-    const [teamNotes, setTeamNotes] = useState(Array<TeamNotes>);
     let priorGameDate: string | undefined;
-
-    useEffect(() => {
-        getUserPicks(props.currentUser.userID).then(setPicks);
-        getTeamNotes(props.currentUser.userID).then(setTeamNotes);
-    }, [props.currentUser]);
-
+    console.log(props.currentUser.userID);
 
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            {/*
+            {
                 isLoading &&
                 (createPortal( <LoadingSpinner />, document.body))
-            */}
+            }
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-5 w-[90%]">
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <i 
-                    className="fa-solid fa-user m-auto"
+                    className="fa-solid fa-user fa-xl m-auto"
                     id="account-info-button"
                     onClick={() => {
                         if (props.currentUser.userID === -1) {
@@ -69,16 +64,21 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <UserDropdown currentUser={props.currentUser} setPicks={setPicks} userIDs={props.userIDs} />
+                <UserDropdown setIsLoading={setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} userIdValue={props.jwtToken.userID} />
                 
-                <button onClick={userLogout}>Logout</button>
+                <button
+                    className="bg-red-600 h-8 mx-[15%] rounded-lg" 
+                    onClick={userLogout}
+                >
+                    Logout
+                </button>
             </div>
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-5 w-[90%]">
+            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <div id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
-                        <i className="fa-solid fa-arrow-left" 
+                        <i className="fa-solid fa-arrow-left fa-xl" 
                             onClick={() => setSelectedWeek(selectedWeek - 1) }>
                         </i>
                     }
@@ -87,7 +87,7 @@ const Picks = (props: Props) => {
                 <div id="next-week-arrow">
                     { 
                         selectedWeek < 18 && 
-                        <i className="fa-solid fa-arrow-right" 
+                        <i className="fa-solid fa-arrow-right fa-xl"
                             onClick={() => setSelectedWeek(selectedWeek + 1)}>
                         </i>
                     }
@@ -95,8 +95,8 @@ const Picks = (props: Props) => {
             </div>
 
 
-            <table className="border-separate border-spacing-3 m-auto mt-[5%] mb-20 w-[90%]">
-                <tbody>
+            <table className="border-separate border-spacing-y-5 m-auto mt-[5%] mb-20 w-[90%]">
+                <tbody key="picks-tbody">
 
                     {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
@@ -118,11 +118,11 @@ const Picks = (props: Props) => {
                                         game={game}
                                         isModalCurrentlyRendered={isModalCurrentlyRendered}
                                         jwtToken={props.jwtToken}
-                                        picks={picks}
-                                        setPicks={setPicks}
+                                        picks={props.picks}
+                                        setPicks={props.setPicks}
                                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                         teams={props.teams}
-                                        teamNotes={teamNotes}
+                                        teamNotes={props.teamNotes}
                                     />
                                 </>
                             );
@@ -134,11 +134,11 @@ const Picks = (props: Props) => {
                                     game={game}
                                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                                     jwtToken={props.jwtToken}
-                                    picks={picks}
-                                    setPicks={setPicks}
+                                    picks={props.picks}
+                                    setPicks={props.setPicks}
                                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                     teams={props.teams}
-                                    teamNotes={teamNotes}
+                                    teamNotes={props.teamNotes}
                                 />
                             );
                         }

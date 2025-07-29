@@ -23,25 +23,29 @@ type Props = {
 
 const TeamCell = (props: Props) => {
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [imageStyling, setImageStyling] = useState<string>("h-[100%] opacity-25");
+    const [tailwindStyling, setTailwindStyling] = useState<string>("h-[100%] opacity-25");
+    const [borderColorStyle, setBorderColorStyle] = useState<string | undefined>(undefined);
     const teamImageID: string = `${props.team.teamID}-img`;
 
     useEffect(() => {
         if (props.team.teamID === props.pick.teamPicked) {
-            setImageStyling(`border-3 h-[100%] rounded-2xl border-[#${props.team.alternateColor}]`);
+            setTailwindStyling(`border-3 rounded-2xl`);
+            setBorderColorStyle(`#${props.team.alternateColor}`);
         } else {
-            setImageStyling("h-[100%] opacity-25");
+            setTailwindStyling("opacity-25");
+            setBorderColorStyle(undefined);
         }
     }, [props.picks]);
 
 
     return (
-        <td className="m-auto w-1/5">
+        <td className="h-[100%] m-auto w-1/5">
             <img
                 key={teamImageID}
                 src={props.team.teamLogoUrl}
                 alt={props.team.teamName}
-                className={imageStyling}
+                className={tailwindStyling}
+                style={{borderColor: borderColorStyle}}
                 onClick={() => {
                     if (!props.isModalCurrentlyRendered) {
                         props.setIsModalCurrentlyRendered(true);

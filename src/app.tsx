@@ -2,10 +2,12 @@ import { useState,useEffect } from "react";
 import "tailwindcss";
 
 import { getUser } from "./services/accountAPI";
-import { getGames, getTeams, getUserIDs } from "./services/picksAPI";
+import { getGames, getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
+import { getTeamNotes } from "./services/teamNotes";
 import { validateToken } from "./services/validateToken";
 
 import { Game } from "./types/game";
+import { Pick } from "./types/pick";
 import { Team } from "./types/team";
 import { TeamNotes } from "./types/teamNotes";
 import { Token } from "./types/token";
@@ -16,7 +18,6 @@ import Login from "./components/Login";
 import Picks from "./components/Picks";
 import Register from "./components/Register";
 import Account from "./components/Account";
-import { getTeamNotes } from "./services/teamNotes";
 
 
 export const App = () => {
@@ -25,7 +26,9 @@ export const App = () => {
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
+    const [picks, setPicks] = useState(Array<Pick>);
     const [teams, setTeams] = useState<Team[]>([]);
+    const [teamNotes, setTeamNotes] = useState(Array<TeamNotes>);
     const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
     const [userIDs, setUserIDs] = useState<UserIDs[]>([]);
 
@@ -33,11 +36,12 @@ export const App = () => {
         getGames().then(setGames);
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
-        //getUser(tokenStatus.userID).then(setCurrentUser);
     }, []);
     
     useEffect(() => {
         getUser(tokenStatus.userID).then(setCurrentUser);
+        getUserPicks(tokenStatus.userID).then(setPicks);
+        getTeamNotes(tokenStatus.userID).then(setTeamNotes);
     }, [tokenStatus]);
     
     return(
@@ -56,9 +60,12 @@ export const App = () => {
                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                     jwtToken={tokenStatus}
                     games={games}
+                    picks={picks}
                     setIsAccountComponentOpen={setIsAccountComponentOpen}
                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                    setPicks={setPicks}
                     teams={teams}
+                    teamNotes={teamNotes}
                     userIDs={userIDs}
                 /> 
             }

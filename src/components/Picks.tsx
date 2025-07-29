@@ -16,8 +16,6 @@ import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
-import { jwtDecode } from "jwt-decode";
-
 
 
 type Props = {

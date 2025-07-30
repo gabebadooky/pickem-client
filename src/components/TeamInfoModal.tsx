@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { updateTeamNotes } from "../services/teamNotes";
 
-import { espnCfbTeamURL, cbsCfbTeamURL } from "../types/baseURLs";
+import { espnCfbTeamURL, espnNflTeamURL, cbsCfbTeamURL, cbsNflTeamURL } from "../types/baseURLs";
 import { Team } from "../types/team";
 import { TeamNotes } from "../types/teamNotes";
 import { Token } from "../types/token";
@@ -19,11 +19,24 @@ type Props = {
 const TeamInfoModal = (props: Props) => {
     const [notesEdited, setNotesEdited] = useState<boolean>(false);
     const [newNotes, setNewNotes] = useState<string>("");
-
-    const espnURL: string = `${espnCfbTeamURL}/${props.team.espnCode}`;
-    const cbsURL: string = `${cbsCfbTeamURL}/${props.team.cbsCode}`;
     const teamNotesInputId: string = `${props.team.teamID}-notes`;
-    console.log(`props.teamNotes.notes: ${String(props.teamNotes.notes)}`);
+
+    const espnURL = (): string => {
+        if (props.team.league === "CFB") {
+            return `${espnCfbTeamURL}/${props.team.espnCode}`;    
+        } else {
+            return `${espnNflTeamURL}/${props.team.espnCode}`;
+        }
+    }
+
+    const cbsURL = (): string => {
+        if (props.team.league === "CFB") {
+            return `${cbsCfbTeamURL}/${props.team.cbsCode}`;
+        } else {
+            return `${cbsNflTeamURL}/${props.team.cbsCode}`;
+        }
+    }
+    
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 rounded-sm top-0 w-[100vw] z-1000">
             <div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]" id={props.team.teamID}>
@@ -37,8 +50,8 @@ const TeamInfoModal = (props: Props) => {
 
                 <div className="pb-2 text-base">
                     <p>More Details:</p>
-                    <p><a className="pb-1 text-[#1a8cff]" href={espnURL}>ESPN</a></p>
-                    <p><a className="text-[#1a8cff]" href={cbsURL}>CBS</a></p>
+                    <p><a className="pb-1 text-[#1a8cff]" href={espnURL()}>ESPN</a></p>
+                    <p><a className="text-[#1a8cff]" href={cbsURL()}>CBS</a></p>
                 </div>
 
                 <div className="">

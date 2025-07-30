@@ -20,6 +20,7 @@ const TeamInfoIconCell = (props: Props) => {
     const teamNotesArray = Array.isArray(props.teamNotes) ? props.teamNotes : [];
     const userTeamNotes: TeamNotes = teamNotesArray.find(note => note.teamID === props.team.teamID) || {userID: props.jwtToken.userID, teamID: props.team.teamID, notes: ""};
 
+
     return (
         <td className="m-auto w-1/5">
             <i 

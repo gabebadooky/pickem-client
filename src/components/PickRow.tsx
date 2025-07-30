@@ -32,65 +32,66 @@ const PickRow = (props: Props) => {
     const localKickoffDateTimestamp: Date = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
 
     
-    return(
-        <tr className="flex h-[20%] m-auto w-full" id={`${props.game.gameID}-row`}>
-                                
-            <TeamInfoIconCell
-                key={`${awayTeam.teamID}-team-info-icon-cell`}
-                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
-                jwtToken={props.jwtToken}
-                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
-                team={awayTeam}
-                teamNotes={props.teamNotes}
-            />
+    if (userGamePick && awayTeam && homeTeam) {
+        return(
+            <tr className="flex h-[20%] m-auto w-full" id={`${props.game.gameID}-row`}>
+                                    
+                <TeamInfoIconCell
+                    key={`${awayTeam.teamID}-team-info-icon-cell`}
+                    isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    jwtToken={props.jwtToken}
+                    setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    team={awayTeam}
+                    teamNotes={props.teamNotes}
+                />
 
-            <TeamCell
-                key={`${awayTeam.teamID}-team-cell`}
-                currentUser={props.currentUser}
-                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
-                jwtToken={props.jwtToken}
-                localKickoffTimestamp={localKickoffDateTimestamp}
-                pick={userGamePick}
-                picks={props.picks}
-                setPicks={props.setPicks}
-                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
-                team={awayTeam}
-            />
+                <TeamCell
+                    key={`${awayTeam.teamID}-team-cell`}
+                    currentUser={props.currentUser}
+                    isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    jwtToken={props.jwtToken}
+                    localKickoffTimestamp={localKickoffDateTimestamp}
+                    pick={userGamePick}
+                    picks={props.picks}
+                    setPicks={props.setPicks}
+                    setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    team={awayTeam}
+                />
 
-            <GameInfoCell
-                key={`${userGamePick.gameID}-game-info-cell`}
-                awayTeam={awayTeam}
-                game={props.game}
-                homeTeam={homeTeam}
-                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
-                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
-            />
+                <GameInfoCell
+                    key={`${userGamePick.gameID}-game-info-cell`}
+                    awayTeam={awayTeam}
+                    game={props.game}
+                    homeTeam={homeTeam}
+                    isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                />
 
-            <TeamCell
-                key={`${homeTeam.teamID}-team-cell`}
-                currentUser={props.currentUser}
-                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
-                jwtToken={props.jwtToken}
-                localKickoffTimestamp={localKickoffDateTimestamp}
-                pick={userGamePick}
-                picks={props.picks}
-                setPicks={props.setPicks}
-                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
-                team={homeTeam}
-            />
+                <TeamCell
+                    key={`${homeTeam.teamID}-team-cell`}
+                    currentUser={props.currentUser}
+                    isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    jwtToken={props.jwtToken}
+                    localKickoffTimestamp={localKickoffDateTimestamp}
+                    pick={userGamePick}
+                    picks={props.picks}
+                    setPicks={props.setPicks}
+                    setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    team={homeTeam}
+                />
 
-            <TeamInfoIconCell
-                key={`${homeTeam.teamID}-team-info-icon-cell`}
-                isModalCurrentlyRendered={props.isModalCurrentlyRendered}
-                jwtToken={props.jwtToken}
-                setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
-                team={homeTeam}
-                teamNotes={props.teamNotes}
-            />
+                <TeamInfoIconCell
+                    key={`${homeTeam.teamID}-team-info-icon-cell`}
+                    isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    jwtToken={props.jwtToken}
+                    setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    team={homeTeam}
+                    teamNotes={props.teamNotes}
+                />
 
-        </tr>
-    );
-
+            </tr>
+        );
+    }
 }
 
 

@@ -1,5 +1,6 @@
 export interface Team {
     teamID: string;
+    league: string;
     cbsCode: string;
     espnCode: string;
     foxCode: string;
@@ -23,6 +24,7 @@ export interface Team {
 
 export const NullTeam: Team = {
     teamID: "teamID",
+    league: "",
     cbsCode: "",
     espnCode: "",
     foxCode: "",

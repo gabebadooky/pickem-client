@@ -65,7 +65,7 @@ const Picks = (props: Props) => {
                 <UserDropdown setIsLoading={setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} userIdValue={props.jwtToken.userID} />
                 
                 <button
-                    className="bg-red-600 h-8 mx-[15%] rounded-lg" 
+                    className="bg-red-600 h-8 mx-[10] rounded-lg" 
                     onClick={userLogout}
                 >
                     Logout

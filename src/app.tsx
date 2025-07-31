@@ -37,7 +37,7 @@ export const App = () => {
     useEffect(() => {
         async function fetchInitialData() {
             try {
-                setIsLoading(true);
+                //setIsLoading(true);
                 const [gamesData, teamsData, userIDsData] = await Promise.all([
                     getGames(),
                     getTeams(),
@@ -47,7 +47,7 @@ export const App = () => {
                 setTeams(teamsData);
                 setUserIDs(userIDsData);
             } finally {
-                setIsLoading(false);
+                //setIsLoading(false);
             }
         }
 

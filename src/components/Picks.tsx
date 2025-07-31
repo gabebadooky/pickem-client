@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { createPortal } from "react-dom";
 
 import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
@@ -13,7 +12,6 @@ import { TeamNotes } from "../types/teamNotes";
 import { Token } from "../types/token";
 import { UserIDs } from "../types/userIDs";
 
-//import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 //import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
@@ -55,16 +53,10 @@ const Picks = (props: Props) => {
     const [selectedLeague, setSelectedLeague] = useState<string>("CFBNFL");
     const [selectedWeek, setSelectedWeek] = useState<number>(setCurrentWeek);
     let priorGameDate: string | undefined;
-    console.log(props.currentUser.userID);
-    console.log(`selectedWeek: ${selectedWeek}`);
+
 
     return (
         <div className="h-dvh m-auto w-dvw">
-
-            {/*
-                isLoading &&
-                (createPortal( <LoadingSpinner />, document.body))
-            */}
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <i 
@@ -80,7 +72,6 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                {/*<UserDropdown setIsLoading={setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} userIdValue={props.jwtToken.userID} />*/}
                 <select name="league-dropdown" id="league-dropdown-input" className="m-auto"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
@@ -133,7 +124,7 @@ const Picks = (props: Props) => {
                     }).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
-                        console.log(`Rendering gameID: ${game.gameID}`);
+                        
                         if (localKickoffTimestampString !== priorGameDate) {
                             priorGameDate = localKickoffTimestampString;
                             return (
@@ -189,182 +180,3 @@ const Picks = (props: Props) => {
 
 export default Picks;
 
-
-/*
-const Picks = (props: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [picks, setPicks] = useState(Array<Pick>);
-    const [week, setWeek] = useState<number>(0);
-    const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const navigate = useNavigate();
-
-    let priorGameDate: Date | undefined;
-
-    useEffect(() => {
-        setIsLoading(true);
-        if (tokenStillValid()) {
-            if (localStorage.getItem("jwt") == "guest") {
-                getUserPicks(props.userIDs[0].userID.toString()).then(setPicks).finally(() => setIsLoading(false));
-            } else {
-                const loggedInUserID = jwtDecode(localStorage.getItem("jwt") || "").sub?.toString() || "0";
-                getUserPicks(loggedInUserID).then(setPicks).finally(() => setIsLoading(false));
-            }
-            setWeek(0);
-        } else {
-            localStorage.clear();
-            navigate("/");
-        }
-    }, []);
-
-    return (
-        <div>
-            {
-                isLoading
-                    &&
-                (createPortal(
-                    <LoadingSpinner />,
-                    document.body
-                ))
-            }
-
-            {
-                !isLoading
-                    &&
-                <div>
-                    <table className="m-auto mt-3 w-[90%]">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <Link to="/account"><i className="fa-solid fa-user"></i></Link>
-                                </td>
-
-                                <td>
-                                    <select 
-                                        name="usersDropdown" 
-                                        id="usersDropdownInput"
-                                        value={picks[0].userID}
-                                        onChange={(e) => {
-                                            setIsLoading(true);
-                                            getUserPicks(e.target.value).then(setPicks).finally(() => setIsLoading(false));
-                                        }}
-                                    >
-                                        {props.userIDs.map((user: UserIDs) => (
-                                            <option key={user.userID} value={user.userID}>{user.username}</option>
-                                        ))}
-                                    </select>
-                                </td>
-
-                                <td>
-                                    <button 
-                                        onClick={() => {
-                                            localStorage.clear();
-                                            navigate("/");
-                                            window.location.reload();
-                                        }}
-                                    >
-                                        Logout
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr><td><br /></td></tr>
-                            <tr>
-                                <td className="w-5">
-                                    { 
-                                        week > 0 
-                                            && 
-                                        <i className="fa-solid fa-arrow-left" 
-                                            onClick={() => setWeek(week - 1) }>
-                                        </i>
-                                    }
-                                </td>
-                                
-                                <td className="">
-                                    <WeekDropdown weeks={18} selectedWeek={week} setWeek={setWeek} />
-                                </td>
-                                
-                                <td className="w-5">
-                                    { 
-                                        week < 18 
-                                            && 
-                                        <i className="fa-solid fa-arrow-right" 
-                                            onClick={() => setWeek(week + 1)}>
-                                        </i>
-                                    }
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table className="border-separate border-spacing-3 m-auto mt-[5%] w-[90%]">
-                        <tbody>
-
-                            {props.games.filter(game => game.week === week).map((game: Game) => {
-
-                                if (game.date !== priorGameDate) {
-                                    priorGameDate = game.date;
-
-                                    const dateStringElements: string[] = game.date.toString().replace(",", "").split(" ");
-                                    const timeStringElements: string[] = game.time.split(":");
-                                    const gameYear: string = dateStringElements[3];
-                                    /*const gameMonth = {"Jan": "January", "Feb": "February", "Mar": "March", 
-                                                        "Apr": "April", "May": "May", "Jun": "June", "Jul": "July", 
-                                                        "Aug": "August", "Sep": "September", "Oct": "October",
-                                                        "Nov": "November", "Dec": "December"}[dateStringElements[2]]; ***
-                                    const gameMonth: string = {"Jan": "1", "Feb": "2", "Mar": "3", "Apr": "4", "May": "5", 
-                                                        "Jun": "6", "Jul": "7", "Aug": "8", "Sep": "9", "Oct": "10", 
-                                                        "Nov": "11", "Dec": "12"}[dateStringElements[2]]?.padStart(2, "0") || "00";
-                                    const gameDay: string = dateStringElements[1].padStart(2, "0");
-                                    /*const gameDay: number = {"Mon": "Monday", "Tue": "Tuesday", 
-                                                        "Wed": "Wednesday", "Thu": "Thursday", 
-                                                        "Fri": "Friday", "Sat": "Saturday", 
-                                                        "Sun": "Sunday"}[dateStringElements[0]]; ***
-                                    let [gameHour, gameMinute]: [string, string] = [timeStringElements[0].padStart(2, "0"), timeStringElements[1].padStart(2, "0")];
-                                    if (gameHour == "04" && gameMinute == "00") {
-                                        gameHour = "23";
-                                    }
-                                    const zuluDatetime = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);
-                                    console.log(`game.date: ${game.date}\ngameDay: ${gameDay}\ngameHour: ${gameHour}\ngameMinute: ${gameMinute}\nzuluDatetime: ${zuluDatetime}`);
-                                    const formattedDate = zuluDatetime.toLocaleDateString("en-us", {weekday: "long", month: "long", day: "numeric"});
-
-                                    return (
-                                        <>
-                                            <tr className="m-auto mt-[10%] w-full">
-                                                <th className="mx-auto w-full">{formattedDate}</th>
-                                            </tr>
-                                            <PickRow
-                                                key={game.gameID}
-                                                game={game}
-                                                teams={props.teams}
-                                                picks={picks}
-                                                setPicks={setPicks}
-                                                isModalCurrentlyRendered={isModalCurrentlyRendered}
-                                                setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                                            />
-                                        </>
-                                    );
-                                } else {
-                                    return (
-                                        <PickRow
-                                            key={game.gameID}
-                                            game={game}
-                                            teams={props.teams}
-                                            picks={picks}
-                                            setPicks={setPicks}
-                                            isModalCurrentlyRendered={isModalCurrentlyRendered}
-                                            setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                                        />
-                                    );
-                                }
-
-                            })
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-            }
-        </div>
-    )
-}
-
-*/

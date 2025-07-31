@@ -37,7 +37,11 @@ const Account = (props: Props) => {
                 
                 <h1 id="update-my-account-header">Update My Account</h1>
 
-                <button id="logout-from-account-component" onClick={userLogout}>
+                <button
+                    className="bg-red-600 h-8 mx-[10%] rounded-lg"
+                    id="logout-from-account-component" 
+                    onClick={userLogout}
+                >
                     Logout
                 </button>
             </div>

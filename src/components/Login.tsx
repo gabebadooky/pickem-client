@@ -1,29 +1,25 @@
 import React, { useState } from "react";
 
 import { loginRequest } from "../services/authAPI";
-import LoadingSpinner from "./LoadingSpinner";
 
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";
 
 
 type Props = {
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>;
     setTokenStatus: React.Dispatch<React.SetStateAction<Token>>;
 }
 
 
 const Login = (props: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
     const [usernameInputString, setUsernameInputString] = useState<string>("");
     const [passwordInputString, setpasswordInputString] = useState<string>("");
 
     return (
         <div className="h-dvh m-auto w-dvw">
-
-            {/* isLoading && (createPortal(<LoadingSpinner />, document.body)) */}
-
 
             <div className="align-top mb-10 mt-25" id="login-header">
                 <h1 className="text-xl">Pickem</h1>
@@ -66,8 +62,6 @@ const Login = (props: Props) => {
                         </p>
                     }
                 </div>
-
-                { isLoading && <LoadingSpinner /> }
                 
                 {
                     (usernameInputString.length > 0 && passwordInputString.length > 0) 
@@ -79,7 +73,7 @@ const Login = (props: Props) => {
                             type="submit"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    setIsLoading(true);
+                                    props.setIsLoading(true);
                                     loginRequest({
                                         username: usernameInputString,
                                         password: passwordInputString
@@ -96,9 +90,7 @@ const Login = (props: Props) => {
                                         console.log(err);
                                         setIncorrectLoginAttempt(true);
                                     })
-                                    .finally(() => {
-                                        setIsLoading(false);
-                                    });
+                                    .finally(() => props.setIsLoading(false));
                                 }}
                         >
                             Login

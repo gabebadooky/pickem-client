@@ -6,6 +6,7 @@ import { getGames, getTeams, getUserIDs, getUserPicks } from "./services/picksAP
 import { getTeamNotes } from "./services/teamNotes";
 import { validateToken } from "./services/validateToken";
 
+import { CurrentUser } from "./types/account";
 import { Game } from "./types/game";
 import { Pick } from "./types/pick";
 import { Team } from "./types/team";
@@ -13,17 +14,18 @@ import { TeamNotes } from "./types/teamNotes";
 import { Token } from "./types/token";
 import { UserIDs } from "./types/userIDs";
 
-import { CurrentUser } from "./types/account";
+import Account from "./components/Account";
 import Login from "./components/Login";
 import Picks from "./components/Picks";
 import Register from "./components/Register";
-import Account from "./components/Account";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 
 export const App = () => {
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
     const [games, setGames] = useState<Game[]>([]);
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [picks, setPicks] = useState(Array<Pick>);
@@ -32,23 +34,67 @@ export const App = () => {
     const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
     const [userIDs, setUserIDs] = useState<UserIDs[]>([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         getGames().then(setGames);
         getTeams().then(setTeams);
         getUserIDs().then(setUserIDs);
+    }, []);*/
+    useEffect(() => {
+        async function fetchInitialData() {
+            try {
+                setIsLoading(true);
+                const [gamesData, teamsData, userIDsData] = await Promise.all([
+                    getGames(),
+                    getTeams(),
+                    getUserIDs(),
+                ]);
+                setGames(gamesData);
+                setTeams(teamsData);
+                setUserIDs(userIDsData);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        if (games.length === 0 || teams.length === 0 || userIDs.length === 0) {
+            fetchInitialData();
+        }
     }, []);
     
+    
     useEffect(() => {
-        getUser(tokenStatus.userID).then(setCurrentUser);
-        getUserPicks(tokenStatus.userID).then(setPicks);
-        getTeamNotes(tokenStatus.userID).then(setTeamNotes);
+        async function fetchUserRelatedData() {
+            setIsLoading(true);
+            try {
+                const [userData, userPicksData, teamNotesData] = await Promise.all([
+                    getUser(tokenStatus.userID),
+                    getUserPicks(tokenStatus.userID),
+                    getTeamNotes(tokenStatus.userID),
+                ]);
+                setCurrentUser(userData);
+                setPicks(userPicksData);
+                setTeamNotes(teamNotesData);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchUserRelatedData();
     }, [tokenStatus]);
+
+
+    useEffect(() => {
+        console.log(`isLoading: ${isLoading}`);
+    }, [isLoading]);
+
     
     return(
         <div id="containter">
-            { (!tokenStatus.active && !isRegistering) && <Login setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
+            { isLoading && <LoadingSpinner /> }
 
-            { (!tokenStatus.active && isRegistering) && <Register setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
+            { (!tokenStatus.active && !isRegistering) && <Login setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
+
+            { (!tokenStatus.active && isRegistering) && <Register setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
 
             { 
                 tokenStatus.active

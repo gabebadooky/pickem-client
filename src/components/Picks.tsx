@@ -115,7 +115,7 @@ const Picks = (props: Props) => {
             </div>
 
 
-            <table className="border-separate border-spacing-y-5 m-auto mt-[5%] mb-20 w-[90%]">
+            <table className="border-separate border-spacing-y-5 m-auto mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
                     {props.games.filter(game => {

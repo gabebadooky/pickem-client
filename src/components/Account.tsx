@@ -33,12 +33,12 @@ const Account = (props: Props) => {
                 <button
                     id="back-to-picks-button"
                     onClick={() => props.setIsAccountComponentOpen(false)}
-                ><i className="fa-solid fa-arrow-left"></i></button>
+                ><i className="fa-solid fa-arrow-left fa-xl m-auto"></i></button>
                 
                 <h1 id="update-my-account-header">Update My Account</h1>
 
                 <button
-                    className="bg-red-600 h-8 mx-[10%] rounded-lg"
+                    className="bg-red-600 h-8 mx-[20%] rounded-lg"
                     id="logout-from-account-component" 
                     onClick={userLogout}
                 >

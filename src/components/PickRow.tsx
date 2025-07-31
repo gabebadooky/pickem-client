@@ -35,7 +35,7 @@ const PickRow = (props: Props) => {
     
     if (userGamePick && awayTeam && homeTeam) {
         return(
-            <tr className="flex h-[25%] m-auto w-full" id={`${props.game.gameID}-row`}>
+            <tr className="flex h-[35%] m-auto w-full" id={`${props.game.gameID}-row`}>
                                     
                 <TeamInfoIconCell
                     key={`${awayTeam.teamID}-team-info-icon-cell`}

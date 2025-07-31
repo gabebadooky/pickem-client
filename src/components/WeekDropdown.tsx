@@ -1,3 +1,5 @@
+import { seasonWeeks, weekdays } from "../services/formatDate";
+
 type Props = {
     weeks: number;
     selectedWeek: number;
@@ -5,10 +7,17 @@ type Props = {
 }
 
 const renderWeekOptions = (weeks: number) => {
+    const now: Date = new Date();
     let optionElements = [];
+
     for (let i = 0; i < weeks; i++) {
-        optionElements.push(<option key={i} value={i}>Week {i}</option>);
+        const currentWeek = seasonWeeks[i];
+        const formattedStartDateString: string = `${weekdays[currentWeek.start.getUTCDay()]} ${currentWeek.start.getUTCMonth() + 1}/${currentWeek.start.getUTCDate()}`;
+        const formattedEndDateString: string = `${weekdays[currentWeek.end.getUTCDay()]} ${currentWeek.end.getUTCMonth() + 1}/${currentWeek.end.getUTCDate()}`;
+        
+        optionElements.push(<option key={i} value={i}>{formattedStartDateString}-{formattedEndDateString}</option>);
     }
+
     return optionElements;
 }
 

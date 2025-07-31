@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { userLogout } from "../services/logout";
-import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
+import { isDate1LessThanOrEqualToDate2, zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
 
 import { CurrentUser } from "../types/account";
+import { seasonWeeks } from "../services/formatDate";
 import { Game } from "../types/game";
 import { Pick } from "../types/pick";
 import { Team } from "../types/team";
@@ -14,8 +15,12 @@ import { UserIDs } from "../types/userIDs";
 
 import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
-import UserDropdown from "./UserDropdown";
+//import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
+
+
+const now: Date = new Date();
+const totalWeeks: number = 18;
 
 
 type Props = {
@@ -33,12 +38,26 @@ type Props = {
 };
 
 
+const setCurrentWeek = () => {
+    for (let i = 0; i < totalWeeks; i++) {
+        if ((seasonWeeks[i].start.setHours(0, 0, 0) <= now.setHours(0, 0, 0))
+            &&
+            (now.setHours(0, 0, 0) <= seasonWeeks[i].end.setHours(0, 0, 0))) {
+            return i;
+        }
+    }
+    return 18;
+}
+
+
 const Picks = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
-    const [selectedWeek, setSelectedWeek] = useState<number>(0);
+    const [selectedLeague, setSelectedLeague] = useState<string>("CFBNFL");
+    const [selectedWeek, setSelectedWeek] = useState<number>(setCurrentWeek);
     let priorGameDate: string | undefined;
     console.log(props.currentUser.userID);
+    console.log(`selectedWeek: ${selectedWeek}`);
 
     return (
         <div className="h-dvh m-auto w-dvw">
@@ -62,14 +81,26 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <UserDropdown setIsLoading={setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} userIdValue={props.jwtToken.userID} />
+                {/*<UserDropdown setIsLoading={setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} userIdValue={props.jwtToken.userID} />*/}
+                <select name="league-dropdown" id="league-dropdown-input" className="m-auto"
+                    value={selectedLeague}
+                    onChange={(e) => setSelectedLeague(e.currentTarget.value)}
+                >
+                    <option value="CFBNFL">All</option>
+                    <option value="CFB">CFB</option>
+                    <option value="NFL">NFL</option>
+                </select>
                 
-                <button
-                    className="bg-red-600 h-8 mx-[10] rounded-lg" 
+                <i 
+                    className="fa-solid fa-bars fa-xl m-auto"
+                    id="users-dropdown"
+                ></i>
+                {/*<button
+                    className="bg-red-600 h-8 mx-[10%] rounded-lg" 
                     onClick={userLogout}
                 >
                     Logout
-                </button>
+                </button>*/}
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
@@ -81,7 +112,7 @@ const Picks = (props: Props) => {
                         </i>
                     }
                 </div>
-                <WeekDropdown weeks={18} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+                <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                 <div id="next-week-arrow">
                     { 
                         selectedWeek < 18 && 
@@ -96,7 +127,11 @@ const Picks = (props: Props) => {
             <table className="border-separate border-spacing-y-5 m-auto mt-[5%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
-                    {props.games.filter(game => game.week === selectedWeek).map((game: Game) => {
+                    {props.games.filter(game => {
+                        return selectedLeague.includes(game.league) &&
+                        ((game.week === selectedWeek && game.league === "CFB")
+                            || (game.week === selectedWeek - 1 && game.league === "NFL"))
+                    }).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
                         console.log(`Rendering gameID: ${game.gameID}`);

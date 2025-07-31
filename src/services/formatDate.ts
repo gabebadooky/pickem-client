@@ -5,6 +5,30 @@ const monthAbbreviations: Record<string, string> = {
     "Oct": "10", "Nov": "11", "Dec": "12"
 };
 
+export const weekdays: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+export const seasonWeeks = [
+    { start: new Date("2025-07-19"), end: new Date("2025-08-25") },
+    { start: new Date("2025-08-26"), end: new Date("2025-09-01") },
+    { start: new Date("2025-09-02"), end: new Date("2025-09-08") },
+    { start: new Date("2025-09-09"), end: new Date("2025-09-15") },
+    { start: new Date("2025-09-16"), end: new Date("2025-09-22") },
+    { start: new Date("2025-09-23"), end: new Date("2025-09-29") },
+    { start: new Date("2025-09-30"), end: new Date("2025-10-06") },
+    { start: new Date("2025-10-07"), end: new Date("2025-10-13") },
+    { start: new Date("2025-10-14"), end: new Date("2025-10-20") },
+    { start: new Date("2025-10-21"), end: new Date("2025-10-27") },
+    { start: new Date("2025-10-28"), end: new Date("2025-11-03") },
+    { start: new Date("2025-11-04"), end: new Date("2025-11-10") },
+    { start: new Date("2025-11-11"), end: new Date("2025-11-17") },
+    { start: new Date("2025-11-18"), end: new Date("2025-11-24") },
+    { start: new Date("2025-11-25"), end: new Date("2025-12-01") },
+    { start: new Date("2025-12-02"), end: new Date("2025-12-08") },
+    { start: new Date("2025-12-09"), end: new Date("2025-12-15") },
+    { start: new Date("2025-12-16"), end: new Date("2025-12-22") },
+    { start: new Date("2025-12-23"), end: new Date("2025-12-29") }
+];
+
 
 export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) => {
     const dateStringElements: string[] = gameDate.toString().replace(",", "").split(" ");
@@ -27,3 +51,31 @@ export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) 
 export const zuluTimeToLocaleFormattedDateString = (gameDate: Date, gameTime: string) => {
     return zuluTimeToLocaleFormattedDate(gameDate, gameTime).toLocaleDateString("en", {weekday: "long", month: "long", day: "numeric"});
 }
+
+
+export const isDate1LessThanOrEqualToDate2 = (a: Date, b: Date) => {
+    a = new Date(a);
+    b = new Date(b);
+
+    if (a.getFullYear() < b.getFullYear()) {
+        return true;
+    } else if (a.getFullYear() === b.getFullYear()) {
+        if (a.getMonth() < b.getMonth()) {
+            return true;
+        } else if (a.getDate() <= b.getDate()) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+/*export const isDate1GreaterThanOrEqualToDate2 = (a: Date, b: Date) => {
+    if ((a.getFullYear() >= b.getFullYear()) && (a.getMonth() >= b.getMonth()) && (a.getDate() >= b.getDate())) {
+        return true;
+    } else {
+        return false;
+    }
+}*/

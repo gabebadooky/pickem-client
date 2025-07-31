@@ -36,19 +36,14 @@ export const App = () => {
 
     useEffect(() => {
         async function fetchInitialData() {
-            try {
-                //setIsLoading(true);
-                const [gamesData, teamsData, userIDsData] = await Promise.all([
-                    getGames(),
-                    getTeams(),
-                    getUserIDs(),
-                ]);
-                setGames(gamesData);
-                setTeams(teamsData);
-                setUserIDs(userIDsData);
-            } finally {
-                //setIsLoading(false);
-            }
+            const [gamesData, teamsData, userIDsData] = await Promise.all([
+                getGames(),
+                getTeams(),
+                getUserIDs(),
+            ]);
+            setGames(gamesData);
+            setTeams(teamsData);
+            setUserIDs(userIDsData);
         }
 
         if (games.length === 0 || teams.length === 0 || userIDs.length === 0) {

@@ -1,11 +1,13 @@
 import { submitPick } from "../services/picksAPI";
 
 import { CurrentUser } from "../types/account";
+import { Game } from "../types/game";
 import { Pick } from "../types/pick";
 import { Token } from "../types/token";
 
 type Props = {
 	currentUser: CurrentUser;
+	game: Game;
 	jwtToken: Token;
 	localKickoffTimestamp: Date;
 	onClose: Function;
@@ -19,7 +21,7 @@ type Props = {
 
 const ConfidenceModal = (props: Props) => {
 	const now: Date = new Date();
-	const [awayTeamID, homeTeamID] = props.pick.gameID.split("-at-");
+	const [awayTeamID, homeTeamID] = props.game.gameID.split("-at-");
 	const formattedAwayTeamID: string = awayTeamID
 										.replace(/-/g, " ")
 										.split(" ")
@@ -34,7 +36,10 @@ const ConfidenceModal = (props: Props) => {
 
 
 	const formattedGameTitle = () => {
-		if (awayTeamID === props.teamID) {
+		if (props.jwtToken.value === "guest") {
+			return(<h2>Login or Register to play!</h2>);
+		}
+		else if (awayTeamID === props.teamID) {
 			return (
 				<p className="font-light">
 					<span className="font-[1000]">{formattedAwayTeamID}</span> over {formattedHomeTeamID}

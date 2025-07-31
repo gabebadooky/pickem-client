@@ -49,6 +49,7 @@ const PickRow = (props: Props) => {
                 <TeamCell
                     key={`${awayTeam.teamID}-team-cell`}
                     currentUser={props.currentUser}
+                    game={props.game}
                     isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                     jwtToken={props.jwtToken}
                     localKickoffTimestamp={localKickoffDateTimestamp}
@@ -72,6 +73,7 @@ const PickRow = (props: Props) => {
                 <TeamCell
                     key={`${homeTeam.teamID}-team-cell`}
                     currentUser={props.currentUser}
+                    game={props.game}
                     isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                     jwtToken={props.jwtToken}
                     localKickoffTimestamp={localKickoffDateTimestamp}

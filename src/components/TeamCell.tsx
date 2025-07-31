@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 
 import ConfidenceModal from "./ConfidenceModal";
 import { CurrentUser } from "../types/account";
+import { Game } from "../types/game";
 import { Pick } from "../types/pick";
 import { Team } from "../types/team";
 import { Token } from "../types/token";
@@ -10,6 +11,7 @@ import { Token } from "../types/token";
 
 type Props = {
 	currentUser: CurrentUser;
+    game: Game;
     isModalCurrentlyRendered: boolean;
 	jwtToken: Token;
     localKickoffTimestamp: Date;
@@ -60,6 +62,7 @@ const TeamCell = (props: Props) => {
                 (createPortal(
                     <ConfidenceModal
                         currentUser={props.currentUser}
+                        game={props.game}
                         jwtToken={props.jwtToken}
                         localKickoffTimestamp={props.localKickoffTimestamp}
                         setIsLoading={props.setIsLoading}

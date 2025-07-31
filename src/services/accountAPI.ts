@@ -12,12 +12,16 @@ pickemHeaders.append("Content-Type", "application/json");
 
 
 export const getUser =  async (userID: number): Promise<CurrentUser> => {
-    const response = await fetch(`${BASE_URL}/user/${userID}`);
-    if (!response.ok) {
-        console.log(`Error occurred during getUser request! ${response.text}`);
-        throw new Error(`Error occurred during getUser request! ${response.text}`);
+    if (userID > -1) {
+        const response = await fetch(`${BASE_URL}/user/${userID}`);
+        if (!response.ok) {
+            console.log(`Error occurred during getUser request for userID: ${userID}! ${response.text}`);
+            throw new Error(`Error occurred during getUser request for userID: ${userID}! ${response.text}`);
+        } else {
+            return response.json();
+        }
     } else {
-        return response.json();
+        return {userID: -1, username: ""};
     }
 }
 

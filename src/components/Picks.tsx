@@ -82,16 +82,21 @@ const Picks = (props: Props) => {
                     <option value="NFL">NFL</option>
                 </select>
                 
-                <i 
-                    className="fa-solid fa-bars fa-xl m-auto"
-                    id="users-dropdown"
-                ></i>
-                {/*<button
-                    className="bg-red-600 h-8 mx-[10%] rounded-lg" 
-                    onClick={userLogout}
-                >
-                    Logout
-                </button>*/}
+                <div className="relative inline-block m-auto">
+                    <select
+                        id="users-dropdown-input"
+                        name="users-dropdown"
+                        className="appearance-none bg-transparent cursor-pointer rounded text-transparent w-full pl-10 pr-3"
+                    >
+                        <option value="1">Leaderboard</option>
+                        <option value="2">Me</option>
+                    </select>
+
+                    <i
+                        className="fa-solid fa-bars fa-xl pointer-events-none absolute left-[43.5%] top-1/2 transform -translate-y-1/2"
+                        aria-hidden="true"
+                    ></i>
+                </div>
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">

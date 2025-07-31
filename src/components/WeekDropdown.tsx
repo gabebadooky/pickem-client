@@ -7,7 +7,6 @@ type Props = {
 }
 
 const renderWeekOptions = (weeks: number) => {
-    const now: Date = new Date();
     let optionElements = [];
 
     for (let i = 0; i < weeks; i++) {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { createPortal } from "react-dom";
+//import { createPortal } from "react-dom";
 
 import { userLogout } from "../services/logout";
-import { isDate1LessThanOrEqualToDate2, zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
+import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
 
 import { CurrentUser } from "../types/account";
 import { seasonWeeks } from "../services/formatDate";
@@ -13,7 +13,7 @@ import { TeamNotes } from "../types/teamNotes";
 import { Token } from "../types/token";
 import { UserIDs } from "../types/userIDs";
 
-import LoadingSpinner from "./LoadingSpinner";
+//import LoadingSpinner from "./LoadingSpinner";
 import PickRow from "./PickRow";
 //import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
@@ -51,7 +51,6 @@ const setCurrentWeek = () => {
 
 
 const Picks = (props: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [selectedLeague, setSelectedLeague] = useState<string>("CFBNFL");
     const [selectedWeek, setSelectedWeek] = useState<number>(setCurrentWeek);
@@ -62,10 +61,10 @@ const Picks = (props: Props) => {
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            {
+            {/*
                 isLoading &&
                 (createPortal( <LoadingSpinner />, document.body))
-            }
+            */}
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <i 

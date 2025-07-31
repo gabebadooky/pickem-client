@@ -51,31 +51,3 @@ export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) 
 export const zuluTimeToLocaleFormattedDateString = (gameDate: Date, gameTime: string) => {
     return zuluTimeToLocaleFormattedDate(gameDate, gameTime).toLocaleDateString("en", {weekday: "long", month: "long", day: "numeric"});
 }
-
-
-export const isDate1LessThanOrEqualToDate2 = (a: Date, b: Date) => {
-    a = new Date(a);
-    b = new Date(b);
-
-    if (a.getFullYear() < b.getFullYear()) {
-        return true;
-    } else if (a.getFullYear() === b.getFullYear()) {
-        if (a.getMonth() < b.getMonth()) {
-            return true;
-        } else if (a.getDate() <= b.getDate()) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-/*export const isDate1GreaterThanOrEqualToDate2 = (a: Date, b: Date) => {
-    if ((a.getFullYear() >= b.getFullYear()) && (a.getMonth() >= b.getMonth()) && (a.getDate() >= b.getDate())) {
-        return true;
-    } else {
-        return false;
-    }
-}*/

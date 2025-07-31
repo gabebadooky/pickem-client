@@ -40,7 +40,7 @@ const TeamCell = (props: Props) => {
 
 
     return (
-        <td className="h-[100%] m-auto w-1/5">
+        <td className="h-[100%] m-auto w-1/3">
             <img
                 key={teamImageID}
                 src={props.team.teamLogoUrl}

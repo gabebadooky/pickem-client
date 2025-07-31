@@ -22,7 +22,7 @@ const TeamInfoIconCell = (props: Props) => {
 
 
     return (
-        <td className="m-auto w-1/5">
+        <td className="m-auto w-1/9">
             <i 
                 className="fa-solid fa-circle-info fa-lg"
                 onClick={() => {

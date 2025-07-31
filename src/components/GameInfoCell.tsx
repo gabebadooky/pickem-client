@@ -18,7 +18,7 @@ const GameInfoCell = (props: Props) => {
     const gameInfoCellID: string = `${props.game.gameID}-info-cell`;
 
     return (
-        <td className="m-auto w-1/5" id={gameInfoCellID}>
+        <td className="m-auto w-1/9" id={gameInfoCellID}>
             <i 
                 className="fa-solid fa-circle-info fa-lg"
                 onClick={() => {

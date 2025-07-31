@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { CurrentUser } from "../types/account";
 import { Team } from "../types/team";

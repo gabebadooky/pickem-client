@@ -12,7 +12,7 @@ type Props = {
 
 const GameInfoModal = (props: Props) => {
     const espnCfbURL: string = `${espnCfbGameURL}/${props.game.espnCode}`;
-    const cbsCfbURL: string = `${cbsCfbGameURL}/${props.game.cbsCode}`;
+    const cbsCfbURL: string = props.game.league === "CFB" ? cbsCfbGameURL : `${cbsCfbGameURL}/${props.game.cbsCode}`;
     const modalID: string = `${props.game.gameID}-info-modal`;
     const gameDate: Date = new Date(props.game.date);
     const gameYear = new Date(gameDate).getFullYear();

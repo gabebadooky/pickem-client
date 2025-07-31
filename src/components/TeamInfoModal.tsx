@@ -56,7 +56,7 @@ const TeamInfoModal = (props: Props) => {
 
                 <div className="">
                     <textarea
-                        className="bg-[#ffffff] h-25 rounded-sm text-xs w-full"
+                        className="bg-[#FFFFFF] h-25 rounded-sm text-xs w-full"
                         id={teamNotesInputId}
                         name="team-notes"
                         onChange={(e) => {

@@ -15,10 +15,11 @@ import { UserIDs } from "../types/userIDs";
 import PickRow from "./PickRow";
 //import UserDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
+import UsersDropdown from "./UserDropdown";
 
 
 const now: Date = new Date();
-const totalWeeks: number = 18;
+const totalWeeks: number = 19;
 
 
 type Props = {
@@ -82,21 +83,7 @@ const Picks = (props: Props) => {
                     <option value="NFL">NFL</option>
                 </select>
                 
-                <div className="relative inline-block m-auto">
-                    <select
-                        id="users-dropdown-input"
-                        name="users-dropdown"
-                        className="appearance-none bg-transparent cursor-pointer rounded text-transparent w-full pl-10 pr-3"
-                    >
-                        <option value="1">Leaderboard</option>
-                        <option value="2">Me</option>
-                    </select>
-
-                    <i
-                        className="fa-solid fa-bars fa-xl pointer-events-none absolute left-[43.5%] top-1/2 transform -translate-y-1/2"
-                        aria-hidden="true"
-                    ></i>
-                </div>
+                <UsersDropdown setIsLoading={props.setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} />
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
@@ -130,7 +117,7 @@ const Picks = (props: Props) => {
                     }).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
-                        
+
                         if (localKickoffTimestampString !== priorGameDate) {
                             priorGameDate = localKickoffTimestampString;
                             return (

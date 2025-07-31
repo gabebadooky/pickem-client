@@ -23,8 +23,8 @@ const renderWeekOptions = (weeks: number) => {
 
 const WeekDropdown = (props: Props) => {
     return (
-        <div className="m-auto">
-            <select name="week-dropdown" id="week-dropdown-input" className="m-auto text-center"
+        <div className="mx-auto">
+            <select name="week-dropdown" id="week-dropdown-input" className="appearance-none m-auto"
                 value={props.selectedWeek}
                 onChange={(e) => props.setSelectedWeek(Number(e.currentTarget.value))}
             >

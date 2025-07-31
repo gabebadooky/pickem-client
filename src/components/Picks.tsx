@@ -87,7 +87,7 @@ const Picks = (props: Props) => {
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
-                <div id="previous-week-arrow">
+                <div className="m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
                         <i className="fa-solid fa-arrow-left fa-xl" 

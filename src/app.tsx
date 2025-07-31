@@ -34,11 +34,6 @@ export const App = () => {
     const [tokenStatus, setTokenStatus] = useState<Token>(validateToken());
     const [userIDs, setUserIDs] = useState<UserIDs[]>([]);
 
-    /*useEffect(() => {
-        getGames().then(setGames);
-        getTeams().then(setTeams);
-        getUserIDs().then(setUserIDs);
-    }, []);*/
     useEffect(() => {
         async function fetchInitialData() {
             try {
@@ -61,7 +56,7 @@ export const App = () => {
         }
     }, []);
     
-    
+
     useEffect(() => {
         async function fetchUserRelatedData() {
             setIsLoading(true);
@@ -108,6 +103,7 @@ export const App = () => {
                     games={games}
                     picks={picks}
                     setIsAccountComponentOpen={setIsAccountComponentOpen}
+                    setIsLoading={setIsLoading}
                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                     setPicks={setPicks}
                     teams={teams}

@@ -28,6 +28,7 @@ type Props = {
     games: Game[];
     picks: Pick[];
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     teams: Team[];
@@ -142,8 +143,9 @@ const Picks = (props: Props) => {
                                         isModalCurrentlyRendered={isModalCurrentlyRendered}
                                         jwtToken={props.jwtToken}
                                         picks={props.picks}
-                                        setPicks={props.setPicks}
+                                        setIsLoading={props.setIsLoading}
                                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                        setPicks={props.setPicks}
                                         teams={props.teams}
                                         teamNotes={props.teamNotes}
                                     />
@@ -158,8 +160,9 @@ const Picks = (props: Props) => {
                                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                                     jwtToken={props.jwtToken}
                                     picks={props.picks}
-                                    setPicks={props.setPicks}
+                                    setIsLoading={props.setIsLoading}
                                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                                    setPicks={props.setPicks}
                                     teams={props.teams}
                                     teamNotes={props.teamNotes}
                                 />

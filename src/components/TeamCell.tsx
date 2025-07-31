@@ -15,8 +15,9 @@ type Props = {
     localKickoffTimestamp: Date;
     pick: Pick;
     picks: Pick[];
-    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     team: Team;
 }
 
@@ -60,11 +61,12 @@ const TeamCell = (props: Props) => {
                     <ConfidenceModal
                         currentUser={props.currentUser}
                         jwtToken={props.jwtToken}
-                        pick={props.pick}
-                        teamID={props.team.teamID}
-                        picks={props.picks}
                         localKickoffTimestamp={props.localKickoffTimestamp}
+                        setIsLoading={props.setIsLoading}
                         setPicks={props.setPicks}
+                        pick={props.pick}
+                        picks={props.picks}
+                        teamID={props.team.teamID}
                         onClose={() => {
                             props.setIsModalCurrentlyRendered(false);
                             setShowModal(false);

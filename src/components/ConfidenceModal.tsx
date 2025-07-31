@@ -11,6 +11,7 @@ type Props = {
 	onClose: Function;
 	pick: Pick;
 	picks: Pick[];
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
 	teamID: string;
 }
@@ -50,6 +51,7 @@ const ConfidenceModal = (props: Props) => {
 	
 	
 	const selectConfidenceLevel = (confidenceWeight: string) => {
+		props.setIsLoading(true);
 		submitPick(props.jwtToken.value, {
 			userID: props.pick.userID,
 			gameID: props.pick.gameID,
@@ -67,7 +69,8 @@ const ConfidenceModal = (props: Props) => {
 					pickWeight: confidenceWeight 
 				} : pick
 			));
-		});
+		})
+		.finally(() => props.setIsLoading(false));
 		props.onClose();
 	}
 

@@ -18,8 +18,9 @@ type Props = {
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
     picks: Pick[];
-    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     teams: Team[];
     teamNotes: TeamNotes[];
 };
@@ -53,8 +54,9 @@ const PickRow = (props: Props) => {
                     localKickoffTimestamp={localKickoffDateTimestamp}
                     pick={userGamePick}
                     picks={props.picks}
-                    setPicks={props.setPicks}
+                    setIsLoading={props.setIsLoading}
                     setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    setPicks={props.setPicks}
                     team={awayTeam}
                 />
 
@@ -75,8 +77,9 @@ const PickRow = (props: Props) => {
                     localKickoffTimestamp={localKickoffDateTimestamp}
                     pick={userGamePick}
                     picks={props.picks}
-                    setPicks={props.setPicks}
+                    setIsLoading={props.setIsLoading}
                     setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    setPicks={props.setPicks}
                     team={homeTeam}
                 />
 

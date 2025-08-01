@@ -19,15 +19,16 @@ const UsersDropdown = (props: Props) => {
                 name="users-dropdown"
                 onChange={(e) => {
                     const newUserID: number = Number(e.target.value);
-                    props.setIsLoading(true);
                     if (newUserID !== 99999) {
+                        console.log("Setting user picks");
                         getUserPicks(newUserID).then(props.setPicks).finally(() => props.setIsLoading(false));
                     } else {
                         props.setIsLeaderboardComponentOpen(true);
+                        console.log("Open Leaderboard component");
                     }
                 }}
             >
-                <option value={99999}>Leaderboard</option>
+                <option value="99999">Leaderboard</option>
                 {props.userIDs.map((user: UserIDs) => (
                     <option key={user.userID} value={user.userID}>{user.username}</option>
                 ))}

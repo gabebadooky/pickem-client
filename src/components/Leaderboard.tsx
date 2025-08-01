@@ -7,7 +7,7 @@ const Leaderboard = (props: Props) => {
         <div className="mt-[25%] mx-auto">
             <h1 className="text-3xl">Under Construction!!</h1>
             <button
-                className=""
+                className="border-1 border-white flex h-full items-center justify-center mt-15 mx-auto px-5 py-2 rounded-lg"
                 id="back-home-button"
                 onClick={() => props.setIsLeaderboardComponentOpen(false)}
             >

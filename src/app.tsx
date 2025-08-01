@@ -93,6 +93,8 @@ export const App = () => {
                     &&
                 !isAccountComponentOpen
                     &&
+                !isLeaderboardComponentOpen
+                    &&
                 <Picks
                     currentUser={currentUser}
                     isModalCurrentlyRendered={isModalCurrentlyRendered}

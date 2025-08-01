@@ -62,3 +62,24 @@ export const loginRequest = async (loginBody: LoginBody) => {
         return JSON.stringify({"access_token" : ""});
     }
 };
+
+
+export const googleOAuthRequest = async () => {
+    const endpointURL: string = `${BASE_URL}/auth/google/login`;
+    
+    try {
+        const response: Response = await fetch(endpointURL);
+
+        if (!response.ok) {
+            console.log(`Error occurred during Google OAuth request! ${response.text()}`);
+            return JSON.stringify({"access_token": ""});
+        } else {
+            const responseJSON = await response.json();
+            console.log("Google OAuth request successful");
+            return responseJSON;
+        }
+    } catch (err) {
+        console.log(`Error occurred during GoogleOAuth request! ${err}`);
+        return JSON.stringify({"access_token" : ""});
+    }
+};

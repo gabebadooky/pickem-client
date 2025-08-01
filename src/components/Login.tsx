@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { loginRequest } from "../services/authAPI";
+import { googleOAuthRequest, loginRequest } from "../services/authAPI";
 
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";
@@ -15,6 +15,7 @@ type Props = {
 
 const Login = (props: Props) => {
     const [incorrectLoginAttempt, setIncorrectLoginAttempt] = useState<boolean>(false);
+    const [incorrectGoogleOAuthAttempt, setIncorrectGoogleOAuthAttempt] = useState<boolean>(false);
     const [usernameInputString, setUsernameInputString] = useState<string>("");
     const [passwordInputString, setpasswordInputString] = useState<string>("");
 
@@ -54,12 +55,16 @@ const Login = (props: Props) => {
                     />
                 </div>
 
-                <div className="" id="incorrect-login-warning-div">
+                <div className="text-red-500 w-[90%]" id="incorrect-login-warning-div">
                     {
                         incorrectLoginAttempt &&
-                        <p className="text-red-500">
+                        <p>
                             Username or Password is incorrect. Please try again.
                         </p>
+                    }
+                    {
+                        incorrectGoogleOAuthAttempt &&
+                        <p>Google Authentication Failed. Tell the developer he sucks and try again later.</p>
                     }
                 </div>
                 
@@ -121,6 +126,31 @@ const Login = (props: Props) => {
             }
 
             <div className="h-12 m-auto mt-5 w-[90%]" id="create-account-button-div">
+                <button 
+                    className="bg-[#EA4335] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    id="create-account-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        googleOAuthRequest()
+                        .then((response) => {
+                            if (response?.access_token) {
+                                localStorage.setItem("jwt", response.access_token);
+                                props.setTokenStatus(validateToken());
+                            } else {
+                                setIncorrectGoogleOAuthAttempt(true);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            setIncorrectGoogleOAuthAttempt(true);
+                        });
+                    }}
+                >
+                    <span>Login with <i className="fa-brands fa-google"></i></span>
+                </button>
+            </div>
+
+            <div className="h-12 m-auto mt-10 w-[90%]" id="create-account-button-div">
                 <button 
                     className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
                     id="create-account-button"

@@ -61,9 +61,9 @@ const Picks = (props: Props) => {
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
+            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <i 
-                    className="fa-solid fa-user fa-xl m-auto"
+                    className="fa-solid fa-user fa-2xl text-left m-auto"
                     id="account-info-button"
                     onClick={() => {
                         if (props.currentUser.userID === -1) {
@@ -75,7 +75,7 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <select name="league-dropdown" id="league-dropdown-input" className="m-auto text-xl"
+                <select className="col-span-3 m-auto text-2xl" id="league-dropdown-input" name="league-dropdown"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
@@ -85,6 +85,7 @@ const Picks = (props: Props) => {
                 </select>
                 
                 <UsersDropdown
+                    currentUser={props.currentUser}
                     setIsLeaderboardComponentOpen={props.setIsLeaderboardComponentOpen}
                     setIsLoading={props.setIsLoading}
                     setPicks={props.setPicks}
@@ -92,11 +93,11 @@ const Picks = (props: Props) => {
                 />
             </div>
 
-            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
+            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-15 w-[90%]">
                 <div className="m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
-                        <i className="fa-solid fa-arrow-left fa-xl" 
+                        <i className="fa-solid fa-arrow-left fa-2xl" 
                             onClick={() => setSelectedWeek(selectedWeek - 1) }>
                         </i>
                     }
@@ -109,7 +110,7 @@ const Picks = (props: Props) => {
                 <div className="m-auto" id="next-week-arrow">
                     { 
                         selectedWeek < 18 && 
-                        <i className="fa-solid fa-arrow-right fa-xl"
+                        <i className="fa-solid fa-arrow-right fa-2xl"
                             onClick={() => setSelectedWeek(selectedWeek + 1)}>
                         </i>
                     }
@@ -118,7 +119,7 @@ const Picks = (props: Props) => {
 
             {props.games.length === 0 && <LoadingSpinner />}
 
-            <table className="border-separate border-spacing-y-5 m-auto mt-[8%] mb-20 w-[90%]">
+            <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
                     {props.games.filter(game => {

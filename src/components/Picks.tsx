@@ -13,9 +13,9 @@ import { Token } from "../types/token";
 import { UserIDs } from "../types/userIDs";
 
 import PickRow from "./PickRow";
-//import UserDropdown from "./UserDropdown";
-import WeekDropdown from "./WeekDropdown";
 import UsersDropdown from "./UserDropdown";
+import WeekDropdown from "./WeekDropdown";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 const now: Date = new Date();
@@ -29,6 +29,7 @@ type Props = {
     games: Game[];
     picks: Pick[];
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsLeaderboardComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
@@ -74,7 +75,7 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <select name="league-dropdown" id="league-dropdown-input" className="m-auto"
+                <select name="league-dropdown" id="league-dropdown-input" className="m-auto text-xl"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
@@ -83,7 +84,12 @@ const Picks = (props: Props) => {
                     <option value="NFL">NFL</option>
                 </select>
                 
-                <UsersDropdown setIsLoading={props.setIsLoading} setPicks={props.setPicks} userIDs={props.userIDs} />
+                <UsersDropdown
+                    setIsLeaderboardComponentOpen={props.setIsLeaderboardComponentOpen}
+                    setIsLoading={props.setIsLoading}
+                    setPicks={props.setPicks}
+                    userIDs={props.userIDs}
+                />
             </div>
 
             <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
@@ -106,6 +112,7 @@ const Picks = (props: Props) => {
                 </div>
             </div>
 
+            {props.games.length === 0 && <LoadingSpinner />}
 
             <table className="border-separate border-spacing-y-5 m-auto mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
@@ -126,7 +133,12 @@ const Picks = (props: Props) => {
                                         id={`${localKickoffTimestampString.replace(" ", "-")}-header-row`}
                                         key={`${localKickoffTimestampString.replace(" ", "-")}-header-row`}
                                     >
-                                        <td key={`${localKickoffTimestampString.replace(" ", "-")}-header-cell`}>{localKickoffTimestampString}</td>
+                                        <td
+                                            className="text-3xl"
+                                            key={`${localKickoffTimestampString.replace(" ", "-")}-header-cell`}
+                                        >
+                                            {localKickoffTimestampString}
+                                        </td>
                                     </tr>
                                     <PickRow
                                         key={key}

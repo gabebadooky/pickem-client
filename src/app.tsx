@@ -19,12 +19,14 @@ import Login from "./components/Login";
 import Picks from "./components/Picks";
 import Register from "./components/Register";
 import LoadingSpinner from "./components/LoadingSpinner";
+import Leaderboard from "./components/Leaderboard";
 
 
 export const App = () => {
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
     const [games, setGames] = useState<Game[]>([]);
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
+    const [isLeaderboardComponentOpen, setIsLeaderboardComponentOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
@@ -98,6 +100,7 @@ export const App = () => {
                     games={games}
                     picks={picks}
                     setIsAccountComponentOpen={setIsAccountComponentOpen}
+                    setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen}
                     setIsLoading={setIsLoading}
                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                     setPicks={setPicks}
@@ -108,6 +111,8 @@ export const App = () => {
             }
 
             { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
+
+            { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} /> }
         </div>
     )
 }

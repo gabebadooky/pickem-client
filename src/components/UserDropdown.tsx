@@ -4,6 +4,7 @@ import { UserIDs } from "../types/userIDs";
 
 
 type Props = {
+    setIsLeaderboardComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     userIDs: UserIDs[];
@@ -21,6 +22,8 @@ const UsersDropdown = (props: Props) => {
                     props.setIsLoading(true);
                     if (newUserID !== 99999) {
                         getUserPicks(newUserID).then(props.setPicks).finally(() => props.setIsLoading(false));
+                    } else {
+                        props.setIsLeaderboardComponentOpen(true);
                     }
                 }}
             >

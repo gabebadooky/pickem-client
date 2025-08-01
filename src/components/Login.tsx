@@ -34,6 +34,7 @@ const Login = (props: Props) => {
                         id="usernameInput"
                         onInput={(e) => {
                             setIncorrectLoginAttempt(false);
+                            setIncorrectGoogleOAuthAttempt(false);
                             setUsernameInputString(e.currentTarget.value);
                         }}
                         placeholder="Username"
@@ -48,6 +49,7 @@ const Login = (props: Props) => {
                         id="passwordInput"
                         onInput={(e) => {
                             setIncorrectLoginAttempt(false);
+                            setIncorrectGoogleOAuthAttempt(false);
                             setpasswordInputString(e.currentTarget.value);
                         }}
                         placeholder="Password"
@@ -55,7 +57,7 @@ const Login = (props: Props) => {
                     />
                 </div>
 
-                <div className="text-red-500 w-[90%]" id="incorrect-login-warning-div">
+                <div className="m-auto text-red-500 w-[90%]" id="incorrect-login-warning-div">
                     {
                         incorrectLoginAttempt &&
                         <p>

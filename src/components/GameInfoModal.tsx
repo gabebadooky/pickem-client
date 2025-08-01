@@ -27,7 +27,7 @@ const GameInfoModal = (props: Props) => {
             <div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]" id={modalID}>
                 
                 <i className="fa-solid fa-2xl fa-rectangle-xmark absolute top-4 right-2" onClick={() => props.onClose()}></i>
-                <h1 className="font-extrabold text-lg">{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
+                <h1 className="font-extrabold mt-4 text-lg">{props.awayTeam.teamName} {props.awayTeam.teamMascot} @ {props.homeTeam.teamName} {props.homeTeam.teamMascot}</h1>
                 
                 <div className="text-xs">{localDate.toLocaleString().split(", ")[1]}</div>
 

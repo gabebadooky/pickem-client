@@ -92,7 +92,7 @@ const Picks = (props: Props) => {
                 />
             </div>
 
-            <div className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
+            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
                 <div className="m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
@@ -101,8 +101,12 @@ const Picks = (props: Props) => {
                         </i>
                     }
                 </div>
-                <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
-                <div id="next-week-arrow">
+                
+                <div className="m-auto col-span-3">
+                    <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+                </div>
+                
+                <div className="m-auto" id="next-week-arrow">
                     { 
                         selectedWeek < 18 && 
                         <i className="fa-solid fa-arrow-right fa-xl"

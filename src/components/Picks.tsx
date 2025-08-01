@@ -61,7 +61,7 @@ const Picks = (props: Props) => {
     return (
         <div className="h-dvh m-auto w-dvw">
 
-            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-10 w-[90%]">
+            <div className="grid grid-cols-6 grid-rows-1 m-auto mb-5 mt-10 w-[95%]">
                 <i 
                     className="fa-solid fa-user fa-2xl text-left m-auto"
                     id="account-info-button"
@@ -75,7 +75,7 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <select className="col-span-3 m-auto text-2xl" id="league-dropdown-input" name="league-dropdown"
+                <select className="col-span-4 m-auto text-2xl" id="league-dropdown-input" name="league-dropdown"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
@@ -93,7 +93,7 @@ const Picks = (props: Props) => {
                 />
             </div>
 
-            <div className="grid grid-cols-5 grid-rows-1 m-auto mb-5 mt-15 w-[90%]">
+            <div className="grid grid-cols-6 grid-rows-1 m-auto mb-5 mt-15 w-[95%]">
                 <div className="m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
@@ -103,7 +103,7 @@ const Picks = (props: Props) => {
                     }
                 </div>
                 
-                <div className="m-auto col-span-3">
+                <div className="m-auto col-span-4">
                     <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                 </div>
                 

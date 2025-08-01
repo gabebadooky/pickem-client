@@ -41,7 +41,7 @@ const TeamInfoModal = (props: Props) => {
         <div className="fixed flex h-[100vh] items-center justify-center left-0 rounded-sm top-0 w-[100vw] z-1000">
             <div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]" id={props.team.teamID}>
                 
-                <i className="fa-solid fa-xl fa-rectangle-xmark absolute top-4 right-2" onClick={() => props.onClose()}></i>
+                <i className="fa-solid fa-2xl fa-rectangle-xmark absolute top-4 right-2" onClick={() => props.onClose()}></i>
                 <h1 className="font-extrabold text-lg">{props.team.teamName} {props.team.teamMascot}</h1>
 
                 <div className="mb-4 text-xs">

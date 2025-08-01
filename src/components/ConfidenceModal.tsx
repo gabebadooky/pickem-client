@@ -82,7 +82,7 @@ const ConfidenceModal = (props: Props) => {
 
 	return (
 		<div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
-			<div className="bg-[#D9D9D9] p-5 relative rounded-xl text-black text-center w-[80%]">
+			<div className="bg-[#D9D9D9] p-5 relative rounded-2xl text-black text-center w-[80%]">
 
 				<i
 					className="absolute fa-solid fa-rectangle-xmark fa-xl right-2 top-4"

@@ -57,7 +57,7 @@ const Login = (props: Props) => {
                     />
                 </div>
 
-                <div className="m-auto text-red-500 w-[90%]" id="incorrect-login-warning-div">
+                <div className="m-auto text-red-500 w-[90%]" id="login-warning-div">
                     {
                         incorrectLoginAttempt &&
                         <p>

@@ -17,6 +17,7 @@ type Props = {
 
 
 const TeamInfoModal = (props: Props) => {
+    const [loginWarningMessage, setLoginWarningMessage] = useState<boolean>(false);
     const [notesEdited, setNotesEdited] = useState<boolean>(false);
     const [newNotes, setNewNotes] = useState<string>("");
     const teamNotesInputId: string = `${props.team.teamID}-notes`;
@@ -54,12 +55,18 @@ const TeamInfoModal = (props: Props) => {
                     <p><a className="text-[#1a8cff]" href={cbsURL()}>CBS</a></p>
                 </div>
 
+                <div>
+                    {loginWarningMessage && <p className="m-auto text-red-500">Login or register to play!</p>}
+                </div>
+
                 <div className="">
                     <textarea
                         className="bg-[#FFFFFF] h-25 rounded-sm text-xs w-full"
+                        disabled={props.jwtToken.userID !== props.teamNotes.userID}
                         id={teamNotesInputId}
                         name="team-notes"
                         onChange={(e) => {
+                            setLoginWarningMessage(false);
                             setNotesEdited(true);
                             setNewNotes(e.currentTarget.value);
                             console.log(`newNotes: ${newNotes}`);
@@ -73,12 +80,16 @@ const TeamInfoModal = (props: Props) => {
                             className="bg-[#17C120] h-12 rounded-xl w-[50%]"
                             id="update-notes-button"
                             onClick={() => {
-                                    updateTeamNotes(props.jwtToken.value, {
-                                        userID: props.teamNotes.userID,
-                                        teamID: props.teamNotes.teamID,
-                                        notes: newNotes
-                                    })
-                                    .then(props.onClose())
+                                    if (props.jwtToken.value === "guest") {
+                                        setLoginWarningMessage(true);
+                                    } else {
+                                        updateTeamNotes(props.jwtToken.value, {
+                                            userID: props.teamNotes.userID,
+                                            teamID: props.teamNotes.teamID,
+                                            notes: newNotes
+                                        })
+                                        .then(props.onClose());
+                                    }
                                 }
                             }
                         >

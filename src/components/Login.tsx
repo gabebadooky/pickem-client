@@ -4,6 +4,7 @@ import { googleOAuthRequest, loginRequest } from "../services/authAPI";
 
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";
+import { BASE_URL } from "../services/baseURL";
 
 
 type Props = {
@@ -133,8 +134,8 @@ const Login = (props: Props) => {
                     id="create-account-button"
                     onClick={(e) => {
                         e.preventDefault();
-                        googleOAuthRequest()
-                        .then((response) => {
+                        window.location.href = `${BASE_URL}/auth/google/login`;
+                        {/*.then((response) => {
                             if (response?.access_token) {
                                 localStorage.setItem("jwt", response.access_token);
                                 props.setTokenStatus(validateToken());
@@ -145,7 +146,7 @@ const Login = (props: Props) => {
                         .catch((err) => {
                             console.log(err);
                             setIncorrectGoogleOAuthAttempt(true);
-                        });
+                        });*/}
                     }}
                 >
                     <span>Login with <i className="fa-brands fa-google"></i></span>

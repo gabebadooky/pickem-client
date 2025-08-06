@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { googleOAuthRequest, loginRequest } from "../services/authAPI";
-
+import { loginRequest } from "../services/authAPI";
+import { BASE_URL } from "../services/baseURL";
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";
 
@@ -133,14 +133,14 @@ const Login = (props: Props) => {
                     id="create-account-button"
                     onClick={(e) => {
                         e.preventDefault();
-                        //window.location.href = `${BASE_URL}/auth/google/login`;
+                        window.location.href = `${BASE_URL}/auth/google/login`;
                         {/*const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
                         if (queryParams.get("access_token") !== null) {
                             localStorage.setItem("jwt", queryParams.get("access_token") || "");
                             props.setTokenStatus(validateToken());
                         } else {
                             setIncorrectGoogleOAuthAttempt(true);
-                        }*/}
+                        }
                         googleOAuthRequest()
                         .then((response) => {
                             if (response?.access_token) {
@@ -153,7 +153,7 @@ const Login = (props: Props) => {
                         .catch((err) => {
                             console.log(err);
                             setIncorrectGoogleOAuthAttempt(true);
-                        });
+                        });*/}
                     }}
                 >
                     <span>Login with <i className="fa-brands fa-google"></i></span>

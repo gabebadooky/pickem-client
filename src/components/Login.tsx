@@ -4,7 +4,6 @@ import { googleOAuthRequest, loginRequest } from "../services/authAPI";
 
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";
-import { BASE_URL } from "../services/baseURL";
 
 
 type Props = {

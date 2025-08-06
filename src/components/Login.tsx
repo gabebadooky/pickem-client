@@ -135,6 +135,13 @@ const Login = (props: Props) => {
                     onClick={(e) => {
                         e.preventDefault();
                         window.location.href = `${BASE_URL}/auth/google/login`;
+                        {/*const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
+                        if (queryParams.get("access_token") !== null) {
+                            localStorage.setItem("jwt", queryParams.get("access_token") || "");
+                            props.setTokenStatus(validateToken());
+                        } else {
+                            setIncorrectGoogleOAuthAttempt(true);
+                        }*/}
                         {/*.then((response) => {
                             if (response?.access_token) {
                                 localStorage.setItem("jwt", response.access_token);

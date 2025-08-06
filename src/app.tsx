@@ -76,6 +76,13 @@ export const App = () => {
 
 
     useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        localStorage.setItem("jwt", queryParams.get("access_token") || "");
+        setTokenStatus(validateToken());
+    }, [window.location.search]);
+
+
+    useEffect(() => {
         console.log(`isLoading: ${isLoading}`);
     }, [isLoading]);
 

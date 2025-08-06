@@ -81,6 +81,7 @@ export const App = () => {
         if (token !== null) {
             localStorage.setItem("jwt", queryParams.get("access_token") || "");
             setTokenStatus(validateToken());
+            queryParams.delete("access_token");
         }
     }, [window.location.search]);
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { googleOAuthRequest, loginRequest } from "../services/authAPI";
+import { loginRequest } from "../services/authAPI";
 
 import { Token } from "../types/token";
 import { validateToken } from "../services/validateToken";

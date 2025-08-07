@@ -15,6 +15,7 @@ import {
 
 type Props = {
     currentUser: CurrentUser;
+    setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUser>>;
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     jwtToken: Token;
     teams: Team[];
@@ -55,6 +56,10 @@ const Account = (props: Props) => {
                     id="notificationPreferenceInput"
                     value={props.currentUser.notificationPreference || "n"}
                     onChange={(e) => {
+                        props.setCurrentUser(prev => ({
+                            ...prev,
+                            notificationPreference: e.target.value
+                        }));
                         updateNotificationPreference({
                             token: props.jwtToken.value,
                             userID: props.currentUser.userID,
@@ -83,7 +88,11 @@ const Account = (props: Props) => {
                     <button
                         className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitEmailChangeButton"
-                        onClick={() => {
+                        onClick={(e) => {
+                            props.setCurrentUser(prev => ({
+                                ...prev,
+                                emailAddress: e.currentTarget.value
+                            }));
                             updateEmailAddress({
                                 token: props.jwtToken.value,
                                 userID: props.currentUser.userID,
@@ -112,7 +121,11 @@ const Account = (props: Props) => {
                     <button
                         className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitPhoneChangeButton"
-                        onClick={() => {
+                        onClick={(e) => {
+                            props.setCurrentUser(prev => ({
+                                ...prev,
+                                phone: e.currentTarget.value
+                            }));
                             updatePhone({
                                 token: props.jwtToken.value,
                                 userID: props.currentUser.userID,
@@ -132,11 +145,15 @@ const Account = (props: Props) => {
                     id="favoriteTeamInput"
                     value={props.currentUser?.favoriteTeam || "0"}
                     onChange={(e) => {
+                        props.setCurrentUser(prev => ({
+                            ...prev,
+                            favoriteTeam: e.target.value
+                        }));
                         updateFavoriteTeam({
                             token: props.jwtToken.value,
                             userID: props.currentUser.userID,
                             favoriteTeam: e.currentTarget.value
-                        });
+                        })
                     }}
                 >
                     <option key="favoriteTeamOption" value="0">Favorite Team</option>

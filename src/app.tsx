@@ -123,7 +123,7 @@ export const App = () => {
                 /> 
             }
 
-            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
+            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setCurrentUser={setCurrentUser} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
 
             { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} /> }
         </div>

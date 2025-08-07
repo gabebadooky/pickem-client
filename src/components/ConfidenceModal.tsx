@@ -86,7 +86,7 @@ const ConfidenceModal = (props: Props) => {
 
 				<div>
 					<i
-						className="absolute fa-solid fa-rectangle-xmark fa-xl right-2 top-4"
+						className="absolute fa-solid fa-rectangle-xmark fa-2xl right-2 top-4"
 						onClick={() => props.onClose()}
 					>
 					</i>

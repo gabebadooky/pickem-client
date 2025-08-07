@@ -75,15 +75,15 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <select className="col-span-4 m-auto text-2xl" id="league-dropdown-input" name="league-dropdown"
+                <select className="col-span-4 m-auto text-2xl text-center" id="league-dropdown-input" name="league-dropdown"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
                     <option value="CFBNFL">All</option>
-                    <option value="CFB">CFB (All)</option>
-                    <option value="CFBP4">CFB P4</option>
-                    <option value="CFBG6">CFB G6</option>
                     <option value="NFL">NFL</option>
+                    <option value="CFB">CFB (All)</option>
+                    <option value="CFBP4">CFB Power Conference</option>
+                    <option value="CFBG6">CFB Non-Power Conference</option>
                 </select>
                 
                 <UsersDropdown

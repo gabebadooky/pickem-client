@@ -80,7 +80,9 @@ const Picks = (props: Props) => {
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
                     <option value="CFBNFL">All</option>
-                    <option value="CFB">CFB</option>
+                    <option value="CFB">CFB (All)</option>
+                    <option value="CFBP4">CFB P4</option>
+                    <option value="CFBG6">CFB G6</option>
                     <option value="NFL">NFL</option>
                 </select>
                 
@@ -152,6 +154,7 @@ const Picks = (props: Props) => {
                                         isModalCurrentlyRendered={isModalCurrentlyRendered}
                                         jwtToken={props.jwtToken}
                                         picks={props.picks}
+                                        selectedLeague={selectedLeague}
                                         setIsLoading={props.setIsLoading}
                                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                         setPicks={props.setPicks}
@@ -169,6 +172,7 @@ const Picks = (props: Props) => {
                                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                                     jwtToken={props.jwtToken}
                                     picks={props.picks}
+                                    selectedLeague={selectedLeague}
                                     setIsLoading={props.setIsLoading}
                                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                     setPicks={props.setPicks}

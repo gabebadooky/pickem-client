@@ -18,6 +18,7 @@ type Props = {
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
     picks: Pick[];
+    selectedLeague: string;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
@@ -33,7 +34,17 @@ const PickRow = (props: Props) => {
     const localKickoffDateTimestamp: Date = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
 
     
-    if (userGamePick && awayTeam && homeTeam) {
+    if (
+            (userGamePick && awayTeam && homeTeam) 
+                && 
+            (
+                (props.selectedLeague === "CFBP4" && (awayTeam.powerConference == true || homeTeam.powerConference == true))
+                    ||
+                (props.selectedLeague === "CFBG6" && (awayTeam.powerConference == false || homeTeam.powerConference == false))
+                    ||
+                (props.selectedLeague === "CFB" || props.selectedLeague === "NFL" || props.selectedLeague === "CFBNFL")
+            )
+        ) {
         return(
             <tr className="flex h-[35%] m-auto w-full" id={`${props.game.gameID}-row`}>
                                     

@@ -75,7 +75,7 @@ const Picks = (props: Props) => {
                 >
                 </i>
 
-                <select className="col-span-4 m-auto text-2xl text-center" id="league-dropdown-input" name="league-dropdown"
+                <select className="col-span-4 m-auto text-l text-center w-[82%]" id="league-dropdown-input" name="league-dropdown"
                     value={selectedLeague}
                     onChange={(e) => setSelectedLeague(e.currentTarget.value)}
                 >
@@ -105,7 +105,7 @@ const Picks = (props: Props) => {
                     }
                 </div>
                 
-                <div className="m-auto col-span-4">
+                <div className="col-span-4 m-auto">
                     <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                 </div>
                 
@@ -147,6 +147,7 @@ const Picks = (props: Props) => {
                                             {localKickoffTimestampString}
                                         </td>
                                     </tr>
+                                    <tr><td><hr /></td></tr>
                                     <PickRow
                                         key={key}
                                         currentUser={props.currentUser}

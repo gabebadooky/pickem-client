@@ -40,18 +40,6 @@ type Props = {
 };
 
 
-const setCurrentWeek = () => {
-    for (let i = 0; i < totalWeeks; i++) {
-        if ((seasonWeeks[i].start.setHours(0, 0, 0) <= now.setHours(0, 0, 0))
-            &&
-            (now.setHours(0, 0, 0) <= seasonWeeks[i].end.setHours(0, 0, 0))) {
-            return i;
-        }
-    }
-    return 18;
-}
-
-
 const Picks = (props: Props) => {
     const [games, setGames] = useState<Game[]>([]);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
@@ -140,11 +128,7 @@ const Picks = (props: Props) => {
             <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
-                    {games.filter(game => {
-                        return selectedLeague.includes(game.league) &&
-                        ((game.week === selectedWeek && game.league === "CFB")
-                            || (game.week === selectedWeek - 1 && game.league === "NFL"))
-                    }).map((game: Game) => {
+                    {games.filter(game => selectedLeague.includes(game.league)).map((game: Game) => {
                         const key: string = `${game.gameID}-row`;
                         const localKickoffTimestampString: string = zuluTimeToLocaleFormattedDateString(game.date, game.time);
 

@@ -6,7 +6,6 @@ import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
 
 import { CurrentUser } from "../types/account";
-import { seasonWeeks } from "../services/formatDate";
 import { Game } from "../types/game";
 import { Pick } from "../types/pick";
 import { Team } from "../types/team";
@@ -20,7 +19,6 @@ import WeekDropdown from "./WeekDropdown";
 import LoadingSpinner from "./LoadingSpinner";
 
 
-const now: Date = new Date();
 const totalWeeks: number = 19;
 
 

@@ -8,8 +8,8 @@ const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
 
-export const getGames =  async (): Promise<Array<Game>> => {
-    const response = await fetch(`${BASE_URL}/games`);
+export const getGames =  async (week: number): Promise<Array<Game>> => {
+    const response = await fetch(`${BASE_URL}/games/week/${week}`);
     if (!response.ok) {
         console.log(`Error occurred during getGames request! ${response.text}`);
         throw new Error(`Error occurred during getGames request! ${response.text}`);

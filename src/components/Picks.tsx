@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import { calculateCurrentWeek } from "../services/formatDate";
+import { getGames } from "../services/picksAPI";
 import { userLogout } from "../services/logout";
 import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
 
@@ -26,7 +28,6 @@ type Props = {
     currentUser: CurrentUser;
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
-    games: Game[];
     picks: Pick[];
     setIsAccountComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLeaderboardComponentOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -52,10 +53,25 @@ const setCurrentWeek = () => {
 
 
 const Picks = (props: Props) => {
+    const [games, setGames] = useState<Game[]>([]);
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [selectedLeague, setSelectedLeague] = useState<string>("CFBNFL");
-    const [selectedWeek, setSelectedWeek] = useState<number>(setCurrentWeek);
+    const [selectedWeek, setSelectedWeek] = useState<number>(calculateCurrentWeek);
     let priorGameDate: string | undefined;
+
+
+    useEffect(() => {
+        async function getAndSetWeekGames() {
+            try {
+                setGames([]);
+                props.setIsLoading(true);
+                getGames(selectedWeek).then(setGames);
+            } finally {
+                props.setIsLoading(false);
+            }
+        } 
+        getAndSetWeekGames();
+    }, [selectedWeek]);
 
 
     return (
@@ -119,12 +135,12 @@ const Picks = (props: Props) => {
                 </div>
             </div>
 
-            {props.games.length === 0 && <LoadingSpinner />}
+            {games.length === 0 && <LoadingSpinner />}
 
             <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
-                    {props.games.filter(game => {
+                    {games.filter(game => {
                         return selectedLeague.includes(game.league) &&
                         ((game.week === selectedWeek && game.league === "CFB")
                             || (game.week === selectedWeek - 1 && game.league === "NFL"))

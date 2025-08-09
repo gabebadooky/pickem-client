@@ -1,13 +1,13 @@
 import { useState,useEffect } from "react";
 import "tailwindcss";
 
+import { calculateCurrentWeek } from "./services/formatDate";
 import { getUser } from "./services/accountAPI";
-import { getGames, getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
+import { getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
 import { getTeamNotes } from "./services/teamNotes";
 import { validateToken } from "./services/validateToken";
 
 import { CurrentUser } from "./types/account";
-import { Game } from "./types/game";
 import { Pick } from "./types/pick";
 import { Team } from "./types/team";
 import { TeamNotes } from "./types/teamNotes";
@@ -24,7 +24,6 @@ import Leaderboard from "./components/Leaderboard";
 
 export const App = () => {
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
-    const [games, setGames] = useState<Game[]>([]);
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isLeaderboardComponentOpen, setIsLeaderboardComponentOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,17 +37,16 @@ export const App = () => {
 
     useEffect(() => {
         async function fetchInitialData() {
-            const [gamesData, teamsData, userIDsData] = await Promise.all([
-                getGames(),
+            const [teamsData, userIDsData] = await Promise.all([
                 getTeams(),
                 getUserIDs(),
+                calculateCurrentWeek()
             ]);
-            setGames(gamesData);
             setTeams(teamsData);
             setUserIDs(userIDsData);
         }
 
-        if (games.length === 0 || teams.length === 0 || userIDs.length === 0) {
+        if (teams.length === 0 || userIDs.length === 0) {
             fetchInitialData();
         }
     }, []);
@@ -85,11 +83,6 @@ export const App = () => {
         }
     }, [window.location.search]);
 
-
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`);
-    }, [isLoading]);
-
     
     return(
         <div id="containter">
@@ -110,7 +103,6 @@ export const App = () => {
                     currentUser={currentUser}
                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                     jwtToken={tokenStatus}
-                    games={games}
                     picks={picks}
                     setIsAccountComponentOpen={setIsAccountComponentOpen}
                     setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen}

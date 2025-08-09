@@ -30,6 +30,26 @@ export const seasonWeeks = [
 ];
 
 
+export const calculateCurrentWeek = () => {
+    const now: Date = new Date();
+    if (now < seasonWeeks[0].start) {
+        // return week 0 if now < seasonWeeks[0].start
+        return 0;
+
+    } else {
+        for (let i = 0; i < seasonWeeks.length; i++) {
+            if ((seasonWeeks[i].start <= now) && (now <= seasonWeeks[i].end)) {
+                return i;
+            }
+        }
+
+        // return last week of season if now > seasonWeeks[seasonWeeks.length].end
+        return seasonWeeks.length - 1;
+    }
+
+}
+
+
 export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) => {
     const dateStringElements: string[] = gameDate.toString().replace(",", "").split(" ");
     const gameYear: string = dateStringElements[3];

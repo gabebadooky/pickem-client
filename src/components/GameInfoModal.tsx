@@ -1,6 +1,6 @@
 import { Game } from "../types/game";
 import { Team } from "../types/team";
-import { espnCfbGameURL, cbsCfbGameURL } from "../types/baseURLs";
+import { espnCfbGameURL, espnNflGameURL, cbsCfbGameURL, cbsNflGameURL, foxCfbURL, foxNflURL } from "../types/baseURLs";
 
 
 type Props = {
@@ -11,8 +11,9 @@ type Props = {
 };
 
 const GameInfoModal = (props: Props) => {
-    const espnCfbURL: string = `${espnCfbGameURL}/${props.game.espnCode}`;
-    const cbsCfbURL: string = props.game.league === "CFB" ? cbsCfbGameURL : `${cbsCfbGameURL}/${props.game.cbsCode}`;
+    const espnGameURL: string = props.game.league === "CFB" ? `${espnCfbGameURL}/${props.game.cbsCode}` : `${espnNflGameURL}/${props.game.cbsCode}`;
+    const cbsGameURL: string = props.game.league === "CFB" ? `${cbsCfbGameURL}/${props.game.cbsCode}` : `${cbsNflGameURL}/${props.game.cbsCode}`;
+    const foxGameURL: string = props.game.league === "CFB" ? `${foxCfbURL}/${props.game.foxCode}` : `${foxNflURL}/${props.game.cbsCode}`;
     const modalID: string = `${props.game.gameID}-info-modal`;
     const gameDate: Date = new Date(props.game.date);
     const gameYear = new Date(gameDate).getFullYear();
@@ -21,6 +22,7 @@ const GameInfoModal = (props: Props) => {
     const [zuluHours, zuluMinutes] = props.game.time.split(":");
     const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
     const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
+    
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
@@ -37,8 +39,9 @@ const GameInfoModal = (props: Props) => {
 
                 <div className="text-base">
                     <p className="">More Details:</p>
-                    <p className="pb-1 text-[#34a8f8]"><a href={espnCfbURL}>ESPN</a></p>
-                    <p className="text-[#34a8f8]"><a href={cbsCfbURL}>CBS</a></p>
+                    <p className="pb-1 text-[#34a8f8]"><a href={espnGameURL}>ESPN</a></p>
+                    <p className="pb-1 text-[#34a8f8]"><a href={cbsGameURL}>CBS</a></p>
+                    <p className="text-[#34a8f8]"><a href={foxGameURL}>FOX</a></p>
                 </div>
 
             </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import ConfidenceModal from "./ConfidenceModal";
@@ -33,9 +33,9 @@ const TeamCell = (props: Props) => {
 
     useEffect(() => {
         if (props.team.teamID === props.pick.teamPicked) {
-            setTailwindStyling(`bg-[#d8cdcd] border-8 rounded-2xl`);
+            setTailwindStyling(`bg-[#d8cdcd] border-5 rounded-2xl`);
             setBorderColorStyle(`#${props.team.primaryColor}`);
-            setCellBorder(`border-[#d8cdcd] border-2 h-[100%] m-auto rounded-2xl w-1/3`);
+            setCellBorder(`border-1 h-[100%] m-auto rounded-2xl w-1/3`);
         } else {
             setTailwindStyling("opacity-25");
             setBorderColorStyle(undefined);
@@ -45,7 +45,7 @@ const TeamCell = (props: Props) => {
 
 
     return (
-        <td className={cellBorder}>
+        <td className={cellBorder} style={{borderColor: `#${props.team.alternateColor}`}}>
             <img
                 key={teamImageID}
                 src={props.team.teamLogoUrl}

@@ -25,24 +25,27 @@ type Props = {
 
 
 const TeamCell = (props: Props) => {
+    const [borderColorStyle, setBorderColorStyle] = useState<string | undefined>(undefined);
+    const [cellBorder, setCellBorder] = useState<string | undefined>(undefined);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [tailwindStyling, setTailwindStyling] = useState<string>("h-[100%] opacity-25");
-    const [borderColorStyle, setBorderColorStyle] = useState<string | undefined>(undefined);
     const teamImageID: string = `${props.team.teamID}-img`;
 
     useEffect(() => {
         if (props.team.teamID === props.pick.teamPicked) {
-            setTailwindStyling(`border-3 rounded-2xl`);
+            setTailwindStyling(`bg-[#d8cdcd] border-8 rounded-2xl`);
             setBorderColorStyle(`#${props.team.primaryColor}`);
+            setCellBorder(`border-[#d8cdcd] border-2 h-[100%] m-auto rounded-2xl w-1/3`);
         } else {
             setTailwindStyling("opacity-25");
             setBorderColorStyle(undefined);
+            setCellBorder("h-[100%] m-auto w-1/3");
         }
     }, [props.picks]);
 
 
     return (
-        <td className="h-[100%] m-auto w-1/3">
+        <td className={cellBorder}>
             <img
                 key={teamImageID}
                 src={props.team.teamLogoUrl}

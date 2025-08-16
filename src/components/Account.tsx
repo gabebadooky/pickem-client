@@ -91,7 +91,7 @@ const Account = (props: Props) => {
                         onClick={(e) => {
                             props.setCurrentUser(prev => ({
                                 ...prev,
-                                emailAddress: e.currentTarget.value
+                                emailAddress: newEmailAddress
                             }));
                             updateEmailAddress({
                                 token: props.jwtToken.value,
@@ -124,7 +124,7 @@ const Account = (props: Props) => {
                         onClick={(e) => {
                             props.setCurrentUser(prev => ({
                                 ...prev,
-                                phone: e.currentTarget.value
+                                phone: newPhone
                             }));
                             updatePhone({
                                 token: props.jwtToken.value,

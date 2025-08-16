@@ -24,6 +24,7 @@ const totalWeeks: number = 19;
 
 type Props = {
     currentUser: CurrentUser;
+    isLoading: boolean;
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
     picks: Pick[];
@@ -50,7 +51,7 @@ const Picks = (props: Props) => {
         async function getAndSetWeekGames() {
             try {
                 setGames([]);
-                props.setIsLoading(true);
+                //props.setIsLoading(true);
                 getGames(selectedWeek).then(setGames);
             } finally {
                 props.setIsLoading(false);
@@ -121,7 +122,7 @@ const Picks = (props: Props) => {
                 </div>
             </div>
 
-            {games.length === 0 && <LoadingSpinner />}
+            { games.length === 0 && !props.isLoading && <LoadingSpinner />}
 
             <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[8%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">

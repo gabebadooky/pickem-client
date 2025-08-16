@@ -10,6 +10,7 @@ import { Pick, NullPick } from "../types/pick";
 import TeamCell from "./TeamCell";
 import GameInfoCell from "./GameInfoCell";
 import TeamInfoIconCell from "./TeamInfoCell";
+import { useEffect, useState } from "react";
 
 
 type Props = {
@@ -28,14 +29,24 @@ type Props = {
 
 
 const PickRow = (props: Props) => {
+    //const [userGamePick, setUserGamePick] = useState<Pick>(props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick);
+    //const [awayTeam, setAwayTeam] = useState<Team>(props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam);
+    //const [homeTeam, setHomeTeam] = useState<Team>(props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam);
     const userGamePick: Pick = props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick;
     const awayTeam: Team = props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam;
     const homeTeam: Team = props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam;
     const localKickoffDateTimestamp: Date = zuluTimeToLocaleFormattedDate(props.game.date, props.game.time);
 
+    /*useEffect(() => {
+        setUserGamePick(props.picks.find(pick => pick.gameID === props.game.gameID) || NullPick);
+        setAwayTeam(props.teams.find(team => team.teamID === props.game.awayTeamID) || NullTeam);
+        setHomeTeam(props.teams.find(team => team.teamID === props.game.homeTeamID) || NullTeam);
+    }, [userGamePick, awayTeam, homeTeam]);*/
+
+    console.log(props.game);
     
     if (
-            (userGamePick && awayTeam && homeTeam) 
+            (userGamePick && awayTeam.teamName !== "teamName" && homeTeam.teamName !== "teamName")
                 && 
             (
                 (props.selectedLeague === "CFBP4" && (awayTeam.powerConference == true || homeTeam.powerConference == true))

@@ -101,6 +101,7 @@ export const App = () => {
                     &&
                 <Picks
                     currentUser={currentUser}
+                    isLoading={isLoading}
                     isModalCurrentlyRendered={isModalCurrentlyRendered}
                     jwtToken={tokenStatus}
                     picks={picks}

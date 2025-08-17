@@ -38,7 +38,7 @@ const TeamInfoModal = (props: Props) => {
         }
     }
 
-    const foxTeamURL: string = props.team.league === "CFB" ? `${foxCfbURL}/${props.team.foxCode}` : `${foxNflURL}/${props.team.foxCode}`;
+    const foxTeamURL: string = props.team.league === "CFB" ? `${foxCfbURL}/${props.team.foxCode}-team` : `${foxNflURL}/${props.team.foxCode}-team`;
     
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 rounded-sm top-0 w-[100vw] z-1000">

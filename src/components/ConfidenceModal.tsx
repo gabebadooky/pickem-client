@@ -102,7 +102,7 @@ const ConfidenceModal = (props: Props) => {
 
 				<div className=" text-center" id="radio-buttons">
 
-					<div className="mb-4 mt-4" id="low-confidence-pick-div">
+					<div className="mb-5 mt-5" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"
@@ -123,7 +123,7 @@ const ConfidenceModal = (props: Props) => {
 						</label>
 					</div>
 
-					<div className="mb-4 mt-4" id="low-confidence-pick-div">
+					<div className="mb-5 mt-5" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"
@@ -144,7 +144,7 @@ const ConfidenceModal = (props: Props) => {
 						</label>
 					</div>
 
-					<div className="mb-4 mt-4" id="low-confidence-pick-div">
+					<div className="mb-5 mt-5" id="low-confidence-pick-div">
 						<input 
 							type="radio"
 							name="confidence-level"

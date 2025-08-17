@@ -129,44 +129,24 @@ const Login = (props: Props) => {
 
             <div className="h-12 m-auto mt-5 w-[90%]" id="create-account-button-div">
                 <button 
-                    className="bg-[#EA4335] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
-                    id="create-account-button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = `${BASE_URL}/auth/google/login`;
-                        {/*const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
-                        if (queryParams.get("access_token") !== null) {
-                            localStorage.setItem("jwt", queryParams.get("access_token") || "");
-                            props.setTokenStatus(validateToken());
-                        } else {
-                            setIncorrectGoogleOAuthAttempt(true);
-                        }
-                        googleOAuthRequest()
-                        .then((response) => {
-                            if (response?.access_token) {
-                                localStorage.setItem("jwt", response.access_token);
-                                props.setTokenStatus(validateToken());
-                            } else {
-                                setIncorrectGoogleOAuthAttempt(true);
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                            setIncorrectGoogleOAuthAttempt(true);
-                        });*/}
-                    }}
-                >
-                    <span>Login with <i className="fa-brands fa-google"></i></span>
-                </button>
-            </div>
-
-            <div className="h-12 m-auto mt-10 w-[90%]" id="create-account-button-div">
-                <button 
                     className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
                     id="create-account-button"
                     onClick={() => props.setIsRegistering(true)}
                 >
                     Create Account
+                </button>
+            </div>
+
+            <div className="h-12 m-auto mt-10 w-[90%]" id="create-account-button-div">
+                <button 
+                    className="bg-[#EA4335] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    id="create-account-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `${BASE_URL}/auth/google/login`;
+                    }}
+                >
+                    <span>Login with <i className="fa-brands fa-google"></i></span>
                 </button>
             </div>
 

@@ -20,6 +20,7 @@ import Picks from "./components/Picks";
 import Register from "./components/Register";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Leaderboard from "./components/Leaderboard";
+import Maintenance from "./components/Maintenance";
 
 
 export const App = () => {
@@ -84,41 +85,46 @@ export const App = () => {
     }, [window.location.search]);
 
     
-    return(
-        <div id="containter">
-            { isLoading && <LoadingSpinner /> }
+    if (true) {
+        return <Maintenance /> 
+    } else {
+        return(
+            <div id="containter">
 
-            { (!tokenStatus.active && !isRegistering) && <Login setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
+                { isLoading && <LoadingSpinner /> }
 
-            { (!tokenStatus.active && isRegistering) && <Register setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
+                { (!tokenStatus.active && !isRegistering) && <Login setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} /> }
 
-            { 
-                tokenStatus.active
-                    &&
-                !isAccountComponentOpen
-                    &&
-                !isLeaderboardComponentOpen
-                    &&
-                <Picks
-                    currentUser={currentUser}
-                    isLoading={isLoading}
-                    isModalCurrentlyRendered={isModalCurrentlyRendered}
-                    jwtToken={tokenStatus}
-                    picks={picks}
-                    setIsAccountComponentOpen={setIsAccountComponentOpen}
-                    setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen}
-                    setIsLoading={setIsLoading}
-                    setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
-                    setPicks={setPicks}
-                    teams={teams}
-                    teamNotes={teamNotes}
-                    userIDs={userIDs}
-                /> 
-            }
+                { (!tokenStatus.active && isRegistering) && <Register setIsLoading={setIsLoading} setIsRegistering={setIsRegistering} setTokenStatus={setTokenStatus} teams={teams} /> }
 
-            { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setCurrentUser={setCurrentUser} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
+                { 
+                    tokenStatus.active
+                        &&
+                    !isAccountComponentOpen
+                        &&
+                    !isLeaderboardComponentOpen
+                        &&
+                    <Picks
+                        currentUser={currentUser}
+                        isLoading={isLoading}
+                        isModalCurrentlyRendered={isModalCurrentlyRendered}
+                        jwtToken={tokenStatus}
+                        picks={picks}
+                        setIsAccountComponentOpen={setIsAccountComponentOpen}
+                        setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen}
+                        setIsLoading={setIsLoading}
+                        setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
+                        setPicks={setPicks}
+                        teams={teams}
+                        teamNotes={teamNotes}
+                        userIDs={userIDs}
+                    /> 
+                }
 
-            { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} /> }
-        </div>
-    )
+                { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setCurrentUser={setCurrentUser} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
+
+                { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} /> }
+            </div>
+        )
+    }
 }

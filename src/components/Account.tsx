@@ -88,7 +88,7 @@ const Account = (props: Props) => {
                     <button
                         className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitEmailChangeButton"
-                        onClick={(e) => {
+                        onClick={() => {
                             props.setCurrentUser(prev => ({
                                 ...prev,
                                 emailAddress: newEmailAddress
@@ -121,7 +121,7 @@ const Account = (props: Props) => {
                     <button
                         className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
                         id="submitPhoneChangeButton"
-                        onClick={(e) => {
+                        onClick={() => {
                             props.setCurrentUser(prev => ({
                                 ...prev,
                                 phone: newPhone

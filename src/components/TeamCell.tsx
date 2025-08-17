@@ -33,7 +33,7 @@ const TeamCell = (props: Props) => {
 
     useEffect(() => {
         if (props.team.teamID === props.pick.teamPicked) {
-            setTailwindStyling(`bg-[#d8cdcd] border-5 rounded-2xl`);
+            setTailwindStyling(`bg-[#fafafa] border-5 rounded-2xl`);
             setBorderColorStyle(`#${props.team.primaryColor}`);
             setCellBorder(`border-1 h-[100%] m-auto rounded-2xl w-1/3`);
         } else {

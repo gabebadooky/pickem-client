@@ -5,6 +5,7 @@ import { calculateCurrentWeek } from "./services/formatDate";
 import { getUser } from "./services/accountAPI";
 import { getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
 import { getTeamNotes } from "./services/teamNotes";
+import { checkIfSystemUnderMaintenance } from "./services/maintenanceAPI";
 import { validateToken } from "./services/validateToken";
 
 import { CurrentUser } from "./types/account";
@@ -24,6 +25,7 @@ import Maintenance from "./components/Maintenance";
 
 
 export const App = () => {
+    const [isSystemUnderMaintenance, setIsSystemIsUnderMaintenance] = useState<{"underMaintenance": number}>({"underMaintenance": 0});
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isLeaderboardComponentOpen, setIsLeaderboardComponentOpen] = useState<boolean>(false);
@@ -38,6 +40,8 @@ export const App = () => {
 
     useEffect(() => {
         async function fetchInitialData() {
+            checkIfSystemUnderMaintenance().then(setIsSystemIsUnderMaintenance);
+
             const [teamsData, userIDsData] = await Promise.all([
                 getTeams(),
                 getUserIDs(),
@@ -85,7 +89,7 @@ export const App = () => {
     }, [window.location.search]);
 
     
-    if (true) {
+    if (isSystemUnderMaintenance.underMaintenance == 1) {
         return <Maintenance /> 
     } else {
         return(

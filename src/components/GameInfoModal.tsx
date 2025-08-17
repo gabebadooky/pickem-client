@@ -1,6 +1,6 @@
 import { Game } from "../types/game";
 import { Team } from "../types/team";
-import { espnCfbGameURL, espnNflGameURL, cbsCfbGameURL, cbsNflGameURL, foxCfbURL, foxNflURL } from "../types/baseURLs";
+import { espnCfbGameURL, espnNflGameURL, foxCfbURL, foxNflURL } from "../types/baseURLs";
 
 
 type Props = {
@@ -11,9 +11,9 @@ type Props = {
 };
 
 const GameInfoModal = (props: Props) => {
-    const espnGameURL: string = props.game.league === "CFB" ? `${espnCfbGameURL}/${props.game.cbsCode}` : `${espnNflGameURL}/${props.game.cbsCode}`;
-    const cbsGameURL: string = props.game.league === "CFB" ? `${cbsCfbGameURL}/${props.game.cbsCode}` : `${cbsNflGameURL}/${props.game.cbsCode}`;
-    const foxGameURL: string = props.game.league === "CFB" ? `${foxCfbURL}/${props.game.foxCode}` : `${foxNflURL}/${props.game.cbsCode}`;
+    const espnGameURL: string = props.game.league === "CFB" ? `${espnCfbGameURL}/${props.game.espnCode}` : `${espnNflGameURL}/${props.game.espnCode}`;
+    const cbsGameURL: string = props.game.league === "CFB" ? `https://www.cbssports.com/college-football/odds/FBS/2025/regular/week-${props.game.week}` : `https://www.cbssports.com/nfl/gametracker/live/${props.game.cbsCode}`;
+    const foxGameURL: string = props.game.league === "CFB" ? `${foxCfbURL}/${props.game.foxCode}` : `${foxNflURL}/${props.game.foxCode}`;
     const modalID: string = `${props.game.gameID}-info-modal`;
     const gameDate: Date = new Date(props.game.date);
     const gameYear = new Date(gameDate).getFullYear();
@@ -23,6 +23,9 @@ const GameInfoModal = (props: Props) => {
     const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
     const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
     
+    console.log(`espnGameURL: ${espnGameURL}`);
+    console.log(`cbsGameURL: ${cbsGameURL}`);
+    console.log(`foxGameURL: ${foxGameURL}`);
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">

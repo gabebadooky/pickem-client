@@ -113,7 +113,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "l"
 							}
-							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
+							onClick={() => selectConfidenceLevel("l")}
 						/>
 						<label htmlFor="low" className="radioLabel">
 							Low Confidence
@@ -134,7 +134,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "m"
 							}
-							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
+							onClick={() => selectConfidenceLevel("m")}
 						/>
 						<label htmlFor="low" className="radioLabel">
 							Medium Confidence
@@ -155,7 +155,7 @@ const ConfidenceModal = (props: Props) => {
 								props.pick.teamPicked === props.teamID 
 								&& props.pick.pickWeight === "h"
 							}
-							onClick={(e) => selectConfidenceLevel(e.currentTarget.value)}
+							onClick={() => selectConfidenceLevel("h")}
 						/>
 						<label htmlFor="low" className="radioLabel">
 							High Confidence 

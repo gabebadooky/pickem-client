@@ -9,7 +9,7 @@ export const foxCfbURL: string = "https://www.foxsports.com/college-football";
 
 
 
-export const espnNflGameURL: string = "https://www.espn.com/nfl/game/_/gameId/401772510";
+export const espnNflGameURL: string = "https://www.espn.com/nfl/game/_/gameId";
 export const espnNflTeamURL: string = "https://www.espn.com/nfl/team/_/id";
 
 export const cbsNflGameURL: string = "https://www.cbssports.com/nfl/gametracker/live";

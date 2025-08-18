@@ -25,7 +25,7 @@ import Maintenance from "./components/Maintenance";
 
 
 export const App = () => {
-    const [isSystemUnderMaintenance, setIsSystemIsUnderMaintenance] = useState<{"underMaintenance": number}>({"underMaintenance": 0});
+    const [isSystemUnderMaintenance, setIsSystemIsUnderMaintenance] = useState<{"isTrue": number}>({"isTrue": 0});
     const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isLeaderboardComponentOpen, setIsLeaderboardComponentOpen] = useState<boolean>(false);
@@ -89,7 +89,7 @@ export const App = () => {
     }, [window.location.search]);
 
     
-    if (isSystemUnderMaintenance.underMaintenance == 1) {
+    if (isSystemUnderMaintenance.isTrue == 1) {
         return <Maintenance /> 
     } else {
         return(

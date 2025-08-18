@@ -12,7 +12,7 @@ type Props = {
 
 const GameInfoModal = (props: Props) => {
     const espnGameURL: string = props.game.league === "CFB" ? `${espnCfbGameURL}/${props.game.espnCode}` : `${espnNflGameURL}/${props.game.espnCode}`;
-    const cbsGameURL: string = props.game.league === "CFB" ? `https://www.cbssports.com/college-football/odds/FBS/2025/regular/week-${props.game.week}` : `https://www.cbssports.com/nfl/gametracker/live/${props.game.cbsCode}`;
+    const cbsGameURL: string = props.game.league === "CFB" ? `https://www.cbssports.com/college-football/odds/FBS/2025/regular/week-${props.game.week > 0 ? props.game.week : props.game.week + 1}` : `https://www.cbssports.com/nfl/gametracker/live/${props.game.cbsCode}`;
     const foxGameURL: string = props.game.league === "CFB" ? `${foxCfbURL}/${props.game.foxCode}` : `${foxNflURL}/${props.game.foxCode}`;
     const modalID: string = `${props.game.gameID}-info-modal`;
     const gameDate: Date = new Date(props.game.date);

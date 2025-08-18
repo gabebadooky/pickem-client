@@ -8,7 +8,7 @@ const monthAbbreviations: Record<string, string> = {
 export const weekdays: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export const seasonWeeks = [
-    { start: new Date("2025-07-19"), end: new Date("2025-08-25") },
+    { start: new Date("2025-08-17"), end: new Date("2025-08-25") },
     { start: new Date("2025-08-26"), end: new Date("2025-09-01") },
     { start: new Date("2025-09-02"), end: new Date("2025-09-08") },
     { start: new Date("2025-09-09"), end: new Date("2025-09-15") },

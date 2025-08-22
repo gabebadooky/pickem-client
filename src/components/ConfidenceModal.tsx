@@ -136,7 +136,7 @@ const ConfidenceModal = (props: Props) => {
 							}
 							onClick={() => selectConfidenceLevel("m")}
 						/>
-						<label htmlFor="low" className="radioLabel">
+						<label htmlFor="medium" className="radioLabel">
 							Medium Confidence
 							<br/>
 							<span className="text-green-600">Reward: +5 </span> 
@@ -157,7 +157,7 @@ const ConfidenceModal = (props: Props) => {
 							}
 							onClick={() => selectConfidenceLevel("h")}
 						/>
-						<label htmlFor="low" className="radioLabel">
+						<label htmlFor="high" className="radioLabel">
 							High Confidence 
 							<br/>
 							<span className="text-green-600">Reward: +10 </span> 

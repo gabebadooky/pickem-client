@@ -73,6 +73,7 @@ const TeamCell = (props: Props) => {
                         pick={props.pick}
                         picks={props.picks}
                         teamID={props.team.teamID}
+                        teamRanking={props.team.ranking}
                         onClose={() => {
                             props.setIsModalCurrentlyRendered(false);
                             setShowModal(false);

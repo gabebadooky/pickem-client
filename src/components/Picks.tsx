@@ -85,6 +85,7 @@ const Picks = (props: Props) => {
                     <option value="CFBNFL">All</option>
                     <option value="NFL">NFL</option>
                     <option value="CFB">CFB (All)</option>
+                    <option value="CFBT25">CFB Top 25</option>
                     <option value="CFBP4">CFB Power Conference</option>
                     <option value="CFBG6">CFB Non-Power Conference</option>
                 </select>

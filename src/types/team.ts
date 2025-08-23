@@ -20,6 +20,7 @@ export interface Team {
     conferenceWins: number;
     conferenceLosses: number;
     conferenceTies: number;
+    ranking: number | null;
 }
 
 export const NullTeam: Team = {
@@ -43,5 +44,6 @@ export const NullTeam: Team = {
     overallTies: 0,
     conferenceWins: 0,
     conferenceLosses: 0,
-    conferenceTies: 0
+    conferenceTies: 0,
+    ranking: null
 }

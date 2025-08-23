@@ -42,6 +42,8 @@ const PickRow = (props: Props) => {
                     ||
                 (props.selectedLeague === "CFBG6" && (awayTeam.powerConference == false || homeTeam.powerConference == false))
                     ||
+                (props.selectedLeague === "CFBT25" && (awayTeam.ranking !== null || homeTeam.ranking !== null))
+                    ||
                 (props.selectedLeague === "CFB" || props.selectedLeague === "NFL" || props.selectedLeague === "CFBNFL")
             )
         ) {

@@ -16,6 +16,7 @@ type Props = {
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
 	teamID: string;
+	teamRanking: number | null;
 }
 
 
@@ -42,13 +43,19 @@ const ConfidenceModal = (props: Props) => {
 		else if (awayTeamID === props.teamID) {
 			return (
 				<p className="font-light">
-					<span className="font-[1000]">{formattedAwayTeamID}</span> over {formattedHomeTeamID}
+					<span className="font-[1000]">
+						{props.teamRanking !== null && `#${props.teamRanking} `}
+						{formattedAwayTeamID}
+					</span> over {formattedHomeTeamID}
 				</p>
 			);
 		} else {
 			return (
 				<p>
-					<span className="font-[1000]">{formattedHomeTeamID}</span> over {formattedAwayTeamID}
+					<span className="font-[1000]">
+						{props.teamRanking !== null && `#${props.teamRanking} `}
+						{formattedHomeTeamID}
+					</span> over {formattedAwayTeamID}
 				</p>
 			);
 		}

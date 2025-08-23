@@ -118,7 +118,7 @@ const ConfidenceModal = (props: Props) => {
 						<label htmlFor="low" className="radioLabel">
 							Low Confidence
 							<br/>
-							<span className="text-green-600">Reward: +2 </span> 
+							<span className="text-green-600">Reward: +1</span> 
 							<span className="text-red-600"> Penalty: 0</span>
 						</label>
 					</div>
@@ -139,7 +139,7 @@ const ConfidenceModal = (props: Props) => {
 						<label htmlFor="medium" className="radioLabel">
 							Medium Confidence
 							<br/>
-							<span className="text-green-600">Reward: +5 </span> 
+							<span className="text-green-600">Reward: +3</span> 
 							<span className="text-red-600"> Penalty: -2</span>
 						</label>
 					</div>
@@ -160,8 +160,8 @@ const ConfidenceModal = (props: Props) => {
 						<label htmlFor="high" className="radioLabel">
 							High Confidence 
 							<br/>
-							<span className="text-green-600">Reward: +10 </span> 
-							<span className="text-red-600"> Penalty: -10</span>
+							<span className="text-green-600">Reward: +7</span> 
+							<span className="text-red-600"> Penalty: -7</span>
 						</label>
 					</div>
 

@@ -32,14 +32,41 @@ const TeamCell = (props: Props) => {
     const teamImageID: string = `${props.team.teamID}-img`;
 
     useEffect(() => {
-        if (props.team.teamID === props.pick.teamPicked) {
-            setTailwindStyling(`bg-[#fafafa] border-5 rounded-2xl`);
-            setBorderColorStyle(`#${props.team.primaryColor}`);
-            setCellBorder(`border-1 h-[100%] m-auto rounded-2xl w-1/3`);
+        setCellBorder("h-[100%] m-auto w-1/3");
+        if (props.game.gameFinished) {
+            if (props.team.teamID === props.pick.teamPicked) {
+                //setBorderColorStyle(`#${props.team.primaryColor}`);
+                //setCellBorder("border-1 h-[100%] m-auto rounded-2xl w-1/3");
+                if (
+                    (props.game.awayTeamID === props.team.teamID && props.game.awayTotalBoxScore < props.game.homeTotalBoxScore)
+                        ||
+                    (props.game.homeTeamID === props.team.teamID && props.game.awayTotalBoxScore > props.game.homeTotalBoxScore)
+                ) {
+                    setTailwindStyling("bg-radial from-[#efea1a] to-[#1E1E1E");
+                } else {
+                    setTailwindStyling("bg-radial from-[#bb4343] to-[#1E1E1E");
+                }
+            } else {
+                setTailwindStyling("opacity-25");
+                setBorderColorStyle(undefined);
+                setCellBorder("h-[100%] m-auto w-1/3");
+            } 
+            
         } else {
-            setTailwindStyling("opacity-25");
-            setBorderColorStyle(undefined);
-            setCellBorder("h-[100%] m-auto w-1/3");
+            if (props.team.teamID === props.pick.teamPicked) {
+                setTailwindStyling("bg-[#fafafa] border-5 rounded-2xl");
+                /*if (props.game.gameFinished) {
+                    setTailwindStyling("border-5 rounded-2xl");
+                } else {
+                    setTailwindStyling("bg-[#fafafa] border-5 rounded-2xl");
+                }*/
+                setBorderColorStyle(`#${props.team.primaryColor}`);
+                setCellBorder("border-1 h-[100%] m-auto rounded-2xl w-1/3");
+            } else {
+                setTailwindStyling("opacity-25");
+                setBorderColorStyle(undefined);
+                setCellBorder("h-[100%] m-auto w-1/3");
+            }
         }
     }, [props.picks]);
 
@@ -89,78 +116,3 @@ const TeamCell = (props: Props) => {
 
 
 export default TeamCell;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-const originalTeamCell = (props: Props) => {
-    const teamImage: string = `${props.team.teamID}-img`;
-    const [imageBorder, setImageBorder] = useState<string>("h-[100%]");
-    const [showModal, setShowModal] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked) {
-            setImageBorder(`border-3 h-[100%] rounded-2xl`);
-        } else {
-            setImageBorder("h-[100%] opacity-25");
-        }
-    }, [props.team.teamID, props.pick.teamPicked, props.selectedTeam, props.team.alternateColor]);
-    
-
-    return (
-        <td className="m-auto w-1/5">
-            <img
-                key={teamImage}
-                src={props.team.teamLogoUrl}
-                alt={props.team.teamName}
-                className={imageBorder}
-                style={props.team.teamID === props.selectedTeam || props.team.teamID === props.pick.teamPicked ? {borderColor: `#${props.team.alternateColor}`} : undefined}
-                onClick={() => {
-                    if (!props.isModalCurrentlyRendered) {
-                        props.setIsModalCurrentlyRendered(true);
-                        setShowModal(true);
-                    }
-                }}
-            />
-            {
-                showModal 
-                    && 
-                (createPortal(
-                    <ConfidenceModal 
-                        pick={props.pick}
-                        teamID={props.team.teamID}
-                        picks={props.picks}
-                        localKickoffTimestamp={props.localKickoffTimestamp}
-                        setPicks={props.setPicks}
-                        setSelectedTeam={props.setSelectedTeam}
-                        onClose={() => {
-                            props.setIsModalCurrentlyRendered(false);
-                            setShowModal(false);
-                        }}
-                    />,
-                    document.body
-                ))
-            }
-        </td>
-    )
-}
-*/

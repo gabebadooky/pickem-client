@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { getLeaderbaord } from "../services/leaderboardAPI";
 import { LeaderboardMetrics } from "../types/leaderboard";
-import WeekDropdown from "./WeekDropdown";
-import { calculateCurrentWeek } from "../services/formatDate";
 
 
 type groupedLeaderboardMetrics = {
@@ -94,6 +92,7 @@ const Leaderboard = (props: Props) => {
                     id="leaderboard-week-dropdown" 
                     name="leaderboard-week-dropdown"
                     onChange={(e) => setLeaderboardWeek(Number(e.currentTarget.value))}
+                    value={leaderboardWeek}
                 >
                     <option value={99}>Season</option>
                     {Array.from({ length: 19 }, (_, i) => (

@@ -61,7 +61,7 @@ const groupAndSortListOfLeaderboardMetrics = (allLeaderboardMetrics: Leaderboard
 
 
 const Leaderboard = (props: Props) => {
-    const [leaderboardWeek, setLeaderboardWeek] = useState<number>(calculateCurrentWeek());
+    const [leaderboardWeek, setLeaderboardWeek] = useState<number>(99);
     const [allLeaderboardMetrics, setAllLeaderboardMetrics] = useState<LeaderboardMetrics[]>([]);
 
 
@@ -89,7 +89,12 @@ const Leaderboard = (props: Props) => {
                     <i className="fa-solid fa-arrow-left fa-xl m-auto"></i>
                 </button>
 
-                <select className="m-auto" id="leaderboard-week-dropdown" name="leaderboard-week-dropdown">
+                <select 
+                    className="m-auto" 
+                    id="leaderboard-week-dropdown" 
+                    name="leaderboard-week-dropdown"
+                    onChange={(e) => setLeaderboardWeek(Number(e.currentTarget.value))}
+                >
                     <option value={99}>Season</option>
                     {Array.from({ length: 19 }, (_, i) => (
                         <option key={i} value={i}>Week {i}</option>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getLeaderbaord } from "../services/leaderboardAPI";
 import { LeaderboardMetrics } from "../types/leaderboard";
+import WeekDropdown from "./WeekDropdown";
+import { calculateCurrentWeek } from "../services/formatDate";
 
 
 type groupedLeaderboardMetrics = {
@@ -59,7 +61,7 @@ const groupAndSortListOfLeaderboardMetrics = (allLeaderboardMetrics: Leaderboard
 
 
 const Leaderboard = (props: Props) => {
-    const [leaderboardLeague, setLeaderboardLeague] = useState<string>("CFBNFL");
+    const [leaderboardWeek, setLeaderboardWeek] = useState<number>(calculateCurrentWeek());
     const [allLeaderboardMetrics, setAllLeaderboardMetrics] = useState<LeaderboardMetrics[]>([]);
 
 
@@ -87,16 +89,11 @@ const Leaderboard = (props: Props) => {
                     <i className="fa-solid fa-arrow-left fa-xl m-auto"></i>
                 </button>
 
-                <select className="m-auto text-l text-center w-[82%]" id="leaderboard-league-dropdown-input" name="league-dropdown"
-                    value={leaderboardLeague}
-                    onChange={(e) => setLeaderboardLeague(e.currentTarget.value)}
-                >
-                    <option value="CFBNFL">All</option>
-                    <option value="NFL">NFL</option>
-                    <option value="CFB">CFB (All)</option>
-                    <option value="CFBT25">CFB Top 25</option>
-                    <option value="CFBP4">CFB Power Conference</option>
-                    <option value="CFBG6">CFB Non-Power Conference</option>
+                <select className="m-auto" id="leaderboard-week-dropdown" name="leaderboard-week-dropdown">
+                    <option value={99}>Season</option>
+                    {Array.from({ length: 19 }, (_, i) => (
+                        <option key={i} value={i}>Week {i}</option>
+                    ))}
                 </select>
                 
                 <div></div>

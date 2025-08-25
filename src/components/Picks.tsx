@@ -51,7 +51,6 @@ const Picks = (props: Props) => {
         async function getAndSetWeekGames() {
             try {
                 setGames([]);
-                //props.setIsLoading(true);
                 getGames(selectedWeek).then(setGames);
             } finally {
                 props.setIsLoading(false);

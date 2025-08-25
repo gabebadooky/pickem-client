@@ -28,11 +28,11 @@ const Account = (props: Props) => {
     
     
     return (
-        <div className="h-dvh m-auto w-dvw">
+        <div className="h-full m-auto w-full">
 
-            <div id="navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
+            <div id="account-navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
                 <button
-                    id="back-to-picks-button"
+                    id="account-back-to-picks-button"
                     onClick={() => props.setIsAccountComponentOpen(false)}
                 ><i className="fa-solid fa-arrow-left fa-xl m-auto"></i></button>
                 

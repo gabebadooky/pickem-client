@@ -1,5 +1,6 @@
-export interface LeaderboardRow {
+export interface LeaderboardMetrics {
     userID: number;
+    username: string;
     week: number;
     league: string;
     year: number;
@@ -8,4 +9,6 @@ export interface LeaderboardRow {
     awayRanking: number | null;
     homeRanking: number | null;
     points: number;
+    correctPicks: number;
+    incorrectPicks: number;
 }

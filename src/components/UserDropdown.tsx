@@ -31,14 +31,12 @@ const UsersDropdown = (props: Props) => {
             >
                 <option value="99999" selected>Leaderboard</option>
                 {
-                    props.currentUser.userID !== -1
-                        &&
                     <option
                         key={props.currentUser.userID}
                         value={props.currentUser.userID}
                         selected
                     >
-                        {props.currentUser.username}
+                        Me ({props.currentUser.username})
                     </option>
                 }
                 {props.userIDs.map((user: UserIDs) => {

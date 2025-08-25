@@ -21,7 +21,7 @@ export const getUser =  async (userID: number): Promise<CurrentUser> => {
             return response.json();
         }
     } else {
-        return {userID: -1, username: ""};
+        return {userID: -1, username: "Guest"};
     }
 }
 

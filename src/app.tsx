@@ -26,7 +26,7 @@ import Maintenance from "./components/Maintenance";
 
 export const App = () => {
     const [isSystemUnderMaintenance, setIsSystemIsUnderMaintenance] = useState<{"isTrue": number}>({"isTrue": 0});
-    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: ""});
+    const [currentUser, setCurrentUser] = useState<CurrentUser>({userID: -1, username: "guest"});
     const [isAccountComponentOpen, setIsAccountComponentOpen] = useState<boolean>(false);
     const [isLeaderboardComponentOpen, setIsLeaderboardComponentOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -127,7 +127,7 @@ export const App = () => {
 
                 { isAccountComponentOpen && <Account currentUser={currentUser} jwtToken={tokenStatus} setCurrentUser={setCurrentUser} setIsAccountComponentOpen={setIsAccountComponentOpen} teams={teams} /> }
 
-                { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} /> }
+                { isLeaderboardComponentOpen && <Leaderboard setIsLeaderboardComponentOpen={setIsLeaderboardComponentOpen} setIsLoading={setIsLoading} /> }
             </div>
         )
     }

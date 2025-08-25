@@ -32,13 +32,14 @@ export const seasonWeeks = [
 
 export const calculateCurrentWeek = () => {
     const now: Date = new Date();
+    console.log(`now: ${now}`);
     if (now < seasonWeeks[0].start) {
         // return week 0 if now < seasonWeeks[0].start
         return 0;
 
     } else {
         for (let i = 0; i < seasonWeeks.length; i++) {
-            if ((seasonWeeks[i].start <= now) && (now <= seasonWeeks[i].end)) {
+            if (seasonWeeks[i].start <= now) {
                 return i;
             }
         }

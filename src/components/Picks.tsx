@@ -122,9 +122,17 @@ const Picks = (props: Props) => {
                 </div>
             </div>
 
+            <h1 className="mt-[5%] text-3xl">
+                {props.userIDs.map((user: UserIDs) => {
+                    if (user.userID === props.picks[0].userID) {
+                        return <h1 key="user-picks-username">{user.username} Picks</h1>;
+                    }
+                })}
+            </h1>
+
             { games.length === 0 && !props.isLoading && <LoadingSpinner />}
 
-            <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[8%] mb-20 w-[90%]">
+            <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[4%] mb-20 w-[90%]">
                 <tbody key="picks-tbody">
 
                     {games.filter(game => selectedLeague.includes(game.league)).map((game: Game) => {
@@ -188,29 +196,31 @@ const Picks = (props: Props) => {
                 </tbody>
             </table>
 
-            <div className="grid grid-cols-6 grid-rows-1 m-auto pb-25 mt-5 w-[95%]">
-                <div className="m-auto" id="previous-week-arrow">
-                    { 
-                        selectedWeek > 0 && 
-                        <i className="fa-solid fa-arrow-left fa-2xl" 
-                            onClick={() => setSelectedWeek(selectedWeek - 1) }>
-                        </i>
-                    }
+            {games.length > 0 &&
+                <div className="grid grid-cols-6 grid-rows-1 m-auto pb-25 mt-5 w-[95%]">
+                    <div className="m-auto" id="previous-week-arrow">
+                        { 
+                            selectedWeek > 0 && 
+                            <i className="fa-solid fa-arrow-left fa-2xl" 
+                                onClick={() => setSelectedWeek(selectedWeek - 1) }>
+                            </i>
+                        }
+                    </div>
+                    
+                    <div className="col-span-4 m-auto">
+                        <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
+                    </div>
+                    
+                    <div className="m-auto" id="next-week-arrow">
+                        { 
+                            selectedWeek < 18 && 
+                            <i className="fa-solid fa-arrow-right fa-2xl"
+                                onClick={() => setSelectedWeek(selectedWeek + 1)}>
+                            </i>
+                        }
+                    </div>
                 </div>
-                
-                <div className="col-span-4 m-auto">
-                    <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
-                </div>
-                
-                <div className="m-auto" id="next-week-arrow">
-                    { 
-                        selectedWeek < 18 && 
-                        <i className="fa-solid fa-arrow-right fa-2xl"
-                            onClick={() => setSelectedWeek(selectedWeek + 1)}>
-                        </i>
-                    }
-                </div>
-            </div>
+            }
 
         </div>
     );

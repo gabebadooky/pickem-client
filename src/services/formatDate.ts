@@ -39,7 +39,7 @@ export const calculateCurrentWeek = () => {
 
     } else {
         for (let i = 0; i < seasonWeeks.length; i++) {
-            if (seasonWeeks[i].start <= now) {
+            if (now <= seasonWeeks[i].end) {
                 return i;
             }
         }

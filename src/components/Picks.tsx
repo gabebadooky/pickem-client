@@ -17,7 +17,6 @@ import PickRow from "./PickRow";
 import UsersDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
 import LoadingSpinner from "./LoadingSpinner";
-import { validateToken } from "../services/validateToken";
 
 
 const totalWeeks: number = 19;

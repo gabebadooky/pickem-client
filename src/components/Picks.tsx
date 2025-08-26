@@ -17,6 +17,7 @@ import PickRow from "./PickRow";
 import UsersDropdown from "./UserDropdown";
 import WeekDropdown from "./WeekDropdown";
 import LoadingSpinner from "./LoadingSpinner";
+import { validateToken } from "../services/validateToken";
 
 
 const totalWeeks: number = 19;
@@ -126,8 +127,12 @@ const Picks = (props: Props) => {
 
             <h1 className="mt-10 text-3xl">
                 {props.userIDs.map((user: UserIDs) => {
-                    if (user.userID === props.picks[0].userID) {
-                        return <h1 key="user-picks-username">{user.username} Picks</h1>;
+                    try {
+                        if (user.userID === props.picks[0].userID) {
+                            return <h1 key="user-picks-username">{user.username} Picks</h1>;
+                        }
+                    } catch {
+                        validateToken();
                     }
                 })}
             </h1>

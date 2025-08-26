@@ -119,7 +119,7 @@ const Register = (props: Props) => {
                     >
                         <option key="notificationPreferenceOption-none" value="n">Notification Preference</option>
                         <option key="notificationPreferenceOption-email" value="e">Email</option>
-                        <option key="notificationPreferenceOption-phone" value="p">Phone</option>
+                        {/*<option key="notificationPreferenceOption-phone" value="p">Phone</option>*/}
                     </select>
                 </div>
 

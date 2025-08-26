@@ -69,7 +69,7 @@ const Account = (props: Props) => {
                 >
                     <option key="notificationPreferenceOption-none" value="n">Notification Preference</option>
                     <option key="notificationPreferenceOption-email" value="e">Email</option>
-                    <option key="notificationPreferenceOption-phone" value="p">Phone</option>
+                    {/*<option key="notificationPreferenceOption-phone" value="p">Phone</option>*/}
                 </select>
             </div>
 
@@ -106,37 +106,39 @@ const Account = (props: Props) => {
                 }
             </div>
 
-            <div className="" id="phone-div">
-                <h2>Phone</h2>
-                <input 
-                    className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[75%]"
-                    id="phoneInputField"
-                    onInput={(e) => setNewPhone(e.currentTarget.value)}
-                    type="text"
-                    placeholder={props.currentUser.phone || ""}
-                />
-                {
-                    newPhone !== props.currentUser.phone &&
-                    newPhone.length > 0 &&
-                    <button
-                        className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
-                        id="submitPhoneChangeButton"
-                        onClick={() => {
-                            props.setCurrentUser(prev => ({
-                                ...prev,
-                                phone: newPhone
-                            }));
-                            updatePhone({
-                                token: props.jwtToken.value,
-                                userID: props.currentUser.userID,
-                                phone: newPhone
-                            });
-                        }}
-                    >
-                        <i className="fa-solid fa-check"></i>
-                    </button>
-                }
-            </div>
+            {/*
+                <div className="" id="phone-div">
+                    <h2>Phone</h2>
+                    <input 
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[75%]"
+                        id="phoneInputField"
+                        onInput={(e) => setNewPhone(e.currentTarget.value)}
+                        type="text"
+                        placeholder={props.currentUser.phone || ""}
+                    />
+                    {
+                        newPhone !== props.currentUser.phone &&
+                        newPhone.length > 0 &&
+                        <button
+                            className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
+                            id="submitPhoneChangeButton"
+                            onClick={() => {
+                                props.setCurrentUser(prev => ({
+                                    ...prev,
+                                    phone: newPhone
+                                }));
+                                updatePhone({
+                                    token: props.jwtToken.value,
+                                    userID: props.currentUser.userID,
+                                    phone: newPhone
+                                });
+                            }}
+                        >
+                            <i className="fa-solid fa-check"></i>
+                        </button>
+                    }
+                </div>
+            */}
 
             <div className="my-10">
                 <h2>Favorite Team</h2>

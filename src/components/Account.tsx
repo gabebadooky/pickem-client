@@ -8,8 +8,8 @@ import { userLogout } from "../services/logout";
 import {
     updateFavoriteTeam,
     updateNotificationPreference,
-    updateEmailAddress,
-    updatePhone
+    updateEmailAddress//,
+    //updatePhone
 } from "../services/accountAPI";
 
 
@@ -24,7 +24,7 @@ type Props = {
 
 const Account = (props: Props) => {
     const [newEmailAddress, setNewEmailAddress] = useState<string>("");
-    const [newPhone, setNewPhone] = useState<string>("");
+    //const [newPhone, setNewPhone] = useState<string>("");
     
     
     return (

@@ -109,10 +109,10 @@ const Leaderboard = (props: Props) => {
             <table className="m-auto w-[90%]" id="leaderboard-table">
                 <tbody id="leaderboard-tbody">
                     <tr id="leaderboard-table-header">
-                        <td className="w-[40%]">User</td>
+                        <td className="text-left w-[40%]">User</td>
                         <td className="w-[20%]">Total Points</td>
-                        <td className="w-[20%]"># Correct</td>
-                        <td className="w-[20%]"># Incorrect</td>
+                        <td className="w-[20%]">✅</td>
+                        <td className="w-[20%]">❌</td>
                     </tr>
 
                     <tr>
@@ -126,7 +126,7 @@ const Leaderboard = (props: Props) => {
                         //console.log(`leaderboardEntry: ${leaderboardEntry.username}, ${leaderboardEntry.points}, ${leaderboardEntry.correct}, ${leaderboardEntry.incorrect}`);
                         return (
                             <tr id={`${leaderboardEntry.username}-leaderboard-row`}>
-                                <td>{leaderboardEntry.username}</td>
+                                <td className="text-left">{leaderboardEntry.username}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>

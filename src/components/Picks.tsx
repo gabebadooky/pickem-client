@@ -63,66 +63,68 @@ const Picks = (props: Props) => {
     return (
         <div className="h-full m-auto w-full">
 
-            <div className="grid grid-cols-6 grid-rows-1 m-auto mb-5 mt-10 w-[95%]">
-                <i 
-                    className="fa-solid fa-user fa-2xl text-left m-auto"
-                    id="account-info-button"
-                    onClick={() => {
-                        if (props.currentUser.userID === -1) {
-                            userLogout();
-                        } else {
-                            props.setIsAccountComponentOpen(true);
-                        }
-                    }}
-                >
-                </i>
+            <div className="bg-[#5b5f60] top-0">
+                <div className="grid grid-cols-6 grid-rows-1 m-auto pb-8 pt-8 w-[95%]">
+                    <i 
+                        className="fa-solid fa-user fa-2xl m-auto text-left"
+                        id="account-info-button"
+                        onClick={() => {
+                            if (props.currentUser.userID === -1) {
+                                userLogout();
+                            } else {
+                                props.setIsAccountComponentOpen(true);
+                            }
+                        }}
+                    >
+                    </i>
 
-                <select className="col-span-4 m-auto text-l text-center w-[82%]" id="league-dropdown-input" name="league-dropdown"
-                    value={selectedLeague}
-                    onChange={(e) => setSelectedLeague(e.currentTarget.value)}
-                >
-                    <option value="CFBNFL">All</option>
-                    <option value="NFL">NFL</option>
-                    <option value="CFB">CFB (All)</option>
-                    <option value="CFBT25">CFB Top 25</option>
-                    <option value="CFBP4">CFB Power Conference</option>
-                    <option value="CFBG6">CFB Non-Power Conference</option>
-                </select>
-                
-                <UsersDropdown
-                    currentUser={props.currentUser}
-                    setIsLeaderboardComponentOpen={props.setIsLeaderboardComponentOpen}
-                    setIsLoading={props.setIsLoading}
-                    setPicks={props.setPicks}
-                    userIDs={props.userIDs}
-                />
+                    <select className="col-span-4 m-auto text-l text-center w-[82%]" id="league-dropdown-input" name="league-dropdown"
+                        value={selectedLeague}
+                        onChange={(e) => setSelectedLeague(e.currentTarget.value)}
+                    >
+                        <option value="CFBNFL">All</option>
+                        <option value="NFL">NFL</option>
+                        <option value="CFB">CFB (All)</option>
+                        <option value="CFBT25">CFB Top 25</option>
+                        <option value="CFBP4">CFB Power Conference</option>
+                        <option value="CFBG6">CFB Non-Power Conference</option>
+                    </select>
+                    
+                    <UsersDropdown
+                        currentUser={props.currentUser}
+                        setIsLeaderboardComponentOpen={props.setIsLeaderboardComponentOpen}
+                        setIsLoading={props.setIsLoading}
+                        setPicks={props.setPicks}
+                        userIDs={props.userIDs}
+                    />
+                </div>
             </div>
 
-            <div className="grid grid-cols-6 grid-rows-1 m-auto mb-5 mt-15 w-[95%]">
-                <div className="m-auto" id="previous-week-arrow">
+            <div className="grid grid-cols-6 grid-rows-1 m-auto mb-5 mt-10 relative w-[95%]">
+                <div className="left-0 m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
-                        <i className="fa-solid fa-arrow-left fa-2xl" 
+                        <i className="bg-[#5b5f60] fa-solid fa-arrow-left fa-2xl m-auto rounded-xl p-5"
                             onClick={() => setSelectedWeek(selectedWeek - 1) }>
                         </i>
                     }
                 </div>
                 
-                <div className="col-span-4 m-auto">
+                <div className="col-span-4 m-auto rounded-xl">
                     <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                 </div>
                 
-                <div className="m-auto" id="next-week-arrow">
+                <div className="absolute right-0 m-auto" id="next-week-arrow">
                     { 
                         selectedWeek < 18 && 
-                        <i className="fa-solid fa-arrow-right fa-2xl"
+                        <i className="bg-[#5b5f60] fa-solid fa-arrow-right fa-2xl m-auto rounded-xl p-5"
                             onClick={() => setSelectedWeek(selectedWeek + 1)}>
                         </i>
                     }
                 </div>
             </div>
 
-            <h1 className="mt-[5%] text-3xl">
+            <h1 className="mt-10 text-3xl">
                 {props.userIDs.map((user: UserIDs) => {
                     if (user.userID === props.picks[0].userID) {
                         return <h1 key="user-picks-username">{user.username} Picks</h1>;
@@ -132,7 +134,7 @@ const Picks = (props: Props) => {
 
             { games.length === 0 && !props.isLoading && <LoadingSpinner />}
 
-            <table className="border-separate border-spacing-y-5 m-auto mb-20 mt-[4%] mb-20 w-[90%]">
+            <table className="border-separate border-spacing-y-5 m-auto mt-8 w-[90%]">
                 <tbody key="picks-tbody">
 
                     {games.filter(game => selectedLeague.includes(game.league)).map((game: Game) => {
@@ -197,24 +199,24 @@ const Picks = (props: Props) => {
             </table>
 
             {games.length > 0 &&
-                <div className="grid grid-cols-6 grid-rows-1 m-auto pb-25 mt-5 w-[95%]">
-                    <div className="m-auto" id="previous-week-arrow">
+                <div className="grid grid-cols-6 grid-rows-1 m-auto mb-20 mt-8 relative w-[95%]">
+                    <div className="left-0 m-auto" id="previous-week-arrow">
                         { 
                             selectedWeek > 0 && 
-                            <i className="fa-solid fa-arrow-left fa-2xl" 
+                            <i className="bg-[#5b5f60] fa-solid fa-arrow-left fa-2xl m-auto rounded-xl p-5"
                                 onClick={() => setSelectedWeek(selectedWeek - 1) }>
                             </i>
                         }
                     </div>
                     
-                    <div className="col-span-4 m-auto">
+                    <div className="col-span-4 m-auto rounded-xl">
                         <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                     </div>
                     
-                    <div className="m-auto" id="next-week-arrow">
+                    <div className="absolute right-0 m-auto" id="next-week-arrow">
                         { 
                             selectedWeek < 18 && 
-                            <i className="fa-solid fa-arrow-right fa-2xl"
+                            <i className="bg-[#5b5f60] fa-solid fa-arrow-right fa-2xl m-auto rounded-xl p-5"
                                 onClick={() => setSelectedWeek(selectedWeek + 1)}>
                             </i>
                         }

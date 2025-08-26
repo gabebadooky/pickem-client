@@ -61,7 +61,7 @@ const TeamCell = (props: Props) => {
                     setTailwindStyling("bg-[#fafafa] border-5 rounded-2xl");
                 }*/
                 setBorderColorStyle(`#${props.team.primaryColor}`);
-                setCellBorder("border-1 h-[100%] m-auto rounded-3xl w-1/3");
+                setCellBorder("border-1 h-[100%] m-auto rounded-2xl w-1/3");
             } else {
                 setTailwindStyling("opacity-25");
                 setBorderColorStyle(undefined);

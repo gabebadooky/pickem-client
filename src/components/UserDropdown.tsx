@@ -49,7 +49,7 @@ const UsersDropdown = (props: Props) => {
             </select>
 
             <i
-                className="fa-solid fa-bars fa-2xl pointer-events-none absolute left-[43.5%] top-1/2 transform -translate-y-1/2"
+                className="fa-solid fa-bars fa-2xl pointer-events-none absolute right-[5%] top-1/2 transform -translate-y-1/2"
                 aria-hidden="true"
             ></i>
         </div>

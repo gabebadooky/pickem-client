@@ -132,7 +132,7 @@ const Picks = (props: Props) => {
                             return <h1 key="user-picks-username">{user.username} Picks</h1>;
                         }
                     } catch {
-                        validateToken();
+                        userLogout();
                     }
                 })}
             </h1>

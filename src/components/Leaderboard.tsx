@@ -77,7 +77,7 @@ const Leaderboard = (props: Props) => {
     }, []);
 
     return (
-        <div className="m-auto w-full">
+        <div className="h-full m-auto w-full">
             <div id="leaderboard-navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
                 
                 <button 

@@ -38,11 +38,11 @@ const TeamCell = (props: Props) => {
                 //setBorderColorStyle(`#${props.team.primaryColor}`);
                 //setCellBorder("border-1 h-[100%] m-auto rounded-2xl w-1/3");
                 if (
-                    (props.game.awayTeamID === props.team.teamID && props.game.awayTotalBoxScore < props.game.homeTotalBoxScore)
+                    (props.game.awayTeamID === props.team.teamID && props.game.awayTotalBoxScore > props.game.homeTotalBoxScore)
                         ||
-                    (props.game.homeTeamID === props.team.teamID && props.game.awayTotalBoxScore > props.game.homeTotalBoxScore)
+                    (props.game.homeTeamID === props.team.teamID && props.game.awayTotalBoxScore < props.game.homeTotalBoxScore)
                 ) {
-                    setTailwindStyling("bg-radial from-[#efea1a] to-[#1E1E1E");
+                    setTailwindStyling("bg-radial from-[#c5c575] to-[#1E1E1E");
                 } else {
                     setTailwindStyling("bg-radial from-[#bb4343] to-[#1E1E1E");
                 }
@@ -61,7 +61,7 @@ const TeamCell = (props: Props) => {
                     setTailwindStyling("bg-[#fafafa] border-5 rounded-2xl");
                 }*/
                 setBorderColorStyle(`#${props.team.primaryColor}`);
-                setCellBorder("border-1 h-[100%] m-auto rounded-2xl w-1/3");
+                setCellBorder("border-1 h-[100%] m-auto rounded-3xl w-1/3");
             } else {
                 setTailwindStyling("opacity-25");
                 setBorderColorStyle(undefined);

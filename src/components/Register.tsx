@@ -27,7 +27,7 @@ const Register = (props: Props) => {
     
 
     return (
-        <div className="h-dvh m-auto mb-20 w-dvw">
+        <div className="h-full m-auto mb-20 w-full">
 
             <div className="align-top mb-15 mt-5" id="register-header">
                 <h1 className="text-xl">Register</h1>

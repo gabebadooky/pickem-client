@@ -23,9 +23,6 @@ const GameInfoModal = (props: Props) => {
     const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
     const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
     
-    console.log(`espnGameURL: ${espnGameURL}`);
-    console.log(`cbsGameURL: ${cbsGameURL}`);
-    console.log(`foxGameURL: ${foxGameURL}`);
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">
@@ -43,7 +40,8 @@ const GameInfoModal = (props: Props) => {
                 <div className="text-xs">{localDate.toLocaleString().split(", ")[1]}</div>
 
                 <div className="mb-4 text-xs">
-                    {props.game.tvCoverage.length > 1 && `Broadcast: ${props.game.tvCoverage}`}
+                    {props.game.gameFinished && <b className="text-[#138e2e] text-xl">{props.game.awayTotalBoxScore} - {props.game.homeTotalBoxScore}</b>}
+                    {props.game.tvCoverage.length > 1 && !props.game.gameFinished && `Broadcast: ${props.game.tvCoverage}`}
                 </div>
 
                 <div className="text-base">

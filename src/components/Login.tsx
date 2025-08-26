@@ -23,7 +23,7 @@ const Login = (props: Props) => {
         <div className="h-dvh m-auto w-dvw">
 
             <div className="align-top mb-10 mt-25" id="login-header">
-                <h1 className="text-xl">Pickem</h1>
+                <h1 className="text-xl">Have a Nice Pickem '25</h1>
             </div>
                     
             <form>
@@ -110,9 +110,9 @@ const Login = (props: Props) => {
             {
                 (usernameInputString.length === 0 || passwordInputString.length === 0) 
                     &&
-                <div className="h-12 m-auto mt-20 w-[90%]" id="continue-as-guest-div">
+                <div className="h-12 m-auto mt-15 w-[90%]" id="continue-as-guest-div">
                     <button
-                        className="bg-[#3c58ef] h-12 items-center flex justify-center rounded-xl w-full"
+                        className="bg-[#717577] h-12 items-center flex justify-center rounded-xl w-full"
                         id="continue-as-guest-button"
                         onClick={() => {
                             props.setTokenStatus(prev => ({
@@ -137,9 +137,9 @@ const Login = (props: Props) => {
                 </button>
             </div>
 
-            <div className="h-12 m-auto mt-10 w-[90%]" id="create-account-button-div">
+            <div className="h-12 m-auto mt-15 w-[90%]" id="create-account-button-div">
                 <button 
-                    className="bg-[#EA4335] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    className="bg-[#0057e7] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
                     id="create-account-button"
                     onClick={(e) => {
                         e.preventDefault();

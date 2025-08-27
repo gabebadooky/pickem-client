@@ -66,7 +66,7 @@ const Picks = (props: Props) => {
             <div className="bg-[#5b5f60] top-0" style={{backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}`}}>
                 <div className="grid grid-cols-6 grid-rows-1 m-auto pb-8 pt-8 w-[95%]">
                     
-                    {props.currentUser.userID > 0 &&
+                    {props.currentUser.favoriteTeam &&
                         <img
                             className="max-h-10 m-auto text-left"
                             src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}

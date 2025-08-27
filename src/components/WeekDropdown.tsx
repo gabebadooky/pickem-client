@@ -14,7 +14,7 @@ const renderWeekOptions = (weeks: number) => {
         const formattedStartDateString: string = `${weekdays[currentWeek.start.getUTCDay()]} ${currentWeek.start.getUTCMonth() + 1}/${currentWeek.start.getUTCDate()}`;
         const formattedEndDateString: string = `${weekdays[currentWeek.end.getUTCDay()]} ${currentWeek.end.getUTCMonth() + 1}/${currentWeek.end.getUTCDate()}`;
         
-        optionElements.push(<option key={i} value={i}><b>{formattedStartDateString} - {formattedEndDateString}</b></option>);
+        optionElements.push(<option key={i} value={i}>{formattedStartDateString} - {formattedEndDateString}</option>);
     }
 
     return optionElements;

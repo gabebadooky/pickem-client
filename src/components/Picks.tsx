@@ -44,9 +44,9 @@ const Picks = (props: Props) => {
     const [isModalCurrentlyRendered, setIsModalCurrentlyRendered] = useState<boolean>(false);
     const [selectedLeague, setSelectedLeague] = useState<string>("CFBNFL");
     const [selectedWeek, setSelectedWeek] = useState<number>(calculateCurrentWeek);
+    
     let priorGameDate: string | undefined;
-
-
+    
     useEffect(() => {
         async function getAndSetWeekGames() {
             try {
@@ -63,20 +63,40 @@ const Picks = (props: Props) => {
     return (
         <div className="h-full m-auto w-full">
 
-            <div className="bg-[#5b5f60] top-0">
+            <div className="bg-[#5b5f60] top-0" style={{backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}`}}>
                 <div className="grid grid-cols-6 grid-rows-1 m-auto pb-8 pt-8 w-[95%]">
-                    <i 
-                        className="fa-solid fa-user fa-2xl m-auto text-left"
-                        id="account-info-button"
-                        onClick={() => {
-                            if (props.currentUser.userID === -1) {
-                                userLogout();
-                            } else {
-                                props.setIsAccountComponentOpen(true);
-                            }
-                        }}
-                    >
-                    </i>
+                    
+                    {props.currentUser.userID > 0 &&
+                        <img
+                            className="max-h-10 m-auto text-left"
+                            src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}
+                            id="account-info-button"
+                            onClick={() => {
+                                if (props.currentUser.userID === -1) {
+                                    userLogout();
+                                } else {
+                                    props.setIsAccountComponentOpen(true);
+                                }
+                            }}
+                        >
+                        </img>
+                    }
+
+                    {
+                        props.currentUser.userID < 1 &&
+                        <i
+                            className="fa-solid fa-user fa-2xl m-auto text-left"
+                            id="account-info-button"
+                            onClick={() => {
+                                if (props.currentUser.userID === -1) {
+                                    userLogout();
+                                } else {
+                                    props.setIsAccountComponentOpen(true);
+                                }
+                            }}
+                        >
+                        </i>
+                    }
 
                     <select className="col-span-4 m-auto text-l text-center w-[82%]" id="league-dropdown-input" name="league-dropdown"
                         value={selectedLeague}
@@ -104,7 +124,9 @@ const Picks = (props: Props) => {
                 <div className="left-0 m-auto" id="previous-week-arrow">
                     { 
                         selectedWeek > 0 && 
-                        <i className="bg-[#5b5f60] fa-solid fa-arrow-left fa-2xl m-auto rounded-xl p-5"
+                        <i 
+                            className="bg-[#5b5f60] fa-solid fa-arrow-left fa-2xl m-auto rounded-xl p-5"
+                            style={{ color: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}`, backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}` }}
                             onClick={() => setSelectedWeek(selectedWeek - 1) }>
                         </i>
                     }
@@ -118,23 +140,23 @@ const Picks = (props: Props) => {
                     { 
                         selectedWeek < 18 && 
                         <i className="bg-[#5b5f60] fa-solid fa-arrow-right fa-2xl m-auto rounded-xl p-5"
+                            style={{ color: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}`, backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}` }}
                             onClick={() => setSelectedWeek(selectedWeek + 1)}>
                         </i>
                     }
                 </div>
             </div>
 
-            <h1 className="mt-10 text-3xl">
-                {props.userIDs.map((user: UserIDs) => {
-                    try {
-                        if (user.userID === props.picks[0].userID) {
-                            return <h1 key="user-picks-username">{user.username} Picks</h1>;
+            {
+                props.picks.length > 0 &&
+                <h1 className="mt-10 text-3xl">
+                    {props.userIDs.map((user: UserIDs) => {
+                        if (user.userID == props.picks[0].userID) {
+                            return `${user.username} Picks`;
                         }
-                    } catch {
-                        userLogout();
-                    }
-                })}
-            </h1>
+                    })}
+                </h1>
+            }
 
             { games.length === 0 && !props.isLoading && <LoadingSpinner />}
 

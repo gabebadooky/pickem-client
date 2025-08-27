@@ -16,7 +16,7 @@ const UsersDropdown = (props: Props) => {
     return (
         <div className="relative inline-block m-auto">
             <select
-                className="appearance-none bg-transparent cursor-pointer rounded text-transparent w-full pl-10 pr-3"
+                className="appearance-none bg-transparent cursor-pointer rounded text-transparent w-full pl-3 pr-3"
                 defaultValue={props.currentUser.userID}
                 id="users-dropdown-input"
                 name="users-dropdown"

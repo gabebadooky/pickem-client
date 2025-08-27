@@ -70,9 +70,10 @@ const Picks = (props: Props) => {
                     {
                         props.currentUser.favoriteTeam &&
                         <img
-                            className="max-h-10 m-auto text-left"
-                            src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}
+                            className="border-1 border-black max-h-10 m-auto p-1 rounded-md text-left"
                             id="account-info-button"
+                            style={{ backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}` }}
+                            src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}                        
                             onClick={() => {
                                 if (props.currentUser.userID === -1) {
                                     userLogout();

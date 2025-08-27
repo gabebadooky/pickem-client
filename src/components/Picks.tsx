@@ -135,7 +135,7 @@ const Picks = (props: Props) => {
                     }
                 </div>
                 
-                <div className="col-span-4 m-auto rounded-xl">
+                <div className="col-span-4 m-auto text-center rounded-xl">
                     <WeekDropdown weeks={totalWeeks} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
                 </div>
                 

@@ -168,9 +168,13 @@ const Register = (props: Props) => {
                         }}
                     >
                         <option className="favoriteTeamOption" value="0">Favorite Team</option>
-                        {props.teams.map((team: Team) => (
-                            <option value={team.teamID}>{team.teamName}</option>
-                        ))}
+                        {props.teams.map((team: Team) => {
+                            if (team.league === "NFL") {
+                                return <option value={team.teamID}>{team.teamName} {team.teamMascot}</option>
+                            } else {
+                                return <option value={team.teamID}>{team.teamName}</option>
+                            }
+                        })}
                     </select>
                 </div>
 

@@ -59,6 +59,7 @@ const Picks = (props: Props) => {
         getAndSetWeekGames();
     }, [selectedWeek]);
 
+    console.log(props.currentUser.favoriteTeam);
 
     return (
         <div className="h-full m-auto w-full">
@@ -66,7 +67,8 @@ const Picks = (props: Props) => {
             <div className="bg-[#5b5f60] top-0" style={{backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}`}}>
                 <div className="grid grid-cols-6 grid-rows-1 m-auto pb-8 pt-8 w-[95%]">
                     
-                    {props.currentUser.favoriteTeam &&
+                    {
+                        props.currentUser.favoriteTeam &&
                         <img
                             className="max-h-10 m-auto text-left"
                             src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}
@@ -83,7 +85,7 @@ const Picks = (props: Props) => {
                     }
 
                     {
-                        props.currentUser.userID < 1 &&
+                        props.currentUser.favoriteTeam == undefined &&
                         <i
                             className="fa-solid fa-user fa-2xl m-auto text-left"
                             id="account-info-button"

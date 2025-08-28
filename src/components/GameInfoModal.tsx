@@ -7,12 +7,15 @@ type Props = {
     game: Game;
     awayTeam: Team;
     homeTeam: Team;
+    localKickoffTimestamp: Date;
     onClose: Function;
 };
 
 const GameInfoModal = (props: Props) => {
+    const now: Date = new Date();
     const espnGameURL: string = props.game.league === "CFB" ? `${espnCfbGameURL}/${props.game.espnCode}` : `${espnNflGameURL}/${props.game.espnCode}`;
-    const cbsGameURL: string = props.game.league === "CFB" ? `https://www.cbssports.com/college-football/odds/FBS/2025/regular/week-${props.game.week > 0 ? props.game.week : props.game.week + 1}` : `https://www.cbssports.com/nfl/gametracker/live/${props.game.cbsCode}`;
+    const cbsBaseUrl: string = props.game.league === "CFB" ? "https://www.cbssports.com/college-football" : "https://www.cbssports.com/nfl";
+    const cbsGameURL: string = now < props.localKickoffTimestamp ? `${cbsBaseUrl}/gametracker/live/${props.game.cbsCode}` : `${cbsBaseUrl}/gametracker/recap/${props.game.cbsCode}`;
     const foxGameURL: string = props.game.league === "CFB" ? `${foxCfbURL}/${props.game.foxCode}` : `${foxNflURL}/${props.game.foxCode}`;
     const modalID: string = `${props.game.gameID}-info-modal`;
     const gameDate: Date = new Date(props.game.date);
@@ -22,7 +25,7 @@ const GameInfoModal = (props: Props) => {
     const [zuluHours, zuluMinutes] = props.game.time.split(":");
     const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
     const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
-    
+
 
     return (
         <div className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000">

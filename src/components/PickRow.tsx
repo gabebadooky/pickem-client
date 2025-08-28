@@ -80,6 +80,7 @@ const PickRow = (props: Props) => {
                     game={props.game}
                     homeTeam={homeTeam}
                     isModalCurrentlyRendered={props.isModalCurrentlyRendered}
+                    localKickoffTimestamp={localKickoffDateTimestamp}
                     setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
                 />
 

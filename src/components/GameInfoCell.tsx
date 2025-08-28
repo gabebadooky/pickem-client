@@ -9,6 +9,7 @@ type Props = {
     game: Game;
     homeTeam: Team;
     isModalCurrentlyRendered: boolean;
+    localKickoffTimestamp: Date;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -36,6 +37,7 @@ const GameInfoCell = (props: Props) => {
                     game={props.game}
                     awayTeam={props.awayTeam}
                     homeTeam={props.homeTeam}
+                    localKickoffTimestamp={props.localKickoffTimestamp}
                     onClose={() => {
                         setShowModal(false);
                         props.setIsModalCurrentlyRendered(false);

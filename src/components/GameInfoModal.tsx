@@ -43,7 +43,7 @@ const GameInfoModal = (props: Props) => {
                 <div className="text-xs">{localDate.toLocaleString().split(", ")[1]}</div>
 
                 <div className="mb-4 text-xs">
-                    {props.game.gameFinished == true && <b className="text-[#138e2e] text-xl">{props.game.awayTotalBoxScore} - {props.game.homeTotalBoxScore}</b>}
+                    {props.localKickoffTimestamp <= now && <b className="text-[#138e2e] text-xl">{props.game.awayTotalBoxScore} - {props.game.homeTotalBoxScore}</b>}
                     {props.game.tvCoverage.length > 1 && props.game.gameFinished == false && `Broadcast: ${props.game.tvCoverage}`}
                 </div>
 

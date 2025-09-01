@@ -13,7 +13,7 @@ type groupedLeaderboardMetrics = {
 }
 
 type sortedLeaderboardEntry = {
-    username: string;
+    displayName: string;
     points: number;
     correct: number;
     incorrect: number;
@@ -41,26 +41,26 @@ const groupAndSortListOfLeaderboardMetrics = (allLeaderboardMetrics: Leaderboard
     let groupedLeaderboard: groupedLeaderboardMetrics = {};
 
     for (let i = 0; i < allLeaderboardMetrics.length; i++) {
-        const currentUsername: string = allLeaderboardMetrics[i].displayName;
+        const currentDisplayName: string = allLeaderboardMetrics[i].displayName;
 
-        if (!groupedLeaderboard[currentUsername]) {
-            groupedLeaderboard[currentUsername] = {
+        if (!groupedLeaderboard[currentDisplayName]) {
+            groupedLeaderboard[currentDisplayName] = {
                 points: allLeaderboardMetrics[i].points,
                 correct: allLeaderboardMetrics[i].correctPicks,
                 incorrect: allLeaderboardMetrics[i].incorrectPicks
             }
         } else {
-            groupedLeaderboard[currentUsername] = {
-                points: (groupedLeaderboard[currentUsername].points || 0) + allLeaderboardMetrics[i].points,
-                correct: (groupedLeaderboard[currentUsername].correct || 0) + allLeaderboardMetrics[i].correctPicks,
-                incorrect: (groupedLeaderboard[currentUsername].incorrect || 0) + allLeaderboardMetrics[i].incorrectPicks
+            groupedLeaderboard[currentDisplayName] = {
+                points: (groupedLeaderboard[currentDisplayName].points || 0) + allLeaderboardMetrics[i].points,
+                correct: (groupedLeaderboard[currentDisplayName].correct || 0) + allLeaderboardMetrics[i].correctPicks,
+                incorrect: (groupedLeaderboard[currentDisplayName].incorrect || 0) + allLeaderboardMetrics[i].incorrectPicks
             };
         }
         
     }
 
     const groupedArray = Object.entries(groupedLeaderboard).map((leaderboardEntry: [string, { points: number; correct: number; incorrect: number; }]) => ({
-        username: leaderboardEntry[0],
+        displayName: leaderboardEntry[0],
         points: leaderboardEntry[1].points,
         correct: leaderboardEntry[1].correct,
         incorrect: leaderboardEntry[1].incorrect
@@ -134,8 +134,8 @@ const Leaderboard = (props: Props) => {
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => ((leaderboardWeek === 99) || (metric.league === "NFL" && metric.week === leaderboardWeek - 1) || (metric.league === "CFB" && metric.week === leaderboardWeek)))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         //console.log(`leaderboardEntry: ${leaderboardEntry.username}, ${leaderboardEntry.points}, ${leaderboardEntry.correct}, ${leaderboardEntry.incorrect}`);
                         return (
-                            <tr id={`${leaderboardEntry.username}-overall-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-overall-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>
@@ -166,8 +166,8 @@ const Leaderboard = (props: Props) => {
 
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => metric.league == "NFL" && (leaderboardWeek === 99 || metric.week == leaderboardWeek - 1))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         return (
-                            <tr id={`${leaderboardEntry.username}-nfl-overall-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-nfl-overall-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>
@@ -198,8 +198,8 @@ const Leaderboard = (props: Props) => {
 
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => metric.league == "CFB" && (leaderboardWeek === 99 || metric.week === leaderboardWeek))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         return (
-                            <tr id={`${leaderboardEntry.username}-cfb-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-cfb-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>
@@ -230,8 +230,8 @@ const Leaderboard = (props: Props) => {
 
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => metric.league == "CFB" && (leaderboardWeek === 99 || metric.week === leaderboardWeek) && (metric.awayRanking !== null || metric.homeRanking !== null))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         return (
-                            <tr id={`${leaderboardEntry.username}-top25-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-top25-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>
@@ -262,8 +262,8 @@ const Leaderboard = (props: Props) => {
 
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => metric.league == "CFB" && (leaderboardWeek === 99 || metric.week === leaderboardWeek) && (metric.awayPowerConference || metric.homePowerConference))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         return (
-                            <tr id={`${leaderboardEntry.username}-power-conference-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-power-conference-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>
@@ -294,8 +294,8 @@ const Leaderboard = (props: Props) => {
 
                     {groupAndSortListOfLeaderboardMetrics(allLeaderboardMetrics.filter(metric => metric.league == "CFB" && (leaderboardWeek === 99 ||  metric.week === leaderboardWeek) && (!metric.awayPowerConference || !metric.homePowerConference))).map((leaderboardEntry: sortedLeaderboardEntry) => {
                         return (
-                            <tr id={`${leaderboardEntry.username}-non-power-conference-leaderboard-row`}>
-                                <td className="text-left">{leaderboardEntry.username}</td>
+                            <tr id={`${leaderboardEntry.displayName}-non-power-conference-leaderboard-row`}>
+                                <td className="text-left">{leaderboardEntry.displayName}</td>
                                 <td>{leaderboardEntry.points}</td>
                                 <td>{leaderboardEntry.correct}</td>
                                 <td>{leaderboardEntry.incorrect}</td>

@@ -9,9 +9,11 @@ import { Token } from "../types/token";
 
 
 type Props = {
-    jwtToken: Token
+    allTeamNotes: TeamNotes[];
+    jwtToken: Token;
+    setTeamNotes: React.Dispatch<React.SetStateAction<TeamNotes[]>>;
     team: Team;
-    teamNotes: TeamNotes;
+    userTeamNotes: TeamNotes;
     onClose: Function;
 };
 
@@ -68,7 +70,7 @@ const TeamInfoModal = (props: Props) => {
                 <div className="">
                     <textarea
                         className="bg-[#FFFFFF] h-25 rounded-sm text-xs w-full"
-                        disabled={props.jwtToken.userID !== props.teamNotes.userID}
+                        disabled={props.jwtToken.userID !== props.userTeamNotes.userID}
                         id={teamNotesInputId}
                         name="team-notes"
                         onChange={(e) => {
@@ -78,7 +80,7 @@ const TeamInfoModal = (props: Props) => {
                             console.log(`newNotes: ${newNotes}`);
                         }}
                         placeholder="Keep your own notes on this team..."
-                        defaultValue={String(props.teamNotes.notes)}
+                        defaultValue={String(props.userTeamNotes.notes)}
                     />
                     {
                         notesEdited &&
@@ -90,9 +92,20 @@ const TeamInfoModal = (props: Props) => {
                                         setLoginWarningMessage(true);
                                     } else {
                                         updateTeamNotes(props.jwtToken.value, {
-                                            userID: props.teamNotes.userID,
-                                            teamID: props.teamNotes.teamID,
+                                            userID: props.userTeamNotes.userID,
+                                            teamID: props.userTeamNotes.teamID,
                                             notes: newNotes
+                                        })
+                                        .then(() => {
+                                            props.setTeamNotes(props.allTeamNotes.map(note => 
+                                                note.userID === props.jwtToken.userID
+                                                    &&
+                                                note.teamID === props.team.teamID
+                                                    ?
+                                                { ...note,
+                                                    notes: newNotes
+                                                } : note
+                                            ));
                                         })
                                         .then(props.onClose());
                                     }

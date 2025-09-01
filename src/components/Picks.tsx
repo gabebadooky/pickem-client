@@ -33,6 +33,7 @@ type Props = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
+    setTeamNotes: React.Dispatch<React.SetStateAction<TeamNotes[]>>;
     teams: Team[];
     teamNotes: TeamNotes[];
     userIDs: UserIDs[];
@@ -197,6 +198,7 @@ const Picks = (props: Props) => {
                                         setIsLoading={props.setIsLoading}
                                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                         setPicks={props.setPicks}
+                                        setTeamNotes={props.setTeamNotes}
                                         teams={props.teams}
                                         teamNotes={props.teamNotes}
                                     />
@@ -215,6 +217,7 @@ const Picks = (props: Props) => {
                                     setIsLoading={props.setIsLoading}
                                     setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                                     setPicks={props.setPicks}
+                                    setTeamNotes={props.setTeamNotes}
                                     teams={props.teams}
                                     teamNotes={props.teamNotes}
                                 />

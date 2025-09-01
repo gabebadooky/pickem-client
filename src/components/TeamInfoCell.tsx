@@ -11,6 +11,7 @@ type Props = {
     isModalCurrentlyRendered: boolean;
     jwtToken: Token;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
+    setTeamNotes: React.Dispatch<React.SetStateAction<TeamNotes[]>>;
     team: Team;
     teamNotes: TeamNotes[];
 };
@@ -37,9 +38,11 @@ const TeamInfoIconCell = (props: Props) => {
                     &&
                 (createPortal(
                     <TeamInfoModal
+                        allTeamNotes={props.teamNotes}
                         jwtToken={props.jwtToken}
+                        setTeamNotes={props.setTeamNotes}
                         team={props.team}
-                        teamNotes={userTeamNotes}
+                        userTeamNotes={userTeamNotes}
                         onClose={() => {
                             setShowModal(false);
                             props.setIsModalCurrentlyRendered(false);

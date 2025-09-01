@@ -22,6 +22,7 @@ type Props = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setIsModalCurrentlyRendered: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
+    setTeamNotes: React.Dispatch<React.SetStateAction<TeamNotes[]>>;
     teams: Team[];
     teamNotes: TeamNotes[];
 };
@@ -55,6 +56,7 @@ const PickRow = (props: Props) => {
                     isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                     jwtToken={props.jwtToken}
                     setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    setTeamNotes={props.setTeamNotes}
                     team={awayTeam}
                     teamNotes={props.teamNotes}
                 />
@@ -104,6 +106,7 @@ const PickRow = (props: Props) => {
                     isModalCurrentlyRendered={props.isModalCurrentlyRendered}
                     jwtToken={props.jwtToken}
                     setIsModalCurrentlyRendered={props.setIsModalCurrentlyRendered}
+                    setTeamNotes={props.setTeamNotes}
                     team={homeTeam}
                     teamNotes={props.teamNotes}
                 />

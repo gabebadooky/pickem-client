@@ -119,6 +119,7 @@ export const App = () => {
                         setIsLoading={setIsLoading}
                         setIsModalCurrentlyRendered={setIsModalCurrentlyRendered}
                         setPicks={setPicks}
+                        setTeamNotes={setTeamNotes}
                         teams={teams}
                         teamNotes={teamNotes}
                         userIDs={userIDs}

@@ -41,7 +41,7 @@ const groupAndSortListOfLeaderboardMetrics = (allLeaderboardMetrics: Leaderboard
     let groupedLeaderboard: groupedLeaderboardMetrics = {};
 
     for (let i = 0; i < allLeaderboardMetrics.length; i++) {
-        const currentUsername: string = allLeaderboardMetrics[i].username;
+        const currentUsername: string = allLeaderboardMetrics[i].displayName;
 
         if (!groupedLeaderboard[currentUsername]) {
             groupedLeaderboard[currentUsername] = {

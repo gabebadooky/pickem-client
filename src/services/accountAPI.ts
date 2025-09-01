@@ -1,6 +1,7 @@
 import { BASE_URL } from "./baseURL";
 import {
-    CurrentUser, 
+    CurrentUser,
+    UpdateDisplayNameProps,
     UpdateFavoriteTeamProps, 
     UpdateNotificationPreferenceProps, 
     UpdateEmailAddressProps, 
@@ -21,7 +22,37 @@ export const getUser =  async (userID: number): Promise<CurrentUser> => {
             return response.json();
         }
     } else {
-        return {userID: -1, username: "Guest"};
+        return {userID: -1, username: "Guest", displayName: "Guest"};
+    }
+}
+
+
+export const updateDisplayName = async (props: UpdateDisplayNameProps) => {
+    const endpointURL: string = `${BASE_URL}/user/update-display-name`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        displayName: props.displayName
+    });
+
+    if (!pickemHeaders.get("Authorization")) {
+        pickemHeaders.append("Authorization", `Bearer ${props.token}`);
+    }
+
+    try {
+        const response = await fetch(endpointURL, {
+            method: "POST",
+            headers: pickemHeaders,
+            body: requestBody
+        });
+
+        if (!response.ok) {
+            console.log(`updateDisplayName request did not return a 200 status code! ${response.text()}`);
+        } else {
+            const responseMessage = await response.json();
+            console.log(`Display Name succcessfully updated! ${responseMessage.message}`);
+        }
+    } catch (err) {
+        console.log(`Error occurred during updateDisplayName endpoint! ${err}`);
     }
 }
 

@@ -1,4 +1,4 @@
 export interface UserIDs {
     userID: number;
-    username: string;
+    displayName: string;
 }

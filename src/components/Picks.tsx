@@ -156,7 +156,7 @@ const Picks = (props: Props) => {
                 <h1 className="mt-10 text-3xl">
                     {props.userIDs.map((user: UserIDs) => {
                         if (user.userID == props.picks[0].userID) {
-                            return `${user.username} Picks`;
+                            return `${user.displayName} Picks`;
                         }
                     })}
                 </h1>

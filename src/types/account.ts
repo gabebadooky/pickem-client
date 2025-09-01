@@ -1,10 +1,17 @@
 export type CurrentUser = {
     userID: number;
     username: string;
+    displayName?: string;
     favoriteTeam?: string;
     notificationPreference?: string;
     emailAddress?: string;
     phone?: string;
+}
+
+export type UpdateDisplayNameProps = {
+    token: string;
+    userID: number;
+    displayName: string;
 }
 
 export type UpdateFavoriteTeamProps = {

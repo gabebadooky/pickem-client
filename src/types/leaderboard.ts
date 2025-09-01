@@ -1,6 +1,6 @@
 export interface LeaderboardMetrics {
     userID: number;
-    username: string;
+    displayName: string;
     week: number;
     league: string;
     year: number;

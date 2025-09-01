@@ -50,10 +50,28 @@ const Register = (props: Props) => {
                             setUsernameTaken(false);
                             setNewUser(prev => ({
                                 ...prev,
-                                username: e.target.value
+                                username: e.target.value,
+                                displayName: e.target.value
                             }));
                         }}
                         placeholder="Username"
+                        type="text"
+                    />
+                </div>
+
+                <div className="mb-5" id="display-name-div">
+                    <input
+                        autoComplete="name"
+                        className="bg-[#D9D9D9] h-12 rounded-xl text-black text-center w-[90%]"
+                        id="displayNameInput"
+                        onChange={(e) => {
+                            setUsernameTaken(false);
+                            setNewUser(prev => ({
+                                ...prev,
+                                displayName: e.target.value
+                            }));
+                        }}
+                        placeholder="Display Name"
                         type="text"
                     />
                 </div>

@@ -6,10 +6,10 @@ import { Token } from "../types/token";
 
 import { userLogout } from "../services/logout";
 import {
+    updateDisplayName,
     updateFavoriteTeam,
     updateNotificationPreference,
-    updateEmailAddress//,
-    //updatePhone
+    updateEmailAddress
 } from "../services/accountAPI";
 
 
@@ -23,6 +23,7 @@ type Props = {
 
 
 const Account = (props: Props) => {
+    const [newDisplayName, setNewDisplayName] = useState<string>("");
     const [newEmailAddress, setNewEmailAddress] = useState<string>("");
     //const [newPhone, setNewPhone] = useState<string>("");
     
@@ -48,6 +49,39 @@ const Account = (props: Props) => {
             </div>
 
             <div className="mt-10 mb-10"><h2>{props.currentUser.username}</h2></div>
+
+            <div className="my-8" id="display-name-div">
+                <h2>Display Name</h2>
+                <input
+                    className="bg-[#D9D9D9] h-12 m-auto rounded-xl text-black text-center w-[75%]"
+                    id="displayNameInputField"
+                    onInput={(e) => setNewDisplayName(e.currentTarget.value)}
+                    type="text"
+                    placeholder={props.currentUser.displayName}
+                />
+                {
+                    newDisplayName !== props.currentUser.displayName &&
+                    newDisplayName.length > 0 &&
+                    <button
+                        className="bg-[#17C120] h-12 m-auto ml-[3%] rounded-xl w-[12%]"
+                        id="submitDisplayNameChangeButton"
+                        onClick={() => {
+                            props.setCurrentUser(prev => ({
+                                ...prev,
+                                displayName: newDisplayName
+                            }));
+                            updateDisplayName({
+                                token: props.jwtToken.value,
+                                userID: props.currentUser.userID,
+                                displayName: newDisplayName
+                            });
+                        }}
+                    >
+                        <i className="fa-solid fa-check m-auto"></i>
+                    </button>
+                    
+                }
+            </div>
 
             <div className="my-8" id="notification-preference-div">
                 <h2>Notification Preference</h2>

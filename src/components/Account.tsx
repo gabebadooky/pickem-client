@@ -34,7 +34,7 @@ const Account = (props: Props) => {
             <div id="account-navbar" className="grid grid-cols-3 grid-rows-1 m-auto mb-5 mt-6">
                 <button
                     id="account-back-to-picks-button"
-                    onClick={() => props.setIsAccountComponentOpen(false)}
+                    onClick={() => window.location.reload()}
                 ><i className="fa-solid fa-arrow-left fa-xl m-auto"></i></button>
                 
                 <h1 id="update-my-account-header">Update My Account</h1>

@@ -65,13 +65,13 @@ const Picks = (props: Props) => {
     return (
         <div className="h-full m-auto w-full">
 
-            <div className="bg-[#5b5f60] top-0" style={{backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}`}}>
+            <div className="bg-[#787b7b] top-0" style={{backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}`}}>
                 <div className="grid grid-cols-6 grid-rows-1 m-auto pb-8 pt-8 w-[95%]">
                     
                     {
                         props.currentUser.favoriteTeam &&
                         <img
-                            className="border-1 border-black max-h-10 m-auto p-1 rounded-md text-left"
+                            className="max-h-10 m-auto p-1 rounded-md text-left"
                             id="account-info-button"
                             style={{ backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}` }}
                             src={props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.teamLogoUrl}                        
@@ -236,6 +236,7 @@ const Picks = (props: Props) => {
                         { 
                             selectedWeek > 0 && 
                             <i className="bg-[#5b5f60] fa-solid fa-arrow-left fa-2xl m-auto rounded-xl p-5"
+                                style={{ color: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}`, backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}` }}
                                 onClick={() => setSelectedWeek(selectedWeek - 1) }>
                             </i>
                         }
@@ -249,6 +250,7 @@ const Picks = (props: Props) => {
                         { 
                             selectedWeek < 18 && 
                             <i className="bg-[#5b5f60] fa-solid fa-arrow-right fa-2xl m-auto rounded-xl p-5"
+                                style={{ color: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.alternateColor}`, backgroundColor: `#${props.teams.find((team: Team) => team.teamID === props.currentUser.favoriteTeam)?.primaryColor}` }}
                                 onClick={() => setSelectedWeek(selectedWeek + 1)}>
                             </i>
                         }

@@ -112,7 +112,7 @@ const Login = (props: Props) => {
                     &&
                 <div className="h-12 m-auto mt-15 w-[90%]" id="continue-as-guest-div">
                     <button
-                        className="bg-[#717577] h-12 items-center flex justify-center rounded-xl w-full"
+                        className="border-1 border-white h-12 items-center flex justify-center rounded-xl w-full"
                         id="continue-as-guest-button"
                         onClick={() => {
                             props.setTokenStatus(prev => ({
@@ -129,7 +129,7 @@ const Login = (props: Props) => {
 
             <div className="h-12 m-auto mt-5 w-[90%]" id="create-account-button-div">
                 <button 
-                    className="border-1 border-white flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    className="bg-[#787b7b] flex h-full items-center justify-center px-2 py-1 rounded-xl w-full"
                     id="create-account-button"
                     onClick={() => props.setIsRegistering(true)}
                 >
@@ -139,7 +139,7 @@ const Login = (props: Props) => {
 
             <div className="h-12 m-auto mt-15 w-[90%]" id="create-account-button-div">
                 <button 
-                    className="bg-[#0057e7] flex h-full items-center justify-center px-2 py-1 rounded-lg w-full"
+                    className="bg-[#0057e7] flex h-full items-center justify-center px-2 py-1 rounded-xl w-full"
                     id="create-account-button"
                     onClick={(e) => {
                         e.preventDefault();

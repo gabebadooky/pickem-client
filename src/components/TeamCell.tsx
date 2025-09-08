@@ -42,7 +42,7 @@ const TeamCell = (props: Props) => {
                         ||
                     (props.game.homeTeamID === props.team.teamID && props.game.awayTotalBoxScore < props.game.homeTotalBoxScore)
                 ) {
-                    setTailwindStyling("bg-radial from-[#c5c575] to-[#1E1E1E");
+                    setTailwindStyling("bg-radial from-[#08e63a] to-[#1E1E1E");
                 } else {
                     setTailwindStyling("bg-radial from-[#bb4343] to-[#1E1E1E");
                 }

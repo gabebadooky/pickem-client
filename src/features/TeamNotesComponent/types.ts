@@ -4,7 +4,7 @@ import { TeamNotes } from "../../types/teamNotes";
 import { User } from "../../types/user";
 
 
-export type TeamNotesComponentProps = {
+export type ComponentProps = {
     allTeamNotes: TeamNotes[];
     authenticatedUser: User;
     setTeamNotes: React.Dispatch<React.SetStateAction<TeamNotes[]>>;

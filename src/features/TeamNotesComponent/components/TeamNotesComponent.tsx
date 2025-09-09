@@ -1,10 +1,10 @@
 import { useState } from "react";
 import SubmitButton from "../../../new-components/SubmitButton";
-import updateTeamNotesInDatabaseAndState from "../teamNotesComponent";
-import { TeamNotesComponentProps } from "../types";
+import { updateTeamNotesInDatabaseAndState } from "../teamNotesComponent";
+import { ComponentProps } from "../types";
 
 
-const TeamNotesComponent = (props: TeamNotesComponentProps) => {
+const TeamNotesComponent = (props: ComponentProps) => {
     const [notesEdited, setNotesEdited] = useState<boolean>(false);
     const [newNotes, setNewNotes] = useState<string>("");
     const componentID: string = props.team.teamID;

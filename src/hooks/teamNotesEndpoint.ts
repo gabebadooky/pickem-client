@@ -42,7 +42,8 @@ export const callUpdateTeamNotesEndpoint = async (token: string, teamNotes: Team
         if (!response.ok) {
             return false;
         } else {
-            return "error" in response.json() ? false : true;
+            const responseMessage = await response.json();
+            return "error" in responseMessage ? false : true;
         }
     } catch (err) {
         return false;

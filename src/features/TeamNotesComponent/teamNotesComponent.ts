@@ -1,14 +1,14 @@
-import { TeamNotesComponentProps } from "./types";
+import { ComponentProps } from "./types";
 import { callUpdateTeamNotesEndpoint } from "../../hooks/teamNotesEndpoint";
 
 
-const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesComponentProps) => {
+export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: ComponentProps) => {
     callUpdateTeamNotesEndpoint(localStorage.getItem("jwt") || "", {
         userID: props.teamNotes.userID,
         teamID: props.teamNotes.teamID,
         notes: newNotes
     })
-    .then((response) => {
+    .then((response: boolean) => {
         if (response) {
             props.setTeamNotes(props.allTeamNotes.map(note => 
                 note.userID === props.authenticatedUser.userID
@@ -20,11 +20,8 @@ const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesCom
                 } : note
             ));
         } else {
-            alert("Error occurred updating team notes! Please try again and let the developer know he sucks...");
+            alert("Error occurred updating team notes! Please try again and let the developer know he sucks. 🙃");
         }
         
     });
 }
-
-
-export default updateTeamNotesInDatabaseAndState;

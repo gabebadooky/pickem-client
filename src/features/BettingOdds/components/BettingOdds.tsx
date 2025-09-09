@@ -1,8 +1,8 @@
 import BettingOddTableRow from "./BettingOddTableRow";
-import { BettingOddsProps, OddsValues } from "../types";
+import { ComponentProps, OddsValues } from "../types";
 import { instantiateOddsValues } from "../bettingOdds";
 
-const BettingOdds = (props: BettingOddsProps) => {
+const BettingOdds = (props: ComponentProps) => {
     const componentID: string = `${props.game.gameID}-${props.source}`;
     const teamName: string = props.awayTeam.teamID === props.selectedTeam ? props.awayTeam.teamName: props.homeTeam.teamName;
     const h1Content: string = `${props.source.toUpperCase()} ${teamName} Betting Odds`;

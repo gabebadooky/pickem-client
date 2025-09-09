@@ -1,10 +1,7 @@
-type Props = {
-    label: string;
-    parentComponentID: string;
-    value: string;
-}
+import { TableRowProps } from "../types";
 
-const BettingOddTableRow = (props: Props) => {
+
+const BettingOddTableRow = (props: TableRowProps) => {
     const componentID: string = `${props.parentComponentID}-${props.label.replace("/", "-").toLowerCase()}`;
 
     return (

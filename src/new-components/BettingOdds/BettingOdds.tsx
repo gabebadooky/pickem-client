@@ -1,0 +1,51 @@
+import BettingOddTableRow from "./components/BettingOddTableRow";
+import { BettingOddsProps, OddsValues } from "./types";
+import { instantiateOddsValues } from "./bettingOdds";
+
+const BettingOdds = (props: BettingOddsProps) => {
+    const componentID: string = `${props.game.gameID}-${props.source}`;
+    const teamName: string = props.awayTeam.teamID === props.selectedTeam ? props.awayTeam.teamName: props.homeTeam.teamName;
+    const h1Content: string = `${props.source.toUpperCase()} ${teamName} Betting Odds`;
+    const oddsValues: OddsValues = instantiateOddsValues(props);
+
+    return (
+        <div
+            className="h-full w-full"
+            id={`${componentID}-betting-odds-component`}
+            key={`${componentID}-betting-odds-component`}
+        >
+            <h1 className="my-5" id={`${componentID}-betting-odds-h1`}>{h1Content}</h1>
+
+            <table id={`${componentID}-betting-odds-table`} key={`${componentID}-betting-odds-table`}>
+                
+                <BettingOddTableRow
+                    parentComponentID={componentID}
+                    label={`${teamName} Moneyline`}
+                    value={oddsValues.moneyline}
+                />
+
+                <BettingOddTableRow
+                    parentComponentID={componentID}
+                    label={`${teamName} Spread`}
+                    value={oddsValues.spread}
+                />
+
+                <BettingOddTableRow
+                    parentComponentID={componentID}
+                    label={`${teamName} Percentage`}
+                    value={oddsValues.percentage}
+                />
+
+                <BettingOddTableRow
+                    parentComponentID={componentID}
+                    label={`${teamName} Over/Under`}
+                    value={oddsValues.overUnder}
+                />
+
+            </table>
+        </div>
+    );
+}
+
+
+export default BettingOdds;

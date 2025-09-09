@@ -1,6 +1,6 @@
-import BettingOddTableRow from "./components/BettingOddTableRow";
-import { BettingOddsProps, OddsValues } from "./types";
-import { instantiateOddsValues } from "./bettingOdds";
+import BettingOddTableRow from "./BettingOddTableRow";
+import { BettingOddsProps, OddsValues } from "../types";
+import { instantiateOddsValues } from "../bettingOdds";
 
 const BettingOdds = (props: BettingOddsProps) => {
     const componentID: string = `${props.game.gameID}-${props.source}`;

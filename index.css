@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+textarea {
+    background-color: #FFFFFF;
+    border-radius: var(--radius-sm);
+    height: 100%;
+    width: 100%;
+}
+
+
 .reddit-sans-font {
     font-family: "Reddit Sans", sans-serif;
     font-optical-sizing: auto;

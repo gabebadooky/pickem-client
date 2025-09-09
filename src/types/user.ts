@@ -1,6 +1,7 @@
 export type NotificationPreferenceInputValue = "n" | "e" | "p";
 
 export interface User {
+    userID: number;
     username: string;
     password: string;
     displayName?: string;

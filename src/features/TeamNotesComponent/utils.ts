@@ -22,6 +22,6 @@ export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: Compo
         } else {
             alert("Error occurred updating team notes! Please try again and let the developer know he sucks. 🙃");
         }
-        
-    });
+    })
+    .catch(() => alert("Error occurred updating team notes! Please try again and let the developer know he sucks. 🙃"));
 }

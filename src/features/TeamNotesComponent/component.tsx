@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SubmitButton from "../../../new-components/SubmitButton";
-import { updateTeamNotesInDatabaseAndState } from "../teamNotesComponent";
-import { ComponentProps } from "../types";
+import SubmitButton from "../../new-components/SubmitButton";
+import { updateTeamNotesInDatabaseAndState } from "./utils";
+import { ComponentProps } from "./types";
 
 
 const TeamNotesComponent = (props: ComponentProps) => {

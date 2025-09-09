@@ -1,3 +1,1 @@
-import RadioOption from "./components/RadioOption";
-
-export default RadioOption;
+export { default as PickConfidence } from "./component";

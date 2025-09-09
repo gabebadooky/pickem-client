@@ -51,4 +51,5 @@ export const updatePickInDatabaseAndState = (selectedTeam: string, pickConfidenc
             alert("Error occurred submitting pick! Please try again and let the developer know he sucks. 🙃");
         }
     })
+    .catch(() => alert("Error occurred submitting pick! Please try again and let the developer know he sucks. 🙃"));
 }

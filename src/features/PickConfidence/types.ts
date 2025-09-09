@@ -3,6 +3,7 @@ import { Pick } from "../../types/pick";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
 
+
 export type ConfidenceOptionKeys = "l" | "m" | "h";
 
 export type ConfidenceOptionProperties = {
@@ -10,7 +11,6 @@ export type ConfidenceOptionProperties = {
     reward: string;
     penalty: string;
 }
-
 
 export type ComponentProps = {
     allPicks: Pick[];

@@ -1,8 +1,8 @@
-import { confidenceOptions, gameHasKickedOff, updatePickInDatabaseAndState } from "../pickConfidence";
+import { confidenceOptions, gameHasKickedOff, updatePickInDatabaseAndState } from "../utils";
 import { ComponentProps, ConfidenceOptionKeys, ConfidenceOptionProperties } from "../types";
 
 
-const RadioOption = (confidenceLevel: ConfidenceOptionKeys, props: ComponentProps) => {
+const ConfidenceRadioOption = (confidenceLevel: ConfidenceOptionKeys, props: ComponentProps) => {
     const confidenceOption: ConfidenceOptionProperties = confidenceOptions[confidenceLevel];
     const componentID: string = `${confidenceOption}-confidence`;
     const isRadioOptionDisabled: boolean = props.currentUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
@@ -44,4 +44,4 @@ const RadioOption = (confidenceLevel: ConfidenceOptionKeys, props: ComponentProp
 }
 
 
-export default RadioOption;
+export default ConfidenceRadioOption;

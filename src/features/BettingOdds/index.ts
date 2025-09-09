@@ -1,3 +1,1 @@
-import BettingOdds from "./components/BettingOdds";
-
-export default BettingOdds;
+export { default as BettingOdds } from "./component";

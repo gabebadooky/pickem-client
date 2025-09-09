@@ -5,3 +5,6 @@ type PickConfidenceProps = {
 const PickConfidence = (props: PickConfidenceProps) => {
     
 }
+
+
+export default PickConfidence;

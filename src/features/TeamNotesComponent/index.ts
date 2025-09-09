@@ -1,3 +1,1 @@
-import TeamNotesComponent from "./components/TeamNotesComponent";
-
-export default TeamNotesComponent;
+export { default as TeamNotesComponent } from "./component";

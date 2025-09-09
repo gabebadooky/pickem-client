@@ -1,4 +1,7 @@
+import { Game } from "../../types/game";
+
 type PickConfidenceProps = {
+    game: Game;
     parentComponentID: string;
 }
 

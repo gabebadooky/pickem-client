@@ -1,7 +1,7 @@
-import { TableRowProps } from "../types";
+import { BettingOddsTableRowProps } from "./types";
 
 
-const BettingOddTableRow = (props: TableRowProps) => {
+const BettingOddTableRow = (props: BettingOddsTableRowProps) => {
     const componentID: string = `${props.parentComponentID}-${props.label.replace("/", "-").toLowerCase()}`;
 
     return (

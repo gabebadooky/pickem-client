@@ -1,12 +1,12 @@
-import { confidenceOptions, gameHasKickedOff, updatePickInDatabaseAndState } from "../utils";
-import { ComponentProps, ConfidenceOptionKeys, ConfidenceOptionProperties } from "../types";
+import { setConfidenceOptionProperties, gameHasKickedOff, updatePickInDatabaseAndState } from "./utils";
+import { ConfidenceRadioOptionProps, ConfidenceOptionProperties } from "./types";
 
 
-const ConfidenceRadioOption = (confidenceLevel: ConfidenceOptionKeys, props: ComponentProps) => {
-    const confidenceOption: ConfidenceOptionProperties = confidenceOptions[confidenceLevel];
-    const componentID: string = `${confidenceOption}-confidence`;
+const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
+    const confidenceOption: ConfidenceOptionProperties = setConfidenceOptionProperties(props.confidenceLevel);
+    const componentID: string = `${props.parentComponentID}-${confidenceOption.label}-confidence-option`;
     const isRadioOptionDisabled: boolean = props.currentUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
-    const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === confidenceLevel;
+    const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === props.confidenceLevel;
 
     return (
         <div
@@ -22,7 +22,7 @@ const ConfidenceRadioOption = (confidenceLevel: ConfidenceOptionKeys, props: Com
                 name="confidence-level"
                 onClick={(e) => updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props)}
                 type="radio"
-                value={confidenceLevel}
+                value={props.confidenceLevel}
             />
 
             <label

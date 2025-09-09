@@ -1,7 +1,7 @@
-import { ComponentProps, OddsValues } from "./types";
+import { BettingOddsProps, OddsValues } from "./types";
 
 
-export const instantiateOddsValues = (props: ComponentProps) => {
+export const instantiateOddsValues = (props: BettingOddsProps) => {
     let values: OddsValues = {
         moneyline: "",
         spread: "",

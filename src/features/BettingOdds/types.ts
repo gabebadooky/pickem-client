@@ -2,19 +2,12 @@ import { Game } from "../../types/game";
 import { Team } from "../../types/team";
 
 
-export type ComponentProps = {
+export type BettingOddsProps = {
     awayTeam: Team;
     game: Game;
     homeTeam: Team;
     selectedTeam: string;
     source: string;
-}
-
-
-export type TableRowProps = {
-    label: string;
-    parentComponentID: string;
-    value: string;
 }
 
 

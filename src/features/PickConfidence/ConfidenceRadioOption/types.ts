@@ -1,7 +1,7 @@
-import { Game } from "../../types/game";
-import { Pick } from "../../types/pick";
-import { Team } from "../../types/team";
-import { User } from "../../types/user";
+import { Game } from "../../../types/game";
+import { Pick } from "../../../types/pick";
+import { Team } from "../../../types/team";
+import { User } from "../../../types/user";
 
 
 export type ConfidenceOptionKeys = "l" | "m" | "h";
@@ -12,10 +12,12 @@ export type ConfidenceOptionProperties = {
     penalty: string;
 }
 
-export type ComponentProps = {
+export type ConfidenceRadioOptionProps = {
     allPicks: Pick[];
+    confidenceLevel: ConfidenceOptionKeys;
     currentUser: User;
     game: Game;
+    parentComponentID: string;
     pick: Pick;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     team: Team;

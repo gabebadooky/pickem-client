@@ -1,5 +1,5 @@
 import { ComponentProps } from "./types";
-import { callUpdateTeamNotesEndpoint } from "../../hooks/teamNotesEndpoint";
+import { callUpdateTeamNotesEndpoint } from "../../hooks/teamsEndpoint";
 
 
 export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: ComponentProps) => {

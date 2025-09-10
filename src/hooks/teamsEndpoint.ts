@@ -1,8 +1,26 @@
 import { pickemEndpointURL } from "../types/baseURLs";
+import { Team } from "../types/team";
 import { TeamNotes } from "../types/teamNotes";
 
 const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
+
+
+export const callGetAllTeamsEndpoint = async (): Promise<Array<Team>> => {
+    const endpointURL: string = `${pickemEndpointURL}/teams`
+    const response = await fetch(endpointURL);
+    const nullTeams: Team[] = [];
+
+    try {
+        if (!response.ok) {
+            return nullTeams;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullTeams;
+    }
+}
 
 
 export const callGetTeamNotesEnpdoint = async (userID: number): Promise<TeamNotes[]> => {

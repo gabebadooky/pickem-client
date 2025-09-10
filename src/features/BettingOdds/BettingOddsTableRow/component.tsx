@@ -5,9 +5,9 @@ const BettingOddTableRow = (props: BettingOddsTableRowProps) => {
     const componentID: string = `${props.parentComponentID}-${props.label.replace("/", "-").toLowerCase()}`;
 
     return (
-        <tr id={componentID} key={componentID}>
+        <tr className="w-full" id={componentID} key={componentID}>
             <td
-                className="text-left"
+                className="text-left w-[50%]"
                 id={`${componentID}-label`}
                 key={`${componentID}-label`}
             >
@@ -15,7 +15,7 @@ const BettingOddTableRow = (props: BettingOddsTableRowProps) => {
             </td>
             
             <td
-                className="text-right"
+                className="text-right w-[50%]"
                 id={`${componentID}-value`}
                 key={`${componentID}-value`}
             >

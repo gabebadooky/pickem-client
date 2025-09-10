@@ -6,6 +6,33 @@ const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
 
 
+export const callGetUserPicksEndpoint = async (userID: number): Promise<Array<Pick>> => {
+    const endpointURL: string = `${pickemEndpointURL}/picks/${userID}`;
+    const nullPick: Pick = {
+        userID: -1,
+        gameID: "",
+        teamPicked: "",
+        pickWeight: ""
+    };
+
+    if (userID === -1) {
+        return [nullPick];
+    } else {
+        const response = await fetch(endpointURL);
+
+        try {
+            if (!response.ok) {
+                return [nullPick];
+            } else {
+                return response.json();
+            }
+        } catch {
+            return [nullPick];
+        }
+    }
+}
+
+
 export const callSubmitPickEndpoint = async (token: string, pick: Pick): Promise<boolean> => {
     const endpointURL: string = `${pickemEndpointURL}/picks/submit`;
 

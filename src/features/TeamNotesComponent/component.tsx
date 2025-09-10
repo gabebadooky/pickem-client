@@ -12,7 +12,7 @@ const TeamNotesComponent = (props: ComponentProps) => {
 
     return (
         <div
-            className="h-full w-full"
+            className="h-full m-auto w-full"
             id={`${componentID}-team-notes-component`}
             key={`${componentID}-team-notes-component`}
         >

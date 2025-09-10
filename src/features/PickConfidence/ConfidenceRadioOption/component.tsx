@@ -4,13 +4,13 @@ import { ConfidenceRadioOptionProps, ConfidenceOptionProperties } from "./types"
 
 const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
     const confidenceOption: ConfidenceOptionProperties = setConfidenceOptionProperties(props.confidenceLevel);
-    const componentID: string = `${props.parentComponentID}-${confidenceOption.label}-confidence-option`;
+    const componentID: string = `${props.game.gameID}-${confidenceOption.label}-confidence-option`;
     const isRadioOptionDisabled: boolean = props.currentUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
     const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === props.confidenceLevel;
 
     return (
         <div
-            className="my-5"
+            className="h-full w-full"
             id={`${componentID}-input-component`}
             key={`${componentID}-input-component`}
         >

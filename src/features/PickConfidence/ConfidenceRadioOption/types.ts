@@ -17,7 +17,6 @@ export type ConfidenceRadioOptionProps = {
     confidenceLevel: ConfidenceOptionKeys;
     currentUser: User;
     game: Game;
-    parentComponentID: string;
     pick: Pick;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     team: Team;

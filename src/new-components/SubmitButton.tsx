@@ -10,7 +10,7 @@ const SubmitButton = (props: SubmitButtonProps) => {
 
     return (
         <button
-            className="bg-[#17C120] h-full rounded-xl w-full"
+            className="bg-[#17C120] h-full m-auto rounded-xl text-center w-full"
             id={componentID}
             onClick={props.submitMethod}
         >

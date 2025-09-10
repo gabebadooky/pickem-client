@@ -11,13 +11,17 @@ const BettingOdds = (props: BettingOddsProps) => {
 
     return (
         <div
-            className="h-full w-full"
+            className="h-full text-center w-full"
             id={`${componentID}-betting-odds-component`}
             key={`${componentID}-betting-odds-component`}
         >
             <h1 className="my-5" id={`${componentID}-betting-odds-h1`}>{h1Content}</h1>
 
-            <table id={`${componentID}-betting-odds-table`} key={`${componentID}-betting-odds-table`}>
+            <table
+                className="w-full"
+                id={`${componentID}-betting-odds-table`}
+                key={`${componentID}-betting-odds-table`}
+            >
                 
                 <BettingOddsTableRow
                     parentComponentID={componentID}

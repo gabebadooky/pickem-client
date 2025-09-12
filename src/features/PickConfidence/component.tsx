@@ -3,6 +3,7 @@ import { Pick } from "../../types/pick";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
 import { ConfidenceRadioOption } from "./ConfidenceRadioOption";
+import { GameTimeOrScore, TvCoverage } from "./GameDetails";
 import { PickConfidenceHeader } from "./PickConfidenceHeader";
 
 type PickConfidenceProps = {
@@ -30,6 +31,11 @@ const PickConfidence = (props: PickConfidenceProps) => {
                     homeTeam={props.homeTeam}
                     selectedTeam={props.selectedTeam}
                 />
+            </div>
+
+            <div id={`${componentID}-game-details`}>
+                <GameTimeOrScore game={props.game} />
+                <TvCoverage game={props.game} />
             </div>
 
             <div className="mr-5" id={`${componentID}-radio-options-div`}>

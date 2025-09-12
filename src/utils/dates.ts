@@ -51,7 +51,7 @@ export const calculateCurrentWeek = () => {
 }
 
 
-export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) => {
+/*export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) => {
     const dateStringElements: string[] = gameDate.toString().replace(",", "").split(" ");
     const gameYear: string = dateStringElements[3];
     const gameMonth: string = monthAbbreviations[dateStringElements[2]]?.padStart(2, "0") || "00";
@@ -67,8 +67,37 @@ export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) 
     const zuluDateTime: Date = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);
 
     return zuluDateTime;
+}*/
+
+
+export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: string) => {
+    const gameYear = new Date(gameDate).getFullYear();
+    const gameMonth = new Date(gameDate).getMonth();
+    const gameDay = new Date(gameDate).getDate() + 1;
+    const [zuluHours, zuluMinutes] = gameTime.split(":");
+    const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
+    const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
+    return localDate.toLocaleDateString().split(", ")[1];
 }
 
-export const zuluTimeToLocaleFormattedDateString = (gameDate: Date, gameTime: string) => {
-    return zuluTimeToLocaleFormattedDate(gameDate, gameTime).toLocaleDateString("en", {weekday: "long", month: "long", day: "numeric"});
+
+export const convertGameDateToMonthDayYearFormat = (gameDate: Date) => {
+    const gameYear: number = gameDate.getFullYear();
+    const gameMonth: number = gameDate.getMonth();
+    const gameDay: number = gameDate.getDay();
+
+    return `${gameMonth}/${gameDay}/${gameYear}`;
+}
+
+
+export const gameHasKickedOff = (gameDate: Date, gameTime: string): boolean => {
+    const gameYear = new Date(gameDate).getFullYear();
+    const gameMonth = new Date(gameDate).getMonth();
+    const gameDay = new Date(gameDate).getDate() + 1;
+    const [zuluHours, zuluMinutes] = gameTime.split(":");
+    
+    const gameUTCTimeStamp: Date = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
+    const now: Date = new Date();
+    
+    return now > gameUTCTimeStamp;
 }

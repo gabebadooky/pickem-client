@@ -1,7 +1,7 @@
 import { LeaderboardMetrics } from "../types/leaderboard";
 import { pickemEndpointURL } from "../types/baseURLs";
 
-export const CallLeaderboardEndpoint =  async (): Promise<Array<LeaderboardMetrics>> => {
+export const callLeaderboardEndpoint =  async (): Promise<Array<LeaderboardMetrics>> => {
     const endpointURL: string = `${pickemEndpointURL}/leaderboard`;
     const response = await fetch(endpointURL);
     const nullLeaderboardMetrics: LeaderboardMetrics[] = [];

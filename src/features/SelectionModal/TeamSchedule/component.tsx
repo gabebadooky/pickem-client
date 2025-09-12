@@ -1,4 +1,5 @@
 import { Game } from "../../types/game";
+import { ScheduleTableRow } from "./ScheduleTableRow";
 import { TeamScheduleProps } from "./types";
 
 
@@ -7,13 +8,13 @@ const TeamSchedule = (props: TeamScheduleProps) => {
 
     return (
         <div
-            className="h-full w-full"
+            className="h-full m-auto w-full"
             id={`${componentID}-div`}
             key={`${componentID}-div`}
         >
 
             <h1
-                className="m-auto text-center"
+                className="text-center"
                 id={`${componentID}-header`}
                 key={`${componentID}-header`}
             >
@@ -22,7 +23,7 @@ const TeamSchedule = (props: TeamScheduleProps) => {
 
 
             <table
-                className="w-full"
+                className="m-auto w-full"
                 id={`${componentID}-table`}
                 key={`${componentID}-table`}
             >
@@ -31,7 +32,7 @@ const TeamSchedule = (props: TeamScheduleProps) => {
                         ||
                     game.homeTeamID === props.team.teamID
                 }).map((game: Game) => {
-                    return <>{/* <TeamScheduleRow /> */}</>
+                    return <ScheduleTableRow allTeams={props.allTeams} game={game} team={props.team} />
                 })}
             </table>
 

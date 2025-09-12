@@ -7,6 +7,7 @@ type TvBroadcast = {
 const TvBroadcast = (props: TvBroadcast) => {
     return (
         <div
+            className="text-center"
             id={`${props.game.gameID}-broadcast-div`}
             key={`${props.game.gameID}-broadcast-div`}
         >

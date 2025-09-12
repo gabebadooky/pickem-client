@@ -2,7 +2,7 @@ import { Game } from "../types/game";
 import { pickemEndpointURL } from "../types/baseURLs";
 
 
-export const CallGetAllGamesEndpoint =  async (): Promise<Array<Game>> => {
+export const callGetAllGamesEndpoint =  async (): Promise<Array<Game>> => {
     const endpointURL: string = `${pickemEndpointURL}/games`;
     const response = await fetch(endpointURL);
     const nullGames: Game[] = [];
@@ -19,7 +19,7 @@ export const CallGetAllGamesEndpoint =  async (): Promise<Array<Game>> => {
 }
 
 
-export const CallGetGamesByWeekEndpoint =  async (week: number): Promise<Array<Game>> => {
+export const callGetGamesByWeekEndpoint =  async (week: number): Promise<Array<Game>> => {
     const endpointURL: string = `${pickemEndpointURL}/games/week/${week}`
     const response = await fetch(endpointURL);
     const nullGame: Game[] = [];

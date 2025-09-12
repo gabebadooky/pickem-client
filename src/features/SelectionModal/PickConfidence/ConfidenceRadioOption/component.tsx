@@ -10,7 +10,7 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
 
     return (
         <div
-            className="h-full w-full"
+            className="h-full m-auto w-full"
             id={`${componentID}-input-component`}
             key={`${componentID}-input-component`}
         >

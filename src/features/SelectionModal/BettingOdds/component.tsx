@@ -11,7 +11,7 @@ const BettingOdds = (props: BettingOddsProps) => {
 
     return (
         <div
-            className="h-full text-center w-full"
+            className="h-full m-auto w-full"
             id={`${componentID}-betting-odds-component`}
             key={`${componentID}-betting-odds-component`}
         >

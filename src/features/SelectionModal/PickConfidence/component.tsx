@@ -1,28 +1,15 @@
-import { Game } from "../../types/game";
-import { Pick } from "../../types/pick";
-import { Team } from "../../types/team";
-import { User } from "../../types/user";
 import { ConfidenceRadioOption } from "./ConfidenceRadioOption";
 import { GameTimeOrScore, TvCoverage } from "./GameDetails";
 import { PickConfidenceHeader } from "./PickConfidenceHeader";
+import { PickConfidenceProps } from "./types";
 
-type PickConfidenceProps = {
-    allPicks: Pick[];
-    awayTeam: Team;
-    currentUser: User;
-    game: Game;
-    homeTeam: Team;
-    pick: Pick;
-    selectedTeam: Team;
-    setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
-}
 
 const PickConfidence = (props: PickConfidenceProps) => {
     const componentID: string = `${props.game.gameID}-confidence-pick-component`;
     
     return (
         <div
-            className="h-full m-auto text-center w-full"
+            className="h-full m-auto w-full"
             id={componentID}
         >
             <div id={`${componentID}-header`}>

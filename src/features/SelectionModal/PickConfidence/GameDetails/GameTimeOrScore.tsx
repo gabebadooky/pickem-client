@@ -1,25 +1,22 @@
 import { Game } from "../../../../types/game";
 import { convertGameDateToLocalTimeString } from "../../../../utils/dates";
 import { gameHasKickedOff } from "../../../../utils/dates";
+import { renderGameScore } from "./utils";
 
-type GameTimeOrScoreProps = {
-    game: Game;
-}
-
-const GameTimeOrScore = (props: GameTimeOrScoreProps) => {
+const GameTimeOrScore = (game: Game) => {
     return (
         <div
             className="text-center"
-            id={`${props.game.gameID}-time-score-div`}
-            key={`${props.game.gameID}-time-score-div`}
+            id={`${game.gameID}-time-score-div`}
+            key={`${game.gameID}-time-score-div`}
         >
             
             {
-                gameHasKickedOff(props.game.date, props.game.time)
+                gameHasKickedOff(game.date, game.time)
                     ?
-                <h2 className="my-2">{props.game.awayTotalBoxScore} - {props.game.homeTotalBoxScore}</h2>
+                <h2 className="my-2">{renderGameScore(game)}</h2>
                     :
-                <h2 className="my-2">{convertGameDateToLocalTimeString(props.game.date, props.game.time)}</h2>
+                <h2 className="my-2">{convertGameDateToLocalTimeString(game.date, game.time)}</h2>
             }
 
         </div>

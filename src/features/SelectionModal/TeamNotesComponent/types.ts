@@ -1,7 +1,7 @@
 import React from "react";
-import { Team } from "../../types/team";
-import { TeamNotes } from "../../types/teamNotes";
-import { User } from "../../types/user";
+import { Team } from "../../../types/team";
+import { TeamNotes } from "../../../types/teamNotes";
+import { User } from "../../../types/user";
 
 
 export type TeamNotesProps = {

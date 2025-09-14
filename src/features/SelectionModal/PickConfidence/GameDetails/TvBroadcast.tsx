@@ -1,4 +1,4 @@
-import { Game } from "../../../types/game";
+import { Game } from "../../../../types/game";
 
 type TvBroadcast = {
     game: Game;

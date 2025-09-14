@@ -5,7 +5,7 @@ import { instantiateOddsValues } from "./utils";
 
 const BettingOdds = (props: BettingOddsProps) => {
     const componentID: string = `${props.game.gameID}-${props.source}`;
-    const teamName: string = props.awayTeam.teamID === props.selectedTeam ? props.awayTeam.teamName: props.homeTeam.teamName;
+    const teamName: string = props.awayTeam.teamID === props.selectedTeamID ? props.awayTeam.teamName: props.homeTeam.teamName;
     const h1Content: string = `${teamName} ${props.source.toUpperCase()} Betting Odds`;
     const oddsValues: OddsValues = instantiateOddsValues(props);
 

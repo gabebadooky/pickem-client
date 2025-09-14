@@ -1,4 +1,4 @@
-import { Team } from "../../../types/team";
+import { Team } from "../../../../types/team";
 
 export type PickConfidenceHeaderProps = {
     awayTeam: Team;

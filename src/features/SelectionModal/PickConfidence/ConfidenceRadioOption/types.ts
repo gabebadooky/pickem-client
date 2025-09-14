@@ -1,7 +1,7 @@
-import { Game } from "../../../types/game";
-import { Pick } from "../../../types/pick";
-import { Team } from "../../../types/team";
-import { User } from "../../../types/user";
+import { Game } from "../../../../types/game";
+import { Pick } from "../../../../types/pick";
+import { Team } from "../../../../types/team";
+import { User } from "../../../../types/user";
 
 
 export type ConfidenceOptionKeys = "l" | "m" | "h";
@@ -15,7 +15,7 @@ export type ConfidenceOptionProperties = {
 export type ConfidenceRadioOptionProps = {
     allPicks: Pick[];
     confidenceLevel: ConfidenceOptionKeys;
-    currentUser: User;
+    authenticatedUser: User;
     game: Game;
     pick: Pick;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;

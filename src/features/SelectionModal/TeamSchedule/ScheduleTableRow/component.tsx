@@ -1,4 +1,4 @@
-import { convertGameDateToLocalTimeString, convertGameDateToMonthDayYearFormat } from "../../../utils/dates";
+import { convertGameDateToLocalTimeString, convertGameDateToMonthDayYearFormat } from "../../../../utils/dates";
 import { ScheduleTableRowProps } from "./types";
 import { getOpponentName } from "./utils";
 

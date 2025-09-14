@@ -31,7 +31,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                     <ConfidenceRadioOption
                         allPicks={props.allPicks}
                         confidenceLevel="l"
-                        currentUser={props.currentUser}
+                        authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
                         setPicks={props.setPicks}
@@ -43,7 +43,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                     <ConfidenceRadioOption
                         allPicks={props.allPicks}
                         confidenceLevel="m"
-                        currentUser={props.currentUser}
+                        authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
                         setPicks={props.setPicks}
@@ -55,7 +55,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                     <ConfidenceRadioOption
                         allPicks={props.allPicks}
                         confidenceLevel="h"
-                        currentUser={props.currentUser}
+                        authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
                         setPicks={props.setPicks}

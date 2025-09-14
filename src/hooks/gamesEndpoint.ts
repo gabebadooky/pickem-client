@@ -4,10 +4,11 @@ import { pickemEndpointURL } from "../types/baseURLs";
 
 export const callGetAllGamesEndpoint =  async (): Promise<Array<Game>> => {
     const endpointURL: string = `${pickemEndpointURL}/games`;
-    const response = await fetch(endpointURL);
     const nullGames: Game[] = [];
 
     try {
+        const response = await fetch(endpointURL);
+
         if (!response.ok) {
             return nullGames;
         } else {
@@ -20,11 +21,12 @@ export const callGetAllGamesEndpoint =  async (): Promise<Array<Game>> => {
 
 
 export const callGetGamesByWeekEndpoint =  async (week: number): Promise<Array<Game>> => {
-    const endpointURL: string = `${pickemEndpointURL}/games/week/${week}`
-    const response = await fetch(endpointURL);
+    const endpointURL: string = `${pickemEndpointURL}/games/week/${week}`;
     const nullGame: Game[] = [];
 
     try {
+        const response = await fetch(endpointURL);
+        
         if (!response.ok) {
             return nullGame;
         } else {

@@ -1,4 +1,4 @@
-import { Game } from "../../types/game";
+import { Game } from "../../../types/game";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 import { TeamScheduleProps } from "./types";
 

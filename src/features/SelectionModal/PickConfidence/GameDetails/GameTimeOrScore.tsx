@@ -1,6 +1,6 @@
-import { Game } from "../../../types/game";
-import { convertGameDateToLocalTimeString } from "../../../utils/dates";
-import { gameHasKickedOff } from "../ConfidenceRadioOption/utils";
+import { Game } from "../../../../types/game";
+import { convertGameDateToLocalTimeString } from "../../../../utils/dates";
+import { gameHasKickedOff } from "../../../../utils/dates";
 
 type GameTimeOrScoreProps = {
     game: Game;

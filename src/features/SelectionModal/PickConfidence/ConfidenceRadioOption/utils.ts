@@ -1,6 +1,5 @@
-import { callSubmitPickEndpoint } from "../../../hooks/picksEndpoint";
+import { callSubmitPickEndpoint } from "../../../../hooks/picksEndpoint";
 import { ConfidenceRadioOptionProps, ConfidenceOptionKeys, ConfidenceOptionProperties } from "./types";
-import { zuluTimeToLocaleFormattedDate } from "../../../utils/dates";
 
 
 export const setConfidenceOptionProperties = (confidenceLevel: ConfidenceOptionKeys): ConfidenceOptionProperties => {
@@ -33,12 +32,6 @@ export const setConfidenceOptionProperties = (confidenceLevel: ConfidenceOptionK
     }
 
     return optionProperties;
-}
-
-
-export const gameHasKickedOff = (gameDate: Date, gameTime: string): boolean => {
-    const now: Date = new Date();
-    return now > zuluTimeToLocaleFormattedDate(gameDate, gameTime);
 }
 
 

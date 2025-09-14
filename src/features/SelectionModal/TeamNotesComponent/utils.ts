@@ -1,8 +1,8 @@
-import { ComponentProps } from "./types";
-import { callUpdateTeamNotesEndpoint } from "../../hooks/teamsEndpoint";
+import { TeamNotesProps } from "./types";
+import { callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoint";
 
 
-export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: ComponentProps) => {
+export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesProps) => {
     callUpdateTeamNotesEndpoint(localStorage.getItem("jwt") || "", {
         userID: props.teamNotes.userID,
         teamID: props.teamNotes.teamID,

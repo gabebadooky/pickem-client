@@ -1,13 +1,13 @@
-import { Game } from "../../types/game";
-import { Pick } from "../../types/pick";
-import { Team } from "../../types/team";
-import { User } from "../../types/user";
+import { Game } from "../../../types/game";
+import { Pick } from "../../../types/pick";
+import { Team } from "../../../types/team";
+import { User } from "../../../types/user";
 
 
 export type PickConfidenceProps = {
     allPicks: Pick[];
+    authenticatedUser: User;
     awayTeam: Team;
-    currentUser: User;
     game: Game;
     homeTeam: Team;
     pick: Pick;

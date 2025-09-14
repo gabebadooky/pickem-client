@@ -1,11 +1,12 @@
-import { setConfidenceOptionProperties, gameHasKickedOff, updatePickInDatabaseAndState } from "./utils";
+import { gameHasKickedOff } from "../../../../utils/dates";
+import { setConfidenceOptionProperties, updatePickInDatabaseAndState } from "./utils";
 import { ConfidenceRadioOptionProps, ConfidenceOptionProperties } from "./types";
 
 
 const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
     const confidenceOption: ConfidenceOptionProperties = setConfidenceOptionProperties(props.confidenceLevel);
     const componentID: string = `${props.game.gameID}-${confidenceOption.label}-confidence-option`;
-    const isRadioOptionDisabled: boolean = props.currentUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
+    const isRadioOptionDisabled: boolean = props.authenticatedUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
     const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === props.confidenceLevel;
 
     return (

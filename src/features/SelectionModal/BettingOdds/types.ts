@@ -1,12 +1,12 @@
-import { Game } from "../../types/game";
-import { Team } from "../../types/team";
+import { Game } from "../../../types/game";
+import { Team } from "../../../types/team";
 
 
 export type BettingOddsProps = {
     awayTeam: Team;
     game: Game;
     homeTeam: Team;
-    selectedTeam: string;
+    selectedTeamID: string;
     source: string;
 }
 

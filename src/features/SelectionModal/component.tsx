@@ -11,7 +11,7 @@ import { instantiateTeamNotes } from "./utils";
 const SelectionModal = (props: SelectionModalProps) => {
     const [modalIndex, setModalIndex] = useState<number>(0);
     const componentID: string = `${props.pick.userID}-${props.pick.gameID}`;
-
+    
 
     return (
         <div 

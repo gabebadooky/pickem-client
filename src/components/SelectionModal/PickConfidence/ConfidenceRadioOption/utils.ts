@@ -1,4 +1,4 @@
-import { callSubmitPickEndpoint } from "../../../../hooks/picksEndpoint";
+import { callSubmitPickEndpoint } from "../../../../hooks/picksEndpoints";
 import { ConfidenceRadioOptionProps, ConfidenceOptionKeys, ConfidenceOptionProperties } from "./types";
 
 

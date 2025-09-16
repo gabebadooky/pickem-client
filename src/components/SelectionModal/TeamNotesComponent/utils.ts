@@ -1,5 +1,5 @@
 import { TeamNotesProps } from "./types";
-import { callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoint";
+import { callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoints";
 
 
 export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesProps) => {

@@ -1,11 +1,6 @@
-import { JSX, useState } from "react";
-import { PickConfidence } from "./PickConfidence";
+import { useState } from "react";
+import { ModalSlides } from "./ModalSlides";
 import { SelectionModalProps } from "./types";
-import { BettingOdds } from "./BettingOdds";
-import { TeamNotesComponent } from "./TeamNotesComponent";
-import { TeamSchedule } from "./TeamSchedule";
-import { instantiateTeamNotes } from "./utils";
-
 
 
 const SelectionModal = (props: SelectionModalProps) => {
@@ -54,7 +49,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                         id={`${componentID}-portal-slide-container`}
                         key={`${componentID}-portal-slide-container`}
                     >
-                        {modalSlides(props)[modalIndex]}
+                        {ModalSlides(props)[modalIndex]}
                     </div>
 
                     <div
@@ -63,7 +58,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                         key={`${componentID}-portal-right-arrow`}
                         onClick={() => setModalIndex(modalIndex + 1)}
                     >
-                        { modalIndex < modalSlides.length - 1 && <i className="fa-solid fa-caret-right"></i> }
+                        { modalIndex < ModalSlides.length - 1 && <i className="fa-solid fa-caret-right"></i> }
                     </div>
 
                 </div>      
@@ -73,66 +68,6 @@ const SelectionModal = (props: SelectionModalProps) => {
         </div>
     );    
 }
-
-
-const modalSlides = (props: SelectionModalProps): JSX.Element[] => [
-        
-    <PickConfidence
-        allPicks={props.allPicks}
-        awayTeam={props.awayTeam}
-        authenticatedUser={props.authenticatedUser}
-        game={props.game}
-        homeTeam={props.homeTeam}
-        pick={props.pick}
-        selectedTeam={props.selectedTeam}
-        setPicks={props.setPicks}
-    />,
-
-    <TeamNotesComponent
-        allTeamNotes={props.allTeamsNotes}
-        authenticatedUser={props.authenticatedUser}
-        setTeamNotes={props.setTeamNotes}
-        team={props.selectedTeam}
-        teamNotes={instantiateTeamNotes(props.allTeamsNotes, props.authenticatedUser.userID, props.selectedTeam.teamID)}
-    />,
-
-    <BettingOdds
-        awayTeam={props.awayTeam}
-        game={props.game}
-        homeTeam={props.homeTeam}
-        selectedTeamID={props.selectedTeam.teamID}
-        source="ESPN"
-    />,
-
-    <BettingOdds
-        awayTeam={props.awayTeam}
-        game={props.game}
-        homeTeam={props.homeTeam}
-        selectedTeamID={props.selectedTeam.teamID}
-        source="CBS"
-    />,
-
-    <BettingOdds
-        awayTeam={props.awayTeam}
-        game={props.game}
-        homeTeam={props.homeTeam}
-        selectedTeamID={props.selectedTeam.teamID}
-        source="FOX"
-    />,
-
-    <TeamSchedule
-        allGames={props.allGames}
-        allTeams={props.allTeams}
-        team={props.awayTeam}
-    />,
-
-    <TeamSchedule
-        allGames={props.allGames}
-        allTeams={props.allTeams}
-        team={props.homeTeam}
-    />
-
-];
 
 
 export default SelectionModal;

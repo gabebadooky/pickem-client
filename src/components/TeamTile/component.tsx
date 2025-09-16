@@ -1,12 +1,11 @@
 import { createPortal } from "react-dom";
-
+import { SelectionModal } from "../SelectionModal";
 import { setLogoImageStyling, setOuterBorderColor } from "./utils";
-import SelectionModal from "../SelectionModal/component";
 import { TeamTileProps } from "./types";
 
 
 const TeamTile = (props: TeamTileProps) => {
-    const componentID: string = `${props.game.gameID}-${props.tileTeam.teamID}`;
+    const componentID: string = `${props.pick.userID}-${props.game.gameID}-${props.tileTeam.teamID}`;
     
 
     return(

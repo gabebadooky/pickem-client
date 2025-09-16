@@ -18,6 +18,7 @@ export type ConfidenceRadioOptionProps = {
     authenticatedUser: User;
     game: Game;
     pick: Pick;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
     team: Team;
 }

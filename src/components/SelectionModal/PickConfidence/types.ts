@@ -12,5 +12,6 @@ export type PickConfidenceProps = {
     homeTeam: Team;
     pick: Pick;
     selectedTeam: Team;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setPicks: React.Dispatch<React.SetStateAction<Pick[]>>;
 }

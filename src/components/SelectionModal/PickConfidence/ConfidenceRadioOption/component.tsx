@@ -21,7 +21,10 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
                 disabled={isRadioOptionDisabled}
                 id={`${componentID}-radio-input`}
                 name="confidence-level"
-                onClick={(e) => updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props)}
+                onClick={(e) => {
+                    updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props);
+                    props.setIsModalOpen(false);
+                }}
                 type="radio"
                 value={props.confidenceLevel}
             />

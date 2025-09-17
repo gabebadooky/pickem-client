@@ -4,6 +4,7 @@ import { BettingOddsTableRowProps } from "./types";
 const BettingOddTableRow = (props: BettingOddsTableRowProps) => {
     const componentID: string = `${props.parentComponentID}-${props.label.replace("/", "-").toLowerCase()}`;
 
+    
     return (
         <tr className="w-full" id={componentID} key={componentID}>
             <td

@@ -6,6 +6,7 @@ import { TeamScheduleProps } from "./types";
 const TeamSchedule = (props: TeamScheduleProps) => {
     const componentID: string = `${props.team.teamID}-schedule`;
 
+    
     return (
         <div
             className="h-full m-auto w-full"

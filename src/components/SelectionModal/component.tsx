@@ -6,6 +6,18 @@ import { SelectionModalProps } from "./types";
 const SelectionModal = (props: SelectionModalProps) => {
     const [modalIndex, setModalIndex] = useState<number>(0);
     const componentID: string = `${props.pick.userID}-${props.pick.gameID}`;
+
+    const handleIconClickEvent = (): void => {
+        props.setIsModalOpen(false);
+    }
+
+    const handleLeftArrowClickEvent = (): void => {
+        setModalIndex(modalIndex - 1);
+    }
+
+    const handleRightArrowClickEvent = (): void => {
+        setModalIndex(modalIndex + 1);
+    }
     
 
     return (
@@ -25,7 +37,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                     className="fa-solid fa-2xl fa-rectangle-xmark absolute top-3 right-3"
                     id={`${componentID}-close-portal-icon`}
                     key={`${componentID}-close-portal-icon`}
-                    onClick={() => {}}
+                    onClick={handleIconClickEvent}
                 >
                 </i>
 
@@ -39,9 +51,14 @@ const SelectionModal = (props: SelectionModalProps) => {
                         className="l-0 my-auto py-5 w-[10%]"
                         id={`${componentID}-portal-left-arrow`}
                         key={`${componentID}-portal-left-arrow`}
-                        onClick={() => setModalIndex(modalIndex - 1)}
                     >
-                        { modalIndex > 0 && <i className="fa-solid fa-caret-left"></i> }
+                        { 
+                            modalIndex > 0 && 
+                            <i
+                                className="fa-solid fa-caret-left"
+                                onClick={handleLeftArrowClickEvent}
+                            ></i>
+                        }
                     </div>
 
                     <div
@@ -56,9 +73,14 @@ const SelectionModal = (props: SelectionModalProps) => {
                         className="my-auto py-5 r-0 w-[10%]"
                         id={`${componentID}-portal-right-arrow`}
                         key={`${componentID}-portal-right-arrow`}
-                        onClick={() => setModalIndex(modalIndex + 1)}
                     >
-                        { modalIndex < ModalSlides.length - 1 && <i className="fa-solid fa-caret-right"></i> }
+                        {
+                            modalIndex < ModalSlides.length - 1 && 
+                            <i 
+                                className="fa-solid fa-caret-right"
+                                onClick={handleRightArrowClickEvent}
+                            ></i>
+                        }
                     </div>
 
                 </div>      

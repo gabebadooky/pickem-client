@@ -4,7 +4,7 @@ import { Game } from "../../../../types/game";
 const TvBroadcast = (game: Game) => {
     return (
         <div
-            className="text-center"
+            className="h-full m-auto text-center w-full"
             id={`${game.gameID}-broadcast-div`}
             key={`${game.gameID}-broadcast-div`}
         >

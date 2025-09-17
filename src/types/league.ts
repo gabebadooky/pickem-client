@@ -1,0 +1,1 @@
+export type League = "ALL" | "NFL" | "CFB" | "CFBT25" | "CFBP4" | "CFBG6";

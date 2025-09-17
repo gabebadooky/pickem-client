@@ -1,12 +1,12 @@
 import { useState,useEffect } from "react";
 import "tailwindcss";
 
-import { calculateCurrentWeek } from "./services/formatDate";
-import { getUser } from "./services/accountAPI";
-import { getTeams, getUserIDs, getUserPicks } from "./services/picksAPI";
-import { getTeamNotes } from "./services/teamNotes";
-import { checkIfSystemUnderMaintenance } from "./services/maintenanceAPI";
-import { validateToken } from "./services/validateToken";
+import { calculateCurrentWeek } from "./original-services/formatDate";
+import { getUser } from "./original-services/accountAPI";
+import { getTeams, getUserIDs, getUserPicks } from "./original-services/picksAPI";
+import { getTeamNotes } from "./original-services/teamNotes";
+import { checkIfSystemUnderMaintenance } from "./original-services/maintenanceAPI";
+import { validateToken } from "./original-services/validateToken";
 
 import { CurrentUser } from "./types/account";
 import { Pick } from "./types/pick";

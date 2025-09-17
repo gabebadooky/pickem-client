@@ -6,6 +6,7 @@ import { getOpponentName } from "./utils";
 const ScheduleTableRow = (props: ScheduleTableRowProps) => {
     const componentID: string = `${props.team.teamID}-${props.game.gameID}-schedule`;
 
+    
     return (
         <tr
             className="w-full"

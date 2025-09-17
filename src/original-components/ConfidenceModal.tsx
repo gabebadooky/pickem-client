@@ -1,4 +1,4 @@
-import { submitPick } from "../services/picksAPI";
+import { submitPick } from "../original-services/picksAPI";
 
 import { CurrentUser } from "../types/account";
 import { Game } from "../types/game";

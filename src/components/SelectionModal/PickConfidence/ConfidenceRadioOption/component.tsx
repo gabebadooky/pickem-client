@@ -9,6 +9,12 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
     const isRadioOptionDisabled: boolean = props.authenticatedUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
     const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === props.confidenceLevel;
 
+    const handleRadioClickEvent = (e: React.MouseEvent<HTMLInputElement>): void => {
+        updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props);
+        props.setIsModalOpen(false);
+    }
+
+
     return (
         <div
             className="h-full m-auto w-full"
@@ -21,10 +27,7 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
                 disabled={isRadioOptionDisabled}
                 id={`${componentID}-radio-input`}
                 name="confidence-level"
-                onClick={(e) => {
-                    updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props);
-                    props.setIsModalOpen(false);
-                }}
+                onClick={(e) => handleRadioClickEvent(e)}
                 type="radio"
                 value={props.confidenceLevel}
             />

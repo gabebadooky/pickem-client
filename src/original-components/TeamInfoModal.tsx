@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { updateTeamNotes } from "../services/teamNotes";
+import { updateTeamNotes } from "../original-services/teamNotes";
 
 import { espnCfbTeamURL, espnNflTeamURL, cbsCfbTeamURL, cbsNflTeamURL, foxCfbURL, foxNflURL } from "../types/baseURLs";
 import { Team } from "../types/team";

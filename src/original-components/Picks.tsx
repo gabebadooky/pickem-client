@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { calculateCurrentWeek } from "../services/formatDate";
-import { getGames } from "../services/picksAPI";
-import { userLogout } from "../services/logout";
-import { zuluTimeToLocaleFormattedDateString } from "../services/formatDate";
+import { calculateCurrentWeek } from "../original-services/formatDate";
+import { getGames } from "../original-services/picksAPI";
+import { userLogout } from "../original-services/logout";
+import { zuluTimeToLocaleFormattedDateString } from "../original-services/formatDate";
 
 import { CurrentUser } from "../types/account";
 import { Game } from "../types/game";

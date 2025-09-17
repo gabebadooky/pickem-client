@@ -9,6 +9,11 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
     const [newNotes, setNewNotes] = useState<string>("");
     const componentID: string = props.team.teamID;
 
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        setNewNotes(e.currentTarget.value);
+        setNotesEdited(true);
+    }
+
 
     return (
         <div
@@ -24,10 +29,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                 id={`${componentID}-team-notes-text-area`}
                 key={`${componentID}-team-notes-text-area`}
                 name="team-notes-textarea"
-                onChange={(e) => {
-                    setNewNotes(e.currentTarget.value);
-                    setNotesEdited(true);
-                }}
+                onChange={(e) => handleTextAreaChange(e)}
                 placeholder="Keep your own notes on this team..."
             />
 

@@ -3,10 +3,11 @@ import { convertGameDateToLocalTimeString } from "../../../../utils/dates";
 import { gameHasKickedOff } from "../../../../utils/dates";
 import { renderGameScore } from "./utils";
 
+
 const GameTimeOrScore = (game: Game) => {
     return (
         <div
-            className="text-center"
+            className="h-full m-auto text-center w-full"
             id={`${game.gameID}-time-score-div`}
             key={`${game.gameID}-time-score-div`}
         >

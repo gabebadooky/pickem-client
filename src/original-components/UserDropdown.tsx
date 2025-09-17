@@ -1,5 +1,5 @@
 import { CurrentUser } from "../types/account";
-import { getUserPicks } from "../services/picksAPI";
+import { getUserPicks } from "../original-services/picksAPI";
 import { Pick } from "../types/pick";
 import { UserIDs } from "../types/userIDs";
 

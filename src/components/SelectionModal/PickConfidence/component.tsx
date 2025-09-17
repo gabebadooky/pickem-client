@@ -21,8 +21,8 @@ const PickConfidence = (props: PickConfidenceProps) => {
             </div>
 
             <div id={`${componentID}-game-details`}>
-                <GameTimeOrScore game={props.game} />
-                <TvCoverage game={props.game} />
+                {GameTimeOrScore(props.game)}
+                {TvCoverage(props.game)}
             </div>
 
             <div className="mr-5" id={`${componentID}-radio-options-div`}>
@@ -34,6 +34,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                         authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
+                        setIsModalOpen={props.setIsModalOpen}
                         setPicks={props.setPicks}
                         team={props.selectedTeam}
                     />
@@ -46,6 +47,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                         authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
+                        setIsModalOpen={props.setIsModalOpen}
                         setPicks={props.setPicks}
                         team={props.selectedTeam}
                     />
@@ -58,6 +60,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                         authenticatedUser={props.authenticatedUser}
                         game={props.game}
                         pick={props.pick}
+                        setIsModalOpen={props.setIsModalOpen}
                         setPicks={props.setPicks}
                         team={props.selectedTeam}
                     />

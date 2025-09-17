@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { loginRequest } from "../services/authAPI";
-import { BASE_URL } from "../services/baseURL";
+import { loginRequest } from "../original-services/authAPI";
+import { BASE_URL } from "../original-services/baseURL";
 import { Token } from "../types/token";
-import { validateToken } from "../services/validateToken";
+import { validateToken } from "../original-services/validateToken";
 
 
 type Props = {

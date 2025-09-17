@@ -4,13 +4,13 @@ import { CurrentUser } from "../types/account";
 import { Team } from "../types/team";
 import { Token } from "../types/token";
 
-import { userLogout } from "../services/logout";
+import { userLogout } from "../original-services/logout";
 import {
     updateDisplayName,
     updateFavoriteTeam,
     updateNotificationPreference,
     updateEmailAddress
-} from "../services/accountAPI";
+} from "../original-services/accountAPI";
 
 
 type Props = {

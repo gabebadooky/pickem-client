@@ -1,4 +1,4 @@
-import { seasonWeeks, weekdays } from "../services/formatDate";
+import { seasonWeeks, weekdays } from "../original-services/formatDate";
 
 type Props = {
     weeks: number;

@@ -9,6 +9,7 @@ const BettingOdds = (props: BettingOddsProps) => {
     const h1Content: string = `${teamName} ${props.source.toUpperCase()} Betting Odds`;
     const oddsValues: OddsValues = instantiateOddsValues(props);
 
+    
     return (
         <div
             className="h-full m-auto w-full"

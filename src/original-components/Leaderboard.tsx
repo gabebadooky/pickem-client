@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { seasonWeeks, weekdays } from "../services/formatDate";
-import { getLeaderbaord } from "../services/leaderboardAPI";
+import { seasonWeeks, weekdays } from "../original-services/formatDate";
+import { getLeaderbaord } from "../original-services/leaderboardAPI";
 import { LeaderboardMetrics } from "../types/leaderboard";
 
 

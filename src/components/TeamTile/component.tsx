@@ -7,6 +7,31 @@ import { TeamTileProps } from "./types";
 const TeamTile = (props: TeamTileProps) => {
     const componentID: string = `${props.pick.userID}-${props.game.gameID}-${props.tileTeam.teamID}`;
     
+    const handleChangeEvent = (): void => {
+        props.setIsModalOpen(true);
+        if (props.isModalOpen) {
+            createPortal(
+                <SelectionModal
+                    allGames={props.allGames}
+                    allPicks={props.allPicks}
+                    allTeams={props.allTeams}
+                    allTeamsNotes={props.allTeamsNotes}
+                    authenticatedUser={props.authenticatedUser}
+                    awayTeam={props.awayTeam}
+                    game={props.game}
+                    homeTeam={props.homeTeam}
+                    isModalOpen={props.isModalOpen}
+                    pick={props.pick}
+                    selectedTeam={props.tileTeam}
+                    setIsModalOpen={props.setIsModalOpen}
+                    setPicks={props.setPicks}
+                    setTeamNotes={props.setTeamNotes}
+                />,
+                document.body
+            );
+        }
+    }
+    
 
     return(
         <div
@@ -17,30 +42,7 @@ const TeamTile = (props: TeamTileProps) => {
             <img
                 alt={props.tileTeam.teamLogoUrl}
                 className={setLogoImageStyling(props)}
-                onClick={() => {
-                    props.setIsModalOpen(true);
-                    if (props.isModalOpen) {
-                        createPortal(
-                            <SelectionModal
-                                allGames={props.allGames}
-                                allPicks={props.allPicks}
-                                allTeams={props.allTeams}
-                                allTeamsNotes={props.allTeamsNotes}
-                                authenticatedUser={props.authenticatedUser}
-                                awayTeam={props.awayTeam}
-                                game={props.game}
-                                homeTeam={props.homeTeam}
-                                isModalOpen={props.isModalOpen}
-                                pick={props.pick}
-                                selectedTeam={props.tileTeam}
-                                setIsModalOpen={props.setIsModalOpen}
-                                setPicks={props.setPicks}
-                                setTeamNotes={props.setTeamNotes}
-                            />,
-                            document.body
-                        );
-                    }
-                }}
+                onClick={handleChangeEvent}
                 src={props.tileTeam.teamLogoUrl}
             />
         </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { registerNewUser } from "../services/authAPI";
-import { validateToken } from "../services/validateToken";
+import { registerNewUser } from "../original-services/authAPI";
+import { validateToken } from "../original-services/validateToken";
 
 import { Team } from "../types/team";
 import { Token } from "../types/token";

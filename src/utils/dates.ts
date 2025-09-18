@@ -84,9 +84,18 @@ export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: strin
 export const convertGameDateToMonthDayYearFormat = (gameDate: Date) => {
     const gameYear: number = gameDate.getFullYear();
     const gameMonth: number = gameDate.getMonth();
-    const gameDay: number = gameDate.getDay();
+    const gameDay: number = gameDate.getDate();
 
     return `${gameMonth}/${gameDay}/${gameYear}`;
+}
+
+
+export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameDate: Date): string => {
+    const gameWeekday: string = gameDate.toLocaleDateString("en", {weekday: "long"});
+    const gameMonth: string = gameDate.toLocaleDateString("en", {month: "long"});
+    const gameDay: number = gameDate.getDate();
+
+    return `${gameWeekday} ${gameMonth}, ${gameDay}`;
 }
 
 

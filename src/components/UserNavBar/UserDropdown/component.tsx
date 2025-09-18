@@ -1,7 +1,8 @@
 import { UserDropdownProps } from "./types";
+import { renderAllUserOptions } from "./utils";
 
 
-const UsersDropdown = (props: UserDropdownProps) => {
+const UserDropdown = (props: UserDropdownProps) => {
     const handleChangeEvent = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         props.setUserFilter(Number(e.currentTarget.value));
     }
@@ -13,10 +14,10 @@ const UsersDropdown = (props: UserDropdownProps) => {
             name="user-dropdown"
             onChange={(e) => handleChangeEvent(e)}
         >
-            {}
+            {renderAllUserOptions(props.allUsers)}
         </select>
     );
 }
 
 
-export default UsersDropdown;
+export default UserDropdown;

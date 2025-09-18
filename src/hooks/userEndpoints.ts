@@ -1,4 +1,5 @@
 import { pickemEndpointURL } from "../types/baseURLs";
+import { User } from "../types/user";
 
 const pickemHeaders: Headers = new Headers();
 pickemHeaders.append("Content-Type", "application/json");
@@ -79,4 +80,40 @@ export const callUpdateNotificationPreferenceEndpoint = async (props: {token: st
     });
 
     userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callGetAllUsersEndpoint = async (): Promise<User[]> => {
+    const endpointURL: string = `${pickemEndpointURL}/user/ids`;
+    const nullUsers: User[] = [];
+    
+    try {
+        const response = await fetch(endpointURL);
+
+        if (!response.ok) {
+            return nullUsers;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullUsers;
+    }
+}
+
+
+export const callGetUserByIDEndpoint = async (userID: number): Promise<User> => {
+    const endpointURL: string = `${pickemEndpointURL}/user/${userID}`;
+    const nullUser: User = {userID: -1, username: "guest"};
+    
+    try {
+        const response = await fetch(endpointURL);
+
+        if (!response.ok) {
+            return nullUser;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullUser;
+    }
 }

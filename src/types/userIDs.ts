@@ -1,4 +1,4 @@
-export interface UserIDs {
+export interface UserIDAndDisplayName {
     userID: number;
     displayName: string;
 }

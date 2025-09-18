@@ -1,4 +1,4 @@
-import { League } from "../../types/league";
+import { League } from "../../../types/league";
 import { LeagueOption } from "./LeagueOption";
 import { LeagueDropdownProps } from "./types";
 
@@ -17,7 +17,7 @@ const SelectElement = (props: LeagueDropdownProps) => {
             name="league-dropdown"
             onChange={(e) => handleChangeEvent(e)}
         >
-            {LeagueOption("ALL", "All Games")}
+            {LeagueOption("NFLCFB", "All Games")}
             {LeagueOption("NFL", "NFL")}
             {LeagueOption("CFB", "CFB (All)")}
             {LeagueOption("CFBT25", "CFB Top 25")}

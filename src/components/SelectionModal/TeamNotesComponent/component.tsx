@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SubmitButton from "../../../new-components/SubmitButton";
+import SubmitButton from "../../SubmitButton/component";
 import { updateTeamNotesInDatabaseAndState } from "./utils";
 import { TeamNotesProps } from "./types";
 

@@ -1,4 +1,4 @@
-import { League } from "../../types/league";
+import { League } from "../../../types/league";
 
 
 export const LeagueOption = (leagueValue: League, leagueInnerText: string) => {

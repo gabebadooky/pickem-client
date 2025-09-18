@@ -1,5 +1,6 @@
 import { League } from "../../types/league";
 
-export type LeagueDropdownProps = {
+
+export type LeagueNavBarProps = {
     setLeagueFilter: React.Dispatch<React.SetStateAction<League>>;
 }

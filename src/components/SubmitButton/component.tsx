@@ -1,8 +1,4 @@
-type SubmitButtonProps = {
-    buttonInnerText: string;
-    parentComponentID: string;
-    submitMethod: any;
-}
+import { SubmitButtonProps } from "./types";
 
 
 const SubmitButton = (props: SubmitButtonProps) => {

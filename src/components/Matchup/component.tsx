@@ -22,7 +22,6 @@ const Matchup = (props: MatchupProps) => {
                     allGames={props.allGames}
                     allPicks={props.allPicks}
                     allTeams={props.allTeams}
-                    allTeamsNotes={props.allTeamsNotes}
                     authenticatedUser={props.authenticatedUser}
                     awayTeam={props.awayTeam}
                     game={props.game}
@@ -32,7 +31,6 @@ const Matchup = (props: MatchupProps) => {
                     tileTeam={props.awayTeam}
                     setIsModalOpen={props.setIsModalOpen}
                     setPicks={props.setPicks}
-                    setTeamNotes={props.setTeamNotes}
                 />
             </div>
 
@@ -45,7 +43,6 @@ const Matchup = (props: MatchupProps) => {
                     allGames={props.allGames}
                     allPicks={props.allPicks}
                     allTeams={props.allTeams}
-                    allTeamsNotes={props.allTeamsNotes}
                     authenticatedUser={props.authenticatedUser}
                     awayTeam={props.awayTeam}
                     game={props.game}
@@ -55,7 +52,6 @@ const Matchup = (props: MatchupProps) => {
                     tileTeam={props.homeTeam}
                     setIsModalOpen={props.setIsModalOpen}
                     setPicks={props.setPicks}
-                    setTeamNotes={props.setTeamNotes}
                 />
             </div>
 

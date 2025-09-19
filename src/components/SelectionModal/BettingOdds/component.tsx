@@ -1,6 +1,6 @@
 import { BettingOddsTableRow } from "./BettingOddsTableRow";
 import { BettingOddsProps, OddsValues } from "./types";
-import { instantiateOddsValues } from "./utils";
+import { instantiateOddsValues } from "./component";
 
 
 const BettingOdds = (props: BettingOddsProps) => {

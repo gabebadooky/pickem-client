@@ -1,1 +1,1 @@
-export { default as TeamNotesComponent } from "./component";
+export { default as TeamNotesComponent } from "./component.tsx";

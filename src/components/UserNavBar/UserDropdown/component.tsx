@@ -1,5 +1,5 @@
 import { UserDropdownProps } from "./types";
-import { renderAllUserOptions } from "./utils";
+import { renderAllUserOptions } from "./component";
 
 
 const UserDropdown = (props: UserDropdownProps) => {

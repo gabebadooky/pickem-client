@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { SelectionModal } from "../SelectionModal";
-import { setLogoImageStyling, setOuterBorderColor } from "./utils";
+import { setLogoImageStyling, setOuterBorderColor } from "./component";
 import { TeamTileProps } from "./types";
 
 
@@ -15,7 +15,6 @@ const TeamTile = (props: TeamTileProps) => {
                     allGames={props.allGames}
                     allPicks={props.allPicks}
                     allTeams={props.allTeams}
-                    allTeamsNotes={props.allTeamsNotes}
                     authenticatedUser={props.authenticatedUser}
                     awayTeam={props.awayTeam}
                     game={props.game}
@@ -25,7 +24,6 @@ const TeamTile = (props: TeamTileProps) => {
                     selectedTeam={props.tileTeam}
                     setIsModalOpen={props.setIsModalOpen}
                     setPicks={props.setPicks}
-                    setTeamNotes={props.setTeamNotes}
                 />,
                 document.body
             );

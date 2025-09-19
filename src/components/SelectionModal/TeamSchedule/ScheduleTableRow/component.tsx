@@ -1,6 +1,6 @@
 import { convertGameDateToLocalTimeString, convertGameDateToMonthDayYearFormat } from "../../../../utils/dates";
 import { ScheduleTableRowProps } from "./types";
-import { getOpponentName } from "./utils";
+import { getOpponentName } from "./component";
 
 
 const ScheduleTableRow = (props: ScheduleTableRowProps) => {

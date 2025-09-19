@@ -1,1 +1,1 @@
-export { default as ScheduleTableRow } from "./component";
+export { default as ScheduleTableRow } from "./component.tsx";

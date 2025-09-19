@@ -1,5 +1,5 @@
 import { BettingOdds } from "./BettingOdds";
-import { instantiateTeamNotes } from "./utils";
+import { instantiateTeamNotes } from "./component";
 import { PickConfidence } from "./PickConfidence";
 import { SelectionModalProps } from "./types";
 import { TeamNotesComponent } from "./TeamNotesComponent";
@@ -22,11 +22,8 @@ export const ModalSlides = (props: SelectionModalProps) => [
     />,
 
     <TeamNotesComponent
-        allTeamNotes={props.allTeamsNotes}
         authenticatedUser={props.authenticatedUser}
-        setTeamNotes={props.setTeamNotes}
         team={props.selectedTeam}
-        teamNotes={instantiateTeamNotes(props.allTeamsNotes, props.authenticatedUser.userID, props.selectedTeam.teamID)}
     />,
 
     <BettingOdds

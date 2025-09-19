@@ -32,7 +32,7 @@ export const seasonWeeks = [
 
 export const calculateCurrentWeek = () => {
     const now: Date = new Date();
-    console.log(`now: ${now}`);
+    
     if (now < seasonWeeks[0].start) {
         // return week 0 if now < seasonWeeks[0].start
         return 0;
@@ -49,25 +49,6 @@ export const calculateCurrentWeek = () => {
     }
 
 }
-
-
-/*export const zuluTimeToLocaleFormattedDate = (gameDate: Date, gameTime: string) => {
-    const dateStringElements: string[] = gameDate.toString().replace(",", "").split(" ");
-    const gameYear: string = dateStringElements[3];
-    const gameMonth: string = monthAbbreviations[dateStringElements[2]]?.padStart(2, "0") || "00";
-    const gameDay: string = dateStringElements[1].padStart(2, "0");
-
-    const timeStringElements: string[] = gameTime.split(":");
-    let gameHour: string = timeStringElements[0].padStart(2, "0");
-    let gameMinute: string = timeStringElements[1].padStart(2, "0");
-    if (gameHour == "04" && gameMinute == "00") {
-        gameHour = "20";
-    }
-
-    const zuluDateTime: Date = new Date(`${gameYear}-${gameMonth}-${gameDay}T${gameHour}:${gameMinute}Z`);
-
-    return zuluDateTime;
-}*/
 
 
 export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: string) => {
@@ -91,9 +72,9 @@ export const convertGameDateToMonthDayYearFormat = (gameDate: Date) => {
 
 
 export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameDate: Date): string => {
-    const gameWeekday: string = gameDate.toLocaleDateString("en", {weekday: "long"});
-    const gameMonth: string = gameDate.toLocaleDateString("en", {month: "long"});
-    const gameDay: number = gameDate.getDate();
+    const gameWeekday: string = new Date(gameDate).toLocaleDateString("en", {weekday: "long"});
+    const gameMonth: string = new Date(gameDate).toLocaleDateString("en", {month: "long"});
+    const gameDay: number = new Date(gameDate).getDate();
 
     return `${gameWeekday} ${gameMonth}, ${gameDay}`;
 }

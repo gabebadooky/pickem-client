@@ -16,7 +16,7 @@ const MatchupsContainer = (props: MatchupsContainerProps) => {
                 const awayTeam: Team = props.allTeams.find((currentTeam) => currentTeam.teamID === currentGame.awayTeamID) || NullTeam;
                 const homeTeam: Team = props.allTeams.find((currentTeam) => currentTeam.teamID === currentGame.homeTeamID) || NullTeam;
                 const pick: Pick = props.allPicks.find((currentPick) => currentPick.userID === props.userFilter && currentPick.gameID === currentGame.gameID) || {userID: -1, gameID: "na", teamPicked: "", pickWeight: ""};
-
+                
                 if (distinctGameDate !== formattedGameDate) {
                     // Render "Weekday MM/DD" Game Day header for distinct game date in week
                     distinctGameDate = formattedGameDate;
@@ -25,10 +25,10 @@ const MatchupsContainer = (props: MatchupsContainerProps) => {
 
                 return (
                     <Matchup
+                        key={`${currentGame.gameID}-matchup-component`}
                         allGames={props.allGames}
                         allPicks={props.allPicks}
                         allTeams={props.allTeams}
-                        allTeamsNotes={props.allTeamsNotes}
                         authenticatedUser={props.authenticatedUser}
                         awayTeam={awayTeam}
                         game={currentGame}
@@ -37,7 +37,6 @@ const MatchupsContainer = (props: MatchupsContainerProps) => {
                         pick={pick}
                         setIsModalOpen={props.setIsModalOpen}
                         setPicks={props.setPicks}
-                        setTeamNotes={props.setTeamNotes}
                     />
                 );
 

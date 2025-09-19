@@ -1,1 +1,1 @@
-export { default as SelectionModal } from "./component";
+export { default as SelectionModal } from "./component.tsx";

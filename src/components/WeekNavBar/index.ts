@@ -1,1 +1,1 @@
-export { default as WeekNavBar } from "./component";
+export { default as WeekNavBar } from "./component.tsx";

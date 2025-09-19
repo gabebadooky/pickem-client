@@ -1,1 +1,1 @@
-export { default as WeekDropdown } from "./component";
+export { default as WeekDropdown } from "./component.tsx";

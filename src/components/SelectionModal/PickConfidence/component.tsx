@@ -1,7 +1,8 @@
 import { ConfidenceRadioOption } from "./ConfidenceRadioOption";
-import { GameTimeOrScore, TvCoverage } from "./GameDetails";
+import { TvCoverage } from "./TvBroadcast";
 import { PickConfidenceHeader } from "./PickConfidenceHeader";
 import { PickConfidenceProps } from "./types";
+import { GameTimeOrScore } from "./GameTimeOrScore";
 
 
 const PickConfidence = (props: PickConfidenceProps) => {
@@ -21,8 +22,8 @@ const PickConfidence = (props: PickConfidenceProps) => {
             </div>
 
             <div id={`${componentID}-game-details`}>
-                {GameTimeOrScore(props.game)}
-                {TvCoverage(props.game)}
+                <GameTimeOrScore game={props.game} />
+                <TvCoverage game={props.game} />
             </div>
 
             <div className="mr-5" id={`${componentID}-radio-options-div`}>

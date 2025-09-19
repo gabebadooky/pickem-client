@@ -1,1 +1,1 @@
-export { default as UserNavBar } from "./component";
+export { default as UserNavBar } from "./component.tsx";

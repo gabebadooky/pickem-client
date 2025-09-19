@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubmitButton from "../../SubmitButton/component";
-import { updateTeamNotesInDatabaseAndState } from "./utils";
+import { fetchTeamNotesFromDatabase, updateTeamNotesInDatabaseAndState } from "./component";
 import { TeamNotesProps } from "./types";
+import { TeamNotes } from "../../../types/teamNotes";
 
 
 const TeamNotesComponent = (props: TeamNotesProps) => {
     const [notesEdited, setNotesEdited] = useState<boolean>(false);
     const [newNotes, setNewNotes] = useState<string>("");
+    const [teamNotes, setTeamNotes] = useState<TeamNotes>({userID: 0, teamID: "0", notes: ""});
+
     const componentID: string = props.team.teamID;
+
+
+    useEffect(() => {
+        if (teamNotes.userID === 0) {
+            fetchTeamNotesFromDatabase(props.authenticatedUser.userID, props.team.teamID).then(setTeamNotes);
+        }
+    }, []);
+
 
     const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setNewNotes(e.currentTarget.value);
@@ -24,8 +35,8 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
             
             <textarea
                 className="bg-[#FFFFFF] h-25 rounded-sm text-s w-[80%]"
-                disabled={props.teamNotes.userID !== props.authenticatedUser.userID}
-                defaultValue={props.teamNotes.notes}
+                disabled={teamNotes.userID !== props.authenticatedUser.userID}
+                defaultValue={teamNotes.notes}
                 id={`${componentID}-team-notes-text-area`}
                 key={`${componentID}-team-notes-text-area`}
                 name="team-notes-textarea"
@@ -39,7 +50,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                 <div className="py-2">
                     <SubmitButton
                         buttonInnerText="Update Team Notes"
-                        parentComponentID={`${props.teamNotes.teamID}-update-team-notes`}
+                        parentComponentID={`${teamNotes.teamID}-update-team-notes`}
                         submitMethod={updateTeamNotesInDatabaseAndState(newNotes, props)}
                     />
                 </div>

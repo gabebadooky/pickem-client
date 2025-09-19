@@ -1,1 +1,1 @@
-export { default as TeamTile } from "./component";
+export { default as TeamTile } from "./component.tsx";

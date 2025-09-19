@@ -1,5 +1,5 @@
-import { handleDecrementWeekClick } from "./utils";
-import { handleIncrementWeekClick } from "./utils";
+import { handleDecrementWeekClick } from "./component";
+import { handleIncrementWeekClick } from "./component";
 import { WeekNavBarProps } from "./types";
 import { WeekDropdown } from "./WeekDropdown";
 

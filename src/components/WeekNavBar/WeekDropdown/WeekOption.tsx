@@ -1,11 +1,10 @@
-import { extractEndDateStringFromCurrentWeek, extractStartDateStringFromCurrentWeek } from "./utils";
+import { extractEndDateStringFromCurrentWeek, extractStartDateStringFromCurrentWeek } from "./component";
 
 
-export const WeekOption = (weekValue: number, weekFilter: number) => {
+export const WeekOption = (weekValue: number) => {
     return (
         <option
             id={`week-dropdown-input-${weekValue}-option`}
-            selected={weekValue === weekFilter}
             value={weekValue}
         >
             {extractStartDateStringFromCurrentWeek(weekValue)} - {extractEndDateStringFromCurrentWeek(weekValue)}

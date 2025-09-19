@@ -1,1 +1,1 @@
-export { default as UserDropdown } from "./component";
+export { default as UserDropdown } from "./component.tsx";

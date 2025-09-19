@@ -1,10 +1,10 @@
-import { seasonWeeks } from "../../utils/dates";
+import { seasonWeeks } from "../../../utils/dates";
 import { WeekOption } from "./WeekOption";
 
 
-export const renderAllWeekOptions = (weekFilter: number, numberOfWeeks: number) => {
+export const renderAllWeekOptions = (numberOfWeeks: number) => {
     for (let i = 0; i < numberOfWeeks; i++) {
-        return WeekOption(i, weekFilter);
+        return WeekOption(i);
     }
 }
 

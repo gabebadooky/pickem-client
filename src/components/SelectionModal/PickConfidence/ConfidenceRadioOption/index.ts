@@ -1,1 +1,1 @@
-export { default as ConfidenceRadioOption } from "./component";
+export { default as ConfidenceRadioOption } from "./component.tsx";

@@ -1,5 +1,5 @@
 import { gameHasKickedOff } from "../../../../utils/dates";
-import { setConfidenceOptionProperties, updatePickInDatabaseAndState } from "./utils";
+import { setConfidenceOptionProperties, updatePickInDatabaseAndState } from "./component";
 import { ConfidenceRadioOptionProps, ConfidenceOptionProperties } from "./types";
 
 

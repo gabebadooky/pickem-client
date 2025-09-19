@@ -1,6 +1,6 @@
 import { UserNavBarProps } from "./types";
 import { UserDropdown } from "./UserDropdown";
-import { handleDecrementUserIndexClick, handleIncrementUserIndexClick } from "./utils";
+import { handleDecrementUserIndexClick, handleIncrementUserIndexClick } from "./component";
 
 
 const UserNavBar = (props: UserNavBarProps) => {

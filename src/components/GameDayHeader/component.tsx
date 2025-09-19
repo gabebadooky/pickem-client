@@ -12,7 +12,7 @@ const GameDayHeader = (props: GameDayHeaderProps) => {
             key={`${componentID}-div`}
         >
             <h2 className="mt-[8%] text-center">{props.formattedGameDate}</h2>
-            <hr className="mb-[4%] w-[90%]" />
+            <hr className="m-auto mb-[4%] w-[90%]" />
         </div>
     );
 }

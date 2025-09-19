@@ -51,9 +51,27 @@ export const calculateCurrentWeek = () => {
 }
 
 
+const instantiateGameZuleDateTime = (gameDate: Date, gameTime: string): Date => {
+    const zuluYear: number = new Date(gameDate).getFullYear();
+    const zuluMonth: number = new Date(gameDate).getMonth();
+    const zuluDay: number = new Date(gameDate).getDay();
+    
+    const timeStringElements: string[] = gameTime.split(":");
+    const gameMinute: string = timeStringElements[1].padStart(2, "0");
+    let gameHour: string = timeStringElements[0].padStart(2, "0");
+    
+    if (gameHour == "04" && gameMinute == "00") {
+        gameHour = "20";
+    }
+
+    return new Date(`${zuluYear}-${zuluMonth}-${zuluDay}T${gameHour}:${gameMinute}Z`);
+
+}
+
+
 export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: string) => {
     const gameYear = new Date(gameDate).getFullYear();
-    const gameMonth = new Date(gameDate).getMonth();
+    const gameMonth = new Date(gameDate).getMonth() + 1;
     const gameDay = new Date(gameDate).getDate() + 1;
     const [zuluHours, zuluMinutes] = gameTime.split(":");
     const utcDate = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
@@ -64,17 +82,18 @@ export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: strin
 
 export const convertGameDateToMonthDayYearFormat = (gameDate: Date) => {
     const gameYear: number = gameDate.getFullYear();
-    const gameMonth: number = gameDate.getMonth();
+    const gameMonth: number = gameDate.getMonth() + 1;
     const gameDay: number = gameDate.getDate();
 
     return `${gameMonth}/${gameDay}/${gameYear}`;
 }
 
 
-export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameDate: Date): string => {
-    const gameWeekday: string = new Date(gameDate).toLocaleDateString("en", {weekday: "long"});
-    const gameMonth: string = new Date(gameDate).toLocaleDateString("en", {month: "long"});
-    const gameDay: number = new Date(gameDate).getDate();
+export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameDate: Date, gameTime: string): string => {
+    const gameZuluDatetime = instantiateGameZuleDateTime(gameDate, gameTime);
+    const gameWeekday: string = gameZuluDatetime.toLocaleDateString("en", {weekday: "long"});
+    const gameMonth: string = gameZuluDatetime.toLocaleDateString("en", {month: "long"});
+    const gameDay: number = gameZuluDatetime.getDate();
 
     return `${gameWeekday} ${gameMonth}, ${gameDay}`;
 }
@@ -82,7 +101,7 @@ export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameD
 
 export const gameHasKickedOff = (gameDate: Date, gameTime: string): boolean => {
     const gameYear = new Date(gameDate).getFullYear();
-    const gameMonth = new Date(gameDate).getMonth();
+    const gameMonth = new Date(gameDate).getMonth() + 1;
     const gameDay = new Date(gameDate).getDate() + 1;
     const [zuluHours, zuluMinutes] = gameTime.split(":");
     

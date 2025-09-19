@@ -12,7 +12,7 @@ const SelectElement = (props: LeagueDropdownProps) => {
 
     return (
         <select
-            className="h-full m-auto w-full"
+            className="h-full m-auto text-center w-full"
             id="league-dropdown-input"
             name="league-dropdown"
             onChange={(e) => handleChangeEvent(e)}

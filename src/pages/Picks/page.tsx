@@ -27,7 +27,10 @@ const Picks = () => {
 
 
     useEffect(() => {
-        setGames(games.filter((game) => game.league.includes(leagueFilter)));
+        callGetGamesByWeekEndpoint(weekFilter)
+        .then((allGames) => {
+            setGames(allGames.filter((game) => leagueFilter.includes(game.league)));
+        });
     }, [leagueFilter]);
 
 

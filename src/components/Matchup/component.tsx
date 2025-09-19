@@ -8,7 +8,7 @@ const Matchup = (props: MatchupProps) => {
     
     return (
         <div
-            className="flex justify-center m-auto my-5 w-full"
+            className="flex h-full justify-center m-auto p-3 w-full"
             id={`${componentID}-div`}
             key={`${componentID}-div`}
         >

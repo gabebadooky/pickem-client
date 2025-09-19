@@ -25,9 +25,13 @@ const GameTimeOrScore = (props: GameTimeOrScoreProps) => {
             {
                 gameHasKickedOff(props.game.date, props.game.time)
                     ?
-                <h2 className="my-2">{liveGameScore}</h2>
+                <h2 id={`${componentID}-header`} key={`${componentID}-header`}>
+                    {liveGameScore}
+                </h2>
                     :
-                <h2 className="my-2">{convertGameDateToLocalTimeString(props.game.date, props.game.time)}</h2>
+                <h2 id={`${componentID}-header`} key={`${componentID}-header`}>
+                    {convertGameDateToLocalTimeString(props.game.date, props.game.time)}
+                </h2>
             }
 
         </div>

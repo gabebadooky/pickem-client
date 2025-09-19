@@ -14,9 +14,19 @@ const TvBroadcast = (props: TvBroadcastProps) => {
             {
                 props.game.tvCoverage.length > 1
                     ?
-                <h3 className="my-2">Broadcast {props.game.tvCoverage}</h3>
+                <h3
+                    id={`${componentID}-header`}
+                    key={`${componentID}-header`}
+                >
+                    Broadcast: {props.game.tvCoverage}
+                </h3>
                     :
-                <h3 className="my-2">Broadcast: N/A</h3>
+                <h3
+                    id={`${componentID}-header`}
+                    key={`${componentID}-header`}
+                >
+                    Broadcast: N/A
+                </h3>
             }
         </div>
     );

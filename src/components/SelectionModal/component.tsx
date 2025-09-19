@@ -33,18 +33,20 @@ const SelectionModal = (props: SelectionModalProps) => {
         >
 
             <div 
-                className="bg-[#FFFFFF] p-5 relative rounded-xl text-black text-center w-full"
+                className="bg-[#FFFFFF] p-3 relative rounded-xl text-black text-center w-[90%]"
                 id={`${componentID}-portal-div`}
                 key={`${componentID}-portal-div`}
             >
                 
-                <i
-                    className="fa-solid fa-2xl fa-rectangle-xmark absolute top-3 right-3"
-                    id={`${componentID}-close-portal-icon`}
-                    key={`${componentID}-close-portal-icon`}
-                    onClick={handleIconClickEvent}
-                >
-                </i>
+                <div className="text-end w-full">
+                    <i
+                        className="fa-solid fa-2xl fa-rectangle-xmark"
+                        id={`${componentID}-close-portal-icon`}
+                        key={`${componentID}-close-portal-icon`}
+                        onClick={handleIconClickEvent}
+                    >
+                    </i>
+                </div>
 
                 <div
                     className="flex justify-center m-auto mt-5 w-full"

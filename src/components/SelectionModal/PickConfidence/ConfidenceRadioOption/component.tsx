@@ -17,7 +17,7 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
 
     return (
         <div
-            className="h-full m-auto w-full"
+            className="h-full m-auto my-3 w-full"
             id={`${componentID}-input-component`}
             key={`${componentID}-input-component`}
         >
@@ -32,18 +32,10 @@ const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
                 value={props.confidenceLevel}
             />
 
-            <label
-                htmlFor={`${componentID}-radio-input`}
-            >
-                {confidenceOption.label} Confidence
-            </label>
+            <label htmlFor={`${componentID}-radio-input`}> {confidenceOption.label} Confidence</label>
 
-            <p className="text-green-600">
-                <span>Reward: {confidenceOption.reward}</span>
-            </p>
-
-            <p className="text-red-600">
-                <span>Penalty: {confidenceOption.penalty}</span>
+            <p>
+                <span className="text-green-600">Reward: {confidenceOption.reward}</span> <span className="text-red-600">Penalty: {confidenceOption.penalty}</span>
             </p>
 
         </div>

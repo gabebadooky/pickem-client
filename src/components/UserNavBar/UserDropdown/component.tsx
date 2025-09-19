@@ -1,5 +1,5 @@
 import { UserDropdownProps } from "./types";
-import { renderAllUserOptions } from "./component";
+import { UserOption } from "./UserOption";
 
 
 const UserDropdown = (props: UserDropdownProps) => {
@@ -14,7 +14,9 @@ const UserDropdown = (props: UserDropdownProps) => {
             name="user-dropdown"
             onChange={(e) => handleChangeEvent(e)}
         >
-            {renderAllUserOptions(props.allUsers)}
+            {props.allUsers.map((user) => {
+                return UserOption(user.userID, user.displayName || user.username);
+            })};
         </select>
     );
 }

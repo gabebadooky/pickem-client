@@ -4,6 +4,10 @@ import { SelectionModalProps } from "./types";
 
 
 const SelectionModal = (props: SelectionModalProps) => {
+    if (!props.isModalOpen) {
+        return null;
+    };
+
     const [modalIndex, setModalIndex] = useState<number>(0);
     const componentID: string = `${props.pick.userID}-${props.pick.gameID}`;
 
@@ -19,8 +23,9 @@ const SelectionModal = (props: SelectionModalProps) => {
         setModalIndex(modalIndex + 1);
     }
     
-
+    
     return (
+        
         <div 
             className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000"
             id={`${componentID}-portal-container`}

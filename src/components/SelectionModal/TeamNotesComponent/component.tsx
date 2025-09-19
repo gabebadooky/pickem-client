@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import SubmitButton from "../../SubmitButton/component";
-import { fetchTeamNotesFromDatabase, updateTeamNotesInDatabaseAndState } from "./component";
+import { updateTeamNotesInDatabaseAndState } from "./component";
 import { TeamNotesProps } from "./types";
 import { TeamNotes } from "../../../types/teamNotes";
+import { callGetTeamNotesEnpdoint } from "../../../hooks/teamsEndpoints";
 
 
 const TeamNotesComponent = (props: TeamNotesProps) => {
@@ -15,7 +16,16 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
 
     useEffect(() => {
         if (teamNotes.userID === 0) {
-            fetchTeamNotesFromDatabase(props.authenticatedUser.userID, props.team.teamID).then(setTeamNotes);
+            //fetchTeamNotesFromDatabase(props.authenticatedUser.userID, props.team.teamID).then(setTeamNotes);
+            callGetTeamNotesEnpdoint(props.authenticatedUser.userID)
+            .then((allUserTeamNotes) => {
+                setTeamNotes(
+                    allUserTeamNotes.find((teamNotes) =>
+                        teamNotes.userID === props.authenticatedUser.userID && 
+                        teamNotes.teamID === props.team.teamID) || 
+                        {userID: props.authenticatedUser.userID, teamID: props.team.teamID, notes: ""}
+                );
+            });
         }
     }, []);
 

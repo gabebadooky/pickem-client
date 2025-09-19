@@ -10,7 +10,6 @@ import { LeagueNavBar } from "../../components/LeagueNavBar";
 import { WeekNavBar } from "../../components/WeekNavBar";
 import { UserNavBar } from "../../components/UserNavBar";
 import { MatchupsContainer } from "../../components/MatchupsContainer";
-import { validateAuthenticatedUserID } from "../../utils/auth";
 import { useLoaderData } from "react-router";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";

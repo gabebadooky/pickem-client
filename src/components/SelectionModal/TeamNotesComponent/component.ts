@@ -1,8 +1,8 @@
 import { TeamNotesProps } from "./types";
-import { callGetTeamNotesEnpdoint, callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoints";
-import { TeamNotes } from "../../../types/teamNotes";
+import { callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoints";
+//import { TeamNotes } from "../../../types/teamNotes";
 
-
+/*
 export const fetchTeamNotesFromDatabase = async (userID: number, teamID: string) => {
     let allUserTeamNotes: TeamNotes[] = await callGetTeamNotesEnpdoint(userID);
 
@@ -12,6 +12,7 @@ export const fetchTeamNotesFromDatabase = async (userID: number, teamID: string)
         return {userID: userID, teamID: teamID, notes: ""};
     }
 }
+*/
 
 
 export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesProps) => {

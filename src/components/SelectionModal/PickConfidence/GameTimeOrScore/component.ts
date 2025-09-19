@@ -24,12 +24,13 @@ const retrieveGameFromESPNHiddenAPI = async (game: Game): Promise<ScoreboardEven
 }
 
 
+
 export const renderGameScore = async (game: Game) => {
     if (game.gameFinished) {
         return `${game.awayTotalBoxScore} - ${game.homeTotalBoxScore}`;
 
     } else {
-        const gameEntryFromESPNHiddenAPI: ScoreboardEvent | undefined = await retrieveGameFromESPNHiddenAPI(game);
+        const gameEntryFromESPNHiddenAPI: ScoreboardEvent | undefined = await retrieveGameFromESPNHiddenAPI(game); //await retrieveGameFromESPNHiddenAPI(game);
 
         if (gameEntryFromESPNHiddenAPI === undefined) {
             return "0 - 0";

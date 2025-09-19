@@ -1,5 +1,4 @@
 import { BettingOdds } from "./BettingOdds";
-import { instantiateTeamNotes } from "./component";
 import { PickConfidence } from "./PickConfidence";
 import { SelectionModalProps } from "./types";
 import { TeamNotesComponent } from "./TeamNotesComponent";

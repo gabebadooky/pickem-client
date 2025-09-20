@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { convertGameDateToLocalTimeString } from "../../../../utils/dates";
 import { gameHasKickedOff } from "../../../../utils/dates";
-import { renderGameScore } from "./component";
+import { instantiateLocalTimestamp, renderGameScore } from "./component";
 import { GameTimeOrScoreProps } from "./types";
 
 
@@ -30,7 +29,7 @@ const GameTimeOrScore = (props: GameTimeOrScoreProps) => {
                 </h2>
                     :
                 <h2 id={`${componentID}-header`} key={`${componentID}-header`}>
-                    {convertGameDateToLocalTimeString(props.game.date, props.game.time)}
+                    {instantiateLocalTimestamp(props.game.date, props.game.time)}
                 </h2>
             }
 

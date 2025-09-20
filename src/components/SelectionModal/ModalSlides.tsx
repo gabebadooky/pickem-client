@@ -3,10 +3,85 @@ import { PickConfidence } from "./PickConfidence";
 import { SelectionModalProps } from "./types";
 import { TeamNotesComponent } from "./TeamNotesComponent";
 import { TeamSchedule } from "./TeamSchedule";
+import { JSX } from "react";
 
 
+export const instantiateModalSlides = (props: SelectionModalProps) => {
+    let ModalSlides: JSX.Element[] = [];
 
-export const ModalSlides = (props: SelectionModalProps) => [
+    ModalSlides.push(
+        <PickConfidence
+            allPicks={props.allPicks}
+            awayTeam={props.awayTeam}
+            authenticatedUser={props.authenticatedUser}
+            game={props.game}
+            homeTeam={props.homeTeam}
+            pick={props.pick}
+            selectedTeam={props.selectedTeam}
+            setIsModalOpen={props.setIsModalOpen}
+            setPicks={props.setPicks}
+        />
+    );
+
+    ModalSlides.push(
+        <TeamNotesComponent
+            authenticatedUser={props.authenticatedUser}
+            team={props.selectedTeam}
+        />
+    );
+
+    ModalSlides.push(
+        <BettingOdds
+            awayTeam={props.awayTeam}
+            game={props.game}
+            homeTeam={props.homeTeam}
+            selectedTeamID={props.selectedTeam.teamID}
+            source="ESPN"
+        />
+    );
+
+    ModalSlides.push(
+        <BettingOdds
+            awayTeam={props.awayTeam}
+            game={props.game}
+            homeTeam={props.homeTeam}
+            selectedTeamID={props.selectedTeam.teamID}
+            source="CBS"
+        />
+    );
+
+    ModalSlides.push(
+        <BettingOdds
+            awayTeam={props.awayTeam}
+            game={props.game}
+            homeTeam={props.homeTeam}
+            selectedTeamID={props.selectedTeam.teamID}
+            source="FOX"
+        />
+    );
+
+    ModalSlides.push(
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
+            team={props.awayTeam}
+        />
+    );
+
+    ModalSlides.push(
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
+            team={props.homeTeam}
+        />
+    );
+
+    return ModalSlides;
+
+}
+
+
+export const aaModalSlides = (props: SelectionModalProps) => [
         
     <PickConfidence
         allPicks={props.allPicks}

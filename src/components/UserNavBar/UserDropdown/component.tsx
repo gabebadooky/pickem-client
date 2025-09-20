@@ -13,7 +13,10 @@ const UserDropdown = (props: UserDropdownProps) => {
             id="user-dropdown-input"
             name="user-dropdown"
             onChange={(e) => handleChangeEvent(e)}
+            value={props.userFilter}
         >
+            {UserOption(9999, "Leaderboard")}
+
             {props.allUsers.map((user) => {
                 return UserOption(user.userID, user.displayName || user.username);
             })};

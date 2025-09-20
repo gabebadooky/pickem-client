@@ -60,7 +60,7 @@ const Picks = () => {
             >
                 <div className="p-3"><LeagueNavBar setLeagueFilter={setLeagueFilter} /></div>
                 <div className="p-3"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
-                <div className="p-3"><UserNavBar allUsers={allUsers} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
+                <div className="p-3"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
             </div>
 
             <div className="my-[5%] w-full" id="picks-page-matchups-container">

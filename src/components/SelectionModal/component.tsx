@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { ModalSlides } from "./ModalSlides";
+import { JSX, useState } from "react";
+import { instantiateModalSlides } from "./ModalSlides";
 import { SelectionModalProps } from "./types";
+import { LeftArrow } from "../NavArrows/LeftArrow";
+import RightArrow from "../NavArrows/RightArrow/component";
 
 
 const SelectionModal = (props: SelectionModalProps) => {
-    if (!props.isModalOpen) {
-        return null;
-    };
-
     const [modalIndex, setModalIndex] = useState<number>(0);
+    
     const componentID: string = `${props.pick.userID}-${props.pick.gameID}`;
+    const modalSlides: JSX.Element[] = instantiateModalSlides(props);
+
 
     const handleIconClickEvent = (): void => {
         props.setIsModalOpen(false);
@@ -60,11 +61,8 @@ const SelectionModal = (props: SelectionModalProps) => {
                         key={`${componentID}-portal-left-arrow`}
                     >
                         { 
-                            modalIndex > 0 && 
-                            <i
-                                className="fa-solid fa-caret-left"
-                                onClick={handleLeftArrowClickEvent}
-                            ></i>
+                            modalIndex > 0 &&
+                            <LeftArrow onClick={() => handleLeftArrowClickEvent()} />
                         }
                     </div>
 
@@ -73,7 +71,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                         id={`${componentID}-portal-slide-container`}
                         key={`${componentID}-portal-slide-container`}
                     >
-                        {ModalSlides(props)[modalIndex]}
+                        {instantiateModalSlides(props)[modalIndex]}
                     </div>
 
                     <div
@@ -82,11 +80,8 @@ const SelectionModal = (props: SelectionModalProps) => {
                         key={`${componentID}-portal-right-arrow`}
                     >
                         {
-                            modalIndex < ModalSlides.length - 1 && 
-                            <i 
-                                className="fa-solid fa-caret-right"
-                                onClick={handleRightArrowClickEvent}
-                            ></i>
+                            modalIndex < modalSlides.length - 1 && 
+                            <RightArrow onClick={() => handleRightArrowClickEvent()} />
                         }
                     </div>
 

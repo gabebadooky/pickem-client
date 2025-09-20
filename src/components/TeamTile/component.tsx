@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { SelectionModal } from "../SelectionModal";
-import { setLogoImageStyling, setOuterBorderColor } from "./component";
+import { setLogoImageStyling, setOuterBorder } from "./component";
 import { TeamTileProps } from "./types";
 import { useState } from "react";
 
@@ -37,15 +37,17 @@ const TeamTile = (props: TeamTileProps) => {
 
     return(
         <div
-            className={setOuterBorderColor(props)}
+            className={setOuterBorder(props)}
             id={`${componentID}-div`}
             key={`${componentID}-div`}
+            style={{ borderColor: `#${props.tileTeam.alternateColor}` }}
         >
             <img
                 alt={props.tileTeam.teamLogoUrl}
                 className={setLogoImageStyling(props)}
                 onClick={handleChangeEvent}
-                src={props.tileTeam.teamLogoUrl}
+                src={props.pick.teamPicked === props.tileTeam.teamID ? props.tileTeam.teamLogoUrl.replace("500-dark", "500") : props.tileTeam.teamLogoUrl }
+                style={{ borderColor: `#${props.tileTeam.primaryColor}` }}
             />
 
             {

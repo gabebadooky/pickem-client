@@ -13,10 +13,10 @@ const WeekDropdown = (props: WeekDropdownProps) => {
     return (
         <select
             className="appearance-none h-full m-auto px-5 text-center w-full"
-            defaultValue={props.weekFilter}
             id="week-dropdown-input"
             name="week-dropdown"
             onChange={(e) => handleChangeEvent(e)}
+            value={props.weekFilter}
         >
             {Array.from({ length: seasonWeeks.length }, (_, i) => i).map((week) => WeekOption(week))}
             {/* renderAllWeekOptions(seasonWeeks.length) */}

@@ -1,5 +1,4 @@
 import { WeekDropdownProps } from "./types";
-import { renderAllWeekOptions } from "./component";
 import { seasonWeeks } from "../../../utils/dates";
 import React from "react";
 import { WeekOption } from "./WeekOption";
@@ -13,7 +12,7 @@ const WeekDropdown = (props: WeekDropdownProps) => {
 
     return (
         <select
-            className="h-full m-auto text-center w-full"
+            className="appearance-none h-full m-auto px-5 text-center w-full"
             defaultValue={props.weekFilter}
             id="week-dropdown-input"
             name="week-dropdown"

@@ -22,7 +22,7 @@ const MatchupsContainer = (props: MatchupsContainerProps) => {
                     distinctGameDate = formattedGameDate;
                     return (
                         <>
-                            <GameDayHeader formattedGameDate={formattedGameDate} />
+                            <div className="text-3xl"><GameDayHeader formattedGameDate={formattedGameDate} /></div>
                             <Matchup
                                 key={`${currentGame.gameID}-matchup-component`}
                                 allGames={props.allGames}

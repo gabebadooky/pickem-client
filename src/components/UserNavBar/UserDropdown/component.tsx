@@ -9,7 +9,7 @@ const UserDropdown = (props: UserDropdownProps) => {
 
     return (
         <select
-            className="h-full m-auto text-center w-full"
+            className="appearance-none h-full m-auto px-5 text-center w-full"
             id="user-dropdown-input"
             name="user-dropdown"
             onChange={(e) => handleChangeEvent(e)}

@@ -8,7 +8,7 @@ const LeagueNavBar = (props: LeagueNavBarProps) => {
             className="flex justify-between h-full m-auto top-0 w-full"
             id="picks-page-league-div"
         >
-            <i className="fa-slab fa-regular fa-user"></i>
+            <i className="fa-slab fa-regular fa-xl fa-user m-auto"></i>
             <LeagueDropdown setLeagueFilter={props.setLeagueFilter} />
             <span></span>
         </div>

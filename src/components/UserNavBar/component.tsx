@@ -1,6 +1,8 @@
 import { UserNavBarProps } from "./types";
 import { UserDropdown } from "./UserDropdown";
 import { handleDecrementUserIndexClick, handleIncrementUserIndexClick } from "./component";
+import { LeftArrow } from "../NavArrows/LeftArrow";
+import RightArrow from "../NavArrows/RightArrow/component";
 
 
 const UserNavBar = (props: UserNavBarProps) => {
@@ -9,23 +11,13 @@ const UserNavBar = (props: UserNavBarProps) => {
             className="h-[10%] flex justify-between m-auto top-0 w-full"
             id="picks-page-user-nav-bar"
         >
-
-            <i
-                className="fa-slab fa-regular fa-arrow-left"
-                onClick={() => handleDecrementUserIndexClick(props.setUserFilter, props.userFilter)}
-            ></i>
-            
+            <LeftArrow onClick={handleDecrementUserIndexClick(props.setUserFilter, props.userFilter)} />
             <UserDropdown
                 allUsers={props.allUsers}
                 userFilter={props.userFilter}
                 setUserFilter={props.setUserFilter}
             />
-            
-            <i
-                className="fa-slab fa-regular fa-arrow-right"
-                onClick={() => handleIncrementUserIndexClick(props.setUserFilter, props.userFilter)}
-            ></i>
-
+            <RightArrow onClick={handleIncrementUserIndexClick(props.setUserFilter, props.userFilter)} />
         </div>
     );
 }

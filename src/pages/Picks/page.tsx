@@ -15,6 +15,11 @@ import { Team } from "../../types/team";
 import { User } from "../../types/user";
 
 
+const findUsersFavoriteTeamPrimaryColor = (favoriteTeam: string | undefined, allTeams: Team[]): string => {
+    return allTeams.find((team) => team.teamID === favoriteTeam)?.primaryColor || "#ADACAC";
+}
+
+
 const Picks = () => {
     const { allTeams, allUsers, authenticatedUser }: { allTeams: Team[], allUsers: User[], authenticatedUser: User } = useLoaderData();
 
@@ -48,10 +53,14 @@ const Picks = () => {
         <div
             className="h-full m-auto w-full"
         >
-            <div className="top-0 w-full" id="picks-page-navigation-bars">
-                <LeagueNavBar setLeagueFilter={setLeagueFilter} />
-                <WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} />
-                <UserNavBar allUsers={allUsers} setUserFilter={setUserFilter} userFilter={userFilter} />
+            <div 
+                className="top-0 text-xl w-full"
+                id="picks-page-navigation-bars"
+                style={{backgroundColor: findUsersFavoriteTeamPrimaryColor(authenticatedUser.favoriteTeam, allTeams)}}
+            >
+                <div className="p-3"><LeagueNavBar setLeagueFilter={setLeagueFilter} /></div>
+                <div className="p-3"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
+                <div className="p-3"><UserNavBar allUsers={allUsers} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
             </div>
 
             <div className="my-[5%] w-full" id="picks-page-matchups-container">

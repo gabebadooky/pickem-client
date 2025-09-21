@@ -9,7 +9,7 @@ const TeamSchedule = (props: TeamScheduleProps) => {
     
     return (
         <div
-            className="h-full m-auto w-full"
+            className="h-full m-auto w-[90%]"
             id={`${componentID}-div`}
             key={`${componentID}-div`}
         >
@@ -24,17 +24,22 @@ const TeamSchedule = (props: TeamScheduleProps) => {
 
 
             <table
-                className="m-auto w-full"
+                className="m-auto my-5 w-full"
                 id={`${componentID}-table`}
                 key={`${componentID}-table`}
             >
-                {props.allGames.filter(game => {
-                    game.awayTeamID === props.team.teamID
-                        ||
-                    game.homeTeamID === props.team.teamID
-                }).map((game: Game) => {
-                    return <ScheduleTableRow allTeams={props.allTeams} game={game} team={props.team} />
-                })}
+                <tbody>
+
+                    {props.allGames.filter(game => (
+                        game.awayTeamID === props.team.teamID
+                            ||
+                        game.homeTeamID === props.team.teamID
+                    )).map((game: Game) => {
+                        console.log(`yuh: ${game.gameID}`);
+                        return (<ScheduleTableRow allTeams={props.allTeams} game={game} team={props.team} />);
+                    })}
+
+                </tbody>
             </table>
 
 

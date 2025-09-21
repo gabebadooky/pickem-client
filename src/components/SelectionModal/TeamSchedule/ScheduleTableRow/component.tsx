@@ -1,11 +1,11 @@
-import { convertGameDateToLocalTimeString, convertGameDateToMonthDayYearFormat } from "../../../../utils/dates";
+import { instantiateZuluDateTime } from "../../../../utils/dates";
 import { ScheduleTableRowProps } from "./types";
-import { getOpponentName } from "./component";
+import { getOpponentName, renderScoreCell } from "./component";
 
 
 const ScheduleTableRow = (props: ScheduleTableRowProps) => {
     const componentID: string = `${props.team.teamID}-${props.game.gameID}-schedule`;
-
+    const zuluGameDateTime: Date = instantiateZuluDateTime(props.game.date, props.game.time);
     
     return (
         <tr
@@ -17,9 +17,9 @@ const ScheduleTableRow = (props: ScheduleTableRowProps) => {
             <td
                 className="text-left"
                 id={`${componentID}-week-${props.game.week}-date-cell`}
-                key={`${componentID}-opponent-week-${props.game.week}-date-cell`}
+                key={`${componentID}-week-${props.game.week}-date-cell`}
             >
-                {convertGameDateToMonthDayYearFormat(props.game.date)}
+                {zuluGameDateTime.toLocaleDateString("en", { dateStyle: "short" })}
             </td>
 
             <td
@@ -32,10 +32,16 @@ const ScheduleTableRow = (props: ScheduleTableRowProps) => {
 
             <td
                 className="text-right"
-                id={`${componentID}-week-${props.game.week}-date-cell`}
-                key={`${componentID}-opponent-week-${props.game.week}-date-cell`}
+                id={`${componentID}-week-${props.game.week}-time-score-cell`}
+                key={`${componentID}-week-${props.game.week}-time-score-cell`}
             >
-                {convertGameDateToLocalTimeString(props.game.date, props.game.time)}
+                {
+                    props.game.gameFinished
+                        ?
+                    renderScoreCell(props)
+                        :
+                    zuluGameDateTime.toLocaleTimeString("en", { timeStyle: "short" })
+                }
             </td>
 
         </tr>

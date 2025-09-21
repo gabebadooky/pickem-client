@@ -1,5 +1,5 @@
-import { TeamNotesProps } from "./types";
 import { callUpdateTeamNotesEndpoint } from "../../../hooks/teamsEndpoints";
+import React from "react";
 //import { TeamNotes } from "../../../types/teamNotes";
 
 /*
@@ -15,12 +15,16 @@ export const fetchTeamNotesFromDatabase = async (userID: number, teamID: string)
 */
 
 
-export const updateTeamNotesInDatabaseAndState = (newNotes: string, props: TeamNotesProps) => {
+export const updateTeamNotesInDatabaseAndState = (newNotes: string, authenticatedUserID: number, teamID: string, setNewNotes: React.Dispatch<React.SetStateAction<string>>, setNotesEdited: React.Dispatch<React.SetStateAction<boolean>>) => {
     try {
         callUpdateTeamNotesEndpoint(localStorage.getItem("jwt") || "", {
-            userID: props.authenticatedUser.userID,
-            teamID: props.team.teamID,
+            userID: authenticatedUserID,
+            teamID: teamID,
             notes: newNotes
+        })
+        .then(() => {
+            setNewNotes("");
+            setNotesEdited(false);
         });
     } catch {
         alert("Error occurred updating team notes! Please try again and let the developer know he sucks. 🙃");

@@ -26,7 +26,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                 <TvCoverage game={props.game} />
             </div>
 
-            <div className="mr-5" id={`${componentID}-radio-options-div`}>
+            <div className="mr-5 my-5" id={`${componentID}-radio-options-div`}>
                 
                 <div className="my-1" id={`${componentID}-low-confidence-option-div`} key={`${componentID}-low-confidence-option-div`}>
                     <ConfidenceRadioOption

@@ -8,8 +8,8 @@ const BettingOdds = (props: BettingOddsProps) => {
     const teamName: string = props.awayTeam.teamID === props.selectedTeamID ? props.awayTeam.teamName: props.homeTeam.teamName;
     const h1Content: string = `${teamName} ${props.source.toUpperCase()} Betting Odds`;
     const oddsValues: OddsValues = instantiateOddsValues(props);
-
     
+
     return (
         <div
             className="h-full m-auto w-full"
@@ -19,35 +19,37 @@ const BettingOdds = (props: BettingOddsProps) => {
             <h1 className="my-5" id={`${componentID}-betting-odds-h1`}>{h1Content}</h1>
 
             <table
-                className="w-full"
+                className="my-5 w-full"
                 id={`${componentID}-betting-odds-table`}
                 key={`${componentID}-betting-odds-table`}
             >
-                
-                <BettingOddsTableRow
-                    parentComponentID={componentID}
-                    label={`${teamName} Moneyline`}
-                    value={oddsValues.moneyline}
-                />
+                <tbody>
+                    
+                    <BettingOddsTableRow
+                        parentComponentID={componentID}
+                        label={`${teamName} Moneyline`}
+                        value={oddsValues.moneyline}
+                    />
 
-                <BettingOddsTableRow
-                    parentComponentID={componentID}
-                    label={`${teamName} Spread`}
-                    value={oddsValues.spread}
-                />
+                    <BettingOddsTableRow
+                        parentComponentID={componentID}
+                        label={`${teamName} Spread`}
+                        value={oddsValues.spread}
+                    />
 
-                <BettingOddsTableRow
-                    parentComponentID={componentID}
-                    label={`${teamName} Percentage`}
-                    value={oddsValues.percentage}
-                />
+                    <BettingOddsTableRow
+                        parentComponentID={componentID}
+                        label={`${teamName} Percentage`}
+                        value={oddsValues.percentage}
+                    />
 
-                <BettingOddsTableRow
-                    parentComponentID={componentID}
-                    label={`${teamName} Over/Under`}
-                    value={oddsValues.overUnder}
-                />
+                    <BettingOddsTableRow
+                        parentComponentID={componentID}
+                        label={`Over/Under`}
+                        value={oddsValues.overUnder}
+                    />
 
+                </tbody>
             </table>
         </div>
     );

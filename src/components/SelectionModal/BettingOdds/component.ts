@@ -1,4 +1,19 @@
+import { Game } from "../../../types/game";
 import { BettingOddsProps, OddsValues } from "./types";
+
+
+export const instantiateGameCode = (game: Game, source: string) => {
+    switch (source) {
+        case "ESPN":
+            return game.espnCode;
+        case "CBS":
+            return game.cbsCode;
+        case "FOX":
+            return game.foxCode;
+        default:
+            return "";
+    }
+}
 
 
 export const instantiateOddsValues = (props: BettingOddsProps): OddsValues => {

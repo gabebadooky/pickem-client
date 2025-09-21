@@ -9,11 +9,11 @@ export const ScoreSpan = (props: ScheduleTableRowProps) => {
         
         if (props.game.awayTotalBoxScore > props.game.homeTotalBoxScore) {
             // If Away Team Won
-            return <span className="text-green-600">W {gameScore}</span>;
+            return <span className="text-green-600 top-0">W {gameScore}</span>;
 
         } else {
             // Home Team Won
-            return <span className="text-red-600">L {gameScore}</span>;
+            return <span className="text-red-600 top-0">L {gameScore}</span>;
 
         }
 
@@ -22,11 +22,11 @@ export const ScoreSpan = (props: ScheduleTableRowProps) => {
 
         if (props.game.awayTotalBoxScore > props.game.homeTotalBoxScore) {
             // If Away Team Won
-            return <span className="text-red-600">L {gameScore}</span>;
+            return <span className="text-red-600 top-0">L {gameScore}</span>;
 
         } else {
             // Home Team Won
-            return <span className="text-green-600">W {gameScore}</span>;
+            return <span className="text-green-600 top-0">W {gameScore}</span>;
 
         }
 

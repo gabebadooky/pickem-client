@@ -43,7 +43,6 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
         >
 
             <h1
-                className="my-5"
                 id={`${componentID}-team-notes-header`}
                 key={`${componentID}-team-notes-header`}
             >
@@ -56,7 +55,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                 key={`${componentID}-team-notes-ta-div`}
             >
                 <textarea
-                    className="bg-[#FFFFFF] h-25 rounded-sm text-s w-[80%]"
+                    className="bg-[#FFFFFF] border-1 h-25 rounded-sm text-s w-[80%]"
                     disabled={teamNotes.userID !== props.authenticatedUser.userID}
                     defaultValue={teamNotes.notes}
                     id={`${componentID}-team-notes-text-area`}

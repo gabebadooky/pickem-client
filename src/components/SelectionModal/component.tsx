@@ -56,9 +56,10 @@ const SelectionModal = (props: SelectionModalProps) => {
                 >
 
                     <div
-                        className="l-0 my-auto py-5 w-[10%]"
+                        className="l-0 my-auto mx-2 py-5 w-[10%]"
                         id={`${componentID}-portal-left-arrow`}
                         key={`${componentID}-portal-left-arrow`}
+                        style={modalIndex > 0 ? { backgroundColor: "#ADACAC" } :  { left: 0 }}
                     >
                         { 
                             modalIndex > 0 &&
@@ -75,9 +76,10 @@ const SelectionModal = (props: SelectionModalProps) => {
                     </div>
 
                     <div
-                        className="my-auto py-5 r-0 w-[10%]"
+                        className="my-auto mx-2 py-5 r-0 w-[10%]"
                         id={`${componentID}-portal-right-arrow`}
                         key={`${componentID}-portal-right-arrow`}
+                        style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: "#ADACAC" } :  { right: 0 }}
                     >
                         {
                             modalIndex < modalSlides.length - 1 && 

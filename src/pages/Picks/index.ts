@@ -1,1 +1,1 @@
-export { default as Picks } from "./page";
+export { default as Picks } from "./page.tsx";

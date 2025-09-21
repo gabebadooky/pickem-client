@@ -10,21 +10,21 @@ const ScheduleTableRow = (props: ScheduleTableRowProps) => {
     
     return (
         <tr
-            className="w-full"
+            className="border-1 w-full"
             id={`${componentID}-row`}
             key={`${componentID}-row`}
         >
 
             <td
-                className="text-left"
+                className="text-left top-0"
                 id={`${componentID}-week-${props.game.week}-date-cell`}
                 key={`${componentID}-week-${props.game.week}-date-cell`}
             >
-                {zuluGameDateTime.toLocaleDateString("en", { dateStyle: "short" })}
+                {zuluGameDateTime.toLocaleDateString("en", { month: "numeric", day: "numeric" })}
             </td>
 
             <td
-                className="text-left"
+                className="px-1 text-left top-0"
                 id={`${componentID}-week-${props.game.week}-opponent-cell`}
                 key={`${componentID}-week-${props.game.week}-opponent-cell`}
             >
@@ -32,7 +32,7 @@ const ScheduleTableRow = (props: ScheduleTableRowProps) => {
             </td>
 
             <td
-                className="text-right"
+                className="text-right top-0"
                 id={`${componentID}-week-${props.game.week}-time-score-cell`}
                 key={`${componentID}-week-${props.game.week}-time-score-cell`}
             >

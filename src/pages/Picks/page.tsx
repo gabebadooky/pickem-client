@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { League } from "../../types/league";
+
+import { findUsersFavoriteTeamPrimaryColor } from "./page";
 import { calculateCurrentWeek } from "../../utils/dates";
 import { callGetUserPicksEndpoint } from "../../hooks/picksEndpoints";
 import { callGetGamesByWeekEndpoint } from "../../hooks/gamesEndpoints";
@@ -14,10 +16,6 @@ import { useLoaderData } from "react-router";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
 
-
-const findUsersFavoriteTeamPrimaryColor = (favoriteTeam: string | undefined, allTeams: Team[]): string => {
-    return allTeams.find((team) => team.teamID === favoriteTeam)?.primaryColor || "#ADACAC";
-}
 
 
 const Picks = () => {
@@ -76,7 +74,11 @@ const Picks = () => {
                 />
             </div>
 
-            <div className="bottom-0 w-full" id="picks-page-secondary-week-nav-bar-div">
+            <div 
+                className="bottom-0 p-5 text-xl w-full"
+                id="picks-page-secondary-week-nav-bar-div"
+                style={{ backgroundColor: findUsersFavoriteTeamPrimaryColor(authenticatedUser.favoriteTeam, allTeams) }}
+            >
                 <WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} />
             </div>
             

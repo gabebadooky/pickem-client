@@ -3,6 +3,7 @@ import { Game } from "../../../types/game";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 import { TeamScheduleProps } from "./types";
 import { callGetGamesByTeamEndpoint } from "../../../hooks/gamesEndpoints";
+import LoadingSpinner from "../../LoadingSpinner/component";
 
 
 const TeamSchedule = (props: TeamScheduleProps) => {
@@ -11,7 +12,6 @@ const TeamSchedule = (props: TeamScheduleProps) => {
 
     
     useEffect(() => {
-        console.log(`Calling GetGamesByTeamEndpoint for teamID: ${props.team.teamID}`);
         callGetGamesByTeamEndpoint(props.team.teamID)
         .then(setTeamScheduleGames);
     }, [props.team.teamID]);
@@ -31,28 +31,31 @@ const TeamSchedule = (props: TeamScheduleProps) => {
             >
                 {props.team.teamName} {props.team.teamMascot} 2025 Schedule
             </h1>
+            
+            {
+                teamScheduleGames.length === 0 ?
+                <LoadingSpinner /> :
+                
+                <table
+                    className="m-auto my-5 w-full"
+                    id={`${componentID}-table`}
+                    key={`${componentID}-table`}
+                >
+                    <tbody>
 
+                        {teamScheduleGames.map((game: Game) => {
+                            return (
+                                <ScheduleTableRow
+                                    allTeams={props.allTeams}
+                                    game={game}
+                                    team={props.team}
+                                />
+                            );
+                        })}
 
-            <table
-                className="m-auto my-5 w-full"
-                id={`${componentID}-table`}
-                key={`${componentID}-table`}
-            >
-                <tbody>
-
-                    {teamScheduleGames.map((game: Game) => {
-                        return (
-                            <ScheduleTableRow
-                                allTeams={props.allTeams}
-                                game={game}
-                                team={props.team}
-                            />
-                        );
-                    })}
-
-                </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            }
 
         </div>
     );

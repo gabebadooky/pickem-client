@@ -36,3 +36,21 @@ export const callGetGamesByWeekEndpoint =  async (week: number): Promise<Array<G
         return nullGame;
     }
 }
+
+
+export const callGetGamesByTeamEndpoint =  async (teamID: string): Promise<Array<Game>> => {
+    const endpointURL: string = `${pickemEndpointURL}/games/team/${teamID}`;
+    const nullGame: Game[] = [];
+
+    try {
+        const response = await fetch(endpointURL);
+        
+        if (!response.ok) {
+            return nullGame;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullGame;
+    }
+}

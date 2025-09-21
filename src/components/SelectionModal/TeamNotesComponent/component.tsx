@@ -16,7 +16,6 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
 
     useEffect(() => {
         if (teamNotes.userID === 0) {
-            //fetchTeamNotesFromDatabase(props.authenticatedUser.userID, props.team.teamID).then(setTeamNotes);
             callGetTeamNotesEnpdoint(props.authenticatedUser.userID)
             .then((allUserTeamNotes) => {
                 setTeamNotes(

@@ -1,6 +1,7 @@
 import { instantiateZuluDateTime } from "../../../../utils/dates";
 import { ScheduleTableRowProps } from "./types";
-import { getOpponentName, renderScoreCell } from "./component";
+import { getOpponentName } from "./component";
+import { ScoreSpan } from "./ScoreSpan";
 
 
 const ScheduleTableRow = (props: ScheduleTableRowProps) => {
@@ -38,7 +39,7 @@ const ScheduleTableRow = (props: ScheduleTableRowProps) => {
                 {
                     props.game.gameFinished
                         ?
-                    renderScoreCell(props)
+                    <ScoreSpan allTeams={props.allTeams} game={props.game} team={props.team} />
                         :
                     zuluGameDateTime.toLocaleTimeString("en", { timeStyle: "short" })
                 }

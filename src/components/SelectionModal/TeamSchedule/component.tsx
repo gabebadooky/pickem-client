@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import { Game } from "../../../types/game";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 import { TeamScheduleProps } from "./types";
+import { callGetGamesByTeamEndpoint } from "../../../hooks/gamesEndpoints";
 
 
 const TeamSchedule = (props: TeamScheduleProps) => {
+    const [teamScheduleGames, setTeamScheduleGames] = useState<Game[]>([]);
     const componentID: string = `${props.team.teamID}-schedule`;
+
+    
+    useEffect(() => {
+        console.log(`Calling GetGamesByTeamEndpoint for teamID: ${props.team.teamID}`);
+        callGetGamesByTeamEndpoint(props.team.teamID)
+        .then(setTeamScheduleGames);
+    }, [props.team.teamID]);
 
     
     return (
@@ -30,13 +40,14 @@ const TeamSchedule = (props: TeamScheduleProps) => {
             >
                 <tbody>
 
-                    {props.allGames.filter(game => (
-                        game.awayTeamID === props.team.teamID
-                            ||
-                        game.homeTeamID === props.team.teamID
-                    )).map((game: Game) => {
-                        console.log(`yuh: ${game.gameID}`);
-                        return (<ScheduleTableRow allTeams={props.allTeams} game={game} team={props.team} />);
+                    {teamScheduleGames.map((game: Game) => {
+                        return (
+                            <ScheduleTableRow
+                                allTeams={props.allTeams}
+                                game={game}
+                                team={props.team}
+                            />
+                        );
                     })}
 
                 </tbody>

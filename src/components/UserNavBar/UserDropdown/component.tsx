@@ -15,8 +15,6 @@ const UserDropdown = (props: UserDropdownProps) => {
             onChange={(e) => handleChangeEvent(e)}
             value={props.userFilter}
         >
-            {UserOption(9999, "Leaderboard")}
-
             {props.allUsers.map((user) => {
                 return UserOption(user.userID, user.displayName || user.username);
             })};

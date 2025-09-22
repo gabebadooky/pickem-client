@@ -1,0 +1,1 @@
+export { default as Leaderboard } from "./component.tsx";

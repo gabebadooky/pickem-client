@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { LeaderboardProps } from "./types";
+import { GroupedLeaderboradEntry, LeaderboardProps } from "./types";
 import { LeaderboardMetrics } from "../../types/leaderboard";
 import { callLeaderboardEndpoint } from "../../hooks/leaderboardEndpoints";
+import { filterGroupAndSortLeaderboardResults, leagueLongDescriptions } from "./component";
+import { LeaderboardTableRow } from "./LeaderboardTableRow";
 
 
 const Leaderboard = (props: LeaderboardProps) => {
@@ -10,7 +12,9 @@ const Leaderboard = (props: LeaderboardProps) => {
 
 
     useEffect(() => {
-        callLeaderboardEndpoint().then(setLeaderboardResults);
+        if (leaderboardResults.length === 0) {
+            callLeaderboardEndpoint().then(setLeaderboardResults);
+        }
     }, []);
 
 
@@ -19,20 +23,42 @@ const Leaderboard = (props: LeaderboardProps) => {
             className="h-full m-auto w-full"
             id={`${componentID}-div`}
         >
-            <table
-                className="m-auto w-full"
+
+            <h1
+                className="m-auto text-2xl"
                 id={`${componentID}-header`}
             >
-                <th id={`${componentID}-table-header`}>
-                    <td className="text-left" id={`${componentID}-user-column-header`}>User</td>
-                    <td className="text-center" id={`${componentID}-points-column-header`}>Total Points</td>
-                    <td className="text-center" id={`${componentID}-correct-column-header`}>✅</td>
-                    <td className="text-center" id={`${componentID}-incorrect-column-header`}>❌</td>
-                </th>
+                Week {props.weekFilter} {leagueLongDescriptions[props.leagueFilter]} Picks Leaderbaord
+            </h1>
+
+            <table
+                className="m-auto w-full"
+                id={`${componentID}-table`}
+            >
 
                 <tbody id={`${componentID}-table-body`}>
                     
+                    <tr className="border-b" id={`${componentID}-table-header`}>
+                        <th className="text-left" id={`${componentID}-user-column-header`}>User</th>
+                        <th className="text-center" id={`${componentID}-points-column-header`}>Total Points</th>
+                        <th className="text-center" id={`${componentID}-correct-column-header`}>✅</th>
+                        <th className="text-center" id={`${componentID}-incorrect-column-header`}>❌</th>
+                    </tr>
+
+                    {filterGroupAndSortLeaderboardResults(leaderboardResults, props.leagueFilter, props.weekFilter).map((entry: GroupedLeaderboradEntry) => {
+                        return (
+                            <LeaderboardTableRow
+                                key={`${entry.displayName}-leaderboard-table-row-component`}
+                                displayName={entry.displayName}
+                                points={entry.points}
+                                correct={entry.correct}
+                                incorrect={entry.incorrect}
+                            />
+                        );
+                    })}
+                    
                 </tbody>
+
             </table>
         </div>
     );

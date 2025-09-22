@@ -3,7 +3,7 @@ import { League } from "../../types/league";
 
 export type LeaderboardProps = {
     leagueFilter: League;
-    weekFilter: string;
+    weekFilter: number;
 }
 
 

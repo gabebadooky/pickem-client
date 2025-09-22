@@ -15,6 +15,7 @@ import { MatchupsContainer } from "../../components/MatchupsContainer";
 import { useLoaderData } from "react-router";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
+import { Leaderboard } from "../../components/Leaderboard";
 
 
 
@@ -59,6 +60,14 @@ const Picks = () => {
                 <div className="p-3"><LeagueNavBar setLeagueFilter={setLeagueFilter} /></div>
                 <div className="p-3"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
                 <div className="p-3"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
+            </div>
+
+            <div
+                className="m-auto my-[5%] w-[90%]"
+                id="picks-page-leaderboard-table-component-div"
+                key="picks-page-leaderboard-table-component-div"
+            >
+                <Leaderboard leagueFilter={leagueFilter} weekFilter={weekFilter} />
             </div>
 
             <div className="my-[5%] w-full" id="picks-page-matchups-container">

@@ -3,6 +3,16 @@ import { League } from "../../types/league";
 import { GroupedLeaderboradEntry } from "./types";
 
 
+export const leagueLongDescriptions = {
+    "NFLCFB": "All",
+    "NFL": "NFL",
+    "CFB": "CFB",
+    "CFBT25": "CFB Top 25",
+    "CFBP4": "CFB Power Conference",
+    "CFBG6": "CFB Non-Power Conference"
+}
+
+
 const filterByLeague = (leaderboardResults: LeaderboardMetrics[], leagueFilter: League): LeaderboardMetrics[] => {
     switch (leagueFilter) {
         case "NFLCFB":
@@ -50,27 +60,36 @@ const filterByWeek = (leaderboardResults: LeaderboardMetrics[], week: number): L
 }
 
 
-const groupByUser = (leaderboardResults: LeaderboardMetrics[]) => {
+const groupByUser = (leaderboardResults: LeaderboardMetrics[]): GroupedLeaderboradEntry[] => {
     let groupedLeaderboard: GroupedLeaderboradEntry[] = [];
 
     leaderboardResults.map((result) => {
-        const userEntryExists: GroupedLeaderboradEntry | undefined = groupedLeaderboard.find(entry => entry.displayName === result.displayName) || undefined;
-
-        if (userEntryExists) {
+        const entryIndex: number = groupedLeaderboard.findIndex(entry => entry.displayName === result.displayName);
+        //const userEntryExists: GroupedLeaderboradEntry | undefined = groupedLeaderboard.find(entry => entry.displayName === result.displayName) || undefined;
+        //console.log(`displayName: ${result.displayName} | points: ${result.points || -999}`);
+        if (entryIndex !== -1) {
             // aggregate points, correct, incorrect
-            groupedLeaderboard.map((entry) => 
+            groupedLeaderboard[entryIndex] = {
+                ...groupedLeaderboard[entryIndex],
+                displayName: result.displayName,
+                points: groupedLeaderboard[entryIndex].points + result.points,
+                correct: groupedLeaderboard[entryIndex].correct + result.correctPicks,
+                incorrect: groupedLeaderboard[entryIndex].incorrect + result.incorrectPicks
+            }
+
+            /*groupedLeaderboard.map((entry) => 
                 entry.displayName === result.displayName
                     ?
                 {
-                    ...entry,
+                    ... entry,
                     displayName: entry.displayName,
-                    points: userEntryExists.points + entry.points,
-                    correct: userEntryExists.correct + entry.correct,
-                    incorrect: userEntryExists.incorrect + entry.incorrect
+                    points: entry.points + (userEntryExists.points || 0),
+                    correct: entry.correct + (userEntryExists.correct || 0),
+                    incorrect: entry.incorrect + (userEntryExists.incorrect || 0)
                 }
                     :
                 entry
-            );
+            );*/
 
         } else {
             groupedLeaderboard.push({
@@ -82,9 +101,9 @@ const groupByUser = (leaderboardResults: LeaderboardMetrics[]) => {
 
         }
 
-        return groupedLeaderboard.sort((a, b) => b.points - a.points);
-
     });
+
+    return groupedLeaderboard.sort((a, b) => b.points - a.points);
 }
 
 

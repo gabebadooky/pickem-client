@@ -10,7 +10,7 @@ const AccountTextInput = (props: AccountTextInputProps) => {
             name={props.componentName}
             onInput={() => props.onInput}
             placeholder={props.placeholder}
-            type="text"
+            type={props.type}
         />
     );
 }

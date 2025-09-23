@@ -3,4 +3,5 @@ export type AccountTextInputProps = {
     componentName: string;
     onInput: React.MouseEventHandler<HTMLInputElement>;
     placeholder: string;
+    type: string;
 }

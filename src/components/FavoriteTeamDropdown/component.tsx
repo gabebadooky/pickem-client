@@ -10,7 +10,14 @@ const FavoriteTeamDropdown = (props: FavoriteTeamDropdownProps) => {
             id={props.componentID}
             name={props.componentName}
             onChange={() => props.onChange}
+            value={props.defaultValue}
         >
+            <option
+                id="default-favorite-team-option"
+                key="default-favorite-team-option"
+                value="0"
+            >Favorite Team</option>
+
             {props.allTeams.map((team) => {
                 return (
                     <option

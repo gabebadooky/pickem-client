@@ -6,6 +6,7 @@ import { StrictMode } from "react";
 import { callGetAllTeamsEndpoint } from "./hooks/teamsEndpoints";
 import { callGetAllUsersEndpoint, callGetUserByIDEndpoint } from "./hooks/userEndpoints";
 import { validateAuthenticatedUserID } from "./utils/auth";
+import { Register } from "./pages/Register";
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,16 @@ const router = createBrowserRouter([
             }
         },
         element: <Picks />
+    },
+
+    {
+        path: "/register",
+        loader: async () => {
+            return {
+                allTeams: await callGetAllTeamsEndpoint()
+            }
+        },
+        element: <Register />
     }
 ]);
 

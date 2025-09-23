@@ -1,5 +1,5 @@
 export type SubmitButtonProps = {
     buttonInnerText: string;
-    parentComponentID: string;
+    componentID: string;
     submitMethod: any;
 }

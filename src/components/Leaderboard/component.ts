@@ -1,5 +1,6 @@
 import { LeaderboardMetrics } from "../../types/leaderboard";
 import { League } from "../../types/league";
+import { instantiateZuluDateTime, seasonWeeks } from "../../utils/dates";
 import { GroupedLeaderboradEntry } from "./types";
 
 
@@ -10,6 +11,14 @@ export const leagueLongDescriptions = {
     "CFBT25": "CFB Top 25",
     "CFBP4": "CFB Power Conference",
     "CFBG6": "CFB Non-Power Conference"
+}
+
+
+export const instantiateAbbreviatedWeekLabel = (weekFilter: number) => {
+    const weekFilterStartDate = seasonWeeks[weekFilter].start;
+    const weekFilterEndDate = seasonWeeks[weekFilter].end;
+
+    return `${weekFilterStartDate.getMonth() + 1}/${weekFilterStartDate.getDate() + 1} - ${weekFilterEndDate.getMonth() + 1}/${weekFilterEndDate.getDate() + 1}`;
 }
 
 
@@ -76,20 +85,6 @@ const groupByUser = (leaderboardResults: LeaderboardMetrics[]): GroupedLeaderbor
                 correct: groupedLeaderboard[entryIndex].correct + result.correctPicks,
                 incorrect: groupedLeaderboard[entryIndex].incorrect + result.incorrectPicks
             }
-
-            /*groupedLeaderboard.map((entry) => 
-                entry.displayName === result.displayName
-                    ?
-                {
-                    ... entry,
-                    displayName: entry.displayName,
-                    points: entry.points + (userEntryExists.points || 0),
-                    correct: entry.correct + (userEntryExists.correct || 0),
-                    incorrect: entry.incorrect + (userEntryExists.incorrect || 0)
-                }
-                    :
-                entry
-            );*/
 
         } else {
             groupedLeaderboard.push({

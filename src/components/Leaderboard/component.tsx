@@ -2,20 +2,21 @@ import { useEffect, useState } from "react";
 import { GroupedLeaderboradEntry, LeaderboardProps } from "./types";
 import { LeaderboardMetrics } from "../../types/leaderboard";
 import { callLeaderboardEndpoint } from "../../hooks/leaderboardEndpoints";
-import { filterGroupAndSortLeaderboardResults, leagueLongDescriptions } from "./component";
+import { filterGroupAndSortLeaderboardResults, instantiateAbbreviatedWeekLabel, leagueLongDescriptions } from "./component";
 import { LeaderboardTableRow } from "./LeaderboardTableRow";
+import { calculateCurrentWeek } from "../../utils/dates";
 
 
 const Leaderboard = (props: LeaderboardProps) => {
-    const [leaderboardResults, setLeaderboardResults] = useState<LeaderboardMetrics[]>([]);
+    const [leaderboardResults, setLeaderboardResults] = useState<GroupedLeaderboradEntry[]>([]);
     const componentID: string = "leaderboard-component";
 
 
     useEffect(() => {
-        if (leaderboardResults.length === 0) {
-            callLeaderboardEndpoint().then(setLeaderboardResults);
-        }
-    }, []);
+        callLeaderboardEndpoint().then((unsortedResults: LeaderboardMetrics[]) => {
+            setLeaderboardResults(filterGroupAndSortLeaderboardResults(unsortedResults, props.leagueFilter, props.weekFilter))
+        });
+    }, [props.leagueFilter, props.weekFilter]);
 
 
     return (
@@ -25,11 +26,27 @@ const Leaderboard = (props: LeaderboardProps) => {
         >
 
             <h1
-                className="m-auto text-2xl"
+                className="m-auto text-xl"
                 id={`${componentID}-header`}
             >
-                Week {props.weekFilter} {leagueLongDescriptions[props.leagueFilter]} Picks Leaderbaord
+                {instantiateAbbreviatedWeekLabel(props.weekFilter)} {leagueLongDescriptions[props.leagueFilter]} Picks Leaderboard
             </h1>
+
+            {
+                leaderboardResults.length > 0
+                    &&
+                props.weekFilter < calculateCurrentWeek()
+                    &&
+                <h2 className="text-m">Winner: {leaderboardResults[0].displayName}</h2>
+            }
+
+            {
+                leaderboardResults.length > 0
+                    &&
+                props.weekFilter === calculateCurrentWeek()
+                    &&
+                <h2 className="text-m">Leader: {leaderboardResults[0].displayName}</h2>
+            }
 
             <table
                 className="m-auto w-full"
@@ -45,7 +62,7 @@ const Leaderboard = (props: LeaderboardProps) => {
                         <th className="text-center" id={`${componentID}-incorrect-column-header`}>❌</th>
                     </tr>
 
-                    {filterGroupAndSortLeaderboardResults(leaderboardResults, props.leagueFilter, props.weekFilter).map((entry: GroupedLeaderboradEntry) => {
+                    {leaderboardResults.map((entry: GroupedLeaderboradEntry) => {
                         return (
                             <LeaderboardTableRow
                                 key={`${entry.displayName}-leaderboard-table-row-component`}
@@ -60,6 +77,9 @@ const Leaderboard = (props: LeaderboardProps) => {
                 </tbody>
 
             </table>
+
+            { leaderboardResults.length === 0 && <p>No results yet!</p> }
+
         </div>
     );
 }

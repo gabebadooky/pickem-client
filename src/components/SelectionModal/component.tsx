@@ -60,6 +60,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                         id={`${componentID}-portal-left-arrow`}
                         key={`${componentID}-portal-left-arrow`}
                         style={modalIndex > 0 ? { backgroundColor: "#ADACAC" } :  { left: 0 }}
+                        onClick={() => handleLeftArrowClickEvent()}
                     >
                         { 
                             modalIndex > 0 &&
@@ -80,6 +81,7 @@ const SelectionModal = (props: SelectionModalProps) => {
                         id={`${componentID}-portal-right-arrow`}
                         key={`${componentID}-portal-right-arrow`}
                         style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: "#ADACAC" } :  { right: 0 }}
+                        onClick={() => handleRightArrowClickEvent()}
                     >
                         {
                             modalIndex < modalSlides.length - 1 && 

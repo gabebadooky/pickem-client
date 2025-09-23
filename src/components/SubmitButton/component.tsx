@@ -2,7 +2,7 @@ import { SubmitButtonProps } from "./types";
 
 
 const SubmitButton = (props: SubmitButtonProps) => {
-    const componentID: string = `${props.parentComponentID}-button`;
+    const componentID: string = `${props.componentID}-button`;
 
     return (
         <button

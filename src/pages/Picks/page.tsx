@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { League } from "../../types/league";
 
-import { findUsersFavoriteTeamPrimaryColor } from "./page";
+import { findUsersFavoriteTeamAlternateColor, findUsersFavoriteTeamPrimaryColor } from "./page";
 import { calculateCurrentWeek } from "../../utils/dates";
 import { callGetUserPicksEndpoint } from "../../hooks/picksEndpoints";
 import { callGetGamesByWeekEndpoint } from "../../hooks/gamesEndpoints";
@@ -31,6 +31,11 @@ const Picks = () => {
 
 
     useEffect(() => {
+        authenticatedUser.userID > 0 ? setUserFilter(authenticatedUser.userID) : setUserFilter(allUsers[0].userID);
+    }, []);
+
+
+    useEffect(() => {
         callGetGamesByWeekEndpoint(weekFilter)
         .then((allGames) => {
             setGames(allGames.filter((game) => leagueFilter.includes(game.league)));
@@ -53,17 +58,20 @@ const Picks = () => {
             className="h-full m-auto w-full"
         >
             <div 
-                className="top-0 text-xl w-full"
+                className="fixed left-0 right-0 text-xl top-0 w-full z-100"
                 id="picks-page-navigation-bars"
-                style={{backgroundColor: findUsersFavoriteTeamPrimaryColor(authenticatedUser.favoriteTeam, allTeams)}}
+                style={{
+                    backgroundColor: findUsersFavoriteTeamPrimaryColor(authenticatedUser.favoriteTeam, allTeams),
+                    color: findUsersFavoriteTeamAlternateColor(authenticatedUser.favoriteTeam, allTeams)
+                }}
             >
-                <div className="p-3"><LeagueNavBar setLeagueFilter={setLeagueFilter} /></div>
-                <div className="p-3"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
-                <div className="p-3"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
+                <div className="p-2"><LeagueNavBar setLeagueFilter={setLeagueFilter} /></div>
+                <div className="p-2"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
+                <div className="p-2"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
             </div>
 
             <div
-                className="m-auto my-[5%] w-[90%]"
+                className="m-auto mb-[5%] mt-45 w-[90%]"
                 id="picks-page-leaderboard-table-component-div"
                 key="picks-page-leaderboard-table-component-div"
             >
@@ -76,6 +84,7 @@ const Picks = () => {
                     allPicks={picks}
                     allTeams={allTeams}
                     authenticatedUser={authenticatedUser}
+                    leagueFilter={leagueFilter}
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                     setPicks={setPicks}

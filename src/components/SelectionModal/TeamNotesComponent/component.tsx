@@ -72,7 +72,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                     <div className="h-12 py-2">
                         <SubmitButton
                             buttonInnerText="Update Team Notes"
-                            parentComponentID={`${teamNotes.teamID}-update-team-notes`}
+                            componentID={`${teamNotes.teamID}-update-team-notes`}
                             submitMethod={() => updateTeamNotesInDatabaseAndState(newNotes, props.authenticatedUser.userID, props.team.teamID, setNewNotes, setNotesEdited)}
                         />
                     </div>

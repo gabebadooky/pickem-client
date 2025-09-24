@@ -1,4 +1,4 @@
-export type RegisterProps = {
+export type NewUserProperties = {
     username: string | undefined;
     password: string | undefined;
     displayName: string | undefined;
@@ -7,3 +7,6 @@ export type RegisterProps = {
     emailAddress: string;
     phone: string;
 }
+
+
+export type RegisterAttemptResponses = "Success" | "Existing" | "Error";

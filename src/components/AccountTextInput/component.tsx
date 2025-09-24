@@ -5,10 +5,10 @@ const AccountTextInput = (props: AccountTextInputProps) => {
 
     return (
         <input
-            className="h-full m-auto w-full"
+            className="h-full m-auto rounded-xl text-black text-center text-xl w-full"
             id={props.componentID}
             name={props.componentName}
-            onInput={() => props.onInput}
+            onChange={props.onChange}
             placeholder={props.placeholder}
             type={props.type}
         />

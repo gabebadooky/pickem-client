@@ -7,6 +7,7 @@ import { callGetAllTeamsEndpoint } from "./hooks/teamsEndpoints";
 import { callGetAllUsersEndpoint, callGetUserByIDEndpoint } from "./hooks/userEndpoints";
 import { validateAuthenticatedUserID } from "./utils/auth";
 import { Register } from "./pages/Register";
+import { Login } from "./pages/Login";
 
 
 const router = createBrowserRouter([
@@ -19,7 +20,12 @@ const router = createBrowserRouter([
                 authenticatedUser: await callGetUserByIDEndpoint(validateAuthenticatedUserID())
             }
         },
-        element: <Picks />
+        Component: Picks
+    },
+
+    {
+        path: "/login",
+        Component: Login
     },
 
     {
@@ -29,7 +35,7 @@ const router = createBrowserRouter([
                 allTeams: await callGetAllTeamsEndpoint()
             }
         },
-        element: <Register />
+        Component: Register
     }
 ]);
 
@@ -39,7 +45,7 @@ const root = document.getElementById("root");
 
 
 ReactDOM.createRoot(root!).render(
-    <StrictMode>
-        <RouterProvider router={router} />
-    </StrictMode>
+    //<StrictMode>
+    <RouterProvider router={router} />
+    //</StrictMode>
 );

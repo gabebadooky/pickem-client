@@ -6,14 +6,15 @@ import { FavoriteTeamDropdown } from "../../components/FavoriteTeamDropdown";
 import { SubmitButton } from "../../components/SubmitButton";
 import { Team } from "../../types/team";
 import { attemptRegistration } from "./component";
-import { RegisterProps } from "./types";
+import { NewUserProperties } from "./types";
 
 
 const Register = () => {
     const { allTeams }: { allTeams: Team[] } = useLoaderData();
     
     const [confirmPassword, setConfirmPassword] = useState<string | undefined>();
-    const [newUser, setNewUser] = useState<RegisterProps>({
+    const [usernameTaken, setUsernameTaken] = useState<boolean>(false);
+    const [newUser, setNewUser] = useState<NewUserProperties>({
         username: undefined,
         password: undefined,
         displayName: undefined,
@@ -41,6 +42,17 @@ const Register = () => {
                 <div></div>
             </div>
 
+            {
+                usernameTaken
+                    &&
+                <p 
+                    className="m-auto text-red-600"
+                    id={`${componentID}-username-taken-warning`}
+                >
+                    Username is taken! Please use another one.
+                </p>
+            }
+
             <div
                 className="my-[20%] text-l w-[90%]"
                 id={`${componentID}-account-properties-section`}
@@ -49,10 +61,13 @@ const Register = () => {
                     <AccountTextInput
                         componentID={`${componentID}-username-input`}
                         componentName={`${componentID}-username-input`}
-                        onInput={(e) => setNewUser(prev => ({
-                            ...prev,
-                            username: e.currentTarget.value
-                        }))}
+                        onInput={(e) => {
+                            setUsernameTaken(false);
+                            setNewUser(prev => ({
+                                ...prev,
+                                username: e.currentTarget.value
+                            }));
+                        }}
                         placeholder="Username"
                         type="text"
                     />
@@ -114,7 +129,7 @@ const Register = () => {
                         <SubmitButton
                             buttonInnerText="Create Account!"
                             componentID={`${componentID}-submit-button`}
-                            submitMethod={() => attemptRegistration(newUser)}
+                            submitMethod={() => attemptRegistration(newUser, setUsernameTaken)}
                         />
                     </div>
                 }

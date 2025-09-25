@@ -1,18 +1,19 @@
-import { Link, useLoaderData } from "react-router";
-import { LeftArrow } from "../../components/NavArrows/LeftArrow";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import { AccountTextInput } from "../../components/AccountTextInput";
 import { useState } from "react";
 import { FavoriteTeamDropdown } from "../../components/FavoriteTeamDropdown";
 import { SubmitButton } from "../../components/SubmitButton";
 import { Team } from "../../types/team";
-import { attemptRegistration } from "./component";
+import { attemptRegistration } from "./page";
 import { NewUserProperties } from "./types";
 
 
 const Register = () => {
     const { allTeams }: { allTeams: Team[] } = useLoaderData();
+    const navigate = useNavigate();
     
     const [confirmPassword, setConfirmPassword] = useState<string | undefined>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [usernameTaken, setUsernameTaken] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<NewUserProperties>({
         username: undefined,
@@ -31,15 +32,17 @@ const Register = () => {
         <div
             className="h-full a-auto w-full"
         >
-            <div
-                className="flex justify-between m-auto text-2xl text-center w-full"
-                id={`${componentID}-header-div`}
-            >
-                <Link id={`${componentID}-back-link`} to="/">
-                    <LeftArrow onClick={null} />
+
+            <div className="flex justify-between p-5 top-0 w-full">
+                <span 
+                    className="bg-[#ADACAC] px-3 py-1 rounded-xl text-black text-lg"
+                    onClick={() => navigate("/login")}
+                >
+                    Login
+                </span>
+                <Link to="/" onClick={() => setIsLoading(true)}>
+                    <i className="align-middle fa-2xl fa-solid fa-house my-auto"></i>
                 </Link>
-                <h1 id={`${componentID}-header`}>Register</h1>
-                <div></div>
             </div>
 
             {
@@ -54,18 +57,21 @@ const Register = () => {
             }
 
             <div
-                className="my-[20%] text-l w-[90%]"
+                className="m-auto my-[10%] text-l w-[90%]"
                 id={`${componentID}-account-properties-section`}
             >
-                <div id={`${componentID}-username-div`}>
+
+                <h1 className="my-[5%] text-3xl" id={`${componentID}-login-header`}>Register</h1>
+
+                <div className="bg-[#D9D9D9] h-13 m-auto mb-5 rounded-xl w-[90%]" id={`${componentID}-username-div`}>
                     <AccountTextInput
                         componentID={`${componentID}-username-input`}
                         componentName={`${componentID}-username-input`}
-                        onInput={(e) => {
+                        onChange={(e) => {
                             setUsernameTaken(false);
                             setNewUser(prev => ({
                                 ...prev,
-                                username: e.currentTarget.value
+                                username: e.target.value
                             }));
                         }}
                         placeholder="Username"
@@ -73,43 +79,43 @@ const Register = () => {
                     />
                 </div>
 
-                <div id={`${componentID}-display-name-div`}>
+                <div className="bg-[#D9D9D9] h-13 m-auto mb-10 rounded-xl w-[90%]" id={`${componentID}-display-name-div`}>
                     <AccountTextInput
                         componentID={`${componentID}-display-name-input`}
                         componentName={`${componentID}-display-name-input`}
-                        onInput={(e) => setNewUser(prev => ({
+                        onChange={(e) => setNewUser(prev => ({
                             ...prev,
-                            displayName: e.currentTarget.value
+                            displayName: e.target.value
                         }))}
                         placeholder="Display Name"
                         type="text"
                     />
                 </div>
 
-                <div className="mt-[20%]" id={`${componentID}-password-div`}>
+                <div className="bg-[#D9D9D9] h-13 m-auto mb-5 mt-10 rounded-xl w-[90%]" id={`${componentID}-password-div`}>
                     <AccountTextInput
                         componentID={`${componentID}-password-input`}
                         componentName={`${componentID}-password-input`}
-                        onInput={(e) => setNewUser(prev => ({
+                        onChange={(e) => setNewUser(prev => ({
                             ...prev,
-                            password: e.currentTarget.value
+                            password: e.target.value
                         }))}
                         placeholder="Password"
                         type="password"
                     />
                 </div>
 
-                <div className="mb-[20%]" id={`${componentID}-username-div`}>
+                <div className="bg-[#D9D9D9] h-13 m-auto mb-10 rounded-xl w-[90%]" id={`${componentID}-username-div`}>
                     <AccountTextInput
                         componentID={`${componentID}-confirm-password-input`}
                         componentName={`${componentID}-confirm-password-input`}
-                        onInput={(e) => setConfirmPassword(e.currentTarget.value)}
+                        onChange={(e) => setConfirmPassword(e.currentTarget.value)}
                         placeholder="Confirm Password"
                         type="password"
                     />
                 </div>
 
-                <div className="mb-[20%]" id={`${componentID}-favorite-team-div`}>
+                <div className="bg-[#D9D9D9] h-13 m-auto mb-10 rounded-xl text-black text-xl w-[90%]" id={`${componentID}-favorite-team-div`}>
                     <FavoriteTeamDropdown
                         allTeams={allTeams}
                         componentID={`${componentID}-favorite-team-input`}
@@ -125,11 +131,11 @@ const Register = () => {
                 {
                     newUser.username && newUser.password && confirmPassword && newUser.password === confirmPassword
                         &&
-                    <div className="mb-[20%]" id={`${componentID}-submit-button-div`}>
+                    <div className="h-13 m-auto mb-[20%] w-[90%]" id={`${componentID}-submit-button-div`}>
                         <SubmitButton
                             buttonInnerText="Create Account!"
                             componentID={`${componentID}-submit-button`}
-                            submitMethod={() => attemptRegistration(newUser, setUsernameTaken)}
+                            submitMethod={() => attemptRegistration(newUser, setIsLoading, setUsernameTaken)}
                         />
                     </div>
                 }

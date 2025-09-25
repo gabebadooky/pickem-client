@@ -1,1 +1,1 @@
-export { default as Register } from "./component.tsx";
+export { default as Register } from "./page.tsx";

@@ -84,7 +84,7 @@ export const callUpdateNotificationPreferenceEndpoint = async (props: {token: st
 
 
 export const callGetAllUsersEndpoint = async (): Promise<User[]> => {
-    const endpointURL: string = `${pickemEndpointURL}/user/ids`;
+    const endpointURL: string = `${pickemEndpointURL}/user/all`;
     const nullUsers: User[] = [];
     
     try {

@@ -1,1 +1,1 @@
-export { default as Login } from "./component.tsx";
+export { default as Login } from "./page.tsx";

@@ -14,6 +14,7 @@ export const attemptLogin = (props: LoginProps, setIncorrectUsernameOrPassword: 
                 
             } else {
                 setIncorrectUsernameOrPassword(true);
+                setIsLoading(false);
                 
             }
 
@@ -21,9 +22,9 @@ export const attemptLogin = (props: LoginProps, setIncorrectUsernameOrPassword: 
         .catch((err) => {
             console.log(`Error occurred calling /auth/login endpoint:\n${err}`);
             alert(`Unexpected error occurred loggin in. Please try again and tell the developer he sucks 🙃`);
+            setIsLoading(false);
 
-        })
-        .finally(() => setIsLoading(false));
+        });
 
     }
 

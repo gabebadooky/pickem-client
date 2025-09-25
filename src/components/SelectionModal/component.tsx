@@ -28,7 +28,7 @@ const SelectionModal = (props: SelectionModalProps) => {
     return (
         
         <div 
-            className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-1000"
+            className="fixed flex h-[100vh] items-center justify-center left-0 top-0 w-[100vw] z-900"
             id={`${componentID}-portal-container`}
             key={`${componentID}-portal-container`}
         >

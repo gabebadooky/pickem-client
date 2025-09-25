@@ -1,6 +1,8 @@
 import { LeaderboardMetrics } from "../../types/leaderboard";
 import { League } from "../../types/league";
-import { instantiateZuluDateTime, seasonWeeks } from "../../utils/dates";
+import { Team } from "../../types/team";
+import { User } from "../../types/user";
+import { seasonWeeks } from "../../utils/dates";
 import { GroupedLeaderboradEntry } from "./types";
 
 
@@ -12,6 +14,23 @@ export const leagueLongDescriptions = {
     "CFBP4": "CFB Power Conference",
     "CFBG6": "CFB Non-Power Conference"
 }
+
+
+export const getLeaderboardWinnersFavoriteTeamLogo = (allUsers: User[], allTeams: Team[], winnersDisplayName: string): string | undefined => {
+    const winnersFavoriteTeam: string | undefined = allUsers.find((user) => user.displayName === winnersDisplayName)?.favoriteTeam;
+
+    if (winnersFavoriteTeam) {
+        const logoURL: string | undefined = allTeams.find(team => team.teamID === winnersFavoriteTeam)?.teamLogoUrl || undefined;
+        return logoURL;
+
+    } else {
+        return undefined;
+
+    }
+
+}
+
+
 
 
 export const instantiateAbbreviatedWeekLabel = (weekFilter: number) => {

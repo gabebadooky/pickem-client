@@ -1,7 +1,9 @@
 const LoadingSpinner = () => {
     return(
-        <div className="fixed flex h-[100vh] items-center justify-center m-auto w-[100vw] z-50">
-            <img src="/loadingDots.gif" alt="Loading..." />
+        <div className="flex justify-center m-auto w-full z-1000">
+            <img
+                alt="Loading..."
+                src="/loadingDots.gif" />
         </div>
     )
 }

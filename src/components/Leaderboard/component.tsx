@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GroupedLeaderboradEntry, LeaderboardProps } from "./types";
 import { LeaderboardMetrics } from "../../types/leaderboard";
 import { callLeaderboardEndpoint } from "../../hooks/leaderboardEndpoints";
-import { filterGroupAndSortLeaderboardResults, instantiateAbbreviatedWeekLabel, leagueLongDescriptions } from "./component";
+import { filterGroupAndSortLeaderboardResults, getLeaderboardWinnersFavoriteTeamLogo, instantiateAbbreviatedWeekLabel, leagueLongDescriptions } from "./component";
 import { LeaderboardTableRow } from "./LeaderboardTableRow";
 import { calculateCurrentWeek } from "../../utils/dates";
 
@@ -37,7 +37,16 @@ const Leaderboard = (props: LeaderboardProps) => {
                     &&
                 props.weekFilter < calculateCurrentWeek()
                     &&
-                <h2 className="text-m">Winner: {leaderboardResults[0].displayName}</h2>
+                <h2 
+                    className="m-auto flex items-center justify-center text-center text-lg"
+                >
+                    Winner: {leaderboardResults[0].displayName}
+                    <img
+                        alt=""
+                        className="align-middle h-5 inline-block ml-1"
+                        src={getLeaderboardWinnersFavoriteTeamLogo(props.allUsers, props.allTeams, leaderboardResults[0].displayName)}
+                    />
+                </h2>
             }
 
             {
@@ -45,7 +54,7 @@ const Leaderboard = (props: LeaderboardProps) => {
                     &&
                 props.weekFilter === calculateCurrentWeek()
                     &&
-                <h2 className="text-m">Leader: {leaderboardResults[0].displayName}</h2>
+                <h2 className="text-lg">Leader: {leaderboardResults[0].displayName}</h2>
             }
 
             <table

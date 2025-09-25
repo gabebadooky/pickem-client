@@ -6,7 +6,7 @@ const FavoriteTeamDropdown = (props: FavoriteTeamDropdownProps) => {
 
     return (
         <select
-            className="h-full m-auto w-full"
+            className="h-full m-auto rounded-xl text-center w-full"
             id={props.componentID}
             name={props.componentName}
             onChange={() => props.onChange}

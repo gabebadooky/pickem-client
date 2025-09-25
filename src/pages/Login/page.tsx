@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AccountTextInput } from "../../components/AccountTextInput";
 import { LoginProps } from "./types";
 import { SubmitButton } from "../../components/SubmitButton";
-import { attemptLogin } from "./component";
+import { attemptLogin } from "./page";
 import { Link, useNavigate } from "react-router";
 import LoadingSpinner from "../../components/LoadingSpinner/component";
 
@@ -15,25 +15,26 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const componentID: string = "register-page";
 
+    if (isLoading) return <LoadingSpinner />;
 
     return (
         <div className="h-full m-auto w-full">
 
             <div
-                className="m-auto"
+                className="m-auto pb-[15%]"
                 id={`${componentID}-inputs-container`}
             >
 
                 <div
-                    className="mr-5 py-5 relative top-0 w-full"
+                    className="flex justify-end py-5 relative top-0 w-full"
                     id={`${componentID}-home-button`}
                 >
-                    <Link to="/">
+                    <Link className="pr-5" to="/" onClick={() => setIsLoading(true)}>
                         <i className="fa-2xl fa-solid fa-house"></i>
                     </Link>
                 </div>
 
-                <h1 className="my-[10%] text-3xl">Login</h1>
+                <h1 className="my-[5%] text-3xl" id={`${componentID}-login-header`}>Login</h1>
 
                 {
                     incorrectUsernameOrPassword
@@ -67,7 +68,7 @@ const Login = () => {
                 </div>
 
                 <div
-                    className="bg-[#D9D9D9] h-13 m-auto mb-10 rounded-xl  w-[90%]"
+                    className="bg-[#D9D9D9] h-13 m-auto rounded-xl w-[90%]"
                     id={`${componentID}-password-div`}
                     key={`${componentID}-password-div`}
                 >
@@ -90,7 +91,7 @@ const Login = () => {
                     loginProps.username !== "" && loginProps.password !== ""
                         &&
                     <div
-                        className="h-13 m-auto rounded-xl text-xl w-[90%]"
+                        className="h-13 m-auto mt-10 rounded-xl text-xl w-[90%]"
                         id={`${componentID}-login-button-div`}
                         key={`${componentID}-login-button-div`}
                     >
@@ -102,7 +103,7 @@ const Login = () => {
                     </div>
                 }
 
-                <div className="flex my-[10%]">
+                <div className="flex my-[5%]">
                     <hr className="m-auto w-[40%]" />Or<hr className="m-auto w-[40%]" />
                 </div>
 
@@ -116,6 +117,20 @@ const Login = () => {
                         id={`${componentID}-google-oauth-button`}
                     >
                         Continue with <i className="fa-brands fa-google"></i>
+                    </button>
+                </div>
+
+                <div
+                    className="border-2 border-white h-13 m-auto mt-5 rounded-xl text-xl w-[90%]"
+                    id={`${componentID}-register-button-div`}
+                    key={`${componentID}-register-button-div`}
+                >
+                    <button
+                        className="h-full m-auto w-full"
+                        id={`${componentID}-register-button`}
+                        onClick={() => navigate("/register")}
+                    >
+                        Create Account
                     </button>
                 </div>
 

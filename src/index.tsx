@@ -8,6 +8,7 @@ import { callGetAllUsersEndpoint, callGetUserByIDEndpoint } from "./hooks/userEn
 import { validateAuthenticatedUserID } from "./utils/auth";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
+import { Account } from "./pages/Account";
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,17 @@ const router = createBrowserRouter([
             }
         },
         Component: Register
+    },
+
+    {
+        path: "/account",
+        loader: async () => {
+            return {
+                allTeams: await callGetAllTeamsEndpoint(),
+                authenticatedUser: await callGetUserByIDEndpoint(validateAuthenticatedUserID())
+            }
+        },
+        Component: Account
     }
 ]);
 

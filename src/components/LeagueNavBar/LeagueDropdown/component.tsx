@@ -16,6 +16,7 @@ const SelectElement = (props: LeagueDropdownProps) => {
             id="league-dropdown-input"
             name="league-dropdown"
             onChange={(e) => handleChangeEvent(e)}
+            value={props.defaultValue}
         >
             {LeagueOption("NFLCFB", "All Games")}
             {LeagueOption("NFL", "NFL")}

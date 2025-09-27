@@ -1,4 +1,5 @@
 import { pickemEndpointURL } from "../types/baseURLs";
+import { League } from "../types/league";
 import { User } from "../types/user";
 
 const pickemHeaders: Headers = new Headers();
@@ -28,7 +29,7 @@ const userAccountUpdatePostRequest = async (endpointURL: string, token: string, 
 }
 
 
-export const callUpdateDisplayNameEndpoint = async (props: {token: string, userID: string, displayName: string}) => {
+export const callUpdateDisplayNameEndpoint = async (props: {token: string, userID: number, displayName: string}) => {
     const endpointURL: string = `${pickemEndpointURL}/user/update-display-name`;
     const requestBody: string = JSON.stringify({
         userID: props.userID,
@@ -39,7 +40,7 @@ export const callUpdateDisplayNameEndpoint = async (props: {token: string, userI
 }
 
 
-export const callUpdateEmailEndpoint = async (props: {token: string, userID: string, emailAddress: string}) => {
+export const callUpdateEmailEndpoint = async (props: {token: string, userID: number, emailAddress: string}) => {
     const endpointURL: string = `${pickemEndpointURL}/user/update-email`;
     const requestBody: string = JSON.stringify({
         userID: props.userID,
@@ -50,33 +51,44 @@ export const callUpdateEmailEndpoint = async (props: {token: string, userID: str
 }
 
 
-export const callUpdatePhoneEndpoint = async (props: {token: string, userID: string, phone: string}) => {
+export const callUpdatePhoneEndpoint = async (props: {token: string, userID: number, phone: string}) => {
     const endpointURL: string = `${pickemEndpointURL}/user/update-phone`;
     const requestBody: string = JSON.stringify({
         userID: props.userID,
-        emailAddress: props.phone
+        phone: props.phone
     });
 
     userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
 }
 
 
-export const callUpdateFavoriteTeamEndpoint = async (props: {token: string, userID: string, favoriteTeam: string}) => {
+export const callUpdateFavoriteTeamEndpoint = async (props: {token: string, userID: number, favoriteTeam: string}) => {
     const endpointURL: string = `${pickemEndpointURL}/user/update-favorite-team`;
     const requestBody: string = JSON.stringify({
         userID: props.userID,
-        emailAddress: props.favoriteTeam
+        favoriteTeam: props.favoriteTeam
     });
 
     userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
 }
 
 
-export const callUpdateNotificationPreferenceEndpoint = async (props: {token: string, userID: string, notificationPreference: string}) => {
+export const callUpdateNotificationPreferenceEndpoint = async (props: {token: string, userID: number, notificationPreference: string}) => {
     const endpointURL: string = `${pickemEndpointURL}/user/notification-preference`;
     const requestBody: string = JSON.stringify({
         userID: props.userID,
-        emailAddress: props.notificationPreference
+        notificationPreference: props.notificationPreference
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdateDefaultGameModeEndpoint = async (props: {token: string, userID: number, defaultGameMode: League}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-default-game-mode`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        defaultGameMode: props.defaultGameMode
     });
 
     userAccountUpdatePostRequest(endpointURL, props.token, requestBody);

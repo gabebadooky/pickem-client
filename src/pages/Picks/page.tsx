@@ -48,7 +48,7 @@ const Picks = () => {
 
 
     useEffect(() => {
-        setIsLoading(true);
+        //setIsLoading(true);
         callGetUserPicksEndpoint(userFilter).then(setPicks).finally(() => setIsLoading(false));
     }, [userFilter]);
 
@@ -71,7 +71,7 @@ const Picks = () => {
                     color: "#FFFFFF" //findUsersFavoriteTeamAlternateColor(authenticatedUser.favoriteTeam, allTeams)
                 }}
             >
-                <div className="p-2"><LeagueNavBar authenticatedUser={authenticatedUser} setLeagueFilter={setLeagueFilter} /></div>
+                <div className="p-2"><LeagueNavBar authenticatedUser={authenticatedUser} setLeagueFilter={setLeagueFilter} setIsLoading={setIsLoading} /></div>
                 <div className="p-2"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
                 <div className="p-2"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
             </div>

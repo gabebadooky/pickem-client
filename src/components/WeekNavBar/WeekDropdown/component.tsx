@@ -19,7 +19,6 @@ const WeekDropdown = (props: WeekDropdownProps) => {
             value={props.weekFilter}
         >
             {Array.from({ length: seasonWeeks.length }, (_, i) => i).map((week) => WeekOption(week))}
-            {/* renderAllWeekOptions(seasonWeeks.length) */}
         </select>
     );
 }

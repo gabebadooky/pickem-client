@@ -5,4 +5,5 @@ import { User } from "../../types/user";
 export type LeagueNavBarProps = {
     authenticatedUser: User;
     setLeagueFilter: React.Dispatch<React.SetStateAction<League>>;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }

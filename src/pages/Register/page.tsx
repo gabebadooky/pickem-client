@@ -6,6 +6,7 @@ import { SubmitButton } from "../../components/SubmitButton";
 import { Team } from "../../types/team";
 import { attemptRegistration } from "./page";
 import { NewUserProperties } from "./types";
+import LoadingSpinner from "../../components/LoadingSpinner/component";
 
 
 const Register = () => {
@@ -26,7 +27,9 @@ const Register = () => {
     });
 
     const componentID: string = "register-page";
+
     
+    if (isLoading) return <LoadingSpinner />;
 
     return (
         <div
@@ -36,7 +39,10 @@ const Register = () => {
             <div className="flex justify-between p-5 top-0 w-full">
                 <span 
                     className="bg-[#ADACAC] px-3 py-1 rounded-xl text-black text-lg"
-                    onClick={() => navigate("/login")}
+                    onClick={() => {
+                        setIsLoading(true);
+                        navigate("/login");
+                    }}
                 >
                     Login
                 </span>

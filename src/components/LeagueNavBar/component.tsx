@@ -13,12 +13,20 @@ const LeagueNavBar = (props: LeagueNavBarProps) => {
             id="picks-page-league-div"
         >
             <div className="col-span-1"></div>
-            <div className="col-span-8"><LeagueDropdown setLeagueFilter={props.setLeagueFilter} /></div>
+            <div className="col-span-8">
+                <LeagueDropdown
+                    defaultValue={props.authenticatedUser.defaultGameMode || "NFLCFB"}
+                    setLeagueFilter={props.setLeagueFilter}
+                />
+            </div>
             <span
                 className="col-span-1 right-0 text-right text-sm w-full"
-                onClick={() => navigate("/login")}
+                onClick={() => {
+                    props.setIsLoading(true);
+                    props.authenticatedUser.userID > 0 ? navigate("/account") : navigate("login");
+                }}
             >
-                <i className="fa-slab fa-regular fa-sm fa-user text-center"></i>
+                <i className="fa-slab fa-regular fa-sm fa-user m-auto"></i>
                 <p>{ props.authenticatedUser.userID > 0 ? "Me" : "Login" }</p>
             </span>
         </div>

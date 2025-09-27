@@ -1,3 +1,5 @@
+import { League } from "./league";
+
 export type NotificationPreferenceInputValue = "n" | "e" | "p";
 
 export interface User {
@@ -8,6 +10,7 @@ export interface User {
     notificationPreference?: NotificationPreferenceInputValue;
     emailAddress?: string;
     phone?: string;
+    defaultGameMode?: League;
 }
 
 export interface LoginBody {

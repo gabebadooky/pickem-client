@@ -9,6 +9,7 @@ import { validateAuthenticatedUserID } from "./utils/auth";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Account } from "./pages/Account";
+import "tailwindcss";
 
 
 const router = createBrowserRouter([

@@ -51,24 +51,6 @@ export const calculateCurrentWeek = () => {
 }
 
 
-const instantiateGameZuleDateTime = (gameDate: Date, gameTime: string): Date => {
-    const zuluYear: number = new Date(gameDate).getFullYear();
-    const zuluMonth: number = new Date(gameDate).getMonth();
-    const zuluDay: number = new Date(gameDate).getDay();
-    
-    const timeStringElements: string[] = gameTime.split(":");
-    const gameMinute: string = timeStringElements[1].padStart(2, "0");
-    let gameHour: string = timeStringElements[0].padStart(2, "0");
-    
-    if (gameHour == "04" && gameMinute == "00") {
-        gameHour = "20";
-    }
-
-    return new Date(`${zuluYear}-${zuluMonth}-${zuluDay}T${gameHour}:${gameMinute}Z`);
-
-}
-
-
 export const convertGameDateToLocalTimeString = (gameDate: Date, gameTime: string) => {
     const gameYear = new Date(gameDate).getFullYear();
     const gameMonth = new Date(gameDate).getMonth() + 1;
@@ -90,7 +72,7 @@ export const convertGameDateToMonthDayYearFormat = (gameDate: Date) => {
 
 
 export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameDate: Date, gameTime: string): string => {
-    const gameZuluDatetime = instantiateGameZuleDateTime(gameDate, gameTime);
+    const gameZuluDatetime = instantiateZuluDateTime(gameDate, gameTime);
     const gameWeekday: string = gameZuluDatetime.toLocaleDateString("en", {weekday: "long"});
     const gameMonth: string = gameZuluDatetime.toLocaleDateString("en", {month: "long"});
     const gameDay: number = gameZuluDatetime.getDate();
@@ -100,15 +82,7 @@ export const convertGameDateToLongWeekdayLongMonthNameNumericDateFormat = (gameD
 
 
 export const gameHasKickedOff = (gameDate: Date, gameTime: string): boolean => {
-    const gameYear = new Date(gameDate).getFullYear();
-    const gameMonth = new Date(gameDate).getMonth() + 1;
-    const gameDay = new Date(gameDate).getDate() + 1;
-    const [zuluHours, zuluMinutes] = gameTime.split(":");
-    
-    const gameUTCTimeStamp: Date = new Date(gameYear, gameMonth, gameDay, Number(zuluHours), Number(zuluMinutes), 0);
-    const now: Date = new Date();
-    
-    return now > gameUTCTimeStamp;
+    return instantiateZuluDateTime(gameDate, gameTime) < new Date();
 }
 
 

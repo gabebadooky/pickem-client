@@ -8,12 +8,13 @@ import { GameTimeOrScore } from "./GameTimeOrScore";
 const PickConfidence = (props: PickConfidenceProps) => {
     const componentID: string = `${props.game.gameID}-confidence-pick-component`;
     
+    
     return (
         <div
             className="h-full m-auto w-full"
             id={componentID}
         >
-            <div id={`${componentID}-header`}>
+            <div className="text-xl" id={`${componentID}-header`}>
                 <PickConfidenceHeader
                     awayTeam={props.awayTeam}
                     homeTeam={props.homeTeam}
@@ -21,7 +22,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
                 />
             </div>
 
-            <div id={`${componentID}-game-details`}>
+            <div className="text-xs" id={`${componentID}-game-details`}>
                 <GameTimeOrScore game={props.game} />
                 <TvCoverage game={props.game} />
             </div>

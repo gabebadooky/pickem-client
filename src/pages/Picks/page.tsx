@@ -24,7 +24,7 @@ const Picks = () => {
     const { allTeams, allUsers, authenticatedUser }: { allTeams: Team[], allUsers: User[], authenticatedUser: User } = useLoaderData();
 
     const [games, setGames] = useState<Game[]>([]);
-    const [leagueFilter, setLeagueFilter] = useState<League>("NFLCFB");
+    const [leagueFilter, setLeagueFilter] = useState<League>(authenticatedUser.defaultGameMode || "NFLCFB");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [picks, setPicks] = useState<Pick[]>([]);
@@ -71,7 +71,7 @@ const Picks = () => {
                     color: "#FFFFFF" //findUsersFavoriteTeamAlternateColor(authenticatedUser.favoriteTeam, allTeams)
                 }}
             >
-                <div className="p-2"><LeagueNavBar authenticatedUser={authenticatedUser} setLeagueFilter={setLeagueFilter} setIsLoading={setIsLoading} /></div>
+                <div className="p-2"><LeagueNavBar authenticatedUser={authenticatedUser} leagueFilter={leagueFilter} setLeagueFilter={setLeagueFilter} setIsLoading={setIsLoading} /></div>
                 <div className="p-2"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
                 <div className="p-2"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
             </div>

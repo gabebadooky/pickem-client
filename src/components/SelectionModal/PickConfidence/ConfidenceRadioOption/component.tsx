@@ -1,14 +1,15 @@
-import { gameHasKickedOff } from "../../../../utils/dates";
 import { setConfidenceOptionProperties, updatePickInDatabaseAndState } from "./component";
 import { ConfidenceRadioOptionProps, ConfidenceOptionProperties } from "./types";
+import { gameHasKickedOff } from "../../../../utils/dates";
 
 
 const ConfidenceRadioOption = (props: ConfidenceRadioOptionProps) => {
     const confidenceOption: ConfidenceOptionProperties = setConfidenceOptionProperties(props.confidenceLevel);
     const componentID: string = `${props.game.gameID}-${confidenceOption.label}-confidence-option`;
-    const isRadioOptionDisabled: boolean = props.authenticatedUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
     const initiallyChecked: boolean = props.pick.teamPicked === props.team.teamID && props.pick.pickWeight === props.confidenceLevel;
+    const isRadioOptionDisabled: boolean = props.authenticatedUser.userID !== props.pick.userID || gameHasKickedOff(props.game.date, props.game.time);
 
+    
     const handleRadioClickEvent = (e: React.MouseEvent<HTMLInputElement>): void => {
         updatePickInDatabaseAndState(props.team.teamID, e.currentTarget.value, props);
         props.setIsModalOpen(false);

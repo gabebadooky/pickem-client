@@ -3,13 +3,14 @@ import { instantiateModalSlides } from "./ModalSlides";
 import { SelectionModalProps } from "./types";
 import { LeftArrow } from "../NavArrows/LeftArrow";
 import RightArrow from "../NavArrows/RightArrow/component";
+import { findUsersFavoriteTeamPrimaryColor } from "../../pages/Picks/page";
 
 
 const SelectionModal = (props: SelectionModalProps) => {
-    const [modalIndex, setModalIndex] = useState<number>(0);
-    
     const componentID: string = `${props.pick.userID}-${props.pick.gameID}`;
     const modalSlides: JSX.Element[] = instantiateModalSlides(props);
+
+    const [modalIndex, setModalIndex] = useState<number>(Math.floor(modalSlides.length / 2));
 
 
     const handleIconClickEvent = (): void => {
@@ -56,10 +57,10 @@ const SelectionModal = (props: SelectionModalProps) => {
                 >
 
                     <div
-                        className="l-0 my-auto mx-2 py-5 w-[10%]"
+                        className="l-0 my-auto mx-2 py-5 rounded-md w-[10%]"
                         id={`${componentID}-portal-left-arrow`}
                         key={`${componentID}-portal-left-arrow`}
-                        style={modalIndex > 0 ? { backgroundColor: "#ADACAC" } :  { left: 0 }}
+                        style={modalIndex > 0 ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { left: 0 }}
                         onClick={() => handleLeftArrowClickEvent()}
                     >
                         { 
@@ -77,10 +78,10 @@ const SelectionModal = (props: SelectionModalProps) => {
                     </div>
 
                     <div
-                        className="my-auto mx-2 py-5 r-0 w-[10%]"
+                        className="my-auto mx-2 py-5 r-0 rounded-md w-[10%]"
                         id={`${componentID}-portal-right-arrow`}
                         key={`${componentID}-portal-right-arrow`}
-                        style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: "#ADACAC" } :  { right: 0 }}
+                        style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { right: 0 }}
                         onClick={() => handleRightArrowClickEvent()}
                     >
                         {

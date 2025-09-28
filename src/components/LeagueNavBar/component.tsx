@@ -15,7 +15,7 @@ const LeagueNavBar = (props: LeagueNavBarProps) => {
             <div className="col-span-1"></div>
             <div className="col-span-8">
                 <LeagueDropdown
-                    defaultValue={props.authenticatedUser.defaultGameMode || "NFLCFB"}
+                    defaultValue={props.leagueFilter}
                     setLeagueFilter={props.setLeagueFilter}
                 />
             </div>

@@ -26,6 +26,8 @@ const Account = () => {
     }, [newDefaultGameMode]);
 
 
+    if (isLoading) return <LoadingSpinner />
+    
     return (
         <div className="h-full m-auto w-full">
 
@@ -46,8 +48,6 @@ const Account = () => {
                 >
                     Me ({accountLoaderProps.authenticatedUser.displayName})
                 </h1>
-
-                { isLoading && <LoadingSpinner /> }
 
                 <div className="my-[5%]" id={`${componentID}-display-name-label-input-div`}>
                     <label className="m-auto text-center text-xl" htmlFor={`${componentID}-display-name-input`}>Display Name</label>

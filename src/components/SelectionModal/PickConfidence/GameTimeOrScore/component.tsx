@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { gameHasKickedOff } from "../../../../utils/dates";
-import { instantiateLocalTimestamp, renderGameScore } from "./component";
+import { gameHasKickedOff, instantiateZuluDateTime } from "../../../../utils/dates";
+import { renderGameScore } from "./component";
 import { GameTimeOrScoreProps } from "./types";
 
 
@@ -29,7 +29,8 @@ const GameTimeOrScore = (props: GameTimeOrScoreProps) => {
                 </h2>
                     :
                 <h2 id={`${componentID}-header`} key={`${componentID}-header`}>
-                    {instantiateLocalTimestamp(props.game.date, props.game.time)}
+                    {/*{instantiateLocalTimestamp(props.game.date, props.game.time)}*/}
+                    {instantiateZuluDateTime(props.game.date, props.game.time).toLocaleTimeString("en", { timeStyle: "short" })}
                 </h2>
             }
 

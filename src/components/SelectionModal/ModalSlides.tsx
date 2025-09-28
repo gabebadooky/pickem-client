@@ -10,6 +10,21 @@ export const instantiateModalSlides = (props: SelectionModalProps) => {
     let ModalSlides: JSX.Element[] = [];
 
     ModalSlides.push(
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
+            team={props.awayTeam}
+        />
+    );
+
+    ModalSlides.push(
+        <TeamNotesComponent
+            authenticatedUser={props.authenticatedUser}
+            team={props.awayTeam}
+        />
+    );
+
+    ModalSlides.push(
         <PickConfidence
             allPicks={props.allPicks}
             awayTeam={props.awayTeam}
@@ -26,11 +41,19 @@ export const instantiateModalSlides = (props: SelectionModalProps) => {
     ModalSlides.push(
         <TeamNotesComponent
             authenticatedUser={props.authenticatedUser}
-            team={props.selectedTeam}
+            team={props.homeTeam}
         />
     );
 
     ModalSlides.push(
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
+            team={props.homeTeam}
+        />
+    );
+
+    /* ModalSlides.push(
         <BettingOdds
             awayTeam={props.awayTeam}
             game={props.game}
@@ -58,23 +81,7 @@ export const instantiateModalSlides = (props: SelectionModalProps) => {
             selectedTeamID={props.selectedTeam.teamID}
             source="FOX"
         />
-    );
-
-    ModalSlides.push(
-        <TeamSchedule
-            allGames={props.allGames}
-            allTeams={props.allTeams}
-            team={props.awayTeam}
-        />
-    );
-
-    ModalSlides.push(
-        <TeamSchedule
-            allGames={props.allGames}
-            allTeams={props.allTeams}
-            team={props.homeTeam}
-        />
-    );
+    ); */
 
     return ModalSlides;
 

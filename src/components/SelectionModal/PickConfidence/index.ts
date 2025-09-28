@@ -1,1 +1,1 @@
-export { default as PickConfidence } from "./component";
+export { default as PickConfidence } from "./component.tsx";

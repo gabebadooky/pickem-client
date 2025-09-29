@@ -25,7 +25,6 @@ import { callGetUserByIDEndpoint } from "../../hooks/userEndpoints";
 const Picks = () => {
     let { authenticatedUser }: { authenticatedUser: User } = useLoaderData();
     const { allTeams, allUsers }: { allTeams: Team[], allUsers: User[] } = useLoaderData();
-    const navigate = useNavigate();
 
     const [games, setGames] = useState<Game[]>([]);
     const [leagueFilter, setLeagueFilter] = useState<League>(authenticatedUser.defaultGameMode || "NFLCFB");
@@ -39,21 +38,31 @@ const Picks = () => {
     useEffect(() => {
         const setAuthenticatedUser = async () => {
             const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
-            localStorage.setItem("jwt", queryParams.get("access_token") || "");
-            authenticatedUser = await callGetUserByIDEndpoint(validateAuthenticatedUserID());
-            window.location.replace("https://have-a-nice-pickem.onrender.com");
+            if (queryParams.get("access_token")) {
+                localStorage.setItem("jwt", queryParams.get("access_token") || "");
+                authenticatedUser = await callGetUserByIDEndpoint(validateAuthenticatedUserID());
+                window.location.replace("https://have-a-nice-pickem.onrender.com");
+
+            } else {
+                setUserFilter(allUsers[0].userID);
+            }
             //navigate("/");
         }
 
-        if (authenticatedUser.userID < 0) {
+        if (authenticatedUser.userID > 0) {
+            setUserFilter(authenticatedUser.userID)
+            
+        } else {
             setAuthenticatedUser();
+
         }
+
     }, []);
 
 
-    useEffect(() => {
+    /* useEffect(() => {
         authenticatedUser.userID > 0 ? setUserFilter(authenticatedUser.userID) : setUserFilter(allUsers[0].userID);
-    }, []);
+    }, []); */
 
 
     useEffect(() => {

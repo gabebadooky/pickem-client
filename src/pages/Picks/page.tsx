@@ -12,7 +12,7 @@ import { LeagueNavBar } from "../../components/LeagueNavBar";
 import { WeekNavBar } from "../../components/WeekNavBar";
 import { UserNavBar } from "../../components/UserNavBar";
 import { MatchupsContainer } from "../../components/MatchupsContainer";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
 import { Leaderboard } from "../../components/Leaderboard";
@@ -25,6 +25,7 @@ import { callGetUserByIDEndpoint } from "../../hooks/userEndpoints";
 const Picks = () => {
     let { authenticatedUser }: { authenticatedUser: User } = useLoaderData();
     const { allTeams, allUsers }: { allTeams: Team[], allUsers: User[] } = useLoaderData();
+    const navigate = useNavigate();
 
     const [games, setGames] = useState<Game[]>([]);
     const [leagueFilter, setLeagueFilter] = useState<League>(authenticatedUser.defaultGameMode || "NFLCFB");
@@ -41,12 +42,13 @@ const Picks = () => {
             localStorage.setItem("jwt", queryParams.get("access_token") || "");
             authenticatedUser = await callGetUserByIDEndpoint(validateAuthenticatedUserID());
             window.location.replace("https://have-a-nice-pickem.onrender.com");
+            //navigate("/");
         }
 
-        if (authenticatedUser.userID < 0) {
+        if (authenticatedUser.username) {
             setAuthenticatedUser();
         }
-    }, [window.location.search]);
+    }, []);
 
 
     useEffect(() => {

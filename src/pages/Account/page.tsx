@@ -1,8 +1,8 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import { AccountLoaderProps } from "./types";
 import { useEffect, useState } from "react";
 import { FavoriteTeamDropdown } from "../../components/FavoriteTeamDropdown";
-import { updateAccountDefaultGameMode, updateAccountDisplayName, updateAccountFavoriteTeam } from "./page";
+import { performUserLogout, updateAccountDefaultGameMode, updateAccountDisplayName, updateAccountFavoriteTeam } from "./page";
 import LoadingSpinner from "../../components/LoadingSpinner/component";
 import { AccountTextInput } from "../../components/AccountTextInput";
 import { SubmitButton } from "../../components/SubmitButton";
@@ -11,6 +11,7 @@ import { League } from "../../types/league";
 
 
 const Account = () => {
+    const navigate = useNavigate();
     const accountLoaderProps: AccountLoaderProps = useLoaderData();
     const [newDisplayName, setNewDisplayName] = useState<string>("");
     const [newDefaultGameMode, setNewDefaultGameMode] = useState<League>(accountLoaderProps.authenticatedUser.defaultGameMode || "NFLCFB");
@@ -100,6 +101,13 @@ const Account = () => {
                     </div>
                 </div>
                 
+                <button
+                    className="bg-red-600 h-13 m-auto my-[5%] rounded-xl text-center text-xl w-[90%]"
+                    id={`${componentID}-logout-button`}
+                    onClick={() => performUserLogout(navigate)}
+                >
+                    Logout
+                </button>
 
             </div>
 

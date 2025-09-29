@@ -1,5 +1,12 @@
+import { NavigateFunction } from "react-router";
 import { callUpdateDisplayNameEndpoint, callUpdateFavoriteTeamEndpoint, callUpdateDefaultGameModeEndpoint } from "../../hooks/userEndpoints";
 import { League } from "../../types/league";
+
+
+export const performUserLogout = (navigate: NavigateFunction) => {
+    localStorage.removeItem("jwt");
+    navigate("/login");
+}
 
 
 export const updateAccountFavoriteTeam = (jwtToken: string | undefined, userID: number, favoriteTeam: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>): void => {

@@ -1,9 +1,12 @@
 import { NavigateFunction } from "react-router";
-import { callLoginEndpoint, googleOAuthRequest } from "../../hooks/authorizationEndpoints";
+import { callLoginEndpoint } from "../../hooks/authorizationEndpoints";
 import { LoginProps } from "./types";
+import { pickemEndpointURL } from "../../types/baseURLs";
 
 
-export const attemptGoogleOAuth = (navigate: NavigateFunction) => {
+export const attemptGoogleOAuth = () => {
+    window.location.href =`${pickemEndpointURL}/auth/google/login`;
+    /*
     googleOAuthRequest()
     .then((response: {access_token: string}) => {
         if (response.access_token) {
@@ -16,7 +19,7 @@ export const attemptGoogleOAuth = (navigate: NavigateFunction) => {
 
     })
     .catch(() => alert(`Error occurred authenticating with Google. Tell the developer he sucks and please try again!`));
-
+    */
 }
 
 

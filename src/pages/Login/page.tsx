@@ -114,7 +114,7 @@ const Login = () => {
                     <button
                         className="h-full m-auto w-full"
                         id={`${componentID}-google-oauth-button`}
-                        onClick={() => attemptGoogleOAuth(navigate)}
+                        onClick={() => attemptGoogleOAuth()}
                     >
                         Continue with <i className="fa-brands fa-google"></i>
                     </button>

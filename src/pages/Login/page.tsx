@@ -2,10 +2,9 @@ import { useState } from "react";
 import { AccountTextInput } from "../../components/AccountTextInput";
 import { LoginProps } from "./types";
 import { SubmitButton } from "../../components/SubmitButton";
-import { attemptLogin } from "./page";
+import { attemptGoogleOAuth, attemptLogin } from "./page";
 import { Link, useNavigate } from "react-router";
 import LoadingSpinner from "../../components/LoadingSpinner/component";
-
 
 
 const Login = () => {
@@ -113,8 +112,9 @@ const Login = () => {
                     key={`${componentID}-google-oauth-div`}
                 >
                     <button
-                        className="h-full m-auto  w-full"
+                        className="h-full m-auto w-full"
                         id={`${componentID}-google-oauth-button`}
+                        onClick={() => attemptGoogleOAuth(navigate)}
                     >
                         Continue with <i className="fa-brands fa-google"></i>
                     </button>

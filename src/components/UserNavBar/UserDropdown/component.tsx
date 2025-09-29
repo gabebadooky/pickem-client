@@ -16,7 +16,7 @@ const UserDropdown = (props: UserDropdownProps) => {
             value={props.userFilter}
         >
             {props.allUsers.map((user) => {
-                return UserOption(user.userID, user.displayName || user.username);
+                return UserOption(props.authenticatedUser, user.userID, user.displayName || user.username);
             })};
         </select>
     );

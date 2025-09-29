@@ -1,0 +1,1 @@
+export { default as FavoriteTeamDropdown } from "./component.tsx";

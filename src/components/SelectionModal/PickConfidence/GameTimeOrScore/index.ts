@@ -1,0 +1,1 @@
+export { default as GameTimeOrScore } from "./component.tsx";

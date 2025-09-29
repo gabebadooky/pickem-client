@@ -1,3 +1,6 @@
+export const pickemEndpointURL: string = "https://pickem-app-vfd0.onrender.com";
+
+
 export const espnCfbGameURL: string = "https://www.espn.com/college-football/game/_/gameId";
 export const espnCfbTeamURL: string = "https://www.espn.com/college-football/team/_/id";
 

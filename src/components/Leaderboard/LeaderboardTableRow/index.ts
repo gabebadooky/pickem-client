@@ -1,0 +1,1 @@
+export { default as LeaderboardTableRow } from "./component.tsx";

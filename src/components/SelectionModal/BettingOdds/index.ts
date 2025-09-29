@@ -1,0 +1,1 @@
+export { default as BettingOdds } from "./component.tsx";

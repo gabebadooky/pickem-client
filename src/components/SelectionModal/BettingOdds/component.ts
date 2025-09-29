@@ -1,0 +1,55 @@
+import { Game } from "../../../types/game";
+import { BettingOddsProps, OddsValues } from "./types";
+
+
+export const instantiateGameCode = (game: Game, source: string) => {
+    switch (source) {
+        case "ESPN":
+            return game.espnCode;
+        case "CBS":
+            return game.cbsCode;
+        case "FOX":
+            return game.foxCode;
+        default:
+            return "";
+    }
+}
+
+
+export const instantiateOddsValues = (props: BettingOddsProps): OddsValues => {
+    let values: OddsValues = {
+        moneyline: "",
+        spread: "",
+        percentage: "",
+        overUnder: ""
+    }
+
+    switch (props.source) {
+        case "ESPN":
+            values.moneyline = props.awayTeam.teamID === props.selectedTeamID ? props.game.espnAwayMoneyline : props.game.espnHomeMoneyline;
+            values.spread = props.awayTeam.teamID === props.selectedTeamID ? props.game.espnAwaySpread : props.game.espnHomeSpread;
+            values.percentage = props.awayTeam.teamID === props.selectedTeamID ? props.game.espnAwayWinPercentage : props.game.espnHomeWinPercentage;
+            values.overUnder = props.game.espnOverUnder;
+            break;
+        case "CBS":
+            values.moneyline = props.awayTeam.teamID === props.selectedTeamID ? props.game.cbsAwayMoneyline : props.game.cbsHomeMoneyline;
+            values.spread = props.awayTeam.teamID === props.selectedTeamID ? props.game.cbsAwaySpread : props.game.cbsHomeSpread;
+            values.percentage = props.awayTeam.teamID === props.selectedTeamID ? props.game.cbsAwayWinPercentage : props.game.cbsHomeWinPercentage;
+            values.overUnder = props.game.cbsOverUnder;
+            break;
+        case "FOX":
+            values.moneyline = props.awayTeam.teamID === props.selectedTeamID ? props.game.foxAwayMoneyline : props.game.foxHomeMoneyline;
+            values.spread = props.awayTeam.teamID === props.selectedTeamID ? props.game.foxAwaySpread : props.game.foxHomeSpread;
+            values.percentage = props.awayTeam.teamID === props.selectedTeamID ? props.game.foxAwayWinPercentage : props.game.foxHomeWinPercentage;
+            values.overUnder = props.game.foxOverUnder;
+            break;
+        default:
+            values.moneyline = "N/A";
+            values.spread = "N/A";
+            values.percentage = "N/A";
+            values.overUnder = "N/A";
+            break;
+    }
+
+    return values;
+}

@@ -1,0 +1,1 @@
+export { default as BettingOddsHyperlink } from "./component.tsx";

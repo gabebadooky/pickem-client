@@ -1,0 +1,131 @@
+import { pickemEndpointURL } from "../types/baseURLs";
+import { League } from "../types/league";
+import { User } from "../types/user";
+
+const pickemHeaders: Headers = new Headers();
+pickemHeaders.append("Content-Type", "application/json");
+
+
+const userAccountUpdatePostRequest = async (endpointURL: string, token: string, requestBody: string) => {
+    if (!pickemHeaders.get("Authorization")) {
+        pickemHeaders.append("Authorization", `Bearer ${token}`);
+    }
+
+    try {
+        const response = await fetch(endpointURL, {
+            method: "POST",
+            headers: pickemHeaders,
+            body: requestBody
+        });
+
+        if (!response.ok) {
+            return false;
+        } else {
+            return true;
+        }
+    } catch {
+        return false;
+    }
+}
+
+
+export const callUpdateDisplayNameEndpoint = async (props: {token: string, userID: number, displayName: string}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-display-name`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        displayName: props.displayName
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdateEmailEndpoint = async (props: {token: string, userID: number, emailAddress: string}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-email`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        emailAddress: props.emailAddress
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdatePhoneEndpoint = async (props: {token: string, userID: number, phone: string}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-phone`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        phone: props.phone
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdateFavoriteTeamEndpoint = async (props: {token: string, userID: number, favoriteTeam: string}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-favorite-team`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        favoriteTeam: props.favoriteTeam
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdateNotificationPreferenceEndpoint = async (props: {token: string, userID: number, notificationPreference: string}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/notification-preference`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        notificationPreference: props.notificationPreference
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callUpdateDefaultGameModeEndpoint = async (props: {token: string, userID: number, defaultGameMode: League}) => {
+    const endpointURL: string = `${pickemEndpointURL}/user/update-default-game-mode`;
+    const requestBody: string = JSON.stringify({
+        userID: props.userID,
+        defaultGameMode: props.defaultGameMode
+    });
+
+    userAccountUpdatePostRequest(endpointURL, props.token, requestBody);
+}
+
+
+export const callGetAllUsersEndpoint = async (): Promise<User[]> => {
+    const endpointURL: string = `${pickemEndpointURL}/user/all`;
+    const nullUsers: User[] = [];
+    
+    try {
+        const response = await fetch(endpointURL);
+
+        if (!response.ok) {
+            return nullUsers;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullUsers;
+    }
+}
+
+
+export const callGetUserByIDEndpoint = async (userID: number): Promise<User> => {
+    const endpointURL: string = `${pickemEndpointURL}/user/${userID}`;
+    const nullUser: User = {userID: -1, username: "guest"};
+    
+    try {
+        const response = await fetch(endpointURL);
+
+        if (!response.ok) {
+            return nullUser;
+        } else {
+            return response.json();
+        }
+    } catch {
+        return nullUser;
+    }
+}

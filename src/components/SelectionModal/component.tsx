@@ -56,18 +56,18 @@ const SelectionModal = (props: SelectionModalProps) => {
                     key={`${componentID}-close-portal-content`}
                 >
 
-                    <div
-                        className="l-0 my-auto mx-2 py-5 rounded-md w-[10%]"
-                        id={`${componentID}-portal-left-arrow`}
-                        key={`${componentID}-portal-left-arrow`}
-                        style={modalIndex > 0 ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { left: 0 }}
-                        onClick={() => handleLeftArrowClickEvent()}
-                    >
-                        { 
-                            modalIndex > 0 &&
+                    { 
+                        modalIndex > 0 &&
+                        <div
+                            className="l-0 my-auto mx-2 py-5 rounded-md w-[10%]"
+                            id={`${componentID}-portal-left-arrow`}
+                            key={`${componentID}-portal-left-arrow`}
+                            style={modalIndex > 0 ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { left: 0 }}
+                            onClick={() => handleLeftArrowClickEvent()}
+                        >
                             <LeftArrow onClick={() => handleLeftArrowClickEvent()} />
-                        }
-                    </div>
+                        </div>
+                    }
 
                     <div
                         className="w-[80%]"
@@ -77,18 +77,19 @@ const SelectionModal = (props: SelectionModalProps) => {
                         {instantiateModalSlides(props)[modalIndex]}
                     </div>
 
-                    <div
-                        className="my-auto mx-2 py-5 r-0 rounded-md w-[10%]"
-                        id={`${componentID}-portal-right-arrow`}
-                        key={`${componentID}-portal-right-arrow`}
-                        style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { right: 0 }}
-                        onClick={() => handleRightArrowClickEvent()}
-                    >
-                        {
-                            modalIndex < modalSlides.length - 1 && 
-                            <RightArrow onClick={() => handleRightArrowClickEvent()} />
-                        }
-                    </div>
+                    {
+                        modalIndex < modalSlides.length - 1 && 
+                        <div
+                            className="my-auto mx-2 py-5 r-0 rounded-md w-[10%]"
+                            id={`${componentID}-portal-right-arrow`}
+                            key={`${componentID}-portal-right-arrow`}
+                            style={modalIndex < (modalSlides.length - 1) ? { backgroundColor: findUsersFavoriteTeamPrimaryColor(props.authenticatedUser.favoriteTeam, props.allTeams), color: "#FFFFFF" } :  { right: 0 }}
+                            onClick={() => handleRightArrowClickEvent()}
+                        >
+                            <RightArrow onClick={() => handleRightArrowClickEvent()} />    
+                        </div>
+                        
+                    }
 
                 </div>      
 

@@ -17,11 +17,14 @@ import { Team } from "../../types/team";
 import { User } from "../../types/user";
 import { Leaderboard } from "../../components/Leaderboard";
 import LoadingSpinner from "../../components/LoadingSpinner/component";
+import { validateAuthenticatedUserID } from "../../utils/auth";
+import { callGetUserByIDEndpoint } from "../../hooks/userEndpoints";
 
 
 
 const Picks = () => {
-    const { allTeams, allUsers, authenticatedUser }: { allTeams: Team[], allUsers: User[], authenticatedUser: User } = useLoaderData();
+    let { authenticatedUser }: { authenticatedUser: User } = useLoaderData();
+    const { allTeams, allUsers }: { allTeams: Team[], allUsers: User[] } = useLoaderData();
 
     const [games, setGames] = useState<Game[]>([]);
     const [leagueFilter, setLeagueFilter] = useState<League>(authenticatedUser.defaultGameMode || "NFLCFB");
@@ -30,6 +33,20 @@ const Picks = () => {
     const [picks, setPicks] = useState<Pick[]>([]);
     const [weekFilter, setWeekFilter] = useState<number>(calculateCurrentWeek());
     const [userFilter, setUserFilter] = useState<number>(authenticatedUser.userID);
+
+
+    useEffect(() => {
+        const setAuthenticatedUser = async () => {
+            const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
+            localStorage.setItem("jwt", queryParams.get("access_token") || "");
+            authenticatedUser = await callGetUserByIDEndpoint(validateAuthenticatedUserID());
+            window.location.replace("https://have-a-nice-pickem.onrender.com");
+        }
+
+        if (authenticatedUser.userID < 0) {
+            setAuthenticatedUser();
+        }
+    }, [window.location.search]);
 
 
     useEffect(() => {

@@ -45,7 +45,7 @@ const Picks = () => {
             //navigate("/");
         }
 
-        if (authenticatedUser.username) {
+        if (authenticatedUser.userID < 0) {
             setAuthenticatedUser();
         }
     }, []);

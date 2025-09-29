@@ -6,5 +6,5 @@ export type FavoriteTeamDropdownProps = {
     componentID: string;
     componentName: string;
     defaultValue: string;
-    onChange: React.MouseEventHandler<HTMLSelectElement>;
+    setFavoriteTeam: React.Dispatch<React.SetStateAction<string>>;
 }

@@ -3,13 +3,18 @@ import { FavoriteTeamDropdownProps } from "./types";
 
 
 const FavoriteTeamDropdown = (props: FavoriteTeamDropdownProps) => {
+    const handleChangeEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const favoriteTeamSelection = e.currentTarget.value;
+        props.setFavoriteTeam(favoriteTeamSelection);
+    }
+
 
     return (
         <select
             className="h-full m-auto rounded-xl text-center w-full"
             id={props.componentID}
             name={props.componentName}
-            onChange={() => props.onChange}
+            onChange={(e) => handleChangeEvent(e)}
             value={props.defaultValue}
         >
             <option

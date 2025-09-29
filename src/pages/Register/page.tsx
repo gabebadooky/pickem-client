@@ -1,6 +1,6 @@
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { AccountTextInput } from "../../components/AccountTextInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FavoriteTeamDropdown } from "../../components/FavoriteTeamDropdown";
 import { SubmitButton } from "../../components/SubmitButton";
 import { Team } from "../../types/team";
@@ -16,6 +16,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState<string | undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [usernameTaken, setUsernameTaken] = useState<boolean>(false);
+    const [favoriteTeam, setFavoriteTeam] = useState<string>("0");
     const [newUser, setNewUser] = useState<NewUserProperties>({
         username: undefined,
         password: undefined,
@@ -27,6 +28,16 @@ const Register = () => {
     });
 
     const componentID: string = "register-page";
+
+
+    useEffect(() => {
+        if (favoriteTeam !== newUser.favoriteTeam) {
+            setNewUser(prev => ({
+                ...prev,
+                favoriteTeam: favoriteTeam
+            }));
+        }
+    }, [favoriteTeam]);
 
     
     if (isLoading) return <LoadingSpinner />;
@@ -126,11 +137,8 @@ const Register = () => {
                         allTeams={allTeams}
                         componentID={`${componentID}-favorite-team-input`}
                         componentName={`${componentID}-favorite-team-input`}
-                        defaultValue="0"
-                        onChange={(e) => setNewUser(prev => ({
-                            ...prev,
-                            favoriteTeam: e.currentTarget.value
-                        }))}
+                        defaultValue={favoriteTeam}
+                        setFavoriteTeam={setFavoriteTeam}
                     />
                 </div>
 

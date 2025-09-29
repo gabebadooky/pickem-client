@@ -13,18 +13,26 @@ import { League } from "../../types/league";
 const Account = () => {
     const navigate = useNavigate();
     const accountLoaderProps: AccountLoaderProps = useLoaderData();
-    const [newDisplayName, setNewDisplayName] = useState<string>("");
-    const [newDefaultGameMode, setNewDefaultGameMode] = useState<League>(accountLoaderProps.authenticatedUser.defaultGameMode || "NFLCFB");
+    const [newDisplayName, setNewDisplayName] = useState<string>(accountLoaderProps.authenticatedUser.displayName || "Display Name");
+    const [defaultGameMode, setDefaultGameMode] = useState<League>(accountLoaderProps.authenticatedUser.defaultGameMode || "NFLCFB");
+    const [favoriteTeam, setFavoriteTeam] = useState<string>(accountLoaderProps.authenticatedUser.favoriteTeam || "0");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const componentID: string = "account-page";
     const jwtToken: string | undefined = localStorage.getItem("jwt") || undefined;
 
 
     useEffect(() => {
-        if (newDefaultGameMode !== accountLoaderProps.authenticatedUser.defaultGameMode) {
-            updateAccountDefaultGameMode(jwtToken, accountLoaderProps.authenticatedUser.userID, newDefaultGameMode, setIsLoading);
+        if (defaultGameMode !== accountLoaderProps.authenticatedUser.defaultGameMode) {
+            updateAccountDefaultGameMode(jwtToken, accountLoaderProps.authenticatedUser.userID, defaultGameMode, setIsLoading);
         }
-    }, [newDefaultGameMode]);
+    }, [defaultGameMode]);
+
+
+    useEffect(() => {
+        if (favoriteTeam !== accountLoaderProps.authenticatedUser.favoriteTeam) {
+            updateAccountFavoriteTeam(jwtToken, accountLoaderProps.authenticatedUser.userID, favoriteTeam, setIsLoading);
+        }
+    }, [favoriteTeam]);
 
 
     if (isLoading) return <LoadingSpinner />
@@ -58,20 +66,17 @@ const Account = () => {
                                 componentID={`${componentID}-display-name-input`}
                                 componentName={`${componentID}-display-name-input`}
                                 onChange={(e) => setNewDisplayName(e.currentTarget.value)}
-                                placeholder={accountLoaderProps.authenticatedUser.displayName || "Display Name"}
+                                placeholder={newDisplayName}
                                 type="text"
                             />
                         </div>
                         
                         <div className="h-13 my-auto w-[15%]">
-                            {
-                                newDisplayName &&
-                                <SubmitButton
-                                    buttonInnerText="✔️"
-                                    componentID={`${componentID}-update-display-name-button`}
-                                    submitMethod={() => updateAccountDisplayName(jwtToken, accountLoaderProps.authenticatedUser.userID, newDisplayName, setIsLoading)}
-                                />
-                            }
+                            <SubmitButton
+                                buttonInnerText="✔️"
+                                componentID={`${componentID}-update-display-name-button`}
+                                submitMethod={() => updateAccountDisplayName(jwtToken, accountLoaderProps.authenticatedUser.userID, newDisplayName, setIsLoading, setNewDisplayName)}
+                            />
                         </div>
                     </div>
                 </div>
@@ -84,8 +89,8 @@ const Account = () => {
                             allTeams={accountLoaderProps.allTeams}
                             componentID={`${componentID}-favorite-team-input`}
                             componentName={`${componentID}-favorite-team-input`}
-                            defaultValue={accountLoaderProps.authenticatedUser.favoriteTeam || "0"}
-                            onChange={(e) => updateAccountFavoriteTeam(jwtToken, accountLoaderProps.authenticatedUser.userID, e.currentTarget.value, setIsLoading)}
+                            defaultValue={favoriteTeam}
+                            setFavoriteTeam={setFavoriteTeam}
                         />
                     </div>
                 </div>
@@ -95,8 +100,8 @@ const Account = () => {
                     <label className="m-auto text-center text-xl" htmlFor={`${componentID}-preferred-game-mode-input`}>Preferred Game Mode</label>
                     <div className="bg-[#D9D9D9] h-13 m-auto my-1 rounded-xl text-black text-xl w-[90%]" id={`${componentID}-preferred-game-mode-div`}>
                         <LeagueDropdown
-                            defaultValue={newDefaultGameMode}
-                            setLeagueFilter={setNewDefaultGameMode}
+                            defaultValue={defaultGameMode}
+                            setLeagueFilter={setDefaultGameMode}
                         />
                     </div>
                 </div>

@@ -35,7 +35,7 @@ export const updateAccountFavoriteTeam = (jwtToken: string | undefined, userID: 
 }
 
 
-export const updateAccountDisplayName = (jwtToken: string | undefined, userID: number, displayName: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>): void => {
+export const updateAccountDisplayName = (jwtToken: string | undefined, userID: number, displayName: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, setNewDisplayName: React.Dispatch<React.SetStateAction<string>>): void => {
     setIsLoading(true);
     
     if (!jwtToken) {
@@ -47,6 +47,7 @@ export const updateAccountDisplayName = (jwtToken: string | undefined, userID: n
             userID: userID, 
             displayName: displayName || ""
         })
+        .then(() => setNewDisplayName(displayName))
         .then(() => {
             setIsLoading(false);
             alert(`Display Name successfully updated!`);

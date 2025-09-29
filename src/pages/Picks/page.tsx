@@ -12,7 +12,7 @@ import { LeagueNavBar } from "../../components/LeagueNavBar";
 import { WeekNavBar } from "../../components/WeekNavBar";
 import { UserNavBar } from "../../components/UserNavBar";
 import { MatchupsContainer } from "../../components/MatchupsContainer";
-import { useLoaderData, useNavigate } from "react-router";
+import { useLoaderData } from "react-router";
 import { Team } from "../../types/team";
 import { User } from "../../types/user";
 import { Leaderboard } from "../../components/Leaderboard";
@@ -45,8 +45,9 @@ const Picks = () => {
 
             } else {
                 setUserFilter(allUsers[0].userID);
+
             }
-            //navigate("/");
+
         }
 
         if (authenticatedUser.userID > 0) {
@@ -76,7 +77,6 @@ const Picks = () => {
 
 
     useEffect(() => {
-        //setIsLoading(true);
         callGetUserPicksEndpoint(userFilter).then(setPicks).finally(() => setIsLoading(false));
     }, [userFilter]);
 

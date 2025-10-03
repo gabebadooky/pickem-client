@@ -11,27 +11,7 @@ const TeamTile = (props: TeamTileProps) => {
     
     const handleChangeEvent = (): void => {
         setShowModal(true);
-        /*props.setIsModalOpen(true)
-        props.setIsModalOpen(true);
-        if (props.isModalOpen) {
-            createPortal(
-                <SelectionModal
-                    allGames={props.allGames}
-                    allPicks={props.allPicks}
-                    allTeams={props.allTeams}
-                    authenticatedUser={props.authenticatedUser}
-                    awayTeam={props.awayTeam}
-                    game={props.game}
-                    homeTeam={props.homeTeam}
-                    isModalOpen={true}
-                    pick={props.pick}
-                    selectedTeam={props.tileTeam}
-                    setIsModalOpen={props.setIsModalOpen}
-                    setPicks={props.setPicks}
-                />,
-                document.body
-            );
-        */
+        
     }
     
 

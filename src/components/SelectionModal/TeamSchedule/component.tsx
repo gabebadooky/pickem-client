@@ -37,7 +37,7 @@ const TeamSchedule = (props: TeamScheduleProps) => {
                 <LoadingSpinner /> :
                 
                 <table
-                    className="m-auto my-5 w-full"
+                    className="m-auto my-5 text-xs w-full"
                     id={`${componentID}-table`}
                     key={`${componentID}-table`}
                 >

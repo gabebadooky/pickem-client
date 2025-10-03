@@ -10,16 +10,16 @@ export const instantiateModalSlides = (props: SelectionModalProps) => {
     let ModalSlides: JSX.Element[] = [];
 
     ModalSlides.push(
-        <TeamSchedule
-            allGames={props.allGames}
-            allTeams={props.allTeams}
+        <TeamNotesComponent
+            authenticatedUser={props.authenticatedUser}
             team={props.awayTeam}
         />
     );
 
     ModalSlides.push(
-        <TeamNotesComponent
-            authenticatedUser={props.authenticatedUser}
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
             team={props.awayTeam}
         />
     );
@@ -39,16 +39,16 @@ export const instantiateModalSlides = (props: SelectionModalProps) => {
     );
 
     ModalSlides.push(
-        <TeamNotesComponent
-            authenticatedUser={props.authenticatedUser}
+        <TeamSchedule
+            allGames={props.allGames}
+            allTeams={props.allTeams}
             team={props.homeTeam}
         />
     );
 
     ModalSlides.push(
-        <TeamSchedule
-            allGames={props.allGames}
-            allTeams={props.allTeams}
+        <TeamNotesComponent
+            authenticatedUser={props.authenticatedUser}
             team={props.homeTeam}
         />
     );

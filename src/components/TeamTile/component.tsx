@@ -20,14 +20,14 @@ const TeamTile = (props: TeamTileProps) => {
             className={setOuterBorder(props)}
             id={`${componentID}-div`}
             key={`${componentID}-div`}
-            style={{ borderColor: `#${props.tileTeam.alternateColor}` }}
+            //style={{ borderColor: `#${props.tileTeam.primaryColor}` }}
         >
             <img
                 alt={props.tileTeam.teamLogoUrl}
                 className={setLogoImageStyling(props)}
                 onClick={handleChangeEvent}
                 src={props.pick.teamPicked === props.tileTeam.teamID ? props.tileTeam.teamLogoUrl.replace("500-dark", "500") : props.tileTeam.teamLogoUrl }
-                style={{ borderColor: `#${props.tileTeam.primaryColor}` }}
+                style={{ borderTopColor: `#${props.tileTeam.alternateColor}`, borderRightColor: `#${props.tileTeam.alternateColor}`, borderBottomColor: `#${props.tileTeam.primaryColor}`, borderLeftColor: `#${props.tileTeam.primaryColor}` }}
             />
 
             {

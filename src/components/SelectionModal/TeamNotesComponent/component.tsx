@@ -4,6 +4,7 @@ import { updateTeamNotesInDatabaseAndState } from "./component";
 import { TeamNotesProps } from "./types";
 import { TeamNotes } from "../../../types/teamNotes";
 import { callGetTeamNotesEnpdoint } from "../../../hooks/teamsEndpoints";
+import { formattedTeamRecord } from "../PickConfidence/component";
 
 
 const TeamNotesComponent = (props: TeamNotesProps) => {
@@ -46,7 +47,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                 id={`${componentID}-team-notes-header`}
                 key={`${componentID}-team-notes-header`}
             >
-                {props.team.teamName} {props.team.teamMascot} Team Notes
+                {props.team.teamName} {props.team.teamMascot} {formattedTeamRecord(props.team.overallWins, props.team.overallLosses, props.team.overallTies)} ({formattedTeamRecord(props.team.conferenceWins, props.team.conferenceLosses, props.team.conferenceTies)})
             </h1>
             
             <div

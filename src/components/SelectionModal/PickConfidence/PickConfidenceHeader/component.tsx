@@ -1,4 +1,4 @@
-import { formattedTeamRecord } from "./component";
+import { formattedTeamRecord } from "../component";
 import { PickConfidenceHeaderProps } from "./types";
 
 

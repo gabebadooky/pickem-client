@@ -6,6 +6,17 @@ const cfbScoreboardEndpoint: string = "https://site.api.espn.com/apis/site/v2/sp
 const nflScoreboardEndpoint: string = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
 
 
+export const formattedTeamRecord = (wins: number, losses: number, ties: number): string => {
+    if (ties && ties > 0) {
+        return `${wins}-${losses}-${ties}`;
+
+    } else {
+        return `${wins}-${losses}`;
+        
+    }
+}
+
+
 export const retrieveGameFromESPNHiddenAPI = async (game: Game): Promise<ScoreboardEvent | undefined> => {
     const espnScoreboardEndpoint: string = game.league === "NFL" ? nflScoreboardEndpoint : cfbScoreboardEndpoint;
 

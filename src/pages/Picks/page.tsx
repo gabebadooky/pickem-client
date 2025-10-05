@@ -107,7 +107,7 @@ const Picks = () => {
             </div>
 
             <div
-                className="m-auto mb-[5%] mt-45 w-[90%]"
+                className="m-auto mb-[5%] mt-50 w-[90%]"
                 id="picks-page-leaderboard-table-component-div"
                 key="picks-page-leaderboard-table-component-div"
             >

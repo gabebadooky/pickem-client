@@ -19,6 +19,7 @@ import { Leaderboard } from "../../components/Leaderboard";
 import LoadingSpinner from "../../components/LoadingSpinner/component";
 import { validateAuthenticatedUserID } from "../../utils/auth";
 import { callGetUserByIDEndpoint } from "../../hooks/userEndpoints";
+import { Legend } from "../../components/Legend";
 
 
 
@@ -102,6 +103,7 @@ const Picks = () => {
                 <div className="p-2"><LeagueNavBar authenticatedUser={authenticatedUser} leagueFilter={leagueFilter} setLeagueFilter={setLeagueFilter} setIsLoading={setIsLoading} /></div>
                 <div className="p-2"><WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} /></div>
                 <div className="p-2"><UserNavBar allUsers={allUsers} authenticatedUser={authenticatedUser} setUserFilter={setUserFilter} userFilter={userFilter} /></div>
+                <div className="m-auto" id="picks-page-legend-component-div" key="picks-page-legend-component-div"><Legend /></div>
             </div>
 
             <div

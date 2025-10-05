@@ -15,10 +15,29 @@ export const setLogoImageStyling = (props: TeamTileProps): string => {
                 (props.game.homeTeamID === props.tileTeam.teamID && props.game.awayTotalBoxScore < props.game.homeTotalBoxScore)
             ) {
                 // Game Finished and Pick is Correct
-                cellStyling = "bg-radial from-[#08e63a] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                if (props.pick.pickWeight === "h") {
+                    cellStyling = "bg-radial from-[#3385ff] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                    //cellStyling = "bg-radial from-[#08e63a] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                } else if (props.pick.pickWeight === "m") {
+                    cellStyling = "bg-radial from-[#00ffff] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                    //cellStyling = "bg-radial from-[#08e63a] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                } else {
+                    cellStyling = "bg-radial from-[#00cc00] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                }
+
             } else {
                 // Game Finished and Pick is Incorrect
-                cellStyling = "bg-radial from-[#bb4343] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                if (props.pick.pickWeight === "l") {
+                    cellStyling = "bg-radial from-[#ffff00] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+                    
+                } else if (props.pick.pickWeight === "m") {
+                    cellStyling = "bg-radial from-[#ff9900] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+
+                } else {
+                    cellStyling = "bg-radial from-[#ff0000] h-full m-auto rounded-3xl to-[#1E1E1E] w-full";
+
+                }
+
             }
         } else {
             cellStyling = `bg-radial from-[20%] from-[#FAFAFA] border-6 h-full rounded-3xl w-full`;

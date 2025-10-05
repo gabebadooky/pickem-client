@@ -54,7 +54,14 @@ const Leaderboard = (props: LeaderboardProps) => {
                     &&
                 props.weekFilter === calculateCurrentWeek()
                     &&
-                <h2 className="text-lg">Leader: {leaderboardResults[0].displayName}</h2>
+                <h2 className="text-lg">
+                    Leader: {leaderboardResults[0].displayName}
+                    <img
+                        alt=""
+                        className="align-middle h-5 inline-block ml-1"
+                        src={getLeaderboardWinnersFavoriteTeamLogo(props.allUsers, props.allTeams, leaderboardResults[0].displayName)}
+                    />
+                </h2>
             }
 
             <table

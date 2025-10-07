@@ -14,7 +14,7 @@ const Matchup = (props: MatchupProps) => {
         >
 
             <div
-                className="h-full m-auto w-[30%]"
+                className="h-full m-auto w-[45%]"
                 id={`${componentID}-away-team-div`}
                 key={`${componentID}-away-team-div`}
             >
@@ -35,7 +35,7 @@ const Matchup = (props: MatchupProps) => {
             </div>
 
             <div
-                className="h-full m-auto w-[30%]"
+                className="h-full m-auto w-[45%]"
                 id={`${componentID}-home-team-div`}
                 key={`${componentID}-home-team-div`}
             >

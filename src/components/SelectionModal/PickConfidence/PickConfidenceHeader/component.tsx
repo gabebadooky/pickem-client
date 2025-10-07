@@ -16,11 +16,11 @@ const PickConfidenceHeader = (props: PickConfidenceHeaderProps) => {
     } else {
         return (
             <h1 className="h-full m-auto text-center w-full">
-                {props.homeTeam.teamName} {props.homeTeam.teamMascot} ({`${formattedTeamRecord(props.awayTeam.overallWins, props.awayTeam.overallLosses, props.awayTeam.overallTies)}`})
+                {props.homeTeam.teamName} {props.homeTeam.teamMascot} ({`${formattedTeamRecord(props.homeTeam.overallWins, props.homeTeam.overallLosses, props.homeTeam.overallTies)}`})
                 <br />
                 over
                 <br />
-                {props.awayTeam.teamName} {props.awayTeam.teamMascot} ({`${formattedTeamRecord(props.homeTeam.overallWins, props.homeTeam.overallLosses, props.homeTeam.overallTies)}`})
+                {props.awayTeam.teamName} {props.awayTeam.teamMascot} ({`${formattedTeamRecord(props.awayTeam.overallWins, props.awayTeam.overallLosses, props.awayTeam.overallTies)}`})
             </h1>
         );
     }

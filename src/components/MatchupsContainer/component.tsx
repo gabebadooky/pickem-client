@@ -26,7 +26,7 @@ const MatchupsContainer = (props: MatchupsContainerProps) => {
                         return (
                             <>
                                 <div
-                                    className="text-4xl top-0"
+                                    className="text-3xl top-0"
                                     id={`${formattedGameDate.replace(" ", "-")}-header-div`}
                                     key={`${formattedGameDate.replace(" ", "-")}-header-div`}
                                 >

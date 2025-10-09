@@ -26,17 +26,20 @@ export const retrieveGameFromESPNHiddenAPI = async (game: Game): Promise<Scorebo
         const scoreboardJSON = await scoreboardResponse.json();
         const events: ScoreboardEvent[] = scoreboardJSON.events;
 
-        for (let i = 0; i < events.length; i++) {
+        return events.find((event) => event.id === game.espnCode);
+
+        /* for (let i = 0; i < events.length; i++) {
             if (events[i].id === game.espnCode) {
                 return events[i]; // This return now affects the outer async function
 
             }
 
-        }
+        } 
 
-        return undefined; // Explicitly return undefined if not found
+        return undefined; // Explicitly return undefined if not found */
 
-    } catch {
+    } catch (err) {
+        console.log(`Error occurred retrieving game from ESPN API Endpoint: ${err}`);
         return undefined;
 
     }

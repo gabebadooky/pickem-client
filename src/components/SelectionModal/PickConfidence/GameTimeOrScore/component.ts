@@ -1,5 +1,5 @@
 import { Game } from "../../../../types/game";
-import { retrieveGameFromESPNHiddenAPI } from "../component";
+import { retrieveGameFromESPNHiddenAPI } from "../component.ts";
 import { ScoreboardEvent } from "../types";
 
 

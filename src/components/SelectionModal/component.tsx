@@ -35,7 +35,7 @@ const SelectionModal = (props: SelectionModalProps) => {
         >
 
             <div 
-                className="bg-[#FFFFFF] p-3 relative rounded-xl text-black text-center w-[90%]"
+                className="bg-[#FFFFFF] p-3 relativeß rounded-xl text-black text-center w-[90%]"
                 id={`${componentID}-portal-div`}
                 key={`${componentID}-portal-div`}
             >

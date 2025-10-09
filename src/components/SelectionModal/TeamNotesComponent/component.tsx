@@ -47,7 +47,7 @@ const TeamNotesComponent = (props: TeamNotesProps) => {
                 id={`${componentID}-team-notes-header`}
                 key={`${componentID}-team-notes-header`}
             >
-                {props.team.teamName} {props.team.teamMascot} {formattedTeamRecord(props.team.overallWins, props.team.overallLosses, props.team.overallTies)} ({formattedTeamRecord(props.team.conferenceWins, props.team.conferenceLosses, props.team.conferenceTies)})
+                { props.team.ranking !== null ? `#${props.team.ranking}` : "" } {props.team.teamName} {props.team.teamMascot} {formattedTeamRecord(props.team.overallWins, props.team.overallLosses, props.team.overallTies)} ({formattedTeamRecord(props.team.conferenceWins, props.team.conferenceLosses, props.team.conferenceTies)})
             </h1>
             
             <div

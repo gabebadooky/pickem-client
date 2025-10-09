@@ -14,7 +14,7 @@ const PickConfidence = (props: PickConfidenceProps) => {
             className="h-full m-auto w-full"
             id={componentID}
         >
-            <div className="text-xl" id={`${componentID}-header`}>
+            <div className="text-l" id={`${componentID}-header`}>
                 <PickConfidenceHeader
                     awayTeam={props.awayTeam}
                     homeTeam={props.homeTeam}

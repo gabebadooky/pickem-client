@@ -2,7 +2,7 @@ import { Game } from "../../../types/game";
 import { ScoreboardEvent } from "./types";
 
 
-const cfbScoreboardEndpoint: string = "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard";
+const cfbScoreboardEndpoint: string = "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&seasontype=2&week=";
 const nflScoreboardEndpoint: string = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
 
 
@@ -18,7 +18,7 @@ export const formattedTeamRecord = (wins: number, losses: number, ties: number):
 
 
 export const retrieveGameFromESPNHiddenAPI = async (game: Game): Promise<ScoreboardEvent | undefined> => {
-    const espnScoreboardEndpoint: string = game.league === "NFL" ? nflScoreboardEndpoint : cfbScoreboardEndpoint;
+    const espnScoreboardEndpoint: string = game.league === "NFL" ? nflScoreboardEndpoint : `${cfbScoreboardEndpoint}${game.week}`;
 
 
     try {

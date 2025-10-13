@@ -11,7 +11,7 @@ export const attemptRegistration = (props: NewUserProperties, setIsLoading: Reac
             props.notificationPreference, props.emailAddress, props.phone
         )
         .then((response) => {
-            if (response?.accessToken) {
+            if (response?.access_token) {
                 localStorage.setItem("jwt", response.accessToken);
                 redirect("/");
 

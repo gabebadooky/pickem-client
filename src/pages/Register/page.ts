@@ -12,7 +12,7 @@ export const attemptRegistration = (props: NewUserProperties, setIsLoading: Reac
         )
         .then((response) => {
             if (response?.access_token) {
-                localStorage.setItem("jwt", response.accessToken);
+                localStorage.setItem("jwt", response.access_token);
                 redirect("/");
 
             } else {

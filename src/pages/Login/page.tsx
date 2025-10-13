@@ -97,7 +97,7 @@ const Login = () => {
                         <SubmitButton
                             buttonInnerText="Login"
                             componentID={`${componentID}-login-button`}
-                            submitMethod={() => attemptLogin(loginProps, setIncorrectUsernameOrPassword, navigate, setIsLoading)}
+                            submitMethod={() => attemptLogin(navigate, loginProps, setIncorrectUsernameOrPassword, setIsLoading)}
                         />
                     </div>
                 }

@@ -23,7 +23,7 @@ export const attemptGoogleOAuth = () => {
 }
 
 
-export const attemptLogin = (props: LoginProps, setIncorrectUsernameOrPassword: React.Dispatch<React.SetStateAction<boolean>>, navigate: NavigateFunction, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const attemptLogin = (navigate: NavigateFunction, props: LoginProps, setIncorrectUsernameOrPassword: React.Dispatch<React.SetStateAction<boolean>>, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (props.username && props.password) {
         setIsLoading(true);
         callLoginEndpoint(props.username, props.password)

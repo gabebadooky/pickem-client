@@ -149,7 +149,7 @@ const Register = () => {
                         <SubmitButton
                             buttonInnerText="Create Account!"
                             componentID={`${componentID}-submit-button`}
-                            submitMethod={() => attemptRegistration(newUser, setIsLoading, setUsernameTaken)}
+                            submitMethod={() => attemptRegistration(navigate, newUser, setIsLoading, setUsernameTaken)}
                         />
                     </div>
                 }

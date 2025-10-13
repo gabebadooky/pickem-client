@@ -1,9 +1,9 @@
-import { redirect } from "react-router";
+import { NavigateFunction } from "react-router";
 import { callRegisterNewUserEndpoint } from "../../hooks/authorizationEndpoints";
-import { NewUserProperties, RegisterAttemptResponses } from "./types";
+import { NewUserProperties } from "./types";
 
 
-export const attemptRegistration = (props: NewUserProperties, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, setUsernameTaken: React.Dispatch<React.SetStateAction<boolean>>): RegisterAttemptResponses => {
+export const attemptRegistration = (navigate: NavigateFunction, props: NewUserProperties, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, setUsernameTaken: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (props.username && props.password && props.displayName && props.favoriteTeam) {
         setIsLoading(true);
         callRegisterNewUserEndpoint(
@@ -13,7 +13,7 @@ export const attemptRegistration = (props: NewUserProperties, setIsLoading: Reac
         .then((response) => {
             if (response?.access_token) {
                 localStorage.setItem("jwt", response.access_token);
-                redirect("/");
+                navigate("/");
 
             } else {
                 setUsernameTaken(true);
@@ -30,5 +30,4 @@ export const attemptRegistration = (props: NewUserProperties, setIsLoading: Reac
 
     }
 
-    return "Existing";
 }

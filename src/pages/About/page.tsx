@@ -52,16 +52,19 @@ const About = () => {
                 </h1>
 
                 <ul className="text-left text-medium" id={`${componentID}-project-architecute-stack-list`}>
+                    <li id="database-bull">
+                        Database: <a href="https://dev.mysql.com/doc/refman/9.2/en/">MySQL 9.2</a>
+                    </li>
                     <li id="backend-bullet">
-                        Application Backend: <a href="https://flask.palletsprojects.com/en/stable/">Python Flask</a>
+                        API: <a href="https://flask.palletsprojects.com/en/stable/">Flask 3.1</a>
                     </li>
                     <li id="authentication-bullet">
-                        Authentication: <a href="https://werkzeug.palletsprojects.com/en/stable/"></a>
+                        Authorization: <a href="https://www.jwt.io/introduction#what-is-json-web-token">JSON Web Tokens (JWT)</a>
+                    </li>
+                    <li id="frontend-bullet">
+                        Client: React TypeScript Application bundled with <a href="https://vite.dev/">Vite</a>
                     </li>
                 </ul>
-
-                <p className="text-left text-s" id={`${componentID}-project-background-p4`}>
-                </p>
                 
 
             </div>

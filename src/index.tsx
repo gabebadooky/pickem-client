@@ -10,6 +10,7 @@ import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Account } from "./pages/Account";
 import "tailwindcss";
+import About from "./pages/About/page";
 
 
 const router = createBrowserRouter([
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
             }
         },
         Component: Account
+    },
+
+    {
+        path: "/about",
+        Component: About
     }
 ]);
 

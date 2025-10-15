@@ -28,10 +28,14 @@ const About = () => {
                     Project Inspiration
                 </h1>
 
+                <br />
+
                 <p className="text-left text-s" id={`${componentID}-project-background-p1`}>
                     My favorite sport to watch has long been College Football, and for years I've participated
                     in College Football Pickem games with friends to enhance the enjoyment.
                 </p>
+
+                <br />
 
                 <p className="text-left text-s" id={`${componentID}-project-background-p2`}>
                     Through the years I've experimented with various pickem games on a myriad of sites. The biggest
@@ -42,29 +46,37 @@ const About = () => {
                     evaluating and calling a big upset?
                 </p>
 
+                <br />
+
                 <p className="text-left text-s" id={`${componentID}-project-background-p3`}>
                     This was the inspiration to develop my own Pickem web app including the features I most valued.
                 </p>
 
+                <br />
 
-                <h1 id={`${componentID}-project-architecture-header`}>
+
+                <h1 className="text-2xl" id={`${componentID}-project-architecture-header`}>
                     Project Architecture
                 </h1>
 
-                <ul className="text-left text-medium" id={`${componentID}-project-architecute-stack-list`}>
-                    <li id="database-bull">
-                        Database: <a href="https://dev.mysql.com/doc/refman/9.2/en/">MySQL 9.2</a>
-                    </li>
-                    <li id="backend-bullet">
-                        API: <a href="https://flask.palletsprojects.com/en/stable/">Flask 3.1</a>
-                    </li>
-                    <li id="authentication-bullet">
-                        Authorization: <a href="https://www.jwt.io/introduction#what-is-json-web-token">JSON Web Tokens (JWT)</a>
-                    </li>
-                    <li id="frontend-bullet">
-                        Client: React TypeScript Application bundled with <a href="https://vite.dev/">Vite</a>
-                    </li>
-                </ul>
+                <br />
+
+                <div className="mx-auto">
+                    <ul className="inline-block text-left text-medium" id={`${componentID}-project-architecute-stack-list`}>
+                        <li id="database-bull">
+                            Database: <a href="https://dev.mysql.com/doc/refman/9.2/en/">MySQL 9.2</a>
+                        </li>
+                        <li id="backend-bullet">
+                            API: <a href="https://flask.palletsprojects.com/en/stable/">Flask 3.1</a>
+                        </li>
+                        <li id="authentication-bullet">
+                            Authorization: <a href="https://www.jwt.io/introduction#what-is-json-web-token">JSON Web Tokens (JWT)</a>
+                        </li>
+                        <li id="frontend-bullet">
+                            Client: React TypeScript Application bundled with <a href="https://vite.dev/">Vite</a>
+                        </li>
+                    </ul>
+                </div>
                 
 
             </div>

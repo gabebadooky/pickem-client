@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LeagueDropdown } from "./LeagueDropdown";
 import { LeagueNavBarProps } from "./types";
 
@@ -12,13 +12,19 @@ const LeagueNavBar = (props: LeagueNavBarProps) => {
             className="flex grid grid-cols-10 h-full top-0 w-full"
             id="picks-page-league-div"
         >
-            <div className="col-span-1"></div>
+            <div className="col-span-1 left-0 text-left w-full">
+                <Link to="/about">
+                    <i className="align-left fa-solid fa-circle-info"></i>
+                </Link>
+            </div>
+
             <div className="col-span-8">
                 <LeagueDropdown
                     defaultValue={props.leagueFilter}
                     setLeagueFilter={props.setLeagueFilter}
                 />
             </div>
+
             <span
                 className="col-span-1 right-0 text-right text-sm w-full"
                 onClick={() => {

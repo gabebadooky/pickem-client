@@ -130,14 +130,6 @@ const Picks = () => {
                             userFilter={userFilter}
                         />
                     </div>
-
-                    <div 
-                        className="bottom-0 p-5 text-xl w-full"
-                        id="picks-page-secondary-week-nav-bar-div"
-                        style={{ backgroundColor: findUsersFavoriteTeamPrimaryColor(authenticatedUser.favoriteTeam, allTeams) }}
-                    >
-                        <WeekNavBar setWeekFilter={setWeekFilter} weekFilter={weekFilter} />
-                    </div>
                 </>
             }
             

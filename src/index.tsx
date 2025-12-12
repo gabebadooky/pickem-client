@@ -12,6 +12,7 @@ import { Login } from "./pages/Login";
 import { Account } from "./pages/Account";
 import "tailwindcss";
 import About from "./pages/About/page";
+import { Maintenance } from "./pages/Maintenance";
 //import { Maintenance } from "./pages/Maintenance";
 
 
@@ -19,14 +20,14 @@ import About from "./pages/About/page";
 const router = createBrowserRouter([
     {
         path: "/",
-        loader: async () => {
+        /*loader: async () => {
             return {
                 allTeams: await callGetAllTeamsEndpoint(),
                 allUsers: await callGetAllUsersEndpoint(),
                 authenticatedUser: await callGetUserByIDEndpoint(validateAuthenticatedUserID())
             }
-        },
-        Component: Picks
+        },*/
+        Component: Maintenance
     },
 
     {

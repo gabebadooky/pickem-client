@@ -4,29 +4,29 @@ import { createBrowserRouter } from "react-router";
 import { Picks } from "./pages/Picks";
 import { StrictMode } from "react";
 import { callGetAllTeamsEndpoint } from "./hooks/teamsEndpoints";
-//import { callGetAllUsersEndpoint, callGetUserByIDEndpoint } from "./hooks/userEndpoints";
-import { callGetUserByIDEndpoint } from "./hooks/userEndpoints";
+import { callGetAllUsersEndpoint, callGetUserByIDEndpoint } from "./hooks/userEndpoints";
+//import { callGetUserByIDEndpoint } from "./hooks/userEndpoints";
 import { validateAuthenticatedUserID } from "./utils/auth";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Account } from "./pages/Account";
 import "tailwindcss";
 import About from "./pages/About/page";
-import { Maintenance } from "./pages/Maintenance";
+// import { Maintenance } from "./pages/Maintenance";
 
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        /*loader: async () => {
+        loader: async () => {
             return {
                 allTeams: await callGetAllTeamsEndpoint(),
                 allUsers: await callGetAllUsersEndpoint(),
                 authenticatedUser: await callGetUserByIDEndpoint(validateAuthenticatedUserID())
             }
-        },*/
-        Component: Maintenance
+        },
+        Component: Picks
     },
 
     {

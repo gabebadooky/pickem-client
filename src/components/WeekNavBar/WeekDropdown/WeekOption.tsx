@@ -1,6 +1,5 @@
 import { extractEndDateStringFromCurrentWeek, extractStartDateStringFromCurrentWeek } from "./component";
 
-
 export const WeekOption = (weekValue: number) => {
     return (
         <option

@@ -26,7 +26,13 @@ export const seasonWeeks = [
     { start: new Date("2025-12-02"), end: new Date("2025-12-08") },
     { start: new Date("2025-12-09"), end: new Date("2025-12-15") },
     { start: new Date("2025-12-16"), end: new Date("2025-12-22") },
-    { start: new Date("2025-12-23"), end: new Date("2025-12-29") }
+    { start: new Date("2025-12-23"), end: new Date("2025-12-29") },
+    { start: new Date("2025-12-30"), end: new Date("2026-01-05") },
+    { start: new Date("2026-01-06"), end: new Date("2026-01-12") },
+    { start: new Date("2026-01-13"), end: new Date("2026-01-19") },
+    { start: new Date("2026-01-20"), end: new Date("2026-01-26") },
+    { start: new Date("2026-01-27"), end: new Date("2026-02-02") },
+    { start: new Date("2026-02-03"), end: new Date("2026-02-09") }
 ];
 
 
